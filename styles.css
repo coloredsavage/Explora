@@ -388,6 +388,10 @@ img.card__art { border-radius: 8px; }
   color: #9a9a9a;
 }
 
+/* opacity rather than a colour of its own, so it dims with the row when the
+   row goes to the unchecked grey instead of staying darker than its label */
+.filter-row__count { opacity: .45; font-variant-numeric: tabular-nums; }
+
 .filter-row__tick { width: 18px; height: 18px; opacity: 0; flex: 0 0 auto; margin-left: auto; }
 .filter-row:has(input:checked) .filter-row__tick { opacity: .55; }
 .filter-row:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }

@@ -129,12 +129,19 @@ Four schedule shapes, all expanded at load:
   extras after — taking the smallest would file "$22, plus $5 and up to fire a
   piece" under $20. Anything with no number stays *Price not listed* rather
   than being guessed at.
-- **A group only offers what the listings contain.** There is no *Under $20*
-  chip today because nothing costs between a penny and twenty dollars, and no
-  *Meetups* chip because nothing is one; both appear on their own when
-  something lands in them. Hidden values are dropped from the filter state, not
-  just from the sheet — one left sitting at `true` is a tick nobody can see or
-  clear, and it defeats the empty-group guard above.
+- **A group only offers what the listings contain, and says how many.** Each
+  chip carries its count — *Free 29*, *$20 and up 3* — counted over the
+  listings that actually reach the board, so a finished event nobody can
+  scroll to is not promised. The counts are calendar totals, not narrowed by
+  whatever else is ticked: moving numbers suit a shop, where you are
+  converging on one thing, but here they answer "how much of this is there at
+  all", and a number that stays put while you decide is easier to read.
+  A value with a count of zero is not offered at all — no *Under $20* chip
+  today because nothing costs between a penny and twenty dollars, no *Meetups*
+  chip because nothing is one; both appear on their own when something lands
+  in them. Hidden values are dropped from the filter state, not just from the
+  sheet — one left sitting at `true` is a tick nobody can see or clear, and it
+  defeats the empty-group guard above.
 - Choices persist in `localStorage` under `wswdt.categories` and `wswdt.prices`.
 - **`[hidden]` is forced to `display: none !important`.** Every dialog here is
   toggled with the hidden attribute, and a `display` rule on a class silently
