@@ -21,6 +21,11 @@ Pushing to `main` publishes the site to GitHub Pages via
 `.github/workflows/pages.yml`. There is no build: the repository *is* the
 artifact, uploaded as-is and served from the root.
 
+Asset URLs carry `?v=dev` in the source; the workflow rewrites that to the
+commit SHA before uploading. Without it a browser can hold a fresh `index.html`
+alongside a cached older `app.js`, and that pairing throws inside the click
+handler — the page renders but nothing responds, with no visible clue why.
+
 **One-time setup:** in **Settings → Pages**, set *Source* to **GitHub Actions**.
 The workflow cannot do this for itself — creating the Pages site is beyond what
 the workflow token is granted, and `configure-pages` fails with *Resource not

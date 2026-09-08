@@ -33,6 +33,14 @@ jobs:
       # fails with "Resource not accessible by integration".
       - uses: actions/configure-pages@v5
 
+      # Stamp the asset URLs with this commit so a browser can never mix a new
+      # index.html with a cached older app.js — that pairing throws inside the
+      # click handler and the page looks dead while reporting nothing.
+      - name: Cache-bust the asset URLs
+        run: |
+          sed -i "s/?v=dev/?v=${GITHUB_SHA::7}/g" index.html
+          grep -o 'href="styles.css?v=[^"]*"\|src="app.js?v=[^"]*"' index.html
+
       # There is no build step: the site is the repository.
       - uses: actions/upload-pages-artifact@v3
         with:
