@@ -8,6 +8,7 @@
     "poll": "node scrape/run.mjs",
     "poll:offline": "node scrape/run.mjs --offline",
     "poll:dry": "node scrape/run.mjs --dry-run",
+    "discover": "node scrape/discover.mjs",
     "art": "node scripts/generate-art.mjs"
   },
   "dependencies": {

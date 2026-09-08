@@ -119,6 +119,19 @@ npm run poll:offline     # replay the fixtures end to end
 npm run poll             # live; needs `npx playwright install chromium`
 ```
 
+Before adding a source, find out how it is best read:
+
+```sh
+npm run discover          # or: node scrape/discover.mjs wygo
+```
+
+It loads the page once and reports whether the site publishes JSON-LD, whether
+its JavaScript calls a JSON API you could read directly (usual for single-page
+apps, and usually cleaner than the rendered page), or neither — and whether the
+response looks like a bot challenge, which is the one case that argues for
+running this somewhere other than a GitHub runner. The same report is available
+from the Actions tab: run the workflow manually with **discover** ticked.
+
 Extraction is tried in the order that costs least and breaks least:
 
 1. **JSON-LD.** Sites that publish `schema.org/Event` give exact fields that

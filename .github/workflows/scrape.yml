@@ -6,6 +6,11 @@ on:
     # queued behind everyone else's midnight cron.
     - cron: '17 11 * * *'
   workflow_dispatch:
+    inputs:
+      discover:
+        description: 'Report how each source is best read, and poll nothing'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -36,7 +41,12 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Report how each source is best read
+        if: inputs.discover
+        run: node scrape/discover.mjs
+
       - name: Poll the sources
+        if: ${{ !inputs.discover }}
         env:
           # Optional. Without it, pages that publish no JSON-LD are reported as
           # skipped rather than read by the model, and the job still succeeds.
@@ -45,6 +55,7 @@ jobs:
 
       - name: Did anything change?
         id: diff
+        if: ${{ !inputs.discover }}
         run: |
           if git diff --quiet -- scraped.js; then
             echo 'changed=false' >> "$GITHUB_OUTPUT"
