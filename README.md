@@ -17,10 +17,15 @@ npx http-server .
 
 ## Typography
 
-Inter is self-hosted from `fonts/`, so the page reads the same on a Mac, a
-Windows laptop and an Android phone. Before this it asked for SF Pro, which
-only Apple devices have and which cannot be redistributed as a webfont — every
-other visitor silently got Helvetica, Segoe or Roboto.
+Apple devices use **SF Pro**, resolved through `-apple-system` straight from the
+operating system. Everyone else gets **Inter**, self-hosted from `fonts/`.
+
+Do not add SF Pro font files to this repository. Apple's licence covers
+designing and mocking up interfaces for Apple platforms; it does not permit
+redistributing the files or embedding them in a web page, and a public repo
+served by Pages does both. `-apple-system` already gives Apple users the real
+thing at no cost and with nothing shipped — the files would add legal exposure
+and no visible benefit.
 
 Two weights, 400 and 500, latin subset, 47 KB together. `font-display: swap`
 means text paints immediately in a fallback and reflows when Inter lands,

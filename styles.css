@@ -60,8 +60,12 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font: 400 16px/24px Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Helvetica Neue", Helvetica, "Segoe UI", Roboto, Arial, sans-serif;
+  /* Apple devices use SF Pro, straight from the OS — no download, and no
+     licence question, because nothing is being redistributed. Everyone else
+     gets Inter, self-hosted. Two systems, one look, nothing shipped that
+     should not be. */
+  font: 400 16px/24px -apple-system, BlinkMacSystemFont, Inter,
+        "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;      /* iOS must not resize text on rotate */
   -webkit-tap-highlight-color: transparent;
