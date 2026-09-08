@@ -91,6 +91,12 @@ check('follows event links, not the index itself', () => {
   const links = candidateLinks(index, wygo.url, wygo.followLinks, wygo.maxFollow);
   assert.deepEqual(links.sort(), ['https://wygo.world/hidenseek', 'https://wygo.world/lookalike']);
 });
+check('skips the site furniture', () => {
+  const html = ['/create', '/signin', '/about', '/privacy', '/hidenseek']
+    .map((h) => `<a href="${h}">x</a>`).join('');
+  assert.deepEqual(candidateLinks(html, wygo.url, wygo.followLinks, 10),
+    ['https://wygo.world/hidenseek']);
+});
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
 process.exitCode = failures ? 1 : 0;

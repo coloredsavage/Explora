@@ -92,7 +92,7 @@ for (const source of enabledSources()) {
        — which is exactly what Wygo does — so sample a couple of them before
        concluding there is nothing to read. */
     report.samples = [];
-    for (const link of links.slice(0, 2)) {
+    for (const link of links.slice(0, 3)) {
       await new Promise((r) => setTimeout(r, 1500));
       try {
         const r = await page.goto(link, { waitUntil: 'networkidle', timeout: 45000 });

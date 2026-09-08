@@ -80,6 +80,19 @@ export function readableText(html, limit = 12000) {
     .slice(0, limit);
 }
 
+/* A site's own furniture. These match the shape of an event slug on most
+   sites — /create is indistinguishable from /liminal-coworking by pattern
+   alone — so they are excluded by name. Following them wastes a fetch and,
+   worse, makes a source look like it publishes nothing. */
+const FURNITURE = new RegExp('/(' + [
+  'create', 'new', 'signin', 'sign-in', 'signup', 'sign-up', 'login', 'log-in',
+  'logout', 'register', 'account', 'settings', 'profile', 'dashboard', 'home',
+  'about', 'contact', 'help', 'faq', 'support', 'pricing', 'plans', 'blog',
+  'careers', 'jobs', 'press', 'privacy', 'terms', 'legal', 'cookies',
+  'discover', 'explore', 'search', 'browse', 'calendar', 'events', 'app',
+  'download', 'feedback', 'sitemap',
+].join('|') + ')/?$', 'i');
+
 /** Same-host links that look like individual event pages. */
 export function candidateLinks(html, base, pattern, max) {
   if (!pattern) return [];
@@ -89,7 +102,8 @@ export function candidateLinks(html, base, pattern, max) {
   while ((m = re.exec(html)) !== null) {
     let url;
     try { url = new URL(m[1], base).toString(); } catch { continue; }
-    if (pattern.test(url) && url !== base && url !== base.replace(/\/$/, '')) found.add(url);
+    if (pattern.test(url) && !FURNITURE.test(new URL(url).pathname)
+        && url !== base && url !== base.replace(/\/$/, '')) found.add(url);
     if (found.size >= max) break;
   }
   return [...found];
