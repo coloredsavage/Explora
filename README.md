@@ -103,11 +103,13 @@ Four schedule shapes, all expanded at load:
 ## Where the listings come from
 
 Every event carries `source` (the page its schedule was confirmed against) and
-`checked` (the date). The modal renders that as a line at the bottom — *Checked
-against ago.ca on September 8, 2026* — so anyone reading the page can see how
-old the claim is. Where a date is a reasonable inference rather than a published
-fact, `unconfirmed` holds the explanation and the modal shows it as a caution.
-The Santa Claus Parade is the only entry currently carrying one.
+`checked` (the date). These are maintenance metadata and are deliberately not
+rendered — they tell whoever re-checks the calendar where to look, without
+putting bookkeeping in front of a reader deciding what to do on a Saturday.
+Where a date is a reasonable inference rather than a published fact,
+`unconfirmed` holds the explanation and the modal *does* show it as a caution,
+because that one affects whether you turn up. The Santa Claus Parade is the only
+entry currently carrying one.
 
 **Anything that could not be confirmed was left out**, not guessed. That is why
 there is no Power Plant entry (no fall 2026 dates published at time of checking),

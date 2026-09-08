@@ -330,24 +330,6 @@
     caveat.textContent = ev.unconfirmed || '';
     caveat.hidden = !ev.unconfirmed;
 
-    var src = document.getElementById('modal-source');
-    if (ev.source) {
-      src.hidden = false;
-      var host = ev.source.replace(/^https?:\/\//, '').split('/')[0];
-      src.innerHTML = '';
-      src.appendChild(document.createTextNode('Checked against '));
-      var a = document.createElement('a');
-      a.href = ev.source;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      a.textContent = host;
-      src.appendChild(a);
-      src.appendChild(document.createTextNode(
-        ev.checked ? ' on ' + fmtLongDate(fromISO(ev.checked)) : ''));
-    } else {
-      src.hidden = true;
-    }
-
     lastFocus = document.activeElement;
     scrim.hidden = false;
     modal.hidden = false;
