@@ -1,0 +1,18 @@
+{
+  "name": "explora",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A calendar of free and cheap things to do in Toronto",
+  "scripts": {
+    "test": "node scrape/test.mjs",
+    "poll": "node scrape/run.mjs",
+    "poll:offline": "node scrape/run.mjs --offline",
+    "poll:dry": "node scrape/run.mjs --dry-run",
+    "art": "node scripts/generate-art.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.124.0",
+    "playwright": "^1.63.0",
+    "zod": "^4.5.4"
+  }
+}

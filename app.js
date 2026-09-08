@@ -142,9 +142,17 @@
     if (!w.range) w.range = fmtSpan(w.from, w.to);
   });
 
+  /* Hand-written listings, plus whatever the poller last committed. A missing
+     or malformed scraped.js must never take the calendar down with it. */
+  var LISTINGS = EVENTS.concat(
+    typeof SCRAPED !== 'undefined' && Array.isArray(SCRAPED) ? SCRAPED : []
+  ).filter(function (ev) {
+    return ev && ev.id && ev.title && ev.schedule && CATEGORIES[ev.category];
+  });
+
   /* every occurrence we could ever show, computed once */
   var ALL = [];
-  EVENTS.forEach(function (ev) {
+  LISTINGS.forEach(function (ev) {
     ALL = ALL.concat(expand(ev, TODAY, YEAR_END));
   });
 
@@ -296,7 +304,7 @@
 
   function openModal(eventId, startISO) {
     var ev = null, i;
-    for (i = 0; i < EVENTS.length; i++) if (EVENTS[i].id === eventId) { ev = EVENTS[i]; break; }
+    for (i = 0; i < LISTINGS.length; i++) if (LISTINGS[i].id === eventId) { ev = LISTINGS[i]; break; }
     if (!ev) return;
 
     var occ = null;

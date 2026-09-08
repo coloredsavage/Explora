@@ -1,0 +1,88 @@
+name: Poll event sources
+
+on:
+  schedule:
+    # 11:17 UTC — early morning in Toronto, and off the hour so this job is not
+    # queued behind everyone else's midnight cron.
+    - cron: '17 11 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci --no-audit --no-fund
+
+      # The offline suite runs first: if the extractors are broken, find out
+      # before hitting anyone's servers.
+      - name: Test the extractors offline
+        run: node scrape/test.mjs
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Poll the sources
+        env:
+          # Optional. Without it, pages that publish no JSON-LD are reported as
+          # skipped rather than read by the model, and the job still succeeds.
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scrape/run.mjs
+
+      - name: Did anything change?
+        id: diff
+        run: |
+          if git diff --quiet -- scraped.js; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+            echo 'No change in scraped.js.'
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+            git --no-pager diff --stat -- scraped.js
+          fi
+
+      # A pull request rather than a push to main: a person still decides what
+      # lands on the calendar. Merging it triggers the Pages deploy.
+      - name: Open a pull request
+        if: steps.diff.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          branch="poll/$(date -u +%Y-%m-%d)"
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B "$branch"
+          git add scraped.js
+          git commit -m "Polled event sources on $(date -u +%Y-%m-%d)"
+          git push --force-with-lease -u origin "$branch"
+
+          if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
+            gh pr create \
+              --base main \
+              --head "$branch" \
+              --title "Polled event sources on $(date -u +%Y-%m-%d)" \
+              --body 'Automated poll of the sources in `scrape/sources.mjs`.
+
+          Check the diff before merging — listings are only as good as the pages
+          they came from. Each entry carries the URL it was read from in its
+          `source` field.
+
+          Merging deploys to Pages.'
+          else
+            echo 'A pull request for this branch is already open; it now has the latest poll.'
+          fi
