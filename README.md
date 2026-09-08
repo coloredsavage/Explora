@@ -70,6 +70,13 @@ Four schedule shapes, all expanded at load:
 - **An empty filter means "everything".** Deselecting every category and
   pressing Apply shows the full calendar rather than a blank board.
 - Choices persist in `localStorage` under `wswdt.categories`.
+- **`[hidden]` is forced to `display: none !important`.** Every dialog here is
+  toggled with the hidden attribute, and a `display` rule on a class silently
+  beats the browser default — a closed dialog then keeps swallowing taps. This
+  bit twice before it was made global.
+- Below 720px the columns become full-width and snap; the filter sheet pins its
+  Reset/Apply footer so it stays reachable on a 320px screen, and under 560px of
+  height the modal's illustration shrinks to keep the text above the fold.
 - `#<event-id>` in the URL opens that event's modal on load.
 
 ## Where the listings come from

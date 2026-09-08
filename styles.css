@@ -21,9 +21,16 @@
   --c-festival:     #fbe6de;  --s-festival:     #fdf1ec;
 
   --shadow: 0 8px 30px rgba(20, 20, 20, .10), 0 1px 3px rgba(20, 20, 20, .06);
+
+  /* notch and home-indicator insets; 0 everywhere that has none */
+  --safe-l: env(safe-area-inset-left, 0px);
+  --safe-r: env(safe-area-inset-right, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
 }
 
 * { box-sizing: border-box; }
+
+[hidden] { display: none !important; }
 
 html, body { height: 100%; }
 
@@ -34,6 +41,8 @@ body {
   font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
         "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;      /* iOS must not resize text on rotate */
+  -webkit-tap-highlight-color: transparent;
   overflow: hidden;
 }
 
@@ -84,7 +93,7 @@ a { color: inherit; }
   align-items: baseline;
   gap: 10px;
   min-height: var(--head-h);
-  padding: 26px 26px 22px;
+  padding: 26px calc(26px + var(--safe-r)) 22px calc(26px + var(--safe-l));
   background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
@@ -102,7 +111,12 @@ a { color: inherit; }
   letter-spacing: -0.01em;
 }
 
-.col__body { padding: 14px 14px 120px; display: flex; flex-direction: column; gap: 10px; }
+.col__body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px calc(14px + var(--safe-r)) calc(124px + var(--safe-b)) calc(14px + var(--safe-l));
+}
 
 .col__empty {
   padding: 22px 12px;
@@ -112,7 +126,10 @@ a { color: inherit; }
 
 /* ------------------------------------------------------------------ about */
 
-.about { padding: 26px 26px 120px; max-width: 560px; }
+.about {
+  max-width: 560px;
+  padding: 26px calc(26px + var(--safe-r)) calc(124px + var(--safe-b)) calc(26px + var(--safe-l));
+}
 
 .about__art { display: block; width: min(360px, 70%); height: auto; margin: 8px 0 34px; }
 
@@ -150,7 +167,9 @@ a { color: inherit; }
   cursor: pointer;
   transition: transform .18s ease, filter .18s ease;
 }
-.card:hover { transform: translateY(-1px); filter: brightness(.985); }
+@media (hover: hover) {
+  .card:hover { transform: translateY(-1px); filter: brightness(.985); }
+}
 .card:active { transform: translateY(0); }
 .card:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
@@ -190,7 +209,7 @@ img.card__art { border-radius: 8px; }
 .dock {
   position: fixed;
   left: 50%;
-  bottom: 24px;
+  bottom: calc(24px + var(--safe-b));
   transform: translateX(-50%);
   z-index: 30;
   display: flex;
@@ -216,8 +235,9 @@ img.card__art { border-radius: 8px; }
 }
 .dock__filter { padding: 14px 24px; }
 .dock__nav { width: 52px; height: 52px; }
-.dock__filter:hover, .dock__nav:hover { transform: translateY(-1px); }
-.dock__nav[hidden] { display: none; }
+@media (hover: hover) {
+  .dock__filter:hover, .dock__nav:hover { transform: translateY(-1px); }
+}
 .dock__filter svg, .dock__nav svg { width: 20px; height: 20px; display: block; }
 .dock__filter[aria-expanded="true"] { background: #f1f0ed; }
 
@@ -228,9 +248,10 @@ img.card__art { border-radius: 8px; }
   left: 50%; top: 50%;
   transform: translate(-50%, -50%);
   z-index: 50;
+  display: flex;
+  flex-direction: column;
   width: min(440px, calc(100vw - 32px));
   max-height: min(84dvh, 720px);
-  overflow-y: auto;
   padding: 26px 26px 22px;
   border-radius: 24px;
   background: var(--paper);
@@ -251,7 +272,17 @@ img.card__art { border-radius: 8px; }
   letter-spacing: -0.01em;
 }
 
-.sheet__rows { display: flex; flex-direction: column; gap: 10px; }
+.sheet__rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0;               /* lets the list, not the sheet, do the scrolling */
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* room for focus rings, and a hint that the list continues */
+  margin: 0 -4px;
+  padding: 2px 4px;
+}
 
 .filter-row {
   display: flex;
@@ -268,7 +299,7 @@ img.card__art { border-radius: 8px; }
   transition: background .15s ease, border-color .15s ease, color .15s ease;
 }
 .filter-row input { position: absolute; opacity: 0; pointer-events: none; }
-.filter-row:hover { filter: brightness(.98); }
+@media (hover: hover) { .filter-row:hover { filter: brightness(.98); } }
 
 /* unselected reads as an empty outline */
 .filter-row:not(:has(input:checked)) {
@@ -281,7 +312,8 @@ img.card__art { border-radius: 8px; }
 .filter-row:has(input:checked) .filter-row__tick { opacity: .55; }
 .filter-row:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }
 
-.sheet__foot { display: flex; gap: 10px; margin-top: 18px; }
+.sheet__foot { display: flex; flex: 0 0 auto; gap: 10px; margin-top: 18px; }
+.sheet__head { flex: 0 0 auto; }
 
 .btn {
   border: 0;
@@ -293,7 +325,7 @@ img.card__art { border-radius: 8px; }
   cursor: pointer;
   transition: filter .15s ease;
 }
-.btn:hover { filter: brightness(.96); }
+@media (hover: hover) { .btn:hover { filter: brightness(.96); } }
 .btn--quiet { background: #f1f0ed; color: var(--ink); }
 .btn--solid { flex: 1; background: #1c1c1c; color: #fff; }
 
@@ -392,8 +424,26 @@ img.card__art { border-radius: 8px; }
   .about, .col__body { padding-left: 18px; padding-right: 18px; }
   .modal { padding: 26px 22px 30px; }
   .modal__close { top: 16px; right: 16px; }
-  .sheet { padding: 20px 18px 18px; }
+  .sheet { padding: 20px 18px calc(18px + var(--safe-b)); }
   .filter-row { padding: 15px 18px; }
+  .modal { padding-bottom: calc(30px + var(--safe-b)); }
+}
+
+/* Short viewports — phone landscape, split view. The illustration is the first
+   thing to give up its space; the words matter more. */
+@media (max-height: 560px) {
+  .modal { padding-top: 24px; padding-bottom: 24px; }
+  .modal__title { margin-bottom: 18px; }
+  .modal__art { margin-bottom: 18px; }
+  .modal__art-item { width: auto; height: 96px; }
+  .modal__meta { margin: 18px 0 16px; }
+  .modal__meta dd { margin-bottom: 14px; }
+
+  .sheet { padding-top: 18px; }
+  .sheet__head { margin-bottom: 12px; }
+  .filter-row { padding-top: 13px; padding-bottom: 13px; }
+  .sheet__foot { margin-top: 12px; }
+  .btn { padding-top: 14px; padding-bottom: 14px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
