@@ -90,7 +90,8 @@ const FURNITURE = new RegExp('/(' + [
   'about', 'contact', 'help', 'faq', 'support', 'pricing', 'plans', 'blog',
   'careers', 'jobs', 'press', 'privacy', 'terms', 'legal', 'cookies',
   'discover', 'explore', 'search', 'browse', 'calendar', 'events', 'app',
-  'download', 'feedback', 'sitemap',
+  'download', 'feedback', 'sitemap', 'overview', 'manifesto', 'team', 'partners',
+  'organizers', 'for-organizers', 'privacy-policy', 'terms-of-service', 'community',
 ].join('|') + ')/?$', 'i');
 
 /** Same-host links that look like individual event pages. */
