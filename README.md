@@ -17,21 +17,25 @@ npx http-server .
 
 ## Typography
 
-Apple devices use **SF Pro**, resolved through `-apple-system` straight from the
-operating system. Everyone else gets **Inter**, self-hosted from `fonts/`.
+**Inter**, self-hosted from `fonts/`, on every platform — including Apple ones.
+The system stack behind it is a fallback for the moment before the file lands,
+not a second design.
+
+Two weights, 400 and 500. Both are preloaded: the body is regular, and the
+sidebar heading and copy are medium, so both are needed for first paint.
+`font-display: swap` means text paints immediately in the fallback and reflows
+when Inter arrives, rather than holding the page blank.
+
+Four files, not two, because of `unicode-range`. The latin subset covers the
+page; the latin-ext subset exists for one line — "Muharrem Şenyıl" in the
+credit — and `unicode-range` keeps it off the wire for anyone whose page never
+renders those glyphs. Both the latin and the ext faces carry a range, because a
+face declared without one claims every codepoint and would win the match.
 
 Do not add SF Pro font files to this repository. Apple's licence covers
 designing and mocking up interfaces for Apple platforms; it does not permit
 redistributing the files or embedding them in a web page, and a public repo
-served by Pages does both. `-apple-system` already gives Apple users the real
-thing at no cost and with nothing shipped — the files would add legal exposure
-and no visible benefit.
-
-Two weights, 400 and 500, latin subset, 47 KB together. `font-display: swap`
-means text paints immediately in a fallback and reflows when Inter lands,
-rather than holding the page blank. The regular weight is preloaded because it
-is needed for first paint; the medium is only used by the event modal and loads
-when one is opened.
+served by Pages does both.
 
 ## Deploying
 
