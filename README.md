@@ -38,6 +38,7 @@ Append an entry to `EVENTS` in `data.js`:
   art: 'art-lamp',                           // any <symbol> id in index.html
   venue: 'Kensington Market',
   address: 'Augusta Ave & Baldwin St, Toronto, ON M5T 2L7',
+  entry: 'Free',                             // optional; shown as the Entry row
   url: 'https://www.pskensington.ca/',       // where a visitor should go
   source: 'https://www.todocanada.ca/...',   // where the schedule was confirmed
   checked: '2026-09-08',                     // when it was last confirmed
@@ -74,9 +75,16 @@ Four schedule shapes, all expanded at load:
   toggled with the hidden attribute, and a `display` rule on a class silently
   beats the browser default — a closed dialog then keeps swallowing taps. This
   bit twice before it was made global.
-- Below 720px the columns become full-width and snap; the filter sheet pins its
+- Below 720px the layout changes shape rather than shrinking: columns go
+  full-bleed and snap one per screen, and both dialogs become bottom sheets
+  anchored to the bottom edge with a rounded top. The filter sheet pins its
   Reset/Apply footer so it stays reachable on a 320px screen, and under 560px of
   height the modal's illustration shrinks to keep the text above the fold.
+- The modal spells a single-day event out — *Wednesday, September 9 · 4–9pm* —
+  while its card stays terse. Time ranges gain spaces around the dash only when
+  both ends name their half of the day: "8am – 1pm" but "4–9pm".
+- `entry` holds what it costs to walk in. Omit it and the row disappears, which
+  is what Fort York does — its admission was not confirmed.
 - `#<event-id>` in the URL opens that event's modal on load.
 
 ## Where the listings come from

@@ -414,25 +414,62 @@ img.card__art { border-radius: 8px; }
 .modal__meta dt { font-size: 15px; color: var(--ink-soft); }
 .modal__meta dd { margin: 4px 0 20px; font-size: 17px; }
 .modal__meta dd:last-child { margin-bottom: 0; }
+.modal__meta-link { margin-top: -12px !important; }
 
 /* ----------------------------------------------------------------- mobile */
 
 @media (max-width: 720px) {
-  :root { --col-about: 88vw; --col-window: 88vw; }
+  /* one column per screen — no peek of the next one */
+  :root { --col-about: 100vw; --col-window: 100vw; --head-h: 64px; }
+
   .board { scroll-snap-type: x mandatory; }
-  .col__head { padding: 20px 18px 18px; }
-  .about, .col__body { padding-left: 18px; padding-right: 18px; }
-  .modal { padding: 26px 22px 30px; }
-  .modal__close { top: 16px; right: 16px; }
-  .sheet { padding: 20px 18px calc(18px + var(--safe-b)); }
-  .filter-row { padding: 15px 18px; }
-  .modal { padding-bottom: calc(30px + var(--safe-b)); }
+
+  .col { border-right: 0; }
+  .col__head {
+    min-height: 0;
+    padding: 20px calc(20px + var(--safe-r)) 18px calc(20px + var(--safe-l));
+  }
+  .col__body {
+    gap: 12px;
+    padding: 16px calc(20px + var(--safe-r)) calc(124px + var(--safe-b)) calc(20px + var(--safe-l));
+  }
+  .about {
+    padding: 22px calc(20px + var(--safe-r)) calc(124px + var(--safe-b)) calc(20px + var(--safe-l));
+  }
+
+  .card { padding: 20px 22px 24px; border-radius: 16px; }
+  .card__art { width: 62%; margin: 30px auto 10px; }
+
+  /* dialogs rise from the bottom edge, thumb-first */
+  .modal, .sheet {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-width: none;
+    transform: none;
+    border-radius: 26px 26px 0 0;
+    max-height: 88dvh;
+  }
+
+  .modal {
+    padding: 30px calc(24px + var(--safe-r)) calc(32px + var(--safe-b)) calc(24px + var(--safe-l));
+  }
+  .modal__close { top: 22px; right: 20px; }
+  .modal__title { margin-right: 56px; }
+
+  .sheet {
+    padding: 24px calc(20px + var(--safe-r)) calc(24px + var(--safe-b)) calc(20px + var(--safe-l));
+  }
+  .filter-row { padding: 15px 20px; }
 }
 
 /* Short viewports — phone landscape, split view. The illustration is the first
    thing to give up its space; the words matter more. */
 @media (max-height: 560px) {
   .modal { padding-top: 24px; padding-bottom: 24px; }
+  .modal, .sheet { max-height: 92dvh; }
   .modal__title { margin-bottom: 18px; }
   .modal__art { margin-bottom: 18px; }
   .modal__art-item { width: auto; height: 96px; }

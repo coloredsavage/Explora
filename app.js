@@ -5,6 +5,7 @@
   var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var MONTHS_LONG = ['January','February','March','April','May','June','July',
                      'August','September','October','November','December'];
+  var WEEKDAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
   /* ---------------------------------------------------------- date helpers */
 
@@ -37,6 +38,22 @@
   }
   function fmtLongDate(d) {
     return MONTHS_LONG[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
+  }
+
+  /* "Friday, September 11" — the modal has room to say it properly */
+  function fmtWeekday(d) {
+    return WEEKDAYS[d.getDay()] + ', ' + MONTHS_LONG[d.getMonth()] + ' ' + d.getDate();
+  }
+
+  /* The modal lets a time range breathe — but only when both ends name their
+     own half of the day. "5:30pm – 8:30pm" reads well; "4 – 9pm" does not. */
+  function spaced(time) {
+    var parts = time.split('–');
+    if (parts.length !== 2) return time;
+    var marked = /am|pm/i;
+    return marked.test(parts[0]) && marked.test(parts[1])
+      ? parts[0] + ' – ' + parts[1]
+      : time;
   }
 
   /* --------------------------------------------------------- occurrences */
@@ -295,12 +312,19 @@
     link.target = '_blank';
     link.rel = 'noopener';
 
-    var when = fmtSpanLong(occ.start, occ.end);
-    if (occ.time) when += ' · ' + occ.time;
+    var when = sameDay(occ.start, occ.end)
+      ? fmtWeekday(occ.start)
+      : fmtSpanLong(occ.start, occ.end);
+    if (occ.time) when += ' · ' + spaced(occ.time);
     document.getElementById('modal-when').textContent = when;
     document.getElementById('modal-where').textContent = ev.venue + ', ' + ev.address;
     document.getElementById('modal-map').href =
       'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(ev.venue + ', ' + ev.address);
+
+    var entry = document.getElementById('modal-entry');
+    var entryLabel = document.getElementById('modal-entry-label');
+    entry.textContent = ev.entry || '';
+    entry.hidden = entryLabel.hidden = !ev.entry;
 
     var caveat = document.getElementById('modal-caveat');
     caveat.textContent = ev.unconfirmed || '';
