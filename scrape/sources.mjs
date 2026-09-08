@@ -58,6 +58,99 @@ export const SOURCES = [
     maxFollow: 20,
     maxEvents: 12,
   },
+
+  /* ------------------------------------------------------------------------
+     Candidates, parked until discovery says how each one is best read. Run
+     `npm run discover -- --all` (or dispatch the workflow with discover
+     ticked) to get a verdict for every one of them in a single pass, then
+     enable the ones that come back with structured data.
+
+     Venue-specific sources carry defaultVenue/defaultAddress: their listings
+     often name only the event, and a fixed address is a fact about the venue
+     rather than a guess about the event.
+     ------------------------------------------------------------------------ */
+  {
+    id: 'harbourfront',
+    name: 'Harbourfront Centre',
+    url: 'https://harbourfrontcentre.com/whats-on/',
+    enabled: false,
+    category: 'art',
+    art: 'art-gallery',
+    defaultVenue: 'Harbourfront Centre',
+    defaultAddress: '235 Queens Quay W, Toronto, ON M5J 2G8',
+    followLinks: /^https:\/\/harbourfrontcentre\.com\/(events?|whats-on)\/[a-z0-9-]+\/?$/i,
+    maxFollow: 20,
+    maxEvents: 12,
+  },
+  {
+    id: 'bentway',
+    name: 'The Bentway',
+    url: 'https://thebentway.ca/events/',
+    enabled: false,
+    category: 'architecture',
+    art: 'art-skates',
+    defaultVenue: 'The Bentway',
+    defaultAddress: '250 Fort York Blvd, Toronto, ON M5V 3K9',
+    followLinks: /^https:\/\/thebentway\.ca\/event\/[a-z0-9-]+\/?$/i,
+    maxFollow: 20,
+    maxEvents: 10,
+  },
+  {
+    id: 'evergreen',
+    name: 'Evergreen Brick Works',
+    url: 'https://www.evergreen.ca/whats-on/',
+    enabled: false,
+    category: 'dropin',
+    art: 'art-ravine',
+    defaultVenue: 'Evergreen Brick Works',
+    defaultAddress: '550 Bayview Ave, Toronto, ON M4W 3X8',
+    followLinks: /^https:\/\/www\.evergreen\.ca\/(events?|whats-on)\/[a-z0-9-]+\/?$/i,
+    maxFollow: 20,
+    maxEvents: 10,
+  },
+  {
+    id: 'tpl',
+    name: 'Toronto Public Library',
+    url: 'https://tpl.bibliocommons.com/v2/events',
+    enabled: false,
+    /* Free programs in every corner of the city — the closest match in spirit
+       to what this calendar already carries. Branch addresses vary, so no
+       default: an event that does not name its branch is dropped. */
+    category: 'dropin',
+    art: 'art-books',
+    followLinks: /^https:\/\/tpl\.bibliocommons\.com\/events\/[a-f0-9]{6,}/i,
+    maxFollow: 20,
+    maxEvents: 12,
+  },
+  {
+    id: 'akimbo',
+    name: 'Akimbo',
+    url: 'https://akimbo.ca/listings/',
+    enabled: false,
+    /* Gallery and artist-run-centre listings. Already the source behind one
+       hand-written entry, so the editorial match is known to be good. */
+    category: 'art',
+    art: 'art-sculpture',
+    followLinks: /^https:\/\/akimbo\.ca\/listings\/[a-z0-9-]+\/?$/i,
+    maxFollow: 20,
+    maxEvents: 12,
+  },
+  {
+    id: 'blogto',
+    name: 'blogTO',
+    url: 'https://www.blogto.com/events/',
+    enabled: false,
+    /* A commercial publisher: check the terms, not just robots.txt. */
+    category: 'festival',
+    art: 'art-tent',
+    followLinks: /^https:\/\/www\.blogto\.com\/events\/[a-z0-9-]+\/?$/i,
+    maxFollow: 20,
+    maxEvents: 10,
+  },
 ];
 
 export const enabledSources = () => SOURCES.filter((s) => s.enabled !== false);
+
+/* Discovery can look at the parked ones too — that is the point of parking
+   them rather than deleting them. */
+export const allSources = () => SOURCES;

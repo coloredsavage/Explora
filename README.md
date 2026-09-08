@@ -122,7 +122,8 @@ npm run poll             # live; needs `npx playwright install chromium`
 Before adding a source, find out how it is best read:
 
 ```sh
-npm run discover          # or: node scrape/discover.mjs wygo
+npm run discover -- --all   # every source, parked ones included
+npm run discover -- wygo    # just one
 ```
 
 It loads the listing page, samples a couple of the event pages it links to, and
@@ -190,8 +191,17 @@ Check the site's terms and `robots.txt` first — the poller honours `Disallow`
 rules for `*` and waits 1.5s between pages, but that is politeness, not
 permission, and the big ticketing platforms restrict automated access in their
 terms regardless of what `robots.txt` says. `npm run discover` reports the
-`robots.txt` verdict per source before you commit to one. Set `enabled: false`
-to park a source without deleting it.
+`robots.txt` verdict per source before you commit to one. Set `enabled: false` to park a
+source: it stops being polled but discovery still reports on it with `--all`,
+which is the point of parking rather than deleting. Several candidates sit
+parked in `sources.mjs` waiting for a verdict.
+
+One dead end worth recording: the City of Toronto's Festivals & Events open
+data would have been the ideal source — official, permissively licensed,
+already published as schema.org Events by a
+[CivicTechTO proxy](https://github.com/CivicTechTO/toronto-opendata-festivalsandevents-jsonld-proxy).
+That proxy was paused in August 2026 because the upstream City feed went away.
+Do not spend an afternoon rediscovering it.
 
 ## Where the listings come from
 

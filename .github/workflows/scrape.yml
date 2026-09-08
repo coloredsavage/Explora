@@ -43,7 +43,7 @@ jobs:
 
       - name: Report how each source is best read
         if: inputs.discover
-        run: node scrape/discover.mjs
+        run: node scrape/discover.mjs --all
 
       - name: Poll the sources
         if: ${{ !inputs.discover }}

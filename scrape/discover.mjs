@@ -16,12 +16,14 @@ import { writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
-import { enabledSources } from './sources.mjs';
+import { enabledSources, allSources } from './sources.mjs';
 import { jsonLdBlocks, readableText, candidateLinks } from './extract.mjs';
 import { allowedBy } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const only = process.argv.slice(2).filter((a) => !a.startsWith('-'));
+const args = process.argv.slice(2);
+const only = args.filter((a) => !a.startsWith('-'));
+const sources = args.includes('--all') ? allSources() : enabledSources();
 const UA = 'ExploraCalendarBot/1.0 (+https://github.com/coloredsavage/Explora)';
 
 /* Does this JSON look like a list of events? */
@@ -48,7 +50,7 @@ const browser = await chromium.launch();
 const outDir = path.join(root, 'scrape', 'discovery');
 await mkdir(outDir, { recursive: true });
 
-for (const source of enabledSources()) {
+for (const source of sources) {
   if (only.length && !only.includes(source.id)) continue;
 
   const ctx = await browser.newContext({ userAgent: UA });
@@ -129,7 +131,7 @@ for (const source of enabledSources()) {
     : report.followable === 0 ? 'no event links and no structured data — check the URL is the right listing page'
     : 'no structured data on the index or the pages sampled — needs an adapter, or the model';
 
-  console.log(`\n${source.id}  ${source.url}`);
+  console.log(`\n${source.id}${source.enabled === false ? '  [parked]' : ''}  ${source.url}`);
   console.log(`  status     ${report.status ?? '—'}`);
   console.log(`  robots     ${report.robots ? (report.robots.allowed ? 'allowed' : 'DISALLOWED ' + report.robots.rule) : '—'}`);
   console.log(`  links      ${report.followable ?? 0} event pages to follow`);
