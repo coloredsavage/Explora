@@ -10,13 +10,19 @@ on:
   # the API returns 403 — pushing to one of these branches is the way round it.
   #   git push origin main:run-discover   -> report on every source
   #   git push origin main:run-poll       -> a real poll and a pull request
+  #   git push origin main:run-recheck  -> re-read every price, not just the
+  #                                         missing ones
   push:
-    branches: [run-discover, run-poll]
+    branches: [run-discover, run-poll, run-recheck]
 
   workflow_dispatch:
     inputs:
       discover:
         description: 'Report how each source is best read, and poll nothing'
+        type: boolean
+        default: false
+      all_prices:
+        description: 'Re-read every price, not only the listings missing one'
         type: boolean
         default: false
 
@@ -61,16 +67,28 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scrape/run.mjs
 
+      # The poll only ever discovers new events. This goes back to the
+      # hand-written listings and looks up the prices they are missing, from
+      # each listing's own source — which is why thirteen of them said
+      # "Ticketed" and no more. Default mode touches only listings with no
+      # known price, so the work shrinks as they get filled in; --all re-reads
+      # every price, and is what to run when a season turns.
+      - name: Look up the prices data.js is missing
+        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scrape/recheck.mjs ${{ (inputs.all_prices || github.ref_name == 'run-recheck') && '--all' || '' }}
+
       - name: Did anything change?
         id: diff
         if: ${{ !(inputs.discover || github.ref_name == 'run-discover') }}
         run: |
-          if git diff --quiet -- scraped.js; then
+          if git diff --quiet -- scraped.js data.js; then
             echo 'changed=false' >> "$GITHUB_OUTPUT"
-            echo 'No change in scraped.js.'
+            echo 'No change in scraped.js or data.js.'
           else
             echo 'changed=true' >> "$GITHUB_OUTPUT"
-            git --no-pager diff --stat -- scraped.js
+            git --no-pager diff --stat -- scraped.js data.js
           fi
 
       # A pull request rather than a push to main: a person still decides what
@@ -86,7 +104,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -B "$branch"
-          git add scraped.js
+          git add scraped.js data.js
           git commit -m "Polled event sources on $(date -u +%Y-%m-%d)"
 
           # The checkout is shallow and fetches only the default branch, so if
@@ -103,11 +121,19 @@ jobs:
             exit 0
           fi
 
-          body='Automated poll of the sources in `scrape/sources.mjs`.
+          body='Automated poll of the sources in `scrape/sources.mjs`, plus a
+          price lookup for any hand-written listing that had none.
 
           Check the diff before merging — listings are only as good as the pages
           they came from. Each entry carries the URL it was read from in its
           `source` field.
+
+          Read the `data.js` half with particular care. A wrong price is worse
+          than a missing one, because someone turns up with the wrong money.
+          The job refuses anything vaguer than a plain figure and leaves the
+          listing alone instead, but it is reading someone else'"'"'s page, and the
+          run log says whether each price came from structured data or from the
+          model.
 
           Merging deploys to Pages.'
 

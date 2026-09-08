@@ -5,13 +5,17 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
+import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks } from './extract.mjs';
 import { normalize, validate } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
+import { bestMatch, acceptable, patchEntry, loadSite } from './recheck.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const fixture = (n) => readFile(path.join(here, 'fixtures', n), 'utf8');
 const wygo = SOURCES.find((s) => s.id === 'wygo');
+const realSrc = await readFile(path.join(here, '..', 'data.js'), 'utf8');
+const priceSrc = await readFile(path.join(here, '..', 'price.js'), 'utf8');
 
 let failures = 0;
 const check = (name, fn) => {
@@ -153,6 +157,107 @@ check('skips the site furniture', () => {
     .map((h) => `<a href="${h}">x</a>`).join('');
   assert.deepEqual(candidateLinks(html, wygo.url, wygo.followLinks, 10),
     ['https://wygo.world/hidenseek']);
+});
+
+/* ------------------------------------------------------ the recheck job */
+
+console.log('\nPrice, the rule the page and the job share');
+const { events, priceOf } = await loadSite(path.join(here, '..'));
+const bucket = (entry) => priceOf({ entry });
+check('the page and the job load one rule, not two', () =>
+  assert.equal(typeof priceOf, 'function'));
+check('plain free', () => assert.equal(bucket('Free'), 'free'));
+check('free with a condition attached to the door', () =>
+  assert.equal(bucket('Free, but book the timed ticket ahead'), 'free'));
+check('pay what you can is a free door', () =>
+  assert.equal(bucket('Pay what you can'), 'free'));
+check('a discount later in the line is not a free event', () =>
+  assert.equal(bucket('Ticketed; free for 25 and under'), 'unknown'));
+check('the first figure wins, not the smallest', () =>
+  assert.equal(bucket('$22, plus $5 and up to fire a piece'), 'over20'));
+check('under twenty', () => assert.equal(bucket('$12'), 'under20'));
+check('twenty is not under twenty', () => assert.equal(bucket('$20'), 'over20'));
+check('a line with no number is unknown', () => assert.equal(bucket('Ticketed'), 'unknown'));
+check('no entry at all is unknown', () => assert.equal(bucket(undefined), 'unknown'));
+
+console.log('\nWhat the job will accept as an answer');
+check('a plain price', () => assert.equal(acceptable('$25'), '$25'));
+check('trims a pointless .00', () => assert.equal(acceptable('$25.00'), '$25'));
+check('free', () => assert.equal(acceptable('Free'), 'Free'));
+check('pay what you can', () => assert.equal(acceptable('Pay what you can'), 'Pay what you can'));
+check('refuses "varies"', () => assert.equal(acceptable('Varies'), null));
+check('refuses "see website"', () => assert.equal(acceptable('See website for pricing'), null));
+check('refuses a whole sentence that happens to hold a price', () =>
+  assert.equal(acceptable('Tickets for this and other events start at $20 or so'), null));
+check('refuses null', () => assert.equal(acceptable(null), null));
+
+console.log('\nMatching the right event on a page holding several');
+const onPage = [{ title: 'Art Toronto 2026' }, { title: 'Winter Solstice Party' }];
+check('matches despite an extra word', () =>
+  assert.equal(bestMatch(onPage, 'Art Toronto').title, 'Art Toronto 2026'));
+check('does not match a different event', () =>
+  assert.equal(bestMatch(onPage, 'Fall Members Opening'), null));
+check('no candidates, no match', () => assert.equal(bestMatch([], 'Art Toronto'), null));
+
+console.log('\nPatching data.js');
+const sample = [
+  'const EVENTS = [',
+  '  {',
+  "    id: 'has-one',",
+  "    title: 'A thing',",
+  "    category: 'art',",
+  "    entry: 'Ticketed',",
+  "    art: 'art-star',",
+  '  },',
+  '  {',
+  "    id: 'has-none',",
+  "    title: 'Another thing',",
+  "    category: 'dropin',",
+  "    art: 'art-star',",
+  '  },',
+  '];',
+  '',
+].join('\n');
+
+check('replaces a price that is already there', () => {
+  const out = patchEntry(sample, 'has-one', '$25');
+  assert.match(out, /id: 'has-one',\n    title: 'A thing',\n    category: 'art',\n    entry: '\$25',/);
+});
+check('leaves the other listing alone', () => {
+  const out = patchEntry(sample, 'has-one', '$25');
+  assert.match(out, /id: 'has-none',\n    title: 'Another thing',\n    category: 'dropin',\n    art: 'art-star',\n  },/);
+});
+check('inserts a missing price after category', () => {
+  const out = patchEntry(sample, 'has-none', 'Free');
+  assert.match(out, /category: 'dropin',\n    entry: 'Free',\n    art: 'art-star',/);
+});
+check('escapes a quote rather than breaking the file', () => {
+  const out = patchEntry(sample, 'has-none', "$10 at the door, $8 if you're a member");
+  assert.match(out, /entry: '\$10 at the door, \$8 if you\\'re a member',/);
+});
+check('refuses an id it cannot find, rather than guessing', () =>
+  assert.equal(patchEntry(sample, 'not-here', 'Free'), null));
+
+check('the patched file still parses, and holds the new price', () => {
+  const out = patchEntry(sample, 'has-one', '$25');
+  const ctx = vm.createContext({});
+  vm.runInContext(out, ctx);
+  const got = vm.runInContext('EVENTS', ctx);
+  assert.equal(got.find((e) => e.id === 'has-one').entry, '$25');
+  assert.equal(got.length, 2);
+});
+
+check('a real patch of the real data.js still parses', () => {
+  const before = events.find((e) => priceOf(e) === 'unknown');
+  assert.ok(before, 'expected at least one listing with no known price');
+  const out = patchEntry(realSrc, before.id, '$19');
+  assert.ok(out, 'patcher returned null on the real file');
+  const ctx = vm.createContext({});
+  vm.runInContext(priceSrc, ctx);
+  vm.runInContext(out, ctx);
+  const got = vm.runInContext('EVENTS', ctx);
+  assert.equal(got.length, events.length);
+  assert.equal(got.find((e) => e.id === before.id).entry, '$19');
 });
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');

@@ -63,6 +63,7 @@ to `main` deploys.
 | `index.html` | Page structure, the About column, and the inline SVG sprite of event illustrations |
 | `styles.css` | Design tokens, the column board, cards, filter sheet, event modal |
 | `data.js` | `CATEGORIES` and `EVENTS` — the only file you edit to change listings |
+| `price.js` | The price rule, shared by the page and by `scrape/recheck.mjs` |
 | `app.js` | Expands schedules into occurrences, renders the columns, drives the filter and modal |
 | `art/prompts.json` | One image prompt per event, plus the shared style string |
 | `scripts/generate-art.mjs` | Generates `art/<id>.png` and wires it into `data.js` |
@@ -119,7 +120,7 @@ Four schedule shapes, all expanded at load:
   pressing Apply shows the full calendar rather than a blank board. The two
   groups are guarded separately, so clearing every price does not quietly undo
   a category chosen in the same visit.
-- **Price is derived, not stored.** `priceOf()` in `app.js` reads each
+- **Price is derived, not stored.** `priceOf()` in `price.js` reads each
   listing's `entry` line — the same line the modal shows — so there is one
   source of truth and the poller's listings get bucketed with no extra field.
   Free requires `entry` to *start* with "Free", or to be pay-what-you-can: a
@@ -277,6 +278,38 @@ The listings were confirmed on **2026-09-08**. They rot in predictable ways:
 
 Working through `EVENTS` and opening each `source` takes about half an hour. Bump
 `CHECKED` at the top of `data.js` when you finish a pass.
+
+**Prices re-check themselves.** `scrape/recheck.mjs` runs as part of the daily
+job. The poller only ever discovers *new* events into `scraped.js` and never
+looked at the hand-written listings again, which is why thirteen of them said
+"Ticketed" and nothing more — the price was on the venue's page the whole time
+and nobody went back for it.
+
+```sh
+npm run recheck          # only listings with no known price
+npm run recheck:all      # every price, to catch one that changed
+npm run recheck:dry      # report, write nothing
+```
+
+It reads each listing's own `source`, takes the price from JSON-LD offers when
+the page has them and asks the model when it does not, then patches `data.js`
+surgically — the one object, the one line — rather than regenerating a file
+that is hand-ordered and full of comments. The default mode touches only
+listings with no known price, so the daily cost shrinks as they get filled in.
+
+Every rule in it fails towards leaving the listing alone, because a wrong price
+is worse than a missing one: someone turns up with the wrong money. So it
+rejects anything vaguer than a plain figure — "varies", "see website", a
+sentence that merely contains a number; it matches the event by title before
+trusting an offer, since venue pages carry several; it asks the model about one
+named event and takes null for an answer; and `patchEntry` returns null rather
+than guessing if `data.js` is not shaped the way it expects. The output is a
+pull request, never a push: a person still decides what the calendar claims
+something costs.
+
+It deliberately does **not** bump `checked`. Reading a price is not
+re-confirming a date, and a `checked` that overstates what was verified is
+worse than a stale one.
 
 ## Illustrations
 

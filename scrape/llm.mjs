@@ -62,3 +62,48 @@ export async function extractWithModel(text, { url, today, apiKey }) {
 
   return parsed.events.map((e) => ({ ...e, url, via: 'model' }));
 }
+
+/* ------------------------------------------------------------------ price */
+
+/* Asked separately from the extractor above, and about one named event, so it
+   cannot answer with a neighbouring listing's price on a page holding several.
+   A price the page does not state is null: a plausible-looking guess is worse
+   than the "Ticketed" it would replace, because someone acts on it. */
+const Price = z.object({
+  sameEvent: z.boolean()
+    .describe('True only if this page is about the named event'),
+  entry: z.string().nullable()
+    .describe('Admission exactly as written, e.g. "Free", "$25", ' +
+      '"Pay what you can". Null if the page does not state one.'),
+});
+
+const PRICE_SYSTEM = `You read one event page and report what it costs to get in.
+
+Rules:
+- Report only what the page states. Never infer a price from a venue's other
+  events, a membership rate, a nearby listing, or what such a thing usually
+  costs.
+- The base admission for a general adult, not a concession, member or group
+  rate, and not an optional extra like a workshop, catalogue or firing fee.
+- If the page states no admission price, entry is null. Null is the right
+  answer far more often than a number is, and is always better than a guess.
+- If the page is not about the named event, set sameEvent false and entry null.`;
+
+export async function extractPriceWithModel(text, { url, title, apiKey }) {
+  const client = new Anthropic(apiKey ? { apiKey } : {});
+
+  const response = await client.messages.parse({
+    model: 'claude-opus-5',
+    max_tokens: 2000,
+    system: PRICE_SYSTEM,
+    output_config: { format: zodOutputFormat(Price), effort: 'low' },
+    messages: [{
+      role: 'user',
+      content: `The event is "${title}". This is the readable text of ${url}.\n\n${text}`,
+    }],
+  });
+
+  const parsed = response.parsed_output;
+  if (!parsed || !parsed.sameEvent) return null;
+  return parsed.entry;
+}

@@ -9,6 +9,9 @@
     "poll:offline": "node scrape/run.mjs --offline",
     "poll:dry": "node scrape/run.mjs --dry-run",
     "discover": "node scrape/discover.mjs",
+    "recheck": "node scrape/recheck.mjs",
+    "recheck:all": "node scrape/recheck.mjs --all",
+    "recheck:dry": "node scrape/recheck.mjs --dry-run",
     "art": "node scripts/generate-art.mjs"
   },
   "dependencies": {
