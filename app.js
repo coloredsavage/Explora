@@ -72,8 +72,18 @@
     return new Date(year, month, last.getDate() - back, 12);
   }
 
+  /* An event may hold several schedules — a bike co-op open on weekday
+     evenings and weekend afternoons is one event, not two. */
   function expand(event, from, to) {
-    var s = event.schedule, out = [], d, y, m, cursor, limitFrom, limitTo;
+    var out = [];
+    [].concat(event.schedule).forEach(function (s) {
+      out = out.concat(expandOne(event, s, from, to));
+    });
+    return out;
+  }
+
+  function expandOne(event, s, from, to) {
+    var out = [], d, y, m, cursor, limitFrom, limitTo;
 
     function push(start, end) {
       if (cmp(end, from) < 0 || cmp(start, to) > 0) return;

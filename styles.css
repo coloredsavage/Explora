@@ -19,6 +19,7 @@
   --c-books:        #dfe8f5;  --s-books:        #edf4fc;
   --c-architecture: #f6e3ec;  --s-architecture: #fbeff5;
   --c-festival:     #fbe6de;  --s-festival:     #fdf1ec;
+  --c-dropin:       #f4eec3;  --s-dropin:       #fbf8e6;
 
   --shadow: 0 8px 30px rgba(20, 20, 20, .10), 0 1px 3px rgba(20, 20, 20, .06);
 
@@ -187,6 +188,7 @@ a { color: inherit; }
 .card--books        { --card: var(--c-books); }
 .card--architecture { --card: var(--c-architecture); }
 .card--festival     { --card: var(--c-festival); }
+.card--dropin       { --card: var(--c-dropin); }
 
 .card__title {
   margin: 0;
