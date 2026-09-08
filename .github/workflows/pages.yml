@@ -27,11 +27,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Pages must already be enabled with "GitHub Actions" as the source
+      # (Settings -> Pages). This step cannot switch it on: creating the Pages
+      # site needs more than the workflow token is granted, and asking it to
+      # fails with "Resource not accessible by integration".
       - uses: actions/configure-pages@v5
-        with:
-          # Turn Pages on the first time this runs, so the repository
-          # setting does not have to be flipped by hand.
-          enablement: true
 
       # There is no build step: the site is the repository.
       - uses: actions/upload-pages-artifact@v3

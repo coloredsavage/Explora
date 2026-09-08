@@ -19,8 +19,13 @@ npx http-server .
 
 Pushing to `main` publishes the site to GitHub Pages via
 `.github/workflows/pages.yml`. There is no build: the repository *is* the
-artifact, uploaded as-is and served from the root. The first run turns Pages on
-by itself, so nothing needs flipping by hand.
+artifact, uploaded as-is and served from the root.
+
+**One-time setup:** in **Settings → Pages**, set *Source* to **GitHub Actions**.
+The workflow cannot do this for itself — creating the Pages site is beyond what
+the workflow token is granted, and `configure-pages` fails with *Resource not
+accessible by integration* until the setting exists. Once it is set, every push
+to `main` deploys.
 
 ## How it is put together
 
