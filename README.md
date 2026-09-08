@@ -1,6 +1,6 @@
-# What should we do today? — Toronto
+# Explora
 
-A calendar of free museum nights, farmers' markets, fleas, exhibitions and street
+**What should we do today? — Toronto.** A calendar of free museum nights, farmers' markets, fleas, exhibitions and street
 festivals in Toronto, laid out as a horizontally-scrolling board that runs from
 today outward: **Today → This week → This month → This year**.
 
@@ -12,7 +12,7 @@ today?](https://senyil.com/what-should-we-do-today/) by Muharrem Şenyıl.
 No build step and no dependencies — open `index.html`, or serve the folder:
 
 ```sh
-npx http-server what-should-we-do-today
+npx http-server .
 ```
 
 ## How it is put together
