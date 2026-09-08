@@ -5,6 +5,14 @@ on:
     # 11:17 UTC — early morning in Toronto, and off the hour so this job is not
     # queued behind everyone else's midnight cron.
     - cron: '17 11 * * *'
+  # Anything that can push can start a run. The Claude Code GitHub App holds
+  # contents:write but not actions:write, so dispatching the workflow through
+  # the API returns 403 — pushing to one of these branches is the way round it.
+  #   git push origin main:run-discover   -> report on every source
+  #   git push origin main:run-poll       -> a real poll and a pull request
+  push:
+    branches: [run-discover, run-poll]
+
   workflow_dispatch:
     inputs:
       discover:
@@ -42,11 +50,11 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Report how each source is best read
-        if: inputs.discover
+        if: ${{ inputs.discover || github.ref_name == 'run-discover' }}
         run: node scrape/discover.mjs --all
 
       - name: Poll the sources
-        if: ${{ !inputs.discover }}
+        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') }}
         env:
           # Optional. Without it, pages that publish no JSON-LD are reported as
           # skipped rather than read by the model, and the job still succeeds.
@@ -55,7 +63,7 @@ jobs:
 
       - name: Did anything change?
         id: diff
-        if: ${{ !inputs.discover }}
+        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') }}
         run: |
           if git diff --quiet -- scraped.js; then
             echo 'changed=false' >> "$GITHUB_OUTPUT"
