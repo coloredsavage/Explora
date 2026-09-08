@@ -38,7 +38,7 @@ export function normalize(raw, source, { today, checked }) {
   const start = asDate(raw.startDate);
   const end = asDate(raw.endDate);
   const venue = (raw.venue ?? source.defaultVenue ?? '').trim();
-  const address = (raw.address ?? source.defaultAddress ?? '').trim();
+  const address = dedupeAddress(venue, (raw.address ?? source.defaultAddress ?? '').trim());
 
   const reject = (why) => ({ ok: false, why, title: title || '(untitled)' });
 
@@ -72,7 +72,7 @@ export function normalize(raw, source, { today, checked }) {
       url: raw.url ?? source.url,
       source: raw.url ?? source.url,
       checked,
-      description: (raw.description ?? '').trim() || `Listed by ${source.name}.`,
+      description: trimDescription(raw.description ?? '') || `Listed by ${source.name}.`,
       schedule,
       scrapedFrom: source.id,
       via: raw.via,
@@ -82,6 +82,42 @@ export function normalize(raw, source, { today, checked }) {
 
 /** Last line of defence before anything is written out. */
 const tidyPrice = (s) => s.trim().replace(/(\$\d+)\.00\b/g, '$1');
+
+/* Listings repeat the venue into the address — "Mentimeter North America Inc,
+   Mentimeter North America Inc, Toronto". The card prints both, so strip the
+   repetition rather than show it twice. */
+function dedupeAddress(venue, address) {
+  const norm = (x) => x.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  if (norm(address) === norm(venue)) return address;   /* nothing else to show */
+
+  const v = norm(venue);
+  if (v && norm(address).startsWith(v)) {
+    const cut = address.replace(/^\s*/, '').slice(venue.length).replace(/^[\s,–—-]+/, '');
+    if (cut) return cut;
+  }
+  return address;
+}
+
+/* Event pages write to sell. The hand-written listings are a sentence or two,
+   and a wall of marketing copy next to them looks like a different site. Keep
+   whole sentences, and only as many as fit. */
+function trimDescription(text, limit = 220) {
+  let s = String(text)
+    .replace(/^\s*\[[^\]]*\]\s*/, '')          /* a leading "[Note: ...]" aside */
+    .replace(/\s*\(https?:\/\/[^)]+\)/g, '')     /* inline link parentheses */
+    .replace(/\s+/g, ' ')
+    .trim();
+  if (s.length <= limit) return s;
+
+  const sentences = s.split(/(?<=[.!?])\s+/);
+  let out = '';
+  for (const sentence of sentences) {
+    if (out && (out + ' ' + sentence).length > limit) break;
+    out = out ? out + ' ' + sentence : sentence;
+  }
+  if (!out) out = s.slice(0, limit).replace(/\s+\S*$/, '');
+  return out.length < s.length ? out.replace(/[\s.]+$/, '') + '…' : out;
+}
 
 export function validate(event) {
   const problems = [];

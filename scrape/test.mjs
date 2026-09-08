@@ -104,6 +104,34 @@ check('the filter is per-source, not global', () =>
     startDate: '2026-09-09' }, wygo, { today, checked: today }).ok));
 check('Luma files under its own category', () => assert.equal(luma.category, 'social'));
 
+console.log('\nTidying, against what the poll actually returned');
+const tidy = (extra) => normalize({ title: 'A Thing', startDate: '2026-09-20', ...extra },
+  wygo, { today, checked: today }).event;
+check('strips the venue repeated into the address', () =>
+  assert.equal(tidy({ venue: 'BrainStation', address: 'BrainStation, Toronto, Ontario' }).address,
+    'Toronto, Ontario'));
+check('leaves a real street address alone', () =>
+  assert.equal(tidy({ venue: 'Toronto Reference Library', address: '789 Yonge Street, Toronto, ON' }).address,
+    '789 Yonge Street, Toronto, ON'));
+check('keeps an address identical to the venue rather than emptying it', () =>
+  assert.equal(tidy({ venue: 'The Bentway, Toronto', address: 'The Bentway, Toronto' }).address,
+    'The Bentway, Toronto'));
+check('cuts a long description at a sentence boundary', () => {
+  const d = tidy({ venue: 'V', address: '1 King St W, Toronto, ON',
+    description: 'One sentence here. ' + 'Another sentence that runs on. '.repeat(20) }).description;
+  assert.ok(d.length <= 225, `got ${d.length}`);
+  assert.match(d, /…$/);
+  assert.doesNotMatch(d.slice(0, -1), /\s$/);
+});
+check('leaves a short description untouched', () =>
+  assert.equal(tidy({ venue: 'V', address: '1 King St W, Toronto, ON',
+    description: 'Two floors of ceramics.' }).description, 'Two floors of ceramics.'));
+check('drops a leading bracketed aside', () =>
+  assert.match(tidy({ venue: 'V', address: '1 King St W, Toronto, ON',
+    description: '[Note: drinks extra] The actual description.' }).description, /^The actual/));
+check('falls back when there is no description', () =>
+  assert.match(tidy({ venue: 'V', address: '1 King St W, Toronto, ON' }).description, /^Listed by/));
+
 console.log('\nLink following');
 check('follows event links, not the index itself', () => {
   const links = candidateLinks(index, wygo.url, wygo.followLinks, wygo.maxFollow);
