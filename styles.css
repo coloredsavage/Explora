@@ -1,5 +1,25 @@
 /* What should we do today? — Toronto */
 
+/* Inter, self-hosted, so the page reads the same on every platform. Two
+   weights are all this design uses; the latin subset is all it needs.
+   SIL Open Font License — see fonts/LICENSE-Inter.txt.
+   swap, not block: the text appears immediately in a fallback and reflows
+   when Inter arrives, rather than leaving the page blank. */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('fonts/inter-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('fonts/inter-500.woff2') format('woff2');
+}
+
 :root {
   color-scheme: light;
 
@@ -40,9 +60,8 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font: 400 16px/24px -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "SF Pro Display", "SF Pro", "Helvetica Neue", Helvetica, Inter,
-        "Segoe UI", Roboto, Arial, sans-serif;
+  font: 400 16px/24px Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Helvetica Neue", Helvetica, "Segoe UI", Roboto, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;      /* iOS must not resize text on rotate */
   -webkit-tap-highlight-color: transparent;
