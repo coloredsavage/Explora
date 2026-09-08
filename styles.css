@@ -8,8 +8,8 @@
   --paper:      #ffffff;
   --line:       #e7e6e3;
 
-  --col-about:  clamp(320px, 42vw, 620px);
-  --col-window: clamp(300px, 25vw, 420px);
+  --col-about:  640px;
+  --col-window: 320px;
   --head-h:     78px;
 
   --c-museum:       #e7e2f6;  --s-museum:       #f5f1fd;
@@ -38,7 +38,7 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text",
+  font: 400 16px/24px -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "SF Pro Display", "SF Pro", "Helvetica Neue", Helvetica, Inter,
         "Segoe UI", Roboto, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -102,13 +102,15 @@ a { color: inherit; }
 
 .col__title {
   margin: 0;
-  font-size: 17px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
   letter-spacing: -0.01em;
 }
 
 .col__range {
-  font-size: 17px;
+  font-size: 16px;
+  line-height: 24px;
   color: var(--ink-soft);
   letter-spacing: -0.01em;
 }
@@ -116,8 +118,8 @@ a { color: inherit; }
 .col__body {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 14px calc(14px + var(--safe-r)) calc(124px + var(--safe-b)) calc(14px + var(--safe-l));
+  gap: 8px;
+  padding: 9px calc(8px + var(--safe-r)) calc(124px + var(--safe-b)) calc(9px + var(--safe-l));
 }
 
 .col__empty {
@@ -130,27 +132,28 @@ a { color: inherit; }
 
 .about {
   max-width: 560px;
-  padding: 26px calc(26px + var(--safe-r)) calc(124px + var(--safe-b)) calc(26px + var(--safe-l));
+  padding: 2px calc(26px + var(--safe-r)) calc(124px + var(--safe-b)) calc(26px + var(--safe-l));
 }
 
-.about__art { display: block; width: min(360px, 70%); height: auto; margin: 8px 0 34px; }
+.about__art { display: block; width: 240px; height: 236px; margin: 0 0 30px; }
 
 .about__lede {
-  margin: 0 0 20px;
-  font-size: 17px;
-  font-weight: 500;
+  margin: 0 0 24px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
   letter-spacing: -0.01em;
 }
 
 .about p {
-  margin: 0 0 20px;
-  font-size: 17px;
-  line-height: 1.62;
-  color: #3d3d3d;
+  margin: 0 0 24px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #696969;
   letter-spacing: -0.005em;
 }
 
-.about__note { color: var(--ink-soft) !important; font-size: 15px !important; }
+.about__note { font-size: 16px !important; }
 .about a { text-decoration: none; border-bottom: 1px solid #c3c3c3; padding-bottom: 1px; }
 .about a:hover { border-bottom-color: var(--ink); }
 
@@ -159,9 +162,9 @@ a { color: inherit; }
 .card {
   display: block;
   width: 100%;
-  padding: 18px 20px 20px;
+  padding: 16px;
   border: 0;
-  border-radius: 14px;
+  border-radius: 16px;
   background: var(--card, #f0f0ee);
   font: inherit;
   color: var(--ink);
@@ -187,9 +190,10 @@ a { color: inherit; }
 
 .card__title {
   margin: 0;
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.4;
+  line-height: 24px;
+  color: #222;
   letter-spacing: -0.01em;
   text-decoration-color: transparent;
   text-underline-offset: 2px;
@@ -197,17 +201,19 @@ a { color: inherit; }
 }
 
 .card__when {
-  margin: 6px 0 0;
-  font-size: 14px;
-  color: #5f5f5f;
+  margin: 4px 0 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: #696969;
   letter-spacing: -0.005em;
 }
 
 .card__art {
   display: block;
-  width: 78%;
-  height: auto;
-  margin: 26px auto 8px;
+  width: 216px;
+  height: 216px;          /* square, as in the reference; the drawing letterboxes */
+  max-width: 100%;
+  margin: 28px auto 18px;
 }
 img.card__art { border-radius: 8px; }
 
@@ -229,7 +235,7 @@ img.card__art { border-radius: 8px; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 9px;
   border: 0;
   border-radius: 999px;
   background: var(--paper);
@@ -240,8 +246,8 @@ img.card__art { border-radius: 8px; }
   cursor: pointer;
   transition: transform .15s ease;
 }
-.dock__filter { padding: 14px 24px; }
-.dock__nav { width: 52px; height: 52px; }
+.dock__filter { height: 48px; padding: 0 16px; }
+.dock__nav { width: 48px; height: 48px; }
 @media (hover: hover) {
   .dock__filter:hover, .dock__nav:hover { transform: translateY(-1px); }
 }
@@ -437,8 +443,8 @@ img.card__art { border-radius: 8px; }
     padding: 22px calc(20px + var(--safe-r)) calc(124px + var(--safe-b)) calc(20px + var(--safe-l));
   }
 
-  .card { padding: 20px 22px 24px; border-radius: 16px; }
-  .card__art { width: 62%; margin: 30px auto 10px; }
+  .card { padding: 16px; border-radius: 16px; }
+  .card__art { margin: 24px auto 14px; }
 
   /* dialogs rise from the bottom edge, thumb-first */
   .modal, .sheet {
