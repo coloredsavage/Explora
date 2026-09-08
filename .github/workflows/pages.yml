@@ -1,0 +1,42 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# The deploy job needs to mint an id-token for Pages and write the deployment;
+# nothing here needs write access to the repository itself.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never let two deploys race, but let an in-flight one finish rather than
+# cancelling it — a half-published site is worse than a slightly stale one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/configure-pages@v5
+        with:
+          # Turn Pages on the first time this runs, so the repository
+          # setting does not have to be flipped by hand.
+          enablement: true
+
+      # There is no build step: the site is the repository.
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -15,6 +15,13 @@ No build step and no dependencies — open `index.html`, or serve the folder:
 npx http-server .
 ```
 
+## Deploying
+
+Pushing to `main` publishes the site to GitHub Pages via
+`.github/workflows/pages.yml`. There is no build: the repository *is* the
+artifact, uploaded as-is and served from the root. The first run turns Pages on
+by itself, so nothing needs flipping by hand.
+
 ## How it is put together
 
 | File | What it holds |
@@ -25,6 +32,7 @@ npx http-server .
 | `app.js` | Expands schedules into occurrences, renders the columns, drives the filter and modal |
 | `art/prompts.json` | One image prompt per event, plus the shared style string |
 | `scripts/generate-art.mjs` | Generates `art/<id>.png` and wires it into `data.js` |
+| `.github/workflows/pages.yml` | Publishes the repository to GitHub Pages on every push to `main` |
 
 ### Adding an event
 
