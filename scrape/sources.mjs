@@ -73,6 +73,9 @@ export const SOURCES = [
     id: 'harbourfront',
     name: 'Harbourfront Centre',
     url: 'https://harbourfrontcentre.com/whats-on/',
+    /* Discovery: 200 and robots-allowed, but the event pages carry only
+       WebPage/ImageObject/BreadcrumbList — no schema.org Event. Needs a
+       hand-written adapter or the model. */
     enabled: false,
     category: 'art',
     art: 'art-gallery',
@@ -86,6 +89,8 @@ export const SOURCES = [
     id: 'bentway',
     name: 'The Bentway',
     url: 'https://thebentway.ca/events/',
+    /* Discovery: HTTP 404. This URL is simply wrong — find the real listing
+       page before judging the source. */
     enabled: false,
     category: 'architecture',
     art: 'art-skates',
@@ -99,6 +104,8 @@ export const SOURCES = [
     id: 'evergreen',
     name: 'Evergreen Brick Works',
     url: 'https://www.evergreen.ca/whats-on/',
+    /* Discovery: 200, but zero links matched followLinks — either the wrong
+       listing page or the wrong pattern. */
     enabled: false,
     category: 'dropin',
     art: 'art-ravine',
@@ -112,10 +119,11 @@ export const SOURCES = [
     id: 'tpl',
     name: 'Toronto Public Library',
     url: 'https://tpl.bibliocommons.com/v2/events',
-    enabled: false,
-    /* Free programs in every corner of the city — the closest match in spirit
-       to what this calendar already carries. Branch addresses vary, so no
-       default: an event that does not name its branch is dropped. */
+    /* Discovery: JSON-LD on the event pages, 1 of 1 sampled, types Library and
+       Event. Free programs in every corner of the city — the closest match in
+       spirit to what this calendar already carries. Branch addresses vary, so
+       no default: an event that does not name its branch is dropped. */
+    enabled: true,
     category: 'dropin',
     art: 'art-books',
     followLinks: /^https:\/\/tpl\.bibliocommons\.com\/events\/[a-f0-9]{6,}/i,
@@ -126,6 +134,9 @@ export const SOURCES = [
     id: 'akimbo',
     name: 'Akimbo',
     url: 'https://akimbo.ca/listings/',
+    /* Discovery: 200 with 20 followable links, but the listing pages carry no
+       Event data — and several are calls for submissions rather than dated
+       events. Would need the model plus a filter. */
     enabled: false,
     /* Gallery and artist-run-centre listings. Already the source behind one
        hand-written entry, so the editorial match is known to be good. */
@@ -139,8 +150,9 @@ export const SOURCES = [
     id: 'blogto',
     name: 'blogTO',
     url: 'https://www.blogto.com/events/',
+    /* Discovery: HTTP 403 to a headless browser. Refuses automated access
+       whatever robots.txt says. Park it. */
     enabled: false,
-    /* A commercial publisher: check the terms, not just robots.txt. */
     category: 'festival',
     art: 'art-tent',
     followLinks: /^https:\/\/www\.blogto\.com\/events\/[a-z0-9-]+\/?$/i,

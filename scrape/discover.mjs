@@ -123,6 +123,7 @@ for (const source of sources) {
 
   const verdict = report.error ? `could not load — ${report.error}`
     : report.robots && !report.robots.allowed ? `robots.txt disallows ${report.robots.rule} — the poller will skip this`
+    : report.status === 404 ? 'HTTP 404 — the URL is wrong or the page moved, not a refusal'
     : report.status !== null && report.status >= 400 ? `HTTP ${report.status} to a headless browser — refusing automated access`
     : report.blocked ? 'looks like a bot challenge — this is the case a VPS might fix'
     : report.jsonLd?.events > 0 ? `JSON-LD on the index, ${report.jsonLd.events} events — free and exact, no key needed`
