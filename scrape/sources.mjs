@@ -26,8 +26,14 @@ export const SOURCES = [
     name: 'Luma',
     url: 'https://lu.ma/toronto',
     enabled: true,
-    category: 'dropin',
+    /* Luma's Toronto feed is mostly startup and tech networking. Filing it
+       under its own category keeps it out of the way of the rest of the
+       calendar and one click from hidden. */
+    category: 'social',
     art: 'art-mic',
+    /* Skim off the most obvious of it. Deliberately narrow: a book launch or
+       a talk is worth keeping even when a software company is hosting. */
+    exclude: /\b(networking|mixer|housewarming|happy hour|demo day|pitch (night|competition)|founders?|startups?|coworking|mastermind|fintech|saas|b2b|career fair|job fair|hiring|recruit|ama|office hours|speed dating)\b/i,
     defaultVenue: null,
     defaultAddress: null,
     /* Event slugs are short and live at the root; the city page is not one. */

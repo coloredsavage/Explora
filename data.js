@@ -16,6 +16,7 @@ const CATEGORIES = {
   architecture: { label: 'Architecture',      art: 'art-architecture'  },
   festival:     { label: 'Festivals',         art: 'art-festival'      },
   dropin:       { label: 'Drop-ins',          art: 'art-tools'         },
+  social:       { label: 'Meetups',           art: 'art-mic'           },
 };
 
 /* schedule kinds

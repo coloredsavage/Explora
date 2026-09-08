@@ -175,6 +175,12 @@ Append to `SOURCES` in `scrape/sources.mjs`:
 }
 ```
 
+`exclude` is a per-source title filter, for a feed whose subject overlaps yours
+only partly. Luma's Toronto page is mostly startup and tech networking, so it
+files under its own `social` category — one click from hidden — and the most
+obvious of it is skimmed off by title. Keep such a filter narrow: a book launch
+is worth having even when a software company is hosting it.
+
 `maxEvents` caps how many listings one source may contribute to a single
 review — a city-wide aggregator will otherwise bury a 40-line calendar under
 200 rows, and a pull request nobody reads is the same as no review at all.

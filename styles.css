@@ -20,6 +20,7 @@
   --c-architecture: #f6e3ec;  --s-architecture: #fbeff5;
   --c-festival:     #fbe6de;  --s-festival:     #fdf1ec;
   --c-dropin:       #f4eec3;  --s-dropin:       #fbf8e6;
+  --c-social:       #e8e4dc;  --s-social:       #f6f4f0;
 
   --shadow: 0 8px 30px rgba(20, 20, 20, .10), 0 1px 3px rgba(20, 20, 20, .06);
 
@@ -189,6 +190,7 @@ a { color: inherit; }
 .card--architecture { --card: var(--c-architecture); }
 .card--festival     { --card: var(--c-festival); }
 .card--dropin       { --card: var(--c-dropin); }
+.card--social       { --card: var(--c-social); }
 
 .card__title {
   margin: 0;

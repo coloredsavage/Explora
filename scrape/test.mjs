@@ -86,6 +86,24 @@ check('tidies a whole-dollar price', () =>
   assert.equal(gate({ title: 'X', venue: 'Y', address: '1 King St W, Toronto, ON',
     entry: '$13.00' }).event.entry, '$13'));
 
+console.log('\nPer-source filtering — from the first real poll');
+const luma = SOURCES.find((s) => s.id === 'luma');
+const viaLuma = (title, venue, address) =>
+  normalize({ title, venue, address, startDate: '2026-09-09' }, luma, { today, checked: today });
+check('drops a venue that is only the city', () =>
+  assert.match(viaLuma('Ambition Office Housewarming', 'Toronto, ON', 'Toronto, ON').why,
+    /excluded|venue is just the city/));
+check('drops a networking mixer', () =>
+  assert.match(viaLuma('Fintech Social Toronto', 'BrainStation', '20 Bay St, Toronto, ON').why,
+    /excluded by this source/));
+check('keeps a book launch, software-company host and all', () =>
+  assert.ok(viaLuma('Toronto Book Launch for "The Campfire Method"',
+    'Mentimeter North America Inc', '100 King St W, Toronto, ON').ok));
+check('the filter is per-source, not global', () =>
+  assert.ok(normalize({ title: 'Founders Brunch', venue: 'A Hall', address: '1 King St W, Toronto, ON',
+    startDate: '2026-09-09' }, wygo, { today, checked: today }).ok));
+check('Luma files under its own category', () => assert.equal(luma.category, 'social'));
+
 console.log('\nLink following');
 check('follows event links, not the index itself', () => {
   const links = candidateLinks(index, wygo.url, wygo.followLinks, wygo.maxFollow);

@@ -23,6 +23,10 @@ const PLACEHOLDER = /^\s*(tbd|tba|to be (announced|confirmed|determined)|unknown
 /* A calendar that answers "what should we do today" has no use for a webinar. */
 const NOT_A_PLACE = /\b(online|virtual|webinar|zoom|livestream|remote|anywhere)\b/i;
 
+/* "Toronto, ON" in the venue field is the city, not a place to meet. The card
+   would read "Where: Toronto, ON, Toronto, ON". */
+const CITY_ONLY = /^\s*(toronto|scarborough|etobicoke|north york|east york|ontario|canada|downtown( toronto)?)(\s*,\s*(on|ont|ontario|canada))*\s*$/i;
+
 const asDate = (v) => {
   if (!v) return null;
   const d = String(v).slice(0, 10);
@@ -39,10 +43,12 @@ export function normalize(raw, source, { today, checked }) {
   const reject = (why) => ({ ok: false, why, title: title || '(untitled)' });
 
   if (!title) return reject('no title');
+  if (source.exclude && source.exclude.test(title)) return reject('excluded by this source’s filter');
   if (!start) return reject('no usable start date');
   if (start < today) return reject(`already past (${start})`);
   if (!venue) return reject('no venue');
   if (PLACEHOLDER.test(venue)) return reject(`placeholder venue (${venue})`);
+  if (CITY_ONLY.test(venue)) return reject(`venue is just the city (${venue})`);
   if (!address) return reject('no address');
   if (PLACEHOLDER.test(address)) return reject(`placeholder address (${address})`);
   if (NOT_A_PLACE.test(`${address} ${venue}`)) return reject(`not somewhere you can go (${venue})`);
