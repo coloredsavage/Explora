@@ -158,21 +158,89 @@
 
   function inWindow(o, w) { return cmp(o.end, w.from) >= 0 && cmp(o.start, w.to) <= 0; }
 
+  /* --------------------------------------------------------------- price */
+
+  /* Which bucket a listing falls in, read off its `entry` line.
+
+     Free means the base admission is nothing, so `entry` has to *start* with
+     "Free" — or be pay-what-you-can, where nothing is a price you may choose.
+     A discount buried later in the line does not count: "Ticketed; free for
+     25 and under" is not a free event for most people, and bucketing it as
+     one would be a small lie told to anyone over 25. Conditions attached to a
+     genuinely free door ("book the timed ticket ahead", "tickets in person
+     only") are not prices, and the card still shows the whole line either way.
+
+     Otherwise the *first* dollar figure wins, because that is the way these
+     lines are written: the door price comes first and the extras follow it.
+     Taking the smallest instead would file "$22, plus $5 and up to fire a
+     piece" under $20, which is wrong by twenty-two dollars.
+
+     No `entry`, or one with no number in it — "Ticketed", "Included with
+     general admission" — is unknown, not free and not guessed at. */
+  function priceOf(event) {
+    var t = String(event.entry || '').trim().toLowerCase();
+    if (!t) return 'unknown';
+    if (t.indexOf('free') === 0) return 'free';
+    if (/pay[- ]what[- ]you[- ](can|want|wish|choose)|\bpwyc\b/.test(t)) return 'free';
+    var first = t.match(/\$\s*(\d+(?:\.\d+)?)/);
+    if (!first) return 'unknown';
+    return parseFloat(first[1]) < 20 ? 'under20' : 'over20';
+  }
+
   /* ------------------------------------------------------------- filters */
 
-  var STORE_KEY = 'wswdt.categories';
-  var active = {};
-  Object.keys(CATEGORIES).forEach(function (k) { active[k] = true; });
+  /* Two independent groups — category and price. They are stored under separate
+     keys so an older saved category filter still loads; someone who had one
+     before price existed keeps it, and gets every price. */
+  var GROUPS = [
+    { key: 'cats',   store: 'wswdt.categories', title: 'Category', of: CATEGORIES,
+      pick: function (ev) { return ev.category; } },
+    { key: 'prices', store: 'wswdt.prices',     title: 'Price',    of: PRICES,
+      pick: priceOf },
+  ];
 
-  try {
-    var saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
-    if (saved) Object.keys(active).forEach(function (k) {
-      if (typeof saved[k] === 'boolean') active[k] = saved[k];
+  /* A group covers only the values the listings actually contain. A chip
+     nobody can match is a trap — tick it alone and the board goes blank with
+     no way to tell a filter from an empty calendar — so today there is no
+     "Under $20" chip, because nothing costs between a penny and twenty
+     dollars, and none for "Meetups", because nothing is one. Both appear on
+     their own the day something lands in them.
+
+     They are dropped from the state, not just from the sheet. A value that is
+     hidden but still held at true reads as a tick nobody can see or clear,
+     and it defeats the empty-group guard below: every visible category off
+     plus an invisible one on is not "no categories chosen", so the guard
+     would not fire and the board would go empty. */
+  GROUPS.forEach(function (g) {
+    g.keys = Object.keys(g.of).filter(function (key) {
+      return LISTINGS.some(function (ev) { return g.pick(ev) === key; });
     });
-  } catch (e) { /* private mode, or nothing stored */ }
+  });
+
+  var active = {};
+  GROUPS.forEach(function (g) {
+    active[g.key] = {};
+    g.keys.forEach(function (k) { active[g.key][k] = true; });
+    try {
+      var saved = JSON.parse(localStorage.getItem(g.store) || 'null');
+      if (saved) g.keys.forEach(function (k) {
+        if (typeof saved[k] === 'boolean') active[g.key][k] = saved[k];
+      });
+    } catch (e) { /* private mode, or nothing stored */ }
+  });
 
   function persist() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(active)); } catch (e) {}
+    GROUPS.forEach(function (g) {
+      try { localStorage.setItem(g.store, JSON.stringify(active[g.key])); } catch (e) {}
+    });
+  }
+
+  /* Strictly, every listing's value is offered, since that is where the keys
+     came from. The !== false is for the case that cannot happen: an unknown
+     value shows rather than vanishing, because a listing on the calendar and
+     impossible to filter beats one silently dropped. */
+  function shown(event) {
+    return GROUPS.every(function (g) { return active[g.key][g.pick(event)] !== false; });
   }
 
   /* ------------------------------------------------------------ rendering */
@@ -225,6 +293,7 @@
     btn.type = 'button';
     btn.dataset.event = ev.id;
     btn.dataset.start = occ.start.toISOString();
+    btn.dataset.price = priceOf(ev);
 
     btn.appendChild(el('h3', 'card__title', ev.title));
 
@@ -271,7 +340,7 @@
 
       var body = el('div', 'col__body');
       var list = ALL.filter(function (o) {
-        return active[o.event.category] && inWindow(o, win);
+        return shown(o.event) && inWindow(o, win);
       }).sort(function (a, b) {
         return cmp(max(a.start, win.from), max(b.start, win.from)) ||
                a.hour - b.hour ||
@@ -398,14 +467,22 @@
 
   function buildFilter() {
     fRows.textContent = '';
-    Object.keys(CATEGORIES).forEach(function (key) {
+    GROUPS.forEach(function (g) { buildGroup(g); });
+  }
+
+  function buildGroup(g) {
+    if (!g.keys.length) return;
+    fRows.appendChild(el('h3', 'sheet__group', g.title));
+
+    g.keys.forEach(function (key) {
       var row = el('label', 'filter-row');
-      row.style.setProperty('--soft', 'var(--s-' + key + ')');
+      /* categories carry their own colour; price has none of its own */
+      if (g.key === 'cats') row.style.setProperty('--soft', 'var(--s-' + key + ')');
 
       var box = document.createElement('input');
       box.type = 'checkbox';
-      box.checked = pending[key];
-      box.addEventListener('change', function () { pending[key] = box.checked; });
+      box.checked = pending[g.key][key];
+      box.addEventListener('change', function () { pending[g.key][key] = box.checked; });
 
       var tick = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       tick.setAttribute('class', 'filter-row__tick');
@@ -421,7 +498,7 @@
       tick.appendChild(path);
 
       row.appendChild(box);
-      row.appendChild(el('span', 'filter-row__label', CATEGORIES[key].label));
+      row.appendChild(el('span', 'filter-row__label', g.of[key].label));
       row.appendChild(tick);
       fRows.appendChild(row);
     });
@@ -429,8 +506,12 @@
 
   function openFilter() {
     pending = {};
-    Object.keys(active).forEach(function (k) { pending[k] = active[k]; });
+    GROUPS.forEach(function (g) {
+      pending[g.key] = {};
+      Object.keys(active[g.key]).forEach(function (k) { pending[g.key][k] = active[g.key][k]; });
+    });
     buildFilter();
+    fRows.scrollTop = 0;
     scrim.hidden = false;
     fPanel.hidden = false;
     fToggle.setAttribute('aria-expanded', 'true');
@@ -452,14 +533,23 @@
   document.getElementById('filter-close').addEventListener('click', closeFilter);
 
   document.getElementById('filter-reset').addEventListener('click', function () {
-    Object.keys(pending).forEach(function (k) { pending[k] = true; });
+    GROUPS.forEach(function (g) {
+      Object.keys(pending[g.key]).forEach(function (k) { pending[g.key][k] = true; });
+    });
     buildFilter();
+    fRows.scrollTop = 0;
   });
 
   document.getElementById('filter-apply').addEventListener('click', function () {
-    /* an empty filter shows nothing at all, so treat it as "everything" */
-    var any = Object.keys(pending).some(function (k) { return pending[k]; });
-    Object.keys(active).forEach(function (k) { active[k] = any ? pending[k] : true; });
+    /* A group with nothing ticked would empty the board on its own, so it is
+       read as "everything". Each group is guarded on its own: clearing all the
+       prices must not quietly undo a category choice made in the same visit. */
+    GROUPS.forEach(function (g) {
+      var any = Object.keys(pending[g.key]).some(function (k) { return pending[g.key][k]; });
+      Object.keys(active[g.key]).forEach(function (k) {
+        active[g.key][k] = any ? pending[g.key][k] : true;
+      });
+    });
     persist();
     render();
     closeFilter();

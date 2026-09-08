@@ -115,9 +115,27 @@ Four schedule shapes, all expanded at load:
 - **Each event's illustration is drawn once.** The first card for an event in
   DOM order gets the picture; later repeats of the same event are text-only. It
   is what keeps a column of weekly markets from turning into wallpaper.
-- **An empty filter means "everything".** Deselecting every category and
-  pressing Apply shows the full calendar rather than a blank board.
-- Choices persist in `localStorage` under `wswdt.categories`.
+- **An empty filter group means "everything".** Deselecting every category and
+  pressing Apply shows the full calendar rather than a blank board. The two
+  groups are guarded separately, so clearing every price does not quietly undo
+  a category chosen in the same visit.
+- **Price is derived, not stored.** `priceOf()` in `app.js` reads each
+  listing's `entry` line — the same line the modal shows — so there is one
+  source of truth and the poller's listings get bucketed with no extra field.
+  Free requires `entry` to *start* with "Free", or to be pay-what-you-can: a
+  discount further along the line does not count, because "Ticketed; free for
+  25 and under" is not a free event for most people. Otherwise the **first**
+  dollar figure decides, since these lines put the door price first and the
+  extras after — taking the smallest would file "$22, plus $5 and up to fire a
+  piece" under $20. Anything with no number stays *Price not listed* rather
+  than being guessed at.
+- **A group only offers what the listings contain.** There is no *Under $20*
+  chip today because nothing costs between a penny and twenty dollars, and no
+  *Meetups* chip because nothing is one; both appear on their own when
+  something lands in them. Hidden values are dropped from the filter state, not
+  just from the sheet — one left sitting at `true` is a tick nobody can see or
+  clear, and it defeats the empty-group guard above.
+- Choices persist in `localStorage` under `wswdt.categories` and `wswdt.prices`.
 - **`[hidden]` is forced to `display: none !important`.** Every dialog here is
   toggled with the hidden attribute, and a `display` rule on a class silently
   beats the browser default — a closed dialog then keeps swallowing taps. This

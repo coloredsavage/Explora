@@ -19,6 +19,18 @@ const CATEGORIES = {
   social:       { label: 'Meetups',           art: 'art-mic'           },
 };
 
+/* Price buckets for the filter. These are derived from each listing's `entry`
+   text rather than stored beside it, so there is one source of truth: the
+   line the card actually shows. Scraped listings get bucketed for free — the
+   poller already writes `entry` as "Free" or "$N" from JSON-LD offers.
+   Order here is the order the filter lists them in. */
+const PRICES = {
+  free:    { label: 'Free'             },
+  under20: { label: 'Under $20'        },
+  over20:  { label: '$20 and up'       },
+  unknown: { label: 'Price not listed' },
+};
+
 /* schedule kinds
    range  { kind:'range',  start, end }
    day    { kind:'day',    date, time?, hour? }
