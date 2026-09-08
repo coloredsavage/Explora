@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What should we do today?</title>
+<meta name="description" content="A calendar of free museum nights, farmers’ markets, fleas and exhibitions in Toronto.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%9D%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#board">Skip to the calendar</a>
+
+<!-- ------------------------------------------------------ illustrations -->
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <defs>
+    <linearGradient id="g-warm" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".85"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Red Rocket: a TTC streetcar -->
+  <symbol id="art-streetcar" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="170" rx="104" ry="9" fill="#000" opacity=".07"/>
+    <path d="M118 78V44h58" stroke="#6b6b6b" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="178" cy="44" r="3.5" fill="#6b6b6b"/>
+    <rect x="26" y="74" width="208" height="14" rx="7" fill="#efe9dd"/>
+    <path d="M26 86h208v58a6 6 0 0 1-6 6H32a6 6 0 0 1-6-6z" fill="#c93b34"/>
+    <path d="M26 86h208v10H26z" fill="#e05149"/>
+    <rect x="38" y="98" width="30" height="24" rx="3" fill="#dbe7ec"/>
+    <rect x="74" y="98" width="30" height="24" rx="3" fill="#dbe7ec"/>
+    <rect x="110" y="98" width="16" height="34" rx="2" fill="#b9c9d1"/>
+    <rect x="132" y="98" width="30" height="24" rx="3" fill="#dbe7ec"/>
+    <rect x="168" y="98" width="30" height="24" rx="3" fill="#dbe7ec"/>
+    <rect x="204" y="98" width="18" height="24" rx="3" fill="#c9d9e0"/>
+    <rect x="38" y="130" width="184" height="5" rx="2.5" fill="#f2c14e"/>
+    <rect x="70" y="60" width="60" height="14" rx="3" fill="#f6f2ec"/>
+    <rect x="78" y="65" width="44" height="4" rx="2" fill="#b0a89c"/>
+    <circle cx="72" cy="156" r="11" fill="#3b3b3b"/><circle cx="72" cy="156" r="4" fill="#6e6e6e"/>
+    <circle cx="188" cy="156" r="11" fill="#3b3b3b"/><circle cx="188" cy="156" r="4" fill="#6e6e6e"/>
+    <rect x="14" y="164" width="232" height="4" rx="2" fill="#cfc8b9"/>
+  </symbol>
+
+  <!-- Farmers' market: a produce crate under an awning -->
+  <symbol id="art-market" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="178" rx="86" ry="9" fill="#000" opacity=".07"/>
+    <path d="M46 60h168l-14 24H60z" fill="#e8e2d6"/>
+    <path d="M46 60h168l-6 10H52z" fill="#f4efe6"/>
+    <path d="M60 84h20l-4 12H64zM88 84h20l-4 12H92zM116 84h20l-4 12h-16zM144 84h20l-4 12h-16zM172 84h20l-4 12h-16z" fill="#c8bfae"/>
+    <rect x="60" y="20" width="6" height="42" rx="3" fill="#b3a894"/>
+    <rect x="194" y="20" width="6" height="42" rx="3" fill="#9d9078"/>
+    <path d="M74 116h112l-8 50H82z" fill="#cba46a"/>
+    <path d="M74 116h112l-6 12H80z" fill="#e0bd88"/>
+    <rect x="84" y="132" width="92" height="5" rx="2.5" fill="#b08d55" opacity=".7"/>
+    <rect x="86" y="146" width="88" height="5" rx="2.5" fill="#b08d55" opacity=".7"/>
+    <circle cx="100" cy="112" r="14" fill="#d9584f"/>
+    <circle cx="126" cy="108" r="16" fill="#e8724a"/>
+    <circle cx="154" cy="112" r="14" fill="#7fa653"/>
+    <path d="M126 92c4-8 12-8 12-8s-2 8-10 10z" fill="#6f9a4b"/>
+    <circle cx="96" cy="106" r="4" fill="#fff" opacity=".35"/>
+  </symbol>
+
+  <!-- Flea: an armchair and a floor lamp -->
+  <symbol id="art-flea" viewBox="0 0 260 200">
+    <ellipse cx="122" cy="178" rx="88" ry="9" fill="#000" opacity=".07"/>
+    <path d="M182 172h40l-6-8h-28z" fill="#8d7f6a"/>
+    <rect x="198" y="60" width="6" height="106" rx="3" fill="#a8977d"/>
+    <path d="M176 60h50l-10-30h-30z" fill="#e6c98f"/>
+    <path d="M176 60h50l-4 6h-42z" fill="#cdae72"/>
+    <path d="M70 90c0-16 8-24 24-24h44c16 0 24 8 24 24v18H70z" fill="#5f7e86"/>
+    <path d="M62 104c0-10 5-14 12-14s12 4 12 14v40H62zM146 104c0-10 5-14 12-14s12 4 12 14v40h-24z" fill="#4e6b73"/>
+    <path d="M62 132h108v26H62z" fill="#6d8d95"/>
+    <path d="M78 108h76v26H78z" fill="#7b9ba3"/>
+    <path d="M78 108h76v8H78z" fill="#8daab1"/>
+    <rect x="70" y="156" width="10" height="16" rx="3" fill="#7a6b54"/>
+    <rect x="152" y="156" width="10" height="16" rx="3" fill="#7a6b54"/>
+    <circle cx="116" cy="120" r="6" fill="#cfe0e4" opacity=".5"/>
+  </symbol>
+
+  <!-- Exhibition: a framed canvas on a gallery wall -->
+  <symbol id="art-gallery" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="180" rx="84" ry="9" fill="#000" opacity=".06"/>
+    <rect x="62" y="28" width="136" height="104" rx="4" fill="#6f6455"/>
+    <rect x="74" y="40" width="112" height="80" rx="2" fill="#f7f4ee"/>
+    <path d="M74 96l30-30 22 22 20-18 40 34v16H74z" fill="#9fb7a4"/>
+    <circle cx="112" cy="62" r="10" fill="#e0a24b"/>
+    <path d="M74 108l26-16 26 14 26-16 34 20v10H74z" fill="#7d9a86"/>
+    <rect x="106" y="146" width="48" height="8" rx="2" fill="#d8d2c6"/>
+    <rect x="118" y="140" width="24" height="8" rx="2" fill="#e6e1d7"/>
+    <rect x="100" y="152" width="60" height="6" rx="3" fill="#c4bdae"/>
+  </symbol>
+
+  <!-- Free night: a museum facade -->
+  <symbol id="art-museum" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="180" rx="90" ry="9" fill="#000" opacity=".06"/>
+    <path d="M130 24l84 34H46z" fill="#e3ddd1"/>
+    <path d="M130 24l84 34h-84z" fill="#cfc8b9"/>
+    <rect x="52" y="58" width="156" height="10" rx="2" fill="#f0ebe0"/>
+    <rect x="66" y="72" width="16" height="72" rx="4" fill="#eae4d8"/>
+    <rect x="98" y="72" width="16" height="72" rx="4" fill="#eae4d8"/>
+    <rect x="130" y="72" width="16" height="72" rx="4" fill="#ded7c9"/>
+    <rect x="162" y="72" width="16" height="72" rx="4" fill="#ded7c9"/>
+    <rect x="52" y="144" width="156" height="12" rx="2" fill="#f0ebe0"/>
+    <rect x="44" y="156" width="172" height="12" rx="3" fill="#ddd6c7"/>
+    <rect x="112" y="90" width="36" height="54" rx="2" fill="#3f4a55" opacity=".18"/>
+    <circle cx="130" cy="46" r="5" fill="#f2c14e"/>
+  </symbol>
+
+  <!-- Festival: a string of lanterns over a marquee arch -->
+  <symbol id="art-festival" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="178" rx="80" ry="9" fill="#000" opacity=".06"/>
+    <path d="M34 44c40 26 152 26 192 0" stroke="#8a8272" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <circle cx="66" cy="60" r="11" fill="#e8724a"/>
+    <circle cx="98" cy="70" r="11" fill="#f2c14e"/>
+    <circle cx="130" cy="74" r="11" fill="#7fa653"/>
+    <circle cx="162" cy="70" r="11" fill="#5f8fb0"/>
+    <circle cx="194" cy="60" r="11" fill="#c96a86"/>
+    <path d="M78 110h104v58H78z" fill="#efe9dd"/>
+    <path d="M78 110h104l-10-16H88z" fill="#dcd4c4"/>
+    <rect x="94" y="126" width="72" height="30" rx="3" fill="#42505c" opacity=".16"/>
+    <rect x="102" y="134" width="56" height="5" rx="2.5" fill="#8a8272" opacity=".6"/>
+    <rect x="112" y="146" width="36" height="5" rx="2.5" fill="#8a8272" opacity=".6"/>
+    <rect x="70" y="164" width="120" height="8" rx="3" fill="#d5cdbd"/>
+  </symbol>
+
+  <!-- Books: a stack on a table -->
+  <symbol id="art-books" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="178" rx="80" ry="9" fill="#000" opacity=".06"/>
+    <path d="M64 150h132v14H64z" fill="#d8d1c2"/>
+    <path d="M64 150h132l-8-10H72z" fill="#e6e0d2"/>
+    <rect x="76" y="122" width="108" height="18" rx="3" fill="#5f8fb0"/>
+    <rect x="76" y="122" width="108" height="6" rx="3" fill="#7aa6c4"/>
+    <rect x="84" y="104" width="94" height="18" rx="3" fill="#c96a86"/>
+    <rect x="84" y="104" width="94" height="6" rx="3" fill="#dd8ba2"/>
+    <rect x="80" y="86" width="102" height="18" rx="3" fill="#e0a24b"/>
+    <rect x="80" y="86" width="102" height="6" rx="3" fill="#efbb6f"/>
+    <path d="M110 60l22 10 22-10v26l-22 10-22-10z" fill="#f4f0e6"/>
+    <path d="M132 70v26" stroke="#c9c0ae" stroke-width="2"/>
+    <rect x="170" y="96" width="6" height="26" rx="3" fill="#d9584f"/>
+  </symbol>
+
+  <!-- Architecture: the tower on the skyline -->
+  <symbol id="art-architecture" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="180" rx="84" ry="9" fill="#000" opacity=".06"/>
+    <path d="M124 44h12l6 108h-24z" fill="#dcd6c9"/>
+    <path d="M130 44h6l6 108h-12z" fill="#c6bfaf"/>
+    <path d="M112 62h36l-6 14h-24z" fill="#b9b1a0"/>
+    <path d="M108 74c0-8 10-13 22-13s22 5 22 13v12c0 8-10 13-22 13s-22-5-22-13z" fill="#9fb7a4"/>
+    <path d="M108 80h44v6c0 8-10 13-22 13s-22-5-22-13z" fill="#87a08d"/>
+    <rect x="127" y="18" width="6" height="26" rx="3" fill="#a89f8d"/>
+    <path d="M116 152h28l4 16h-36z" fill="#cfc8b9"/>
+    <rect x="62" y="112" width="34" height="56" rx="3" fill="#e6e0d2"/>
+    <rect x="68" y="122" width="8" height="8" rx="2" fill="#b6ae9c"/>
+    <rect x="82" y="122" width="8" height="8" rx="2" fill="#b6ae9c"/>
+    <rect x="68" y="138" width="8" height="8" rx="2" fill="#b6ae9c"/>
+    <rect x="82" y="138" width="8" height="8" rx="2" fill="#b6ae9c"/>
+    <rect x="166" y="126" width="30" height="42" rx="3" fill="#d5cdbd"/>
+    <rect x="172" y="136" width="8" height="8" rx="2" fill="#aaa290"/>
+    <rect x="184" y="136" width="6" height="8" rx="2" fill="#aaa290"/>
+    <rect x="52" y="166" width="156" height="8" rx="3" fill="#c9c1b1"/>
+  </symbol>
+
+  <!-- an assortment of objects, one per event -->
+  <symbol id="art-sculpture" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="66" ry="9" fill="#000" opacity=".06"/>
+    <rect x="94" y="140" width="72" height="28" rx="3" fill="#e6e0d2"/>
+    <rect x="94" y="140" width="72" height="7" rx="3" fill="#f2ece0"/>
+    <path d="M104 140V96a26 26 0 0 1 52 0v44h-16V98a10 10 0 0 0-20 0v42z" fill="#9fb7a4"/>
+    <circle cx="164" cy="80" r="20" fill="#e0a24b"/>
+    <circle cx="158" cy="74" r="6" fill="#fff" opacity=".3"/>
+  </symbol>
+
+  <symbol id="art-neon" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="70" ry="9" fill="#000" opacity=".06"/>
+    <rect x="62" y="44" width="136" height="112" rx="6" fill="#3c4450"/>
+    <path d="M88 122c0-34 18-52 42-52s42 18 42 52" stroke="#e8724a" stroke-width="9" fill="none" stroke-linecap="round"/>
+    <path d="M104 128c0-22 10-34 26-34" stroke="#f2c14e" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <circle cx="130" cy="70" r="5" fill="#fff" opacity=".55"/>
+  </symbol>
+
+  <symbol id="art-fossil" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="60" ry="9" fill="#000" opacity=".06"/>
+    <rect x="98" y="150" width="64" height="18" rx="3" fill="#e6e0d2"/>
+    <circle cx="130" cy="104" r="46" fill="#cfc8b9"/>
+    <path d="M130 104a30 30 0 1 1 22 50" stroke="#a89f8d" stroke-width="7" fill="none" stroke-linecap="round"/>
+    <path d="M130 104a18 18 0 1 0-14 29" stroke="#a89f8d" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M108 70l10 12M150 76l-10 12M96 116l14 4M164 112l-14 6" stroke="#b6ae9c" stroke-width="4" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="art-camera" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="172" rx="66" ry="9" fill="#000" opacity=".06"/>
+    <path d="M96 74h34l8-12h30v12h22a10 10 0 0 1 10 10v62a10 10 0 0 1-10 10H74a10 10 0 0 1-10-10V84a10 10 0 0 1 10-10z" fill="#4a5058"/>
+    <path d="M64 84a10 10 0 0 1 10-10h116a10 10 0 0 1 10 10v10H64z" fill="#5e656e"/>
+    <circle cx="130" cy="118" r="30" fill="#2f353c"/>
+    <circle cx="130" cy="118" r="20" fill="#5f8fb0"/>
+    <circle cx="122" cy="110" r="6" fill="#fff" opacity=".4"/>
+    <rect x="164" y="82" width="18" height="8" rx="4" fill="#d9584f"/>
+  </symbol>
+
+  <symbol id="art-vase" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="174" rx="52" ry="9" fill="#000" opacity=".06"/>
+    <path d="M118 44h24v14c0 6 22 18 22 48 0 34-16 60-34 60s-34-26-34-60c0-30 22-42 22-48z" fill="#f4f1e8"/>
+    <path d="M100 96c8-6 52-6 60 0-2 8-58 8-60 0z" fill="#5f8fb0" opacity=".7"/>
+    <path d="M96 130c14-8 54-8 68 0-4 10-64 10-68 0z" fill="#c96a86" opacity=".65"/>
+    <path d="M116 44h28v8h-28z" fill="#dcd6c9"/>
+    <circle cx="130" cy="114" r="7" fill="#e0a24b" opacity=".8"/>
+    <path d="M112 158c10 4 26 4 36 0" stroke="#7fa653" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+  </symbol>
+
+  <symbol id="art-arch" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="66" ry="9" fill="#000" opacity=".06"/>
+    <path d="M78 168V96a52 52 0 0 1 104 0v72z" fill="#e6e0d2"/>
+    <path d="M96 168v-70a34 34 0 0 1 68 0v70z" fill="#9fb7a4"/>
+    <path d="M112 168v-66a18 18 0 0 1 36 0v66z" fill="#f4f1e8"/>
+    <circle cx="130" cy="112" r="9" fill="#e0a24b" opacity=".8"/>
+    <path d="M130 128v40" stroke="#c9c1b1" stroke-width="3"/>
+    <rect x="70" y="164" width="120" height="8" rx="3" fill="#cfc8b9"/>
+  </symbol>
+
+  <symbol id="art-shoe" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="166" rx="76" ry="9" fill="#000" opacity=".06"/>
+    <path d="M74 154c-8 0-12-4-12-12V96c0-6 4-10 10-10h20l16 22 34 10c22 6 38 14 46 24 6 8 4 12-6 12z" fill="#8d5b3f"/>
+    <path d="M62 142h122c8 0 10 4 8 8-2 4-6 4-12 4H74c-8 0-12-4-12-12z" fill="#5c3a26"/>
+    <path d="M92 86l16 22-24 8-12-30z" fill="#a06f4e"/>
+    <path d="M108 112l14 4M120 120l14 4M132 128l14 5" stroke="#f4f1e8" stroke-width="3" stroke-linecap="round" opacity=".75"/>
+    <circle cx="86" cy="104" r="4" fill="#f2c14e"/>
+  </symbol>
+
+  <symbol id="art-bread" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="170" rx="76" ry="9" fill="#000" opacity=".06"/>
+    <rect x="52" y="148" width="156" height="12" rx="6" fill="#cba46a"/>
+    <path d="M70 148c-6-30 8-52 40-52s46 22 40 52z" fill="#e0a24b"/>
+    <path d="M84 118c8-10 18-14 32-14s24 4 32 14" stroke="#b5762f" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M158 148c0-16 12-30 30-30s22 14 20 30z" fill="#d9a961"/>
+    <path d="M166 132c8-4 20-4 28 0" stroke="#b5762f" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="art-ravine" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="80" ry="9" fill="#000" opacity=".06"/>
+    <path d="M96 34l30 84H66z" fill="#7fa653"/>
+    <path d="M96 66l24 68H72z" fill="#6f9a4b"/>
+    <rect x="90" y="118" width="12" height="26" rx="3" fill="#8d6c4a"/>
+    <path d="M172 60l26 74h-52z" fill="#93b06a"/>
+    <rect x="166" y="134" width="12" height="22" rx="3" fill="#8d6c4a"/>
+    <path d="M48 168c34-14 74-16 112-8 22 4 40 4 56-2" stroke="#cfc8b9" stroke-width="9" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="art-corn" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="172" rx="66" ry="9" fill="#000" opacity=".06"/>
+    <path d="M86 116h88l-10 48H96z" fill="#cba46a"/>
+    <path d="M86 116h88l-4 12H90z" fill="#e0bd88"/>
+    <path d="M112 116c-10-30-2-54 10-54s20 24 10 54z" fill="#f2c14e"/>
+    <path d="M122 70v42M114 78v34M130 78v34" stroke="#dba62c" stroke-width="3" stroke-linecap="round"/>
+    <path d="M140 116c-4-24 6-40 22-40 8 0 10 18 0 40z" fill="#e8c869"/>
+    <path d="M108 112c-16-8-24-24-20-36 12 0 22 14 24 30z" fill="#7fa653"/>
+  </symbol>
+
+  <symbol id="art-jar" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="174" rx="52" ry="9" fill="#000" opacity=".06"/>
+    <rect x="96" y="58" width="68" height="16" rx="6" fill="#c96a86"/>
+    <path d="M100 74h60a10 10 0 0 1 10 10v70a10 10 0 0 1-10 10h-60a10 10 0 0 1-10-10V84a10 10 0 0 1 10-10z" fill="#f4f1e8"/>
+    <path d="M96 104h68v50a10 10 0 0 1-10 10h-48a10 10 0 0 1-10-10z" fill="#e0a24b"/>
+    <rect x="104" y="112" width="52" height="26" rx="4" fill="#f4f1e8" opacity=".75"/>
+    <path d="M116 122h28M116 130h20" stroke="#c9a06a" stroke-width="3" stroke-linecap="round"/>
+  </symbol>
+
+  <symbol id="art-cannon" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="172" rx="72" ry="9" fill="#000" opacity=".06"/>
+    <path d="M74 106h96l24 10-24 10H74z" fill="#4a5058"/>
+    <circle cx="196" cy="116" r="9" fill="#2f353c"/>
+    <path d="M62 118h84l-10 34H72z" fill="#8d6c4a"/>
+    <path d="M62 118h84l-3 10H65z" fill="#a5825c"/>
+    <circle cx="88" cy="150" r="15" fill="#6f5637"/><circle cx="88" cy="150" r="5" fill="#a5825c"/>
+    <circle cx="136" cy="150" r="15" fill="#6f5637"/><circle cx="136" cy="150" r="5" fill="#a5825c"/>
+    <circle cx="62" cy="96" r="9" fill="#3b3b3b"/>
+  </symbol>
+
+  <symbol id="art-house" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="72" ry="9" fill="#000" opacity=".06"/>
+    <path d="M130 40l70 48H60z" fill="#8d5b3f"/>
+    <path d="M130 40l70 48h-70z" fill="#75492f"/>
+    <rect x="72" y="88" width="116" height="80" rx="3" fill="#efe9dd"/>
+    <rect x="118" y="120" width="24" height="48" rx="2" fill="#6f5637"/>
+    <rect x="86" y="104" width="22" height="24" rx="2" fill="#9fb7a4"/>
+    <rect x="152" y="104" width="22" height="24" rx="2" fill="#9fb7a4"/>
+    <rect x="86" y="140" width="22" height="18" rx="2" fill="#c9d9e0"/>
+    <rect x="152" y="140" width="22" height="18" rx="2" fill="#c9d9e0"/>
+    <rect x="160" y="44" width="14" height="26" rx="2" fill="#a5825c"/>
+    <rect x="62" y="164" width="136" height="8" rx="3" fill="#d5cdbd"/>
+  </symbol>
+
+  <symbol id="art-tent" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="174" rx="80" ry="9" fill="#000" opacity=".06"/>
+    <path d="M130 46l72 106H58z" fill="#f4f1e8"/>
+    <path d="M130 46l24 106h-48z" fill="#d9584f" opacity=".85"/>
+    <path d="M94 152l18-78 12 78zM148 74l18 78h-30z" fill="#dfe8f5" opacity=".7"/>
+    <rect x="48" y="150" width="164" height="10" rx="4" fill="#cfc8b9"/>
+    <path d="M130 46v-14" stroke="#a89f8d" stroke-width="4" stroke-linecap="round"/>
+    <path d="M132 32h22l-6 8 6 8h-22z" fill="#f2c14e"/>
+  </symbol>
+
+  <symbol id="art-filmreel" viewBox="0 0 260 200">
+    <ellipse cx="126" cy="176" rx="66" ry="9" fill="#000" opacity=".06"/>
+    <circle cx="120" cy="104" r="58" fill="#3c4450"/>
+    <circle cx="120" cy="104" r="12" fill="#e6e0d2"/>
+    <circle cx="120" cy="70" r="12" fill="#5e656e"/><circle cx="120" cy="138" r="12" fill="#5e656e"/>
+    <circle cx="86" cy="104" r="12" fill="#5e656e"/><circle cx="154" cy="104" r="12" fill="#5e656e"/>
+    <path d="M170 128h64v40h-64z" fill="#4a5058"/>
+    <path d="M176 134h8v6h-8zM192 134h8v6h-8zM208 134h8v6h-8zM176 156h8v6h-8zM192 156h8v6h-8zM208 156h8v6h-8z" fill="#e6e0d2"/>
+  </symbol>
+
+  <symbol id="art-tree" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="62" ry="9" fill="#000" opacity=".06"/>
+    <rect x="120" y="146" width="20" height="22" rx="3" fill="#8d6c4a"/>
+    <path d="M130 32l34 50h-68zM130 66l42 44H88zM130 102l50 46H80z" fill="#5f8a4e"/>
+    <circle cx="112" cy="76" r="5" fill="#d9584f"/><circle cx="148" cy="94" r="5" fill="#f2c14e"/>
+    <circle cx="106" cy="118" r="5" fill="#5f8fb0"/><circle cx="152" cy="130" r="5" fill="#d9584f"/>
+    <circle cx="130" cy="106" r="5" fill="#f2c14e"/>
+    <path d="M130 12l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="#f2c14e"/>
+    <rect x="100" y="164" width="60" height="8" rx="3" fill="#d5cdbd"/>
+  </symbol>
+
+  <symbol id="art-records" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="174" rx="72" ry="9" fill="#000" opacity=".06"/>
+    <circle cx="150" cy="80" r="42" fill="#2f353c"/>
+    <circle cx="150" cy="80" r="14" fill="#d9584f"/><circle cx="150" cy="80" r="3" fill="#f4f1e8"/>
+    <path d="M66 92h96v72H66z" fill="#cba46a"/>
+    <path d="M66 92h96l-8-8H74z" fill="#e0bd88"/>
+    <rect x="76" y="100" width="76" height="56" rx="2" fill="#5f8fb0"/>
+    <rect x="84" y="100" width="60" height="56" rx="2" fill="#c96a86"/>
+    <rect x="92" y="100" width="44" height="56" rx="2" fill="#f2c14e"/>
+    <rect x="58" y="160" width="112" height="8" rx="3" fill="#b09468"/>
+  </symbol>
+
+  <symbol id="art-lamp" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="52" ry="9" fill="#000" opacity=".06"/>
+    <path d="M96 84h68l-14-42h-40z" fill="#e6c98f"/>
+    <path d="M96 84h68l-5 8H101z" fill="#cdae72"/>
+    <rect x="126" y="92" width="8" height="72" rx="4" fill="#a8977d"/>
+    <path d="M104 164h52l-6 8h-40z" fill="#8d7f6a"/>
+    <circle cx="130" cy="100" r="10" fill="#f2c14e" opacity=".5"/>
+    <path d="M118 46h24" stroke="#f4f1e8" stroke-width="3" stroke-linecap="round" opacity=".7"/>
+  </symbol>
+
+  <symbol id="art-skates" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="172" rx="66" ry="9" fill="#000" opacity=".06"/>
+    <path d="M92 48h44c8 0 12 5 12 12v56H80V60c0-7 5-12 12-12z" fill="#f4f1e8"/>
+    <path d="M80 116h68v18c0 6-4 10-10 10H90c-6 0-10-4-10-10z" fill="#dcd6c9"/>
+    <path d="M96 56h36M96 68h36M96 80h36" stroke="#b6ae9c" stroke-width="3" stroke-linecap="round"/>
+    <path d="M84 144h60v10H84z" fill="#8d8577"/>
+    <path d="M78 154h74c4 0 6 3 6 6s-2 6-6 6H78c-4 0-6-3-6-6s2-6 6-6z" fill="#b9c9d1"/>
+    <circle cx="88" cy="160" r="3" fill="#8d8577"/><circle cx="142" cy="160" r="3" fill="#8d8577"/>
+  </symbol>
+
+  <symbol id="art-star" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="46" ry="8" fill="#000" opacity=".06"/>
+    <rect x="126" y="104" width="8" height="64" rx="4" fill="#a8977d"/>
+    <path d="M130 26l14 38 38 14-38 14-14 38-14-38-38-14 38-14z" fill="#f2c14e"/>
+    <path d="M130 56l6 16 16 6-16 6-6 16-6-16-16-6 16-6z" fill="#fff" opacity=".55"/>
+    <circle cx="72" cy="52" r="6" fill="#e8724a"/>
+    <circle cx="192" cy="66" r="5" fill="#5f8fb0"/>
+    <circle cx="84" cy="112" r="4" fill="#c96a86"/>
+  </symbol>
+
+  <symbol id="art-mic" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="52" ry="9" fill="#000" opacity=".06"/>
+    <rect x="112" y="34" width="36" height="66" rx="18" fill="#4a5058"/>
+    <path d="M116 44h28M116 58h28M116 72h28" stroke="#8d949c" stroke-width="3" stroke-linecap="round"/>
+    <path d="M96 86c0 20 15 32 34 32s34-12 34-32" stroke="#5e656e" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <rect x="126" y="118" width="8" height="44" rx="4" fill="#8d949c"/>
+    <path d="M100 162h60l6 8h-72z" fill="#4a5058"/>
+  </symbol>
+
+  <symbol id="art-lantern" viewBox="0 0 260 200">
+    <ellipse cx="130" cy="176" rx="46" ry="8" fill="#000" opacity=".06"/>
+    <path d="M46 40c30 10 60 14 92 12" stroke="#8a8272" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <rect x="126" y="44" width="8" height="10" rx="3" fill="#8a8272"/>
+    <path d="M100 66h60l-8-12h-44z" fill="#d9584f"/>
+    <path d="M96 66h68v46c0 12-15 20-34 20s-34-8-34-20z" fill="#e8724a"/>
+    <path d="M114 66v52M130 66v56M146 66v52" stroke="#c94f36" stroke-width="3" opacity=".7"/>
+    <path d="M108 132h44l-4 12h-36z" fill="#c94f36"/>
+    <rect x="126" y="144" width="8" height="24" rx="3" fill="#a8977d"/>
+    <circle cx="130" cy="98" r="12" fill="#f2c14e" opacity=".55"/>
+  </symbol>
+</svg>
+
+<!-- --------------------------------------------------------------- board -->
+<main class="board" id="board">
+
+  <section class="col col--about" aria-labelledby="about-head">
+    <header class="col__head">
+      <h1 class="col__title" id="about-head">About</h1>
+    </header>
+
+    <div class="about">
+      <svg class="about__art" viewBox="0 0 260 200" role="img" aria-label="A Toronto streetcar"><use href="#art-streetcar"/></svg>
+
+      <h2 class="about__lede">What should we do today?</h2>
+
+      <p>I’ve been getting to know Toronto one weekend at a time — through galleries,
+      farmers’ markets, and whatever catches my eye on the walk home.</p>
+
+      <p>Then I found out how many museums here have free nights. I started this calendar
+      to keep track of those, the markets I want to wander through, and the shows worth
+      crossing town for (I’m still stubborn about what a day out should cost).</p>
+
+      <p>Everything on it is free, cheap, or at least worth the fare. The columns run from
+      today outward, so the answer to the question is always the leftmost card.</p>
+
+      <p class="about__note">A Toronto recreation of
+      <a href="https://senyil.com/what-should-we-do-today/">What should we do today?</a>
+      by Muharrem Şenyıl. The listings are seed data for the 2026 season — check the
+      venue before you go.</p>
+    </div>
+  </section>
+
+  <!-- time-window columns are rendered here -->
+</main>
+
+<!-- ---------------------------------------------------------------- dock -->
+<div class="dock">
+  <button class="dock__nav" id="nav-prev" type="button" aria-label="Scroll to the previous column" hidden>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+
+  <button class="dock__filter" id="filter-toggle" type="button" aria-expanded="false" aria-controls="filter-panel">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 8h10M18 8h2M4 16h4M12 16h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="16" cy="8" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="10" cy="16" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    </svg>
+    <span>Filter</span>
+  </button>
+
+  <button class="dock__nav" id="nav-next" type="button" aria-label="Scroll to the next column">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<div class="sheet" id="filter-panel" role="dialog" aria-modal="true" aria-labelledby="filter-heading" hidden>
+  <div class="sheet__head">
+    <h2 class="sheet__title" id="filter-heading">Filter</h2>
+    <button class="round-close" id="filter-close" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="sheet__rows" id="filter-rows"></div>
+  <div class="sheet__foot">
+    <button class="btn btn--quiet" id="filter-reset" type="button">Reset</button>
+    <button class="btn btn--solid" id="filter-apply" type="button">Apply</button>
+  </div>
+</div>
+
+<!-- --------------------------------------------------------------- modal -->
+<div class="scrim" id="scrim" hidden></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <button class="round-close modal__close" id="modal-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+  </button>
+  <h2 class="modal__title" id="modal-title"></h2>
+  <div class="modal__art" id="modal-art"></div>
+  <p class="modal__desc" id="modal-desc"></p>
+  <a class="link" id="modal-link" href="#">View event</a>
+  <dl class="modal__meta">
+    <dt>When</dt><dd id="modal-when"></dd>
+    <dt>Where</dt><dd id="modal-where"></dd>
+  </dl>
+  <a class="link" id="modal-map" href="#" target="_blank" rel="noopener">Open in Maps</a>
+</div>
+
+<p class="visually-hidden" id="status" role="status" aria-live="polite"></p>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
