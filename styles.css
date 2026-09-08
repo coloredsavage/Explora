@@ -134,11 +134,17 @@ a { color: inherit; }
 
 .about {
   max-width: 560px;
-  padding: 2px calc(26px + var(--safe-r)) calc(124px + var(--safe-b)) calc(26px + var(--safe-l));
+  padding: 36px calc(26px + var(--safe-r)) calc(124px + var(--safe-b)) calc(26px + var(--safe-l));
 }
 
-.about__art { display: block; width: 300px; height: auto; margin: 0 0 30px; }
-svg.about__art { width: 240px; height: 236px; }   /* the drawn fallback keeps the reference's square */
+.about__art {
+  display: block;
+  width: 420px;
+  max-width: 100%;          /* a phone's column is narrower than the image */
+  height: auto;
+  margin: 0 0 34px;
+}
+svg.about__art { width: 340px; height: auto; }
 
 .about__lede {
   margin: 0 0 24px;
