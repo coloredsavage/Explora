@@ -21,16 +21,18 @@ npx http-server .
 The system stack behind it is a fallback for the moment before the file lands,
 not a second design.
 
-Two weights, 400 and 500. Both are preloaded: the body is regular, and the
-sidebar heading and copy are medium, so both are needed for first paint.
+One weight, medium — body, cards, headings, all of it — so one weight is all
+that ships. Headings still name it explicitly, because they are `h1`/`h2`/`h3`
+and the browser would otherwise make them bold, and there is no bold file to
+be bold with. It is preloaded, being needed for first paint.
 `font-display: swap` means text paints immediately in the fallback and reflows
 when Inter arrives, rather than holding the page blank.
 
-Four files, not two, because of `unicode-range`. The latin subset covers the
+Two files, not one, because of `unicode-range`. The latin subset covers the
 page; the latin-ext subset exists for one line — "Muharrem Şenyıl" in the
 credit — and `unicode-range` keeps it off the wire for anyone whose page never
-renders those glyphs. Both the latin and the ext faces carry a range, because a
-face declared without one claims every codepoint and would win the match.
+renders those glyphs. Both faces carry a range, because a face declared
+without one claims every codepoint and would win the match.
 
 Do not add SF Pro font files to this repository. Apple's licence covers
 designing and mocking up interfaces for Apple platforms; it does not permit
