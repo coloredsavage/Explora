@@ -80,6 +80,14 @@ jobs:
           git checkout -B "$branch"
           git add scraped.js
           git commit -m "Polled event sources on $(date -u +%Y-%m-%d)"
+
+          # The checkout is shallow and fetches only the default branch, so if
+          # today's poll branch already exists on the remote there is no
+          # tracking ref for --force-with-lease to compare against and it
+          # refuses with "stale info". Fetch the ref first so the lease has a
+          # basis. poll/* is bot-owned and disposable: each run rebuilds it
+          # from main as a single commit, so replacing it is the intent.
+          git fetch origin "+refs/heads/$branch:refs/remotes/origin/$branch" 2>/dev/null || true
           git push --force-with-lease -u origin "$branch"
 
           if [ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
