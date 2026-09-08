@@ -27,9 +27,13 @@
     if (a.getMonth() === b.getMonth()) return fmtDay(a) + ' – ' + b.getDate();
     return fmtDay(a) + ' – ' + fmtDay(b);
   }
-  /* the modal spells both ends out: "Sep 11 – Sep 16" */
+  /* the modal spells both ends out: "Sep 11 – Sep 16", with the year when a
+     range runs into the next one ("Sep 2 – Jan 30, 2027") */
   function fmtSpanLong(a, b) {
-    return sameDay(a, b) ? fmtDay(a) : fmtDay(a) + ' – ' + fmtDay(b);
+    if (sameDay(a, b)) return fmtDay(a);
+    var end = fmtDay(b);
+    if (a.getFullYear() !== b.getFullYear()) end += ', ' + b.getFullYear();
+    return fmtDay(a) + ' – ' + end;
   }
   function fmtLongDate(d) {
     return MONTHS_LONG[d.getMonth()] + ' ' + d.getDate() + ', ' + d.getFullYear();
@@ -70,9 +74,11 @@
     if (cmp(limitFrom, limitTo) > 0) return out;
 
     if (s.kind === 'weekly') {
-      cursor = new Date(limitFrom);
-      cursor = addDays(cursor, (s.weekday - cursor.getDay() + 7) % 7);
-      while (cmp(cursor, limitTo) <= 0) { push(cursor, cursor); cursor = addDays(cursor, 7); }
+      var days = [].concat(s.weekday);
+      days.forEach(function (wd) {
+        var c = addDays(limitFrom, (wd - limitFrom.getDay() + 7) % 7);
+        while (cmp(c, limitTo) <= 0) { push(c, c); c = addDays(c, 7); }
+      });
       return out;
     }
 
@@ -147,7 +153,26 @@
     return n;
   }
 
+  /* a generated image if the event has one, else the drawn SVG object */
   function artFor(event) {
+    if (event.image) {
+      var img = document.createElement('img');
+      img.src = event.image;
+      img.alt = event.title;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      /* if the file is missing, fall back to the symbol rather than a broken icon */
+      img.addEventListener('error', function () {
+        var svg = symbolFor(event);
+        svg.setAttribute('class', img.getAttribute('class') || '');
+        if (img.parentNode) img.parentNode.replaceChild(svg, img);
+      });
+      return img;
+    }
+    return symbolFor(event);
+  }
+
+  function symbolFor(event) {
     var id = event.art || CATEGORIES[event.category].art;
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', '0 0 260 200');
@@ -184,9 +209,9 @@
 
     if (!seenArt[ev.id]) {
       seenArt[ev.id] = true;
-      var svg = artFor(ev);
-      svg.setAttribute('class', 'card__art');
-      btn.appendChild(svg);
+      var node = artFor(ev);
+      node.setAttribute('class', 'card__art');
+      btn.appendChild(node);
     }
     return btn;
   }
@@ -259,7 +284,9 @@
 
     var art = document.getElementById('modal-art');
     art.textContent = '';
-    art.appendChild(artFor(ev));
+    var artEl = artFor(ev);
+    artEl.setAttribute('class', 'modal__art-item');
+    art.appendChild(artEl);
 
     document.getElementById('modal-desc').textContent = ev.description;
 
@@ -274,6 +301,28 @@
     document.getElementById('modal-where').textContent = ev.venue + ', ' + ev.address;
     document.getElementById('modal-map').href =
       'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(ev.venue + ', ' + ev.address);
+
+    var caveat = document.getElementById('modal-caveat');
+    caveat.textContent = ev.unconfirmed || '';
+    caveat.hidden = !ev.unconfirmed;
+
+    var src = document.getElementById('modal-source');
+    if (ev.source) {
+      src.hidden = false;
+      var host = ev.source.replace(/^https?:\/\//, '').split('/')[0];
+      src.innerHTML = '';
+      src.appendChild(document.createTextNode('Checked against '));
+      var a = document.createElement('a');
+      a.href = ev.source;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.textContent = host;
+      src.appendChild(a);
+      src.appendChild(document.createTextNode(
+        ev.checked ? ' on ' + fmtLongDate(fromISO(ev.checked)) : ''));
+    } else {
+      src.hidden = true;
+    }
 
     lastFocus = document.activeElement;
     scrim.hidden = false;

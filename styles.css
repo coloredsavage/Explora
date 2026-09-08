@@ -183,6 +183,7 @@ a { color: inherit; }
   height: auto;
   margin: 26px auto 8px;
 }
+img.card__art { border-radius: 8px; }
 
 /* ------------------------------------------------------------------- dock */
 
@@ -342,7 +343,7 @@ a { color: inherit; }
 }
 
 .modal__art { margin: 0 0 26px; }
-.modal__art svg { display: block; width: min(300px, 72%); height: auto; margin: 0 auto; }
+.modal__art-item { display: block; width: min(300px, 72%); height: auto; margin: 0 auto; }
 
 .modal__desc {
   margin: 0 0 22px;
@@ -359,6 +360,23 @@ a { color: inherit; }
   padding-bottom: 1px;
 }
 .link:hover { border-bottom-color: var(--ink); }
+
+.modal__caveat {
+  margin: 24px 0 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fbf2e4;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #6b5a3c;
+}
+
+.modal__source {
+  margin: 22px 0 0;
+  font-size: 14px;
+  color: #8d8d8d;
+}
+.modal__source a { color: inherit; }
 
 .modal__meta { margin: 26px 0 22px; }
 .modal__meta dt { font-size: 15px; color: var(--ink-soft); }

@@ -23,6 +23,8 @@ npx http-server what-should-we-do-today
 | `styles.css` | Design tokens, the column board, cards, filter sheet, event modal |
 | `data.js` | `CATEGORIES` and `EVENTS` — the only file you edit to change listings |
 | `app.js` | Expands schedules into occurrences, renders the columns, drives the filter and modal |
+| `art/prompts.json` | One image prompt per event, plus the shared style string |
+| `scripts/generate-art.mjs` | Generates `art/<id>.png` and wires it into `data.js` |
 
 ### Adding an event
 
@@ -36,7 +38,10 @@ Append an entry to `EVENTS` in `data.js`:
   art: 'art-lamp',                           // any <symbol> id in index.html
   venue: 'Kensington Market',
   address: 'Augusta Ave & Baldwin St, Toronto, ON M5T 2L7',
-  url: 'https://www.pskensington.ca/',
+  url: 'https://www.pskensington.ca/',       // where a visitor should go
+  source: 'https://www.todocanada.ca/...',   // where the schedule was confirmed
+  checked: '2026-09-08',                     // when it was last confirmed
+  unconfirmed: 'Date not yet posted…',       // optional; shows a caution in the modal
   description: 'Cars out, everyone else in.',
   schedule: { kind: 'nth', weekday: 0, nth: -1, from: '2026-05-01', to: '2026-10-31',
               time: '12–7pm', hour: 12 },
@@ -49,7 +54,7 @@ Four schedule shapes, all expanded at load:
 | --- | --- | --- |
 | `range` | `start`, `end` | Exhibitions, festivals spanning days |
 | `day` | `date`, `time?`, `hour?` | One-offs — a parade, a solstice walk |
-| `weekly` | `weekday` (0 = Sunday), `from`, `to`, `time?`, `hour?` | Markets, free nights |
+| `weekly` | `weekday` (0 = Sunday, or an array), `from`, `to`, `time?`, `hour?` | Markets, free nights, weekend openings |
 | `nth` | `weekday`, `nth` (1–5, or `-1` for last), `from`, `to`, `time?`, `hour?` | Monthly fleas |
 
 `hour` is only used to sort same-day cards; `time` is the string the card shows.
@@ -67,9 +72,63 @@ Four schedule shapes, all expanded at load:
 - Choices persist in `localStorage` under `wswdt.categories`.
 - `#<event-id>` in the URL opens that event's modal on load.
 
-## About the listings
+## Where the listings come from
 
-The events are real Toronto fixtures, but **the dates in `data.js` are seed data
-for the 2026 season and have not been verified against each venue**. Free-night
-hours in particular drift year to year. Check before you go, or wire `EVENTS` up
-to a real source.
+Every event carries `source` (the page its schedule was confirmed against) and
+`checked` (the date). The modal renders that as a line at the bottom — *Checked
+against ago.ca on September 8, 2026* — so anyone reading the page can see how
+old the claim is. Where a date is a reasonable inference rather than a published
+fact, `unconfirmed` holds the explanation and the modal shows it as a caution.
+The Santa Claus Parade is the only entry currently carrying one.
+
+**Anything that could not be confirmed was left out**, not guessed. That is why
+there is no Power Plant entry (no fall 2026 dates published at time of checking),
+no Junction Flea (nothing scheduled past its May market) and no TD Gallery.
+
+### Re-checking
+
+The listings were confirmed on **2026-09-08**. They rot in predictable ways:
+
+| What | When it changes |
+| --- | --- |
+| Outdoor market seasons | Late April and late October, every year |
+| Exhibition runs | Each institution publishes a new season quarterly |
+| Festival dates | Announced 3–6 months ahead; most are a fixed weekday-of-month |
+| Free-night programs | Rarely, but the AGO moved from weekly to monthly — re-read the fine print, not just the day |
+
+Working through `EVENTS` and opening each `source` takes about half an hour. Bump
+`CHECKED` at the top of `data.js` when you finish a pass.
+
+## Illustrations
+
+Each event draws an object. By default that is one of the 30 inline SVG symbols
+in `index.html`, referenced by the event's `art` field. If an event also has an
+`image` field, that file is used instead, and a failed load falls back to the
+symbol — so a partial set of generated images is fine.
+
+To generate them:
+
+```sh
+OPENAI_API_KEY=sk-... node scripts/generate-art.mjs
+# or
+REPLICATE_API_TOKEN=... node scripts/generate-art.mjs --provider replicate
+```
+
+The script reads `art/prompts.json` — a shared style string plus a one-line
+subject per event — writes `art/<event-id>.png`, and adds the matching `image:`
+field to `data.js`. It skips files that already exist unless you pass `--force`,
+and `--dry-run` prints the prompts without calling anything.
+
+```sh
+node scripts/generate-art.mjs --dry-run --only tiff     # see one prompt
+node scripts/generate-art.mjs --only tiff --force       # redraw one event
+```
+
+Art-direct by editing the subject lines in `art/prompts.json`; the style string
+is what keeps 37 separately-generated images looking like one set, so change it
+for all of them or none.
+
+**The provider calls are untested** — the sandbox this was built in has no
+outbound network access, so `--dry-run` and the `data.js` wiring are verified but
+the two API paths are not. Expect to adjust the request bodies for whatever model
+you land on.
