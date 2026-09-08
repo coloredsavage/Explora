@@ -103,6 +103,10 @@ function dedupeAddress(venue, address) {
    whole sentences, and only as many as fit. */
 function trimDescription(text, limit = 220) {
   let s = String(text)
+    /* Some feeds escape their newlines twice, so the text arrives carrying a
+       literal backslash-n rather than a line break. Collapsing whitespace
+       cannot see those. */
+    .replace(/\\[nrt]/g, ' ')
     .replace(/^\s*\[[^\]]*\]\s*/, '')          /* a leading "[Note: ...]" aside */
     .replace(/\s*\(https?:\/\/[^)]+\)/g, '')     /* inline link parentheses */
     .replace(/\s+/g, ' ')
@@ -114,9 +118,13 @@ function trimDescription(text, limit = 220) {
   for (const sentence of sentences) {
     if (out && (out + ' ' + sentence).length > limit) break;
     out = out ? out + ' ' + sentence : sentence;
+    if (out.length >= limit) break;
   }
-  if (!out) out = s.slice(0, limit).replace(/\s+\S*$/, '');
-  return out.length < s.length ? out.replace(/[\s.]+$/, '') + '…' : out;
+  /* One sentence can be longer than the whole budget — the loop above always
+     takes the first, so cut it back to a word boundary. */
+  if (out.length > limit) out = out.slice(0, limit).replace(/\s+\S*$/, '');
+
+  return out.length < s.length ? out.replace(/[\s.,;:]+$/, '') + '…' : out;
 }
 
 export function validate(event) {

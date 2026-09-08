@@ -129,6 +129,17 @@ check('leaves a short description untouched', () =>
 check('drops a leading bracketed aside', () =>
   assert.match(tidy({ venue: 'V', address: '1 King St W, Toronto, ON',
     description: '[Note: drinks extra] The actual description.' }).description, /^The actual/));
+check('cuts a single over-long sentence at a word boundary', () => {
+  const d = tidy({ venue: 'V', address: '1 King St W, Toronto, ON',
+    description: 'Join actor and activist Laverne Cox and philosopher Jason Stanley for a conversation about the political forces reshaping identity, power and public life in our time, and what it means for the future of democracy and belonging today.' }).description;
+  assert.ok(d.length <= 225, `got ${d.length}`);
+  assert.match(d, /…$/);
+});
+check('unescapes a doubly-escaped newline', () => {
+  const d = tidy({ venue: 'V', address: '1 King St W, Toronto, ON',
+    description: '\\nJoin us for a talk.' }).description;
+  assert.equal(d, 'Join us for a talk.');
+});
 check('falls back when there is no description', () =>
   assert.match(tidy({ venue: 'V', address: '1 King St W, Toronto, ON' }).description, /^Listed by/));
 
