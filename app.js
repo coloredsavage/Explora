@@ -199,10 +199,9 @@
       pick: priceOf },
   ];
 
-  /* Counted over the listings that actually reach the board — the ones with at
-     least one occurrence between today and year end — rather than over
-     everything in the file. A chip promising eight when the eighth is a
-     finished event nobody can scroll to would be a wrong number. */
+  /* The listings that actually reach the board — the ones with at least one
+     occurrence between today and year end — rather than everything in the
+     file. A finished event nobody can scroll to should not shape the filter. */
   var ON_BOARD = [];
   (function () {
     var seen = {};
@@ -213,31 +212,22 @@
     });
   }());
 
-  /* Each group covers only the values those listings contain, and carries the
-     count of them. A chip nobody can match is a trap — tick it alone and the
-     board goes blank with no way to tell a filter from an empty calendar — so
-     today there is no "Under $20" chip, because nothing costs between a penny
-     and twenty dollars, and none for "Meetups", because nothing is one. Both
-     appear on their own the day something lands in them.
+  /* Each group covers only the values those listings contain. A chip nobody
+     can match is a trap — tick it alone and the board goes blank with no way
+     to tell a filter from an empty calendar — so today there is no "Under $20"
+     chip, because nothing costs between a penny and twenty dollars, and none
+     for "Meetups", because nothing is one. Both appear on their own the day
+     something lands in them.
 
      They are dropped from the state, not just from the sheet. A value that is
      hidden but still held at true reads as a tick nobody can see or clear,
      and it defeats the empty-group guard below: every visible category off
      plus an invisible one on is not "no categories chosen", so the guard
-     would not fire and the board would go empty.
-
-     The counts are totals for the whole calendar, not narrowed by whatever
-     else is ticked. Numbers that moved as you ticked would be more useful in
-     a shop, where you are converging on one thing; here they answer "how much
-     of this is there at all", and a number that stays put while you decide is
-     easier to read than one that reshuffles under your finger. */
+     would not fire and the board would go empty. */
   GROUPS.forEach(function (g) {
-    g.count = {};
-    ON_BOARD.forEach(function (ev) {
-      var k = g.pick(ev);
-      g.count[k] = (g.count[k] || 0) + 1;
+    g.keys = Object.keys(g.of).filter(function (key) {
+      return ON_BOARD.some(function (ev) { return g.pick(ev) === key; });
     });
-    g.keys = Object.keys(g.of).filter(function (key) { return g.count[key] > 0; });
   });
 
   var active = {};
@@ -505,10 +495,6 @@
       var box = document.createElement('input');
       box.type = 'checkbox';
       box.checked = pending[g.key][key];
-      /* Spelled out, because the visible row reads as "Free 29" and a bare
-         number spoken after a label could be anything — a price, for one. */
-      box.setAttribute('aria-label',
-        g.of[key].label + ', ' + g.count[key] + ' listing' + (g.count[key] === 1 ? '' : 's'));
       box.addEventListener('change', function () { pending[g.key][key] = box.checked; });
 
       var tick = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -526,7 +512,6 @@
 
       row.appendChild(box);
       row.appendChild(el('span', 'filter-row__label', g.of[key].label));
-      row.appendChild(el('span', 'filter-row__count', String(g.count[key])));
       row.appendChild(tick);
       fRows.appendChild(row);
     });
