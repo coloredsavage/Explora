@@ -89,7 +89,7 @@ export function candidateLinks(html, base, pattern, max) {
   while ((m = re.exec(html)) !== null) {
     let url;
     try { url = new URL(m[1], base).toString(); } catch { continue; }
-    if (pattern.test(url)) found.add(url);
+    if (pattern.test(url) && url !== base && url !== base.replace(/\/$/, '')) found.add(url);
     if (found.size >= max) break;
   }
   return [...found];

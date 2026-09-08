@@ -143,7 +143,8 @@ Extraction is tried in the order that costs least and breaks least:
 Then everything meets the same gates, and anything that fails one is **dropped
 and reported, never published half-known**. It needs a title, a parseable date
 that has not already passed, a real venue and address — not `TBD`, not
-"somewhere spooky" — and the address has to place it **in Toronto**. Sources
+"somewhere spooky", not `Online` — and the address has to place it **in
+Toronto**. Sources
 list wherever they like: the first live poll of Wygo returned two events in
 Waterloo, which is why that last gate exists. Each survivor records the URL it
 was read from in `source` and the date in `checked`.
@@ -172,9 +173,17 @@ Append to `SOURCES` in `scrape/sources.mjs`:
 }
 ```
 
+`maxEvents` caps how many listings one source may contribute to a single
+review — a city-wide aggregator will otherwise bury a 40-line calendar under
+200 rows, and a pull request nobody reads is the same as no review at all.
+Soonest events survive the cap.
+
 Check the site's terms and `robots.txt` first — the poller honours `Disallow`
 rules for `*` and waits 1.5s between pages, but that is politeness, not
-permission. Set `enabled: false` to park a source without deleting it.
+permission, and the big ticketing platforms restrict automated access in their
+terms regardless of what `robots.txt` says. `npm run discover` reports the
+`robots.txt` verdict per source before you commit to one. Set `enabled: false`
+to park a source without deleting it.
 
 ## Where the listings come from
 

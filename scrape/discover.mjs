@@ -17,7 +17,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { enabledSources } from './sources.mjs';
-import { jsonLdBlocks, readableText } from './extract.mjs';
+import { jsonLdBlocks, readableText, candidateLinks } from './extract.mjs';
+import { allowedBy } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const only = process.argv.slice(2).filter((a) => !a.startsWith('-'));
@@ -66,6 +67,12 @@ for (const source of enabledSources()) {
 
   const report = { source: source.id, url: source.url };
   try {
+    const fetchText = async (u) => {
+      const r = await page.goto(u, { waitUntil: 'domcontentloaded', timeout: 30000 });
+      return r && r.ok() ? page.content() : null;
+    };
+    report.robots = await allowedBy(fetchText, source.url);
+
     const res = await page.goto(source.url, { waitUntil: 'networkidle', timeout: 45000 });
     report.status = res ? res.status() : null;
     const html = await page.content();
@@ -77,6 +84,7 @@ for (const source of enabledSources()) {
       types: [...new Set(ld.map((n) => [].concat(n['@type'] ?? []).join('/')))].slice(0, 10),
     };
     report.jsonApis = apis.sort((a, b) => b.points - a.points).slice(0, 5);
+    report.followable = candidateLinks(html, source.url, source.followLinks, source.maxFollow ?? 0).length;
     report.textSample = readableText(html, 600);
     report.blocked = /just a moment|checking your browser|cf-chl|access denied/i.test(html);
   } catch (err) {
@@ -85,6 +93,7 @@ for (const source of enabledSources()) {
   await ctx.close();
 
   const verdict = report.error ? `could not load — ${report.error}`
+    : report.robots && !report.robots.allowed ? `robots.txt disallows ${report.robots.rule} — the poller will skip this`
     : report.blocked ? 'looks like a bot challenge — this is the case a VPS might fix'
     : report.jsonLd?.events > 0 ? `JSON-LD, ${report.jsonLd.events} events — free and exact, no key needed`
     : report.jsonApis?.length ? `a JSON API at ${report.jsonApis[0].url} — free, write a small adapter`
@@ -92,6 +101,8 @@ for (const source of enabledSources()) {
 
   console.log(`\n${source.id}  ${source.url}`);
   console.log(`  status     ${report.status ?? '—'}`);
+  console.log(`  robots     ${report.robots ? (report.robots.allowed ? 'allowed' : 'DISALLOWED ' + report.robots.rule) : '—'}`);
+  console.log(`  links      ${report.followable ?? 0} event pages to follow`);
   console.log(`  json-ld    ${report.jsonLd ? `${report.jsonLd.blocks} blocks, ${report.jsonLd.events} events` : '—'}`);
   console.log(`  json apis  ${report.jsonApis?.length ? report.jsonApis.map((a) => `${a.url} (${a.rows} rows)`).join('\n             ') : 'none that look like events'}`);
   console.log(`  verdict    ${verdict}`);

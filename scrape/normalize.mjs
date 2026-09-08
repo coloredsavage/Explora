@@ -20,6 +20,9 @@ const IN_TOWN = /\b(toronto|scarborough|etobicoke|north york|east york|york, on|
    address just because it is non-empty. */
 const PLACEHOLDER = /^\s*(tbd|tba|to be (announced|confirmed|determined)|unknown|n\/?a|various|somewhere\b.*)\s*$/i;
 
+/* A calendar that answers "what should we do today" has no use for a webinar. */
+const NOT_A_PLACE = /\b(online|virtual|webinar|zoom|livestream|remote|anywhere)\b/i;
+
 const asDate = (v) => {
   if (!v) return null;
   const d = String(v).slice(0, 10);
@@ -42,6 +45,7 @@ export function normalize(raw, source, { today, checked }) {
   if (PLACEHOLDER.test(venue)) return reject(`placeholder venue (${venue})`);
   if (!address) return reject('no address');
   if (PLACEHOLDER.test(address)) return reject(`placeholder address (${address})`);
+  if (NOT_A_PLACE.test(`${address} ${venue}`)) return reject(`not somewhere you can go (${venue})`);
   if (!IN_TOWN.test(`${address} ${venue}`)) return reject(`not in Toronto (${address})`);
   if (end && end < start) return reject('ends before it starts');
 

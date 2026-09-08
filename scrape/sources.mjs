@@ -21,6 +21,33 @@ export const SOURCES = [
     followLinks: /^https:\/\/wygo\.world\/(?!o\/)[a-z0-9-]+$/i,
     maxFollow: 12,
   },
+  {
+    id: 'luma',
+    name: 'Luma',
+    url: 'https://lu.ma/toronto',
+    enabled: true,
+    category: 'dropin',
+    art: 'art-mic',
+    defaultVenue: null,
+    defaultAddress: null,
+    /* Event slugs are short and live at the root; the city page is not one. */
+    followLinks: /^https:\/\/lu\.ma\/(?!toronto$|discover|signin|create)[a-z0-9-]{4,}$/i,
+    maxFollow: 20,
+    maxEvents: 12,
+  },
+  {
+    id: 'eventbrite',
+    name: 'Eventbrite',
+    url: 'https://www.eventbrite.ca/d/canada--toronto/free--events/',
+    enabled: true,
+    category: 'dropin',
+    art: 'art-tent',
+    defaultVenue: null,
+    defaultAddress: null,
+    followLinks: /^https:\/\/www\.eventbrite\.ca\/e\/[a-z0-9-]+-tickets-\d+/i,
+    maxFollow: 20,
+    maxEvents: 12,
+  },
 ];
 
 export const enabledSources = () => SOURCES.filter((s) => s.enabled !== false);

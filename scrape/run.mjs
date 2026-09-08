@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { enabledSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks } from './extract.mjs';
 import { normalize, validate } from './normalize.mjs';
+import { allowedBy } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = new Set(process.argv.slice(2));
@@ -24,32 +25,7 @@ const UA = 'ExploraCalendarBot/1.0 (+https://github.com/coloredsavage/Explora)';
 const today = new Date().toISOString().slice(0, 10);
 
 const report = { kept: [], dropped: [], skipped: [], errors: [] };
-
-/* ------------------------------------------------------------- politeness */
-
-const robotsCache = new Map();
-
-async function allowed(fetchText, url) {
-  const { origin, pathname } = new URL(url);
-  if (!robotsCache.has(origin)) {
-    let rules = [];
-    try {
-      const txt = await fetchText(`${origin}/robots.txt`);
-      let applies = false;
-      for (const line of (txt ?? '').split('\n')) {
-        const [rawKey, ...rest] = line.split('#')[0].split(':');
-        const key = rawKey.trim().toLowerCase();
-        const value = rest.join(':').trim();
-        if (key === 'user-agent') applies = value === '*';
-        else if (applies && key === 'disallow' && value) rules.push(value);
-      }
-    } catch {
-      rules = [];                     /* no robots.txt is not a prohibition */
-    }
-    robotsCache.set(origin, rules);
-  }
-  return !robotsCache.get(origin).some((rule) => pathname.startsWith(rule));
-}
+const startOf = (e) => (e.schedule.kind === 'day' ? e.schedule.date : e.schedule.start);
 
 /* ------------------------------------------------------------- the sources */
 
@@ -109,7 +85,8 @@ async function livePages(source, browser) {
 
   const pages = [];
   const visit = async (url) => {
-    if (!(await allowed(fetchText, url))) { report.skipped.push(`${url} — disallowed by robots.txt`); return null; }
+    const robots = await allowedBy(fetchText, url);
+    if (!robots.allowed) { report.skipped.push(`${url} — robots.txt disallows ${robots.rule}`); return null; }
     const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 45000 });
     if (!res || !res.ok()) { report.errors.push(`${url} — HTTP ${res ? res.status() : 'no response'}`); return null; }
     const html = await page.content();
@@ -142,7 +119,15 @@ async function main() {
     try {
       const pages = OFFLINE ? await offlinePages(source) : await livePages(source, browser);
       if (pages.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
-      events.push(...await harvest(source, pages));
+
+      let found = await harvest(source, pages);
+      if (source.maxEvents && found.length > source.maxEvents) {
+        /* soonest first, so a cap keeps what is most use */
+        found.sort((a, b) => startOf(a).localeCompare(startOf(b)));
+        report.skipped.push(`${source.id} — capped at ${source.maxEvents} of ${found.length} events`);
+        found = found.slice(0, source.maxEvents);
+      }
+      events.push(...found);
     } catch (err) {
       report.errors.push(`${source.id} — ${err.message}`);
     }

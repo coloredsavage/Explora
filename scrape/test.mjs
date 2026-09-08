@@ -79,6 +79,9 @@ check('drops a prose non-address', () =>
 check('keeps the boroughs', () =>
   assert.ok(gate({ title: 'Bluffs walk', venue: 'Bluffers Park',
     address: '1 Brimley Rd S, Scarborough, ON' }).ok));
+check('drops an online-only event', () =>
+  assert.match(gate({ title: 'Free Webinar', venue: 'Online',
+    address: 'Online event, Toronto, ON' }).why, /not somewhere you can go/));
 check('tidies a whole-dollar price', () =>
   assert.equal(gate({ title: 'X', venue: 'Y', address: '1 King St W, Toronto, ON',
     entry: '$13.00' }).event.entry, '$13'));
