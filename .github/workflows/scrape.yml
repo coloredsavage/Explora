@@ -82,18 +82,25 @@ jobs:
           git commit -m "Polled event sources on $(date -u +%Y-%m-%d)"
           git push --force-with-lease -u origin "$branch"
 
-          if [ -z "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
-            gh pr create \
-              --base main \
-              --head "$branch" \
-              --title "Polled event sources on $(date -u +%Y-%m-%d)" \
-              --body 'Automated poll of the sources in `scrape/sources.mjs`.
+          if [ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]; then
+            echo "A pull request for $branch is already open; it now has the latest poll."
+            exit 0
+          fi
+
+          body='Automated poll of the sources in `scrape/sources.mjs`.
 
           Check the diff before merging — listings are only as good as the pages
           they came from. Each entry carries the URL it was read from in its
           `source` field.
 
           Merging deploys to Pages.'
-          else
-            echo 'A pull request for this branch is already open; it now has the latest poll.'
+
+          # Creating a PR needs "Allow GitHub Actions to create and approve pull
+          # requests" under Settings -> Actions -> General. The poll itself has
+          # already succeeded and the branch is pushed, so if that setting is off
+          # this is a warning with a link, not a failed run.
+          if ! gh pr create --base main --head "$branch" \
+                 --title "Polled event sources on $(date -u +%Y-%m-%d)" \
+                 --body "$body"; then
+            echo "::warning title=Could not open the pull request::The branch $branch is pushed. Enable 'Allow GitHub Actions to create and approve pull requests' in Settings -> Actions -> General, or open it yourself: https://github.com/${GITHUB_REPOSITORY}/compare/main...${branch}?expand=1"
           fi

@@ -65,6 +65,24 @@ check('its readable text keeps the facts a model would need', () => {
 });
 check('readable text drops markup', () => assert.doesNotMatch(readableText(plain), /</));
 
+console.log('\nToronto gate — from what the first live run actually returned');
+const gate = (raw) => normalize({ startDate: '2026-09-20', ...raw }, wygo, { today, checked: today });
+check('drops a Waterloo listing', () =>
+  assert.match(gate({ title: 'Liminal Scavenger Hunt', venue: 'University of Waterloo',
+    address: '200 University Avenue West, Waterloo, ON' }).why, /not in Toronto/));
+check('drops a TBD venue', () =>
+  assert.match(gate({ title: 'Locked-in', venue: 'TBD',
+    address: 'Somewhere spooky in Kitchener-Waterloo' }).why, /placeholder venue/));
+check('drops a prose non-address', () =>
+  assert.match(gate({ title: 'Thing', venue: 'A place',
+    address: 'Somewhere spooky in Kitchener-Waterloo' }).why, /placeholder address/));
+check('keeps the boroughs', () =>
+  assert.ok(gate({ title: 'Bluffs walk', venue: 'Bluffers Park',
+    address: '1 Brimley Rd S, Scarborough, ON' }).ok));
+check('tidies a whole-dollar price', () =>
+  assert.equal(gate({ title: 'X', venue: 'Y', address: '1 King St W, Toronto, ON',
+    entry: '$13.00' }).event.entry, '$13'));
+
 console.log('\nLink following');
 check('follows event links, not the index itself', () => {
   const links = candidateLinks(index, wygo.url, wygo.followLinks, wygo.maxFollow);

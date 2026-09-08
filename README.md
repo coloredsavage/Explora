@@ -141,9 +141,15 @@ Extraction is tried in the order that costs least and breaks least:
    skipped and the run still succeeds.
 
 Then everything meets the same gates, and anything that fails one is **dropped
-and reported, never published half-known**: it needs a title, a parseable date
-that has not already passed, a venue, and an address. Each survivor records the
-URL it was read from in `source` and the date in `checked`.
+and reported, never published half-known**. It needs a title, a parseable date
+that has not already passed, a real venue and address — not `TBD`, not
+"somewhere spooky" — and the address has to place it **in Toronto**. Sources
+list wherever they like: the first live poll of Wygo returned two events in
+Waterloo, which is why that last gate exists. Each survivor records the URL it
+was read from in `source` and the date in `checked`.
+
+**In practice, no API key has been needed.** Wygo publishes JSON-LD, so the
+deterministic path handled it and the model was never called.
 
 **The workflow opens a pull request; it does not push to `main`.** A person
 still decides what lands on the calendar — the bot is good at finding things

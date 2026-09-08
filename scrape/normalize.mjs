@@ -11,6 +11,15 @@ const slug = (s) => s.toLowerCase()
 
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
+/* This is a Toronto calendar. A source can list anywhere — Wygo's first two
+   hits were in Waterloo — so an address has to place the event in the city
+   before it earns a card. */
+const IN_TOWN = /\b(toronto|scarborough|etobicoke|north york|east york|york, on|mississauga|the islands|toronto islands)\b/i;
+
+/* "TBD", "TBA", "Somewhere spooky in Kitchener-Waterloo" — a string is not an
+   address just because it is non-empty. */
+const PLACEHOLDER = /^\s*(tbd|tba|to be (announced|confirmed|determined)|unknown|n\/?a|various|somewhere\b.*)\s*$/i;
+
 const asDate = (v) => {
   if (!v) return null;
   const d = String(v).slice(0, 10);
@@ -30,7 +39,10 @@ export function normalize(raw, source, { today, checked }) {
   if (!start) return reject('no usable start date');
   if (start < today) return reject(`already past (${start})`);
   if (!venue) return reject('no venue');
+  if (PLACEHOLDER.test(venue)) return reject(`placeholder venue (${venue})`);
   if (!address) return reject('no address');
+  if (PLACEHOLDER.test(address)) return reject(`placeholder address (${address})`);
+  if (!IN_TOWN.test(`${address} ${venue}`)) return reject(`not in Toronto (${address})`);
   if (end && end < start) return reject('ends before it starts');
 
   const schedule = end && end !== start
@@ -44,7 +56,7 @@ export function normalize(raw, source, { today, checked }) {
       title,
       category: source.category,
       art: source.art,
-      ...(raw.entry ? { entry: raw.entry.trim() } : {}),
+      ...(raw.entry ? { entry: tidyPrice(raw.entry) } : {}),
       venue,
       address,
       url: raw.url ?? source.url,
@@ -59,6 +71,8 @@ export function normalize(raw, source, { today, checked }) {
 }
 
 /** Last line of defence before anything is written out. */
+const tidyPrice = (s) => s.trim().replace(/(\$\d+)\.00\b/g, '$1');
+
 export function validate(event) {
   const problems = [];
   const need = ['id', 'title', 'category', 'venue', 'address', 'url', 'source', 'checked', 'description'];
