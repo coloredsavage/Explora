@@ -137,7 +137,8 @@ a { color: inherit; }
   padding: 2px calc(26px + var(--safe-r)) calc(124px + var(--safe-b)) calc(26px + var(--safe-l));
 }
 
-.about__art { display: block; width: 240px; height: 236px; margin: 0 0 30px; }
+.about__art { display: block; width: 300px; height: auto; margin: 0 0 30px; }
+svg.about__art { width: 240px; height: 236px; }   /* the drawn fallback keeps the reference's square */
 
 .about__lede {
   margin: 0 0 24px;

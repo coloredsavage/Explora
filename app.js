@@ -485,6 +485,27 @@
   board.addEventListener('scroll', updateNav, { passive: true });
   window.addEventListener('resize', updateNav);
 
+  /* The sidebar hero is a photograph if one has been added, and the drawn
+     streetcar until then — so the page never shows a broken image. */
+  (function heroFallback() {
+    var hero = document.getElementById('hero');
+    var fallback = document.getElementById('hero-fallback');
+    if (!hero || !fallback) return;
+
+    function showDrawnOne() {
+      hero.hidden = true;
+      /* `hidden` is an HTMLElement property — on an SVG element assigning it
+         creates a useless expando and the attribute stays put. Toggle the
+         attribute instead. */
+      fallback.removeAttribute('hidden');
+    }
+
+    /* A missing file fails before this script runs, so the listener alone
+       never fires. Check the outcome as well as listening for it. */
+    if (hero.complete && hero.naturalWidth === 0) showDrawnOne();
+    hero.addEventListener('error', showDrawnOne);
+  }());
+
   /* ---------------------------------------------------------------- boot */
 
   render();

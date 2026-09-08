@@ -439,7 +439,10 @@
     </header>
 
     <div class="about">
-      <svg class="about__art" viewBox="0 0 260 200" role="img" aria-label="A Toronto streetcar"><use href="#art-streetcar"/></svg>
+      <img class="about__art" id="hero" src="hero.png?v=dev"
+           alt="A Toronto corner store, lit up and floating on its own raft">
+      <svg class="about__art" id="hero-fallback" viewBox="0 0 260 200" role="img"
+           aria-label="A Toronto streetcar" hidden><use href="#art-streetcar"/></svg>
 
       <h2 class="about__lede">What should we do today?</h2>
 
