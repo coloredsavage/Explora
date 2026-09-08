@@ -84,26 +84,60 @@ for (const source of enabledSources()) {
       types: [...new Set(ld.map((n) => [].concat(n['@type'] ?? []).join('/')))].slice(0, 10),
     };
     report.jsonApis = apis.sort((a, b) => b.points - a.points).slice(0, 5);
-    report.followable = candidateLinks(html, source.url, source.followLinks, source.maxFollow ?? 0).length;
+    const links = candidateLinks(html, source.url, source.followLinks, source.maxFollow ?? 0);
+    report.followable = links.length;
+
+    /* The index page is the wrong place to judge a site. An events listing is
+       often a bare list of links whose detail pages carry the structured data
+       — which is exactly what Wygo does — so sample a couple of them before
+       concluding there is nothing to read. */
+    report.samples = [];
+    for (const link of links.slice(0, 2)) {
+      await new Promise((r) => setTimeout(r, 1500));
+      try {
+        const r = await page.goto(link, { waitUntil: 'networkidle', timeout: 45000 });
+        const sub = await page.content();
+        const subLd = jsonLdBlocks(sub);
+        report.samples.push({
+          url: link,
+          status: r ? r.status() : null,
+          events: subLd.filter((n) => /Event$/i.test([].concat(n['@type'] ?? []).join(''))).length,
+          types: [...new Set(subLd.map((n) => [].concat(n['@type'] ?? []).join('/')))].slice(0, 6),
+        });
+      } catch (err) {
+        report.samples.push({ url: link, error: err.message });
+      }
+    }
+
     report.textSample = readableText(html, 600);
-    report.blocked = /just a moment|checking your browser|cf-chl|access denied/i.test(html);
+    report.blocked = /just a moment|checking your browser|cf-chl|access denied/i.test(html)
+      || (report.status !== null && report.status >= 400);
   } catch (err) {
     report.error = err.message;
   }
   await ctx.close();
 
+  const sampleEvents = (report.samples ?? []).reduce((n, s) => n + (s.events ?? 0), 0);
+
   const verdict = report.error ? `could not load — ${report.error}`
     : report.robots && !report.robots.allowed ? `robots.txt disallows ${report.robots.rule} — the poller will skip this`
+    : report.status !== null && report.status >= 400 ? `HTTP ${report.status} to a headless browser — refusing automated access`
     : report.blocked ? 'looks like a bot challenge — this is the case a VPS might fix'
-    : report.jsonLd?.events > 0 ? `JSON-LD, ${report.jsonLd.events} events — free and exact, no key needed`
+    : report.jsonLd?.events > 0 ? `JSON-LD on the index, ${report.jsonLd.events} events — free and exact, no key needed`
+    : sampleEvents > 0 ? `JSON-LD on the event pages (${sampleEvents} in ${report.samples.length} sampled) — free and exact, no key needed`
     : report.jsonApis?.length ? `a JSON API at ${report.jsonApis[0].url} — free, write a small adapter`
-    : 'no structured data — needs an adapter written against the HTML, or the model';
+    : report.followable === 0 ? 'no event links and no structured data — check the URL is the right listing page'
+    : 'no structured data on the index or the pages sampled — needs an adapter, or the model';
 
   console.log(`\n${source.id}  ${source.url}`);
   console.log(`  status     ${report.status ?? '—'}`);
   console.log(`  robots     ${report.robots ? (report.robots.allowed ? 'allowed' : 'DISALLOWED ' + report.robots.rule) : '—'}`);
   console.log(`  links      ${report.followable ?? 0} event pages to follow`);
   console.log(`  json-ld    ${report.jsonLd ? `${report.jsonLd.blocks} blocks, ${report.jsonLd.events} events` : '—'}`);
+  for (const smp of report.samples ?? []) {
+    console.log(`  sampled    ${smp.url}`);
+    console.log(`             ${smp.error ? 'error: ' + smp.error : `HTTP ${smp.status}, ${smp.events} events, types: ${smp.types.join(', ') || 'none'}`}`);
+  }
   console.log(`  json apis  ${report.jsonApis?.length ? report.jsonApis.map((a) => `${a.url} (${a.rows} rows)`).join('\n             ') : 'none that look like events'}`);
   console.log(`  verdict    ${verdict}`);
 

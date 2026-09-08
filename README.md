@@ -125,11 +125,13 @@ Before adding a source, find out how it is best read:
 npm run discover          # or: node scrape/discover.mjs wygo
 ```
 
-It loads the page once and reports whether the site publishes JSON-LD, whether
-its JavaScript calls a JSON API you could read directly (usual for single-page
-apps, and usually cleaner than the rendered page), or neither — and whether the
-response looks like a bot challenge, which is the one case that argues for
-running this somewhere other than a GitHub runner. The same report is available
+It loads the listing page, samples a couple of the event pages it links to, and
+reports whether either publishes JSON-LD, whether the site's JavaScript calls a
+JSON API you could read directly, or neither — plus whether the response looks
+like a refusal, which is the one case that argues for running this somewhere
+other than a GitHub runner. Sampling the detail pages matters: a listing page is
+often a bare list of links, and judging a site by it alone will tell you there
+is nothing to read when there is. The same report is available
 from the Actions tab: run the workflow manually with **discover** ticked.
 
 Extraction is tried in the order that costs least and breaks least:

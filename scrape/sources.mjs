@@ -39,7 +39,11 @@ export const SOURCES = [
     id: 'eventbrite',
     name: 'Eventbrite',
     url: 'https://www.eventbrite.ca/d/canada--toronto/free--events/',
-    enabled: true,
+    /* Parked: the search page answers HTTP 405 to a headless browser and
+       yields no links, so it refuses automated access regardless of what
+       robots.txt allows. Eventbrite has an API — that is the sanctioned
+       route if this source is worth having. */
+    enabled: false,
     category: 'dropin',
     art: 'art-tent',
     defaultVenue: null,
