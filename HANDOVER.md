@@ -151,6 +151,34 @@ was closed as superseded.
 
 ---
 
+## The categories, and why there are fifteen
+
+Ten described what was on the board; they did not describe what was going on it.
+Three listings were already wearing a category that did not fit — Saturday Night
+Swing filed as a drop-in, TIFF as a festival, and a Bad Dog improv night still a
+drop-in after `comedy` existed. All three are corrected.
+
+Added 2026-09-08: `music`, `film`, `outdoors`, `stage`, `food`. Four of the five
+start empty, which costs nothing — **the filter only offers a chip for a value
+some listing actually has**, so an unused category is invisible until something
+lands in it. They exist now so the illustration set can be drawn against a
+settled list rather than growing one category at a time.
+
+**Colour is what limits this, not naming.** Every category needs a light tint
+distinguishable from fourteen others at a glance, and the palette is most of the
+way full. Fifteen is close to the ceiling. If a sixteenth is ever tempting, ask
+first whether a per-listing `art` would carry the distinction instead — a
+listing may always name its own drawing, which is why thirty-four drawings serve
+forty-five listings.
+
+Two things that are deliberately **not** categories. Audience and attribute —
+kids, accessible, indoor/outdoor — belong in a third filter group beside
+Category and Price, not as more categories, because a card carries exactly one
+category. And watching sport folds into `outdoors`; a separate `sport` was
+considered and dropped for want of anything free or cheap to put in it.
+
+---
+
 ## Adding a category
 
 Three places, and missing any one of them fails quietly rather than loudly:

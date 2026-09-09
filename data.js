@@ -18,6 +18,11 @@ const CATEGORIES = {
   dropin:       { label: 'Drop-ins',          art: 'art-tools'         },
   social:       { label: 'Meetups',           art: 'art-mic'           },
   comedy:       { label: 'Comedy',            art: 'art-neon'          },
+  stage:        { label: 'Stage',             art: 'art-lamp'          },
+  music:        { label: 'Live music',        art: 'art-records'       },
+  film:         { label: 'Film',              art: 'art-filmreel'      },
+  outdoors:     { label: 'Outdoors',          art: 'art-ravine'        },
+  food:         { label: 'Food & drink',      art: 'art-bread'         },
 };
 
 /* Price buckets for the filter. These are derived from each listing's `entry`
@@ -497,7 +502,7 @@ const EVENTS = [
   {
     id: 'tiff',
     title: 'Toronto International Film Festival',
-    category: 'festival',
+    category: 'film',
     entry: '$30 and up for a regular screening, HST and fees included',
     art: 'art-tent',
     venue: 'TIFF Lightbox and King Street West',
@@ -616,7 +621,7 @@ const EVENTS = [
   {
     id: 'bad-dog-improv',
     title: 'Beginner improv drop-in',
-    category: 'dropin',
+    category: 'comedy',
     art: 'art-mic',
     entry: '$25 plus HST',
     venue: 'Bad Dog Theatre Company',
@@ -661,7 +666,7 @@ const EVENTS = [
   {
     id: 'saturday-night-swing',
     title: 'Saturday Night Swing',
-    category: 'dropin',
+    category: 'music',
     entry: '$22 at the door, lessons included; $16 students',
     art: 'art-gramophone',
     venue: 'Dovercourt House, second floor',
