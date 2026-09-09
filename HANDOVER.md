@@ -336,10 +336,36 @@ passes that did run, so the next attempt does not repeat them:
 - Probed and still unresolved: `revuecinema.ca` (200, no JSON-LD),
   `hotdocscinema.ca` and `therex.ca` (200, `ld+json` present but no Event
   node), `tranzac.org/events/` (404 — wrong URL, worth finding the right one).
-- **City of Toronto drop-in recreation** — free public swims and skates — is
-  probably the single richest vein for this calendar and is not done.
-  `/explore-enjoy/recreation/` is 200 but the drop-in listings sit behind a
-  JS-driven search rather than an index page.
+- **City of Toronto drop-in recreation — the source is found, and it is an
+  open-data table, not a page.** The researcher sent to find it guessed at
+  `toronto.ca/data/parks/live/recreation/drop-in.json` and
+  `.../live/locations.json`; both 404 and it died still looking. The real one
+  is CKAN:
+
+      https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search
+        ?resource_id=c99ec04f-4540-482c-9ee4-efb38774eab4    # Drop-in, 24,605 rows
+        ?resource_id=f23ac1ad-6f46-4b59-811f-eb34be9b1f7a    # Locations, 1,883 rows
+
+  from the dataset `registered-programs-and-drop-in-courses-offering`,
+  refreshed weekly (2026-09-03 when checked). Drop-in rows carry Location ID,
+  Course Title, Date Range, start and end hour, and day of week; Locations
+  carry name, street and postal code. Join on Location ID, which is `int4` in
+  Locations — filter with `filters={"Location ID": 85}`, since full-text `q`
+  on a phrase like "Leisure Swim" returns nothing while `q=Swim` returns 5,748.
+
+  **The price rule is not "drop-in is free".** toronto.ca's own drop-in
+  swimming page draws a line that a naive listing would cross: *"Leisure swim
+  is free at all indoor and outdoor pools"*, but *"Lane swim is free at all
+  outdoor pools"* and *"Lane swim has a fee at indoor pools."* Leisure swim is
+  safe to publish as free; lane swim is only free outdoors.
+
+  **Do not hand-write these as recurring listings.** The slots are irregular —
+  Main Square's Thursday 6:30pm leisure swim runs Sep 3, Sep 10, then skips to
+  Oct 8 and Oct 15 — and the table contains exact duplicate rows (Sep 10
+  appears twice there). A `weekly` schedule over this data would be fiction.
+  It wants a poller that emits one dated occurrence per row, deduplicated,
+  filtered to `Course Title` beginning "Leisure Swim", and joined to an
+  address. That is the piece of work `outdoors` is waiting on.
 - `bad-dog-bucket-show` was researched and **rejected**: its page confirms the
   price ("$5 / Pay What You Can") and the schedule ("1st and 3rd Wednesday at
   8:30pm") but never says *where* it happens. The site's own location block is
