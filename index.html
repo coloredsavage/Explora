@@ -6,7 +6,7 @@
 <title>What should we do today?</title>
 <meta name="description" content="A calendar of free museum nights, farmers’ markets, fleas and exhibitions in Toronto.">
 <meta name="theme-color" content="#ffffff">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%A6%9D%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%AA%3C/text%3E%3C/svg%3E">
 <link rel="preload" href="fonts/inter-500.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="styles.css?v=dev">
 </head>
@@ -458,12 +458,12 @@
 </svg>
 
 <!-- --------------------------------------------------------------- board -->
-<!-- Mobile only, both of these. The board is a sideways run of time columns,
-     which reads fine on a wide screen where three are visible at once and not
-     at all on a phone where one fills the view. There, the bar names the site,
-     the tabs are the navigation, and each column becomes a vertical list. -->
+<!-- The bar is on every screen; the tabs below it are the phone's navigation.
+     The board is a sideways run of time columns, which reads fine on a wide
+     screen where three are visible at once and not at all on a phone where one
+     fills the view, so there each column becomes a vertical list instead. -->
 <header class="topbar">
-  <span class="topbar__brand">Explora</span>
+  <a class="topbar__brand" id="brand" href="./">Explora</a>
   <button class="topbar__about" id="about-btn" type="button" aria-controls="panel-about" aria-pressed="false">About</button>
 </header>
 
@@ -482,14 +482,18 @@
       <svg class="about__art" id="hero-fallback" viewBox="0 0 260 200" role="img"
            aria-label="A Toronto streetcar" hidden><use href="#art-streetcar"/></svg>
 
-      <h2 class="about__lede">What should we do today?</h2>
+      <p class="about__credit">The convenience store is by
+        <a href="https://www.instagram.com/treverferever" rel="noopener" target="_blank">@treverferever</a>.</p>
 
-      <p>I’ve been getting to know Toronto one weekend at a time — through galleries,
-      farmers’ markets, and whatever catches my eye on the walk home.</p>
+      <h2 class="about__lede">What should you do today?</h2>
 
-      <p>Then I found out how many museums here have free nights. I started this calendar
-      to keep track of those, the markets I want to wander through, and the shows worth
-      crossing town for (I’m still stubborn about what a day out should cost).</p>
+      <p>Hi, I’m Savage and I just moved to Toronto recently. I’ve been getting to know
+      the city through galleries, farmers’ markets, and whatever catches my eye on the
+      walk home.</p>
+
+      <p>Then I found this cool website by Muharrem and decided to make one for Toronto.
+      It helps keep track of cool things happening in the city and the shows going on that
+      won’t leave a hole in your pocket lol.</p>
 
       <p>Everything on it is free, cheap, or at least worth the fare. It runs from
       today outward, so the answer to the question is always the first card.</p>
@@ -500,7 +504,21 @@
 
       <p class="about__note">A Toronto recreation of
       <a href="https://senyil.com/what-should-we-do-today/">What should we do today?</a>
-      by Muharrem Şenyıl.</p>
+      by Muharrem Şenyıl. Have fun.</p>
+
+      <p class="about__note">If you’d like to submit an event or recommend something cool,
+      <a href="mailto:savage@explora.city">shoot me an email</a>.</p>
+
+      <p class="about__social">
+        <a href="https://www.tiktok.com/@explora.to" rel="me noopener" target="_blank">
+          <svg class="about__social-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M16.5 3.2c.5 2 1.9 3.4 3.9 3.6v2.6c-1.5.1-2.9-.3-4.1-1.1v5.9c0 3.3-2.4 5.6-5.5 5.6a5.4 5.4 0 0 1 0-10.8c.3 0 .5 0 .8.05v2.7a2.8 2.8 0 1 0 2 2.7V3.2z"
+                  fill="currentColor"/>
+          </svg>
+          <span>@explora.to</span>
+        </a>
+      </p>
+
     </div>
   </section>
 
@@ -572,5 +590,6 @@
 <script src="data.js?v=dev"></script>
 <script src="scraped.js?v=dev"></script>
 <script src="app.js?v=dev"></script>
+<script src="analytics.js?v=dev"></script>
 </body>
 </html>

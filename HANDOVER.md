@@ -179,6 +179,25 @@ considered and dropped for want of anything free or cheap to put in it.
 
 ---
 
+## Analytics
+
+`analytics.js` loads PostHog into project **Explora** (id 600769). The key in
+the file is the project's public API key: it only writes, reads nothing back,
+and is meant to ship in the page, so it belongs in the repo.
+
+Session recording is off deliberately. It is the heaviest thing PostHog can do
+to a page, and watching people use a public calendar is not what "how many
+visitors" asks for. Do Not Track is honoured and nothing calls `identify()`,
+so the numbers count browsers rather than people. If that ever changes, it
+should be a decision rather than a default.
+
+Beyond pageviews it captures two things the calendar can say and a pageview
+cannot: `listing opened`, with the listing id, its category and its price
+bucket, and `window tab`, which time window a phone reader actually opens.
+Between them they answer what to put on the board next.
+
+---
+
 ## Adding a category
 
 Three places, and missing any one of them fails quietly rather than loudly:
@@ -310,14 +329,22 @@ GitHub still serves those blobs. Actually removing them needs a history rewrite
 and a force-push over `391350c`, which breaks existing clones. The user has been
 told and has not asked for it.
 
-**The board is still narrow, and this is the live piece of work.** As of
-2026-09-08 it is 20 of 45 listings in galleries, museums, architecture and
-books, plus seven near-identical farmers' markets. `comedy` was the first new
-category (Comedy Bar's Hot Mic and Studio Mondays, plus the `comedybar` and
-`baddog` sources). **Music, repertory film, and outdoors/sport are still at
-zero** — the research pass for those three died on a session limit and was
-never redone. Findings from the part that did run, so the next attempt does
-not repeat it:
+**Sources found but not yet wired.** The research that produced the film and
+music listings also checked four index pages and none are configured yet:
+`revuecinema.ca/calendar/` (200, 128 links) and `revuecinema.ca/films/` (200,
+20), `therex.ca/events` (200, 85) and `grossmanstavern.com/events/` (200, 12).
+The Rex page is worth knowing about — its listings carry the price inline, and
+"Pay What You Can" sits inside the same block as the 5pm and 2pm sets and never
+inside an 8pm one, which is how that listing was verified.
+
+**Outdoors is the gap now, and it is the live piece of work.** As of
+2026-09-09 the board is 51 listings across fifteen categories. `comedy`,
+`music` and `film` have been filled — Comedy Bar's two rooms, the Rex's early
+sets and jazz jam, the opera company's free concerts, and three at the Revue.
+**`outdoors`, `stage` and `food` are still at zero.** Outdoors matters most:
+free public swims and skates are the richest vein this calendar has not tapped,
+and the researcher for it died before returning anything. Findings from the
+passes that did run, so the next attempt does not repeat them:
 
 - **The Paradise Theatre is a trap.** `paradiseonbloor.com` serves real
   `ScreeningEvent` JSON-LD with `offers` and prices, so it looks like the
@@ -328,10 +355,36 @@ not repeat it:
 - Probed and still unresolved: `revuecinema.ca` (200, no JSON-LD),
   `hotdocscinema.ca` and `therex.ca` (200, `ld+json` present but no Event
   node), `tranzac.org/events/` (404 — wrong URL, worth finding the right one).
-- **City of Toronto drop-in recreation** — free public swims and skates — is
-  probably the single richest vein for this calendar and is not done.
-  `/explore-enjoy/recreation/` is 200 but the drop-in listings sit behind a
-  JS-driven search rather than an index page.
+- **City of Toronto drop-in recreation — the source is found, and it is an
+  open-data table, not a page.** The researcher sent to find it guessed at
+  `toronto.ca/data/parks/live/recreation/drop-in.json` and
+  `.../live/locations.json`; both 404 and it died still looking. The real one
+  is CKAN:
+
+      https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action/datastore_search
+        ?resource_id=c99ec04f-4540-482c-9ee4-efb38774eab4    # Drop-in, 24,605 rows
+        ?resource_id=f23ac1ad-6f46-4b59-811f-eb34be9b1f7a    # Locations, 1,883 rows
+
+  from the dataset `registered-programs-and-drop-in-courses-offering`,
+  refreshed weekly (2026-09-03 when checked). Drop-in rows carry Location ID,
+  Course Title, Date Range, start and end hour, and day of week; Locations
+  carry name, street and postal code. Join on Location ID, which is `int4` in
+  Locations — filter with `filters={"Location ID": 85}`, since full-text `q`
+  on a phrase like "Leisure Swim" returns nothing while `q=Swim` returns 5,748.
+
+  **The price rule is not "drop-in is free".** toronto.ca's own drop-in
+  swimming page draws a line that a naive listing would cross: *"Leisure swim
+  is free at all indoor and outdoor pools"*, but *"Lane swim is free at all
+  outdoor pools"* and *"Lane swim has a fee at indoor pools."* Leisure swim is
+  safe to publish as free; lane swim is only free outdoors.
+
+  **Do not hand-write these as recurring listings.** The slots are irregular —
+  Main Square's Thursday 6:30pm leisure swim runs Sep 3, Sep 10, then skips to
+  Oct 8 and Oct 15 — and the table contains exact duplicate rows (Sep 10
+  appears twice there). A `weekly` schedule over this data would be fiction.
+  It wants a poller that emits one dated occurrence per row, deduplicated,
+  filtered to `Course Title` beginning "Leisure Swim", and joined to an
+  address. That is the piece of work `outdoors` is waiting on.
 - `bad-dog-bucket-show` was researched and **rejected**: its page confirms the
   price ("$5 / Pay What You Can") and the schedule ("1st and 3rd Wednesday at
   8:30pm") but never says *where* it happens. The site's own location block is
