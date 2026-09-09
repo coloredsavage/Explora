@@ -329,6 +329,20 @@ GitHub still serves those blobs. Actually removing them needs a history rewrite
 and a force-push over `391350c`, which breaks existing clones. The user has been
 told and has not asked for it.
 
+**The City's own festivals feed exists and cannot be read.** The dataset
+`festivals-events` on Toronto's open data portal is exactly the aggregator this
+calendar wants — *"all festivals, special events and exhibits approved to
+appear on the City of Toronto Festivals and Events Calendar"*, refresh
+"Real-time", and it is where the community street festivals live that the
+City's own `/explore-enjoy/festivals-events/` page does not list. Both of its
+JSON resources resolve to `secure.toronto.ca/c3api_data/...`, which answers
+**Access Denied** to curl, to curl with a browser user-agent, and to a real
+headless browser. The CKAN download URL redirects to the same host and fails
+the same way. Whatever gates it is not the user-agent. If that host ever opens
+up, or someone finds the right referer, it is the single highest-value source
+on this list. The `/explore-enjoy/festivals-events/festivals-events-calendar/`
+page renders its listings client-side and carries none of them in the HTML.
+
 **Sources found but not yet wired.** The research that produced the film and
 music listings also checked four index pages and none are configured yet:
 `revuecinema.ca/calendar/` (200, 128 links) and `revuecinema.ca/films/` (200,

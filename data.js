@@ -825,4 +825,18 @@ const EVENTS = [
       { kind: 'day', date: '2027-01-29', time: '12pm', hour: 12 },
     ],
   },
+  {
+    id: 'roncesvalles-polish-festival',
+    title: 'Roncesvalles Polish Festival',
+    category: 'festival',
+    entry: 'Free',
+    art: 'art-lantern',
+    venue: 'Roncesvalles Avenue',
+    address: 'Roncesvalles Ave & Wright Ave, Toronto, ON',
+    url: 'https://polishfestival.ca/',
+    source: 'https://polishfestival.ca/',
+    checked: CHECKED,
+    description: 'Toronto\u2019s Polish street festival closes Roncesvalles Avenue for its twentieth year, with food, music and the main stage up near Wright Avenue. It runs late on the Saturday and winds up early Sunday evening.',
+    schedule: { kind: 'range', start: '2026-09-19', end: '2026-09-20', time: '11am\u201311pm, Sunday to 7pm', hour: 11 },
+  },
 ];
