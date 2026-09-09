@@ -1,9 +1,8 @@
 /* Visitor counts and rough behaviour, and nothing beyond that.
  *
- * PostHog, loaded only when TOKEN below is filled in — until then this file
- * does nothing at all, so the site can ship before the project exists. Make a
- * project at posthog.com, copy its Project API key (it starts "phc_"), and
- * paste it in. That is the whole setup.
+ * PostHog, loaded only when TOKEN below is filled in. That is the project's
+ * public API key — it is meant to ship in the page, it only writes, and it
+ * reads nothing back, so it belongs in the repo like any other config.
  *
  * The settings are deliberately modest. Session recording is off: this is a
  * public calendar, watching people use it is not what "how many visitors"
@@ -12,7 +11,7 @@
  * name — the numbers are counts of browsers, which is what the question was. */
 
 (function () {
-  var TOKEN = '';                               /* phc_… from PostHog */
+  var TOKEN = 'phc_BSSD59VrmXw7jK2ZzQtxYWYu8Efz5VLFE5gdefd5WYgi';   /* Explora */
   var HOST  = 'https://us.i.posthog.com';
 
   if (!TOKEN) return;

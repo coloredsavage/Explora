@@ -762,6 +762,21 @@
 
   aboutBtn.addEventListener('click', function () { selectPanel('panel-about'); });
 
+  /* The name in the bar goes home, and home is this page. It stays a real
+     link so it can be opened in a tab, but a plain click resets the view
+     instead of reloading everything the reader already has: close whatever
+     is open, go back to the first column, and drop the listing off the URL. */
+  var brand = document.getElementById('brand');
+  brand.addEventListener('click', function (e) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+    e.preventDefault();
+    closeModal();
+    closeFilter();
+    selectPanel('panel-today');
+    board.scrollTo({ left: 0, behavior: 'smooth' });
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+  });
+
   /* Left and right walk the strip, as a tablist is expected to. */
   tabsEl.addEventListener('keydown', function (e) {
     var dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;

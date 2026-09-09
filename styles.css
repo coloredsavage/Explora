@@ -110,7 +110,7 @@ a { color: inherit; }
 
 .board {
   display: flex;
-  height: 100dvh;
+  height: calc(100dvh - var(--topbar-h));
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x proximity;
@@ -306,22 +306,28 @@ img.card__art { border-radius: 8px; }
 
 /* ----------------------------------------------------------------- topbar */
 
-/* Phone only. On a wide screen the About column carries the masthead and this
-   would just push the board down. */
+/* On every screen: the site needs to say its name somewhere, and on a wide
+   one the board filled the whole viewport with no masthead at all. */
 .topbar {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: space-between;
   height: var(--topbar-h);
-  padding: 0 calc(20px + var(--safe-r)) 0 calc(20px + var(--safe-l));
+  padding: 0 calc(26px + var(--safe-r)) 0 calc(26px + var(--safe-l));
   background: var(--paper);
+  border-bottom: 1px solid var(--line);
 }
 .topbar__brand {
   font-size: 17px;
   font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--ink);
+  text-decoration: none;
 }
+.topbar__brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+
+/* The About column is on screen at this width, so a button to it is noise. */
+.topbar__about { display: none; }
 .topbar__about {
   border: 0;
   background: none;
@@ -622,7 +628,8 @@ img.card__art { border-radius: 8px; }
   /* One panel at a time, chosen from the tab strip, scrolling straight down.
      No sideways scrolling on a phone at all: the board stops being a run of
      columns and becomes a container for whichever one is showing. */
-  .topbar { display: flex; }
+  .topbar { padding: 0 calc(20px + var(--safe-r)) 0 calc(20px + var(--safe-l)); border-bottom: 0; }
+  .topbar__about { display: block; }
   .tabs { display: flex; }
   .board { height: calc(100dvh - var(--tabs-h) - var(--topbar-h)); }
   .col { display: none; flex: 1 1 auto; width: 100%; border-right: 0; }

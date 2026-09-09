@@ -458,12 +458,12 @@
 </svg>
 
 <!-- --------------------------------------------------------------- board -->
-<!-- Mobile only, both of these. The board is a sideways run of time columns,
-     which reads fine on a wide screen where three are visible at once and not
-     at all on a phone where one fills the view. There, the bar names the site,
-     the tabs are the navigation, and each column becomes a vertical list. -->
+<!-- The bar is on every screen; the tabs below it are the phone's navigation.
+     The board is a sideways run of time columns, which reads fine on a wide
+     screen where three are visible at once and not at all on a phone where one
+     fills the view, so there each column becomes a vertical list instead. -->
 <header class="topbar">
-  <span class="topbar__brand">Explora</span>
+  <a class="topbar__brand" id="brand" href="./">Explora</a>
   <button class="topbar__about" id="about-btn" type="button" aria-controls="panel-about" aria-pressed="false">About</button>
 </header>
 

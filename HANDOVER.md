@@ -179,6 +179,25 @@ considered and dropped for want of anything free or cheap to put in it.
 
 ---
 
+## Analytics
+
+`analytics.js` loads PostHog into project **Explora** (id 600769). The key in
+the file is the project's public API key: it only writes, reads nothing back,
+and is meant to ship in the page, so it belongs in the repo.
+
+Session recording is off deliberately. It is the heaviest thing PostHog can do
+to a page, and watching people use a public calendar is not what "how many
+visitors" asks for. Do Not Track is honoured and nothing calls `identify()`,
+so the numbers count browsers rather than people. If that ever changes, it
+should be a decision rather than a default.
+
+Beyond pageviews it captures two things the calendar can say and a pageview
+cannot: `listing opened`, with the listing id, its category and its price
+bucket, and `window tab`, which time window a phone reader actually opens.
+Between them they answer what to put on the board next.
+
+---
+
 ## Adding a category
 
 Three places, and missing any one of them fails quietly rather than loudly:
