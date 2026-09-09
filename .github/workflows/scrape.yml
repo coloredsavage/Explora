@@ -2,9 +2,14 @@ name: Poll event sources
 
 on:
   schedule:
+    # Every second day. This is a calendar of museum shows, markets and
+    # festivals announced weeks ahead — nothing on it changes fast enough for a
+    # daily poll to catch anything a two-day one misses, and the model reads
+    # each source's index page every time it runs, which is where nearly all
+    # the API cost is.
     # 11:17 UTC — early morning in Toronto, and off the hour so this job is not
     # queued behind everyone else's midnight cron.
-    - cron: '17 11 * * *'
+    - cron: '17 11 */2 * *'
   # Anything that can push can start a run. The Claude Code GitHub App holds
   # contents:write but not actions:write, so dispatching the workflow through
   # the API returns 403 — pushing to one of these branches is the way round it.
