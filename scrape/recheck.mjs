@@ -32,6 +32,29 @@ const OFFLINE = argv.has('--offline');
 const UA = 'ExploraCalendarBot/1.0 (+https://github.com/coloredsavage/Explora)';
 const report = { found: [], changed: [], unchanged: [], nothing: [], skipped: [], errors: [] };
 
+/* Some pages simply do not print a price — a swing night, a museum whose fee
+   lives behind a ticketing widget. Without a memory of having asked, those
+   listings stay unknown forever and are re-fetched every single day: a daily
+   bill, and a daily request to someone's server, for a question already
+   answered no. So the answer is remembered and re-asked monthly.
+
+   It lives beside the code rather than in data.js because it is bot
+   bookkeeping, not something confirmed about an event. data.js stays a file
+   of facts. --all ignores it. */
+const ATTEMPTS = path.join(root, 'scrape', 'price-attempts.json');
+const BACKOFF_DAYS = 30;
+
+const daysBetween = (a, b) => Math.round((Date.parse(a) - Date.parse(b)) / 86400000);
+
+/* The resting rule, exported so it can be tested without a network or a clock. */
+export function restingIds(ids, attempts, today, days = BACKOFF_DAYS) {
+  return ids.filter((id) => attempts[id] && daysBetween(today, attempts[id]) < days);
+}
+
+async function readAttempts() {
+  try { return JSON.parse(await readFile(ATTEMPTS, 'utf8')); } catch { return {}; }
+}
+
 /* --------------------------------------------------------------- loading */
 
 /* data.js and price.js are plain browser scripts. Running them in a vm is how
@@ -118,38 +141,49 @@ export function patchEntry(src, id, entry) {
 
 /* --------------------------------------------------------------- fetching */
 
+/* Returns { price, asked }. `asked` separates the two ways of coming back
+   empty: the page was read and states no price, which is an answer and rests;
+   or we could not ask at all, which is not, and must be retried tomorrow —
+   otherwise setting the key would look like it changed nothing for a month. */
 async function priceFor(listing, html, url) {
   const onPage = fromJsonLd(html);
   const match = bestMatch(onPage, listing.title);
   const fromLd = match && acceptable(match.entry);
-  if (fromLd) return { entry: fromLd, via: 'json-ld' };
+  if (fromLd) return { price: { entry: fromLd, via: 'json-ld' }, asked: true };
 
   if (!process.env.ANTHROPIC_API_KEY) {
     report.skipped.push(`${listing.id} — no price in JSON-LD and no ANTHROPIC_API_KEY`);
-    return null;
+    return { price: null, asked: false };
   }
   const { extractPriceWithModel } = await import('./llm.mjs');
   const said = await extractPriceWithModel(readableText(html), { url, title: listing.title });
   const ok = acceptable(said);
   if (!ok) {
     report.nothing.push(`${listing.id} — the page does not state a price`);
-    return null;
+    return { price: null, asked: true };
   }
-  return { entry: ok, via: 'model' };
+  return { price: { entry: ok, via: 'model' }, asked: true };
 }
 
 /* ------------------------------------------------------------------- main */
 
 async function main() {
   const { events, priceOf } = await loadSite();
+  const today = new Date().toISOString().slice(0, 10);
+  const attempts = await readAttempts();
 
+  let resting = 0;
   const targets = events.filter((ev) => {
     if (!ev.source) return false;
-    return ALL || priceOf(ev) === 'unknown';
+    if (ALL) return true;
+    if (priceOf(ev) !== 'unknown') return false;
+    if (restingIds([ev.id], attempts, today).length) { resting++; return false; }
+    return true;
   });
 
   console.log(`${targets.length} listing${targets.length === 1 ? '' : 's'} to check` +
-    (ALL ? ' (--all)' : ' with no known price'));
+    (ALL ? ' (--all)' : ' with no known price') +
+    (resting ? `, ${resting} resting (asked within ${BACKOFF_DAYS} days, page stated no price)` : ''));
   if (!targets.length) return;
 
   let browser = null;
@@ -188,20 +222,24 @@ async function main() {
       }
       await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
 
-      const found = await priceFor(listing, await page.content(), listing.source);
+      const { price, asked } = await priceFor(listing, await page.content(), listing.source);
       await new Promise((r) => setTimeout(r, 1500));      /* one page every 1.5s */
-      if (!found) continue;
+      if (!price) {
+        if (asked) attempts[listing.id] = today;   /* an answer of no; rest it */
+        continue;
+      }
+      delete attempts[listing.id];
 
       const was = listing.entry ?? null;
-      if (was === found.entry) { report.unchanged.push(`${listing.id} — still ${was}`); continue; }
+      if (was === price.entry) { report.unchanged.push(`${listing.id} — still ${was}`); continue; }
 
-      const next = patchEntry(src, listing.id, found.entry);
+      const next = patchEntry(src, listing.id, price.entry);
       if (!next) {
         report.errors.push(`${listing.id} — could not patch data.js; edit it by hand`);
         continue;
       }
       src = next;
-      const line = `${listing.id} — ${was ? `${was} -> ${found.entry}` : `${found.entry}`} (${found.via})`;
+      const line = `${listing.id} — ${was ? `${was} -> ${price.entry}` : `${price.entry}`} (${price.via})`;
       (was ? report.changed : report.found).push(line);
     } catch (err) {
       report.errors.push(`${listing.id} — ${err.message}`);
@@ -219,8 +257,13 @@ async function main() {
     ['skipped', report.skipped], ['errors', report.errors],
   ]) if (list.length) console.log(`\n${label}:\n  ` + list.join('\n  '));
 
-  if (DRY) { console.log('\n--dry-run: data.js not written'); return; }
-  if (!wrote) { console.log('\nNothing to write.'); return; }
+  if (DRY) { console.log('\n--dry-run: nothing written'); return; }
+
+  /* Sorted, so an unchanged run is an empty diff rather than a reshuffle. */
+  const sorted = Object.fromEntries(Object.keys(attempts).sort().map((k) => [k, attempts[k]]));
+  await writeFile(ATTEMPTS, JSON.stringify(sorted, null, 2) + '\n');
+
+  if (!wrote) { console.log('\nNo prices to write.'); return; }
   await writeFile(path.join(root, 'data.js'), src);
   console.log(`\nwrote data.js with ${wrote} price${wrote === 1 ? '' : 's'}`);
 }

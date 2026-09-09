@@ -311,6 +311,22 @@ It deliberately does **not** bump `checked`. Reading a price is not
 re-confirming a date, and a `checked` that overstates what was verified is
 worse than a stale one.
 
+**What it costs.** Each call sends at most 12,000 characters of page text
+(`readableText`'s cap) — roughly 3k input tokens — and gets back a two-field
+answer, at `effort: 'low'`. On Opus 5 that is around 2-3 cents a listing.
+Thirteen listings is the first run; after that the default mode only touches
+what is still unpriced, so the bill shrinks as the calendar fills in.
+
+`scrape/price-attempts.json` is what stops it shrinking to a floor and
+staying there. Some pages simply never print a price — a swing night, a fee
+behind a ticketing widget — and without a memory of having asked, those
+listings stay unknown forever and are re-fetched every single day: a daily
+bill, and a daily request to someone's server, for a question already answered
+no. An answer of "this page states no price" is recorded and re-asked after 30
+days. Being unable to ask — no API key, an HTTP error — is not an answer and
+is retried the next day, so setting the key does not look like it changed
+nothing for a month.
+
 **It needs `ANTHROPIC_API_KEY` to be of any use.** Twelve of the thirteen
 listings it targets sit on pages that publish no `schema.org` offer — museum
 and festival sites state the price in prose, in a table, or behind a ticketing

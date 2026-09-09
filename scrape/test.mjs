@@ -9,7 +9,7 @@ import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks } from './extract.mjs';
 import { normalize, validate } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
-import { bestMatch, acceptable, patchEntry, loadSite } from './recheck.mjs';
+import { bestMatch, acceptable, patchEntry, loadSite, restingIds } from './recheck.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const fixture = (n) => readFile(path.join(here, 'fixtures', n), 'utf8');
@@ -259,6 +259,20 @@ check('a real patch of the real data.js still parses', () => {
   assert.equal(got.length, events.length);
   assert.equal(got.find((e) => e.id === before.id).entry, '$19');
 });
+
+console.log('\nBacking off pages that state no price');
+const day = (n) => new Date(Date.parse('2026-09-09') + n * 86400000).toISOString().slice(0, 10);
+const ids = ['a', 'b', 'c'];
+check('a listing asked yesterday rests', () =>
+  assert.deepEqual(restingIds(ids, { a: day(-1) }, '2026-09-09'), ['a']));
+check('a listing asked 29 days ago still rests', () =>
+  assert.deepEqual(restingIds(ids, { a: day(-29) }, '2026-09-09'), ['a']));
+check('a listing asked 30 days ago is asked again', () =>
+  assert.deepEqual(restingIds(ids, { a: day(-30) }, '2026-09-09'), []));
+check('a listing never asked is asked', () =>
+  assert.deepEqual(restingIds(ids, {}, '2026-09-09'), []));
+check('an unknown id in the log does not rest a listing', () =>
+  assert.deepEqual(restingIds(ids, { zzz: day(-1) }, '2026-09-09'), []));
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
 process.exitCode = failures ? 1 : 0;
