@@ -764,10 +764,11 @@ const EVENTS = [
     source: 'https://www.therex.ca/events',
     checked: CHECKED,
     description: 'The Rex runs several sets a night and the early one is pay what you can, no reservations: 5pm daily, plus a 2pm matinee at weekends. The bill runs from student ensembles out of U of T and Humber to established Toronto quartets and big bands.',
-    schedule: [
-      { kind: 'weekly', weekday: [0, 1, 2, 3, 4, 5, 6], from: '2026-09-09', to: '2026-09-30', time: '5–7pm', hour: 17 },
-      { kind: 'weekly', weekday: [0, 6], from: '2026-09-12', to: '2026-09-27', time: '2–4pm', hour: 14 },
-    ],
+    /* One card for a standing offer, not one per night. As seven weekly
+       occurrences this produced twenty-eight cards in "This month" — a fifth
+       of the whole board from one venue — and it is a thing you turn up to
+       rather than plan around, so a run reads truer than a date. */
+    schedule: { kind: 'range', start: '2026-09-09', end: '2026-09-30', time: '5–7pm; 2–4pm Sat & Sun', hour: 17 },
   },
   {
     id: 'classic-rex-jam',

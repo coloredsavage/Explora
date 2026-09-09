@@ -286,6 +286,11 @@
     btn.type = 'button';
     btn.dataset.event = ev.id;
     btn.dataset.start = occ.start.toISOString();
+    /* A date alone does not identify an occurrence. The Rex runs an early set
+       and a weekend matinee on the same Saturday, so two cards share a start
+       and the modal used to open whichever came first — showing 5–7pm for the
+       2–4pm card. The time disambiguates them. */
+    btn.dataset.time = occ.time || '';
     btn.dataset.price = priceOf(ev);
 
     btn.appendChild(el('h3', 'card__title', ev.title));
@@ -422,17 +427,23 @@
   var mClose = document.getElementById('modal-close');
   var lastFocus = null;
 
-  function openModal(eventId, startISO) {
+  function openModal(eventId, startISO, time) {
     var ev = null, i;
     for (i = 0; i < LISTINGS.length; i++) if (LISTINGS[i].id === eventId) { ev = LISTINGS[i]; break; }
     if (!ev) return;
 
-    var occ = null;
+    var occ = null, onDay = null;
     for (i = 0; i < ALL.length; i++) {
       if (ALL[i].event.id !== eventId) continue;
-      if (!startISO || ALL[i].start.toISOString() === startISO) { occ = ALL[i]; break; }
-      if (!occ) occ = ALL[i];
+      if (!occ) occ = ALL[i];                       /* a fallback, for a bare id */
+      if (!startISO) break;
+      if (ALL[i].start.toISOString() !== startISO) continue;
+      if (!onDay) onDay = ALL[i];
+      /* Two occurrences can share a day, so match the time as well when the
+         card told us one; fall back to the first on that day. */
+      if (time == null || (ALL[i].time || '') === time) { onDay = ALL[i]; break; }
     }
+    if (onDay) occ = onDay;
     if (!occ) return;
 
     document.getElementById('modal-title').textContent = ev.title;
@@ -490,7 +501,7 @@
 
   board.addEventListener('click', function (e) {
     var card = e.target.closest ? e.target.closest('.card') : null;
-    if (card) openModal(card.dataset.event, card.dataset.start);
+    if (card) openModal(card.dataset.event, card.dataset.start, card.dataset.time);
   });
 
   /* keep Tab inside whichever dialog is open */

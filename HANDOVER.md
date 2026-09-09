@@ -318,14 +318,14 @@ The Rex page is worth knowing about — its listings carry the price inline, and
 "Pay What You Can" sits inside the same block as the 5pm and 2pm sets and never
 inside an 8pm one, which is how that listing was verified.
 
-**The board is still narrow, and this is the live piece of work.** As of
-2026-09-08 it is 20 of 45 listings in galleries, museums, architecture and
-books, plus seven near-identical farmers' markets. `comedy` was the first new
-category (Comedy Bar's Hot Mic and Studio Mondays, plus the `comedybar` and
-`baddog` sources). **Music, repertory film, and outdoors/sport are still at
-zero** — the research pass for those three died on a session limit and was
-never redone. Findings from the part that did run, so the next attempt does
-not repeat it:
+**Outdoors is the gap now, and it is the live piece of work.** As of
+2026-09-09 the board is 51 listings across fifteen categories. `comedy`,
+`music` and `film` have been filled — Comedy Bar's two rooms, the Rex's early
+sets and jazz jam, the opera company's free concerts, and three at the Revue.
+**`outdoors`, `stage` and `food` are still at zero.** Outdoors matters most:
+free public swims and skates are the richest vein this calendar has not tapped,
+and the researcher for it died before returning anything. Findings from the
+passes that did run, so the next attempt does not repeat them:
 
 - **The Paradise Theatre is a trap.** `paradiseonbloor.com` serves real
   `ScreeningEvent` JSON-LD with `offers` and prices, so it looks like the
