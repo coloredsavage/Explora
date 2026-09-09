@@ -88,30 +88,45 @@ export const SOURCES = [
   {
     id: 'bentway',
     name: 'The Bentway',
-    url: 'https://thebentway.ca/events/',
-    /* Discovery: HTTP 404. This URL is simply wrong — find the real listing
-       page before judging the source. */
-    enabled: false,
+    url: 'https://thebentway.ca/whats-on/',
+    /* The old URL (/events/) 404'd, and so do /programming/ and /calendar/;
+       /whats-on/ is the real listing page and always was. It is served
+       whole — plain fetch sees all 24 links — and robots.txt disallows
+       nothing. No Event JSON-LD anywhere on the event pages, only Yoast's
+       WebPage, so this one reads through the model rather than the fast
+       path. Worth the tokens: every page renders a Cost/Ticket field, which
+       is a quotable primary source for a price. */
+    enabled: true,
     category: 'architecture',
     art: 'art-skates',
     defaultVenue: 'The Bentway',
     defaultAddress: '250 Fort York Blvd, Toronto, ON M5V 3K9',
-    followLinks: /^https:\/\/thebentway\.ca\/event\/[a-z0-9-]+\/?$/i,
+    /* Skip skate-trail-closed-N: they are dead notices that redirect back to
+       the index, and there are two of them in every crawl. */
+    followLinks: /^https:\/\/thebentway\.ca\/event\/(?!skate-trail-closed)[a-z0-9-]+\/?$/i,
     maxFollow: 20,
     maxEvents: 10,
   },
   {
     id: 'evergreen',
     name: 'Evergreen Brick Works',
-    url: 'https://www.evergreen.ca/whats-on/',
-    /* Discovery: 200, but zero links matched followLinks — either the wrong
-       listing page or the wrong pattern. */
-    enabled: false,
+    url: 'https://www.evergreen.ca/evergreen-brick-works/whats-on/',
+    /* Both halves were wrong, which is why discovery saw a healthy 200 and
+       nothing to follow: the old URL 301s here, and the old pattern looked
+       for event pages at the root. They live under /evergreen-brick-work/ —
+       singular 'work', no s — split across /events/ and /activities/.
+       Server-rendered, nothing disallowed. The event pages do return a
+       ld+json block, but it is Yoast WebPage/Breadcrumb with no Event node,
+       so this reads through the model too — do not mistake the block for a
+       fast path. About half the cards link off to third-party ticketing and
+       are skipped, which is expected. Its index also carries expired and
+       undated items; normalize.mjs already drops both. */
+    enabled: true,
     category: 'dropin',
     art: 'art-ravine',
     defaultVenue: 'Evergreen Brick Works',
     defaultAddress: '550 Bayview Ave, Toronto, ON M4W 3X8',
-    followLinks: /^https:\/\/www\.evergreen\.ca\/(events?|whats-on)\/[a-z0-9-]+\/?$/i,
+    followLinks: /^https:\/\/www\.evergreen\.ca\/evergreen-brick-work\/(events|activities)\/[a-z0-9-]+\/$/i,
     maxFollow: 20,
     maxEvents: 10,
   },
