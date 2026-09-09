@@ -9,7 +9,7 @@ import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks } from './extract.mjs';
 import { normalize, validate } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
-import { bestMatch, acceptable, patchEntry, loadSite, restingIds } from './recheck.mjs';
+import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const fixture = (n) => readFile(path.join(here, 'fixtures', n), 'utf8');
@@ -273,6 +273,15 @@ check('a listing never asked is asked', () =>
   assert.deepEqual(restingIds(ids, {}, '2026-09-09'), []));
 check('an unknown id in the log does not rest a listing', () =>
   assert.deepEqual(restingIds(ids, { zzz: day(-1) }, '2026-09-09'), []));
+
+console.log('\nRefused versus failed');
+check('403 is a refusal and rests', () => assert.ok(DURABLE_REFUSAL.has(403)));
+check('404 and 410 rest', () =>
+  assert.ok(DURABLE_REFUSAL.has(404) && DURABLE_REFUSAL.has(410)));
+check('429 is not a refusal — it asks us to slow down, so retry', () =>
+  assert.ok(!DURABLE_REFUSAL.has(429)));
+check('a 5xx is the request failing, not being refused', () =>
+  assert.ok(!DURABLE_REFUSAL.has(500) && !DURABLE_REFUSAL.has(503)));
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
 process.exitCode = failures ? 1 : 0;

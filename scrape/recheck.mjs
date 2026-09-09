@@ -44,6 +44,15 @@ const report = { found: [], changed: [], unchanged: [], nothing: [], skipped: []
 const ATTEMPTS = path.join(root, 'scrape', 'price-attempts.json');
 const BACKOFF_DAYS = 30;
 
+/* A server saying "no" is an answer, and should rest like any other. 403 is
+   what ago.ca returns for this bot; 401, 404 and 410 are the same shape of
+   refusal. Everything else — a timeout, a 5xx, a 429 asking us to slow down —
+   is the request failing rather than being refused, and is tried again next
+   run. Without this split a permanently-403 page is fetched on every run
+   forever, which is the same standing request to someone's server that the
+   backoff exists to stop. */
+export const DURABLE_REFUSAL = new Set([401, 403, 404, 410]);
+
 const daysBetween = (a, b) => Math.round((Date.parse(a) - Date.parse(b)) / 86400000);
 
 /* The resting rule, exported so it can be tested without a network or a clock. */
@@ -217,7 +226,11 @@ async function main() {
          there and timed out with the price sitting in the HTML all along. */
       const res = await page.goto(listing.source, { waitUntil: 'domcontentloaded', timeout: 30000 });
       if (!res || !res.ok()) {
-        report.errors.push(`${listing.id} — HTTP ${res ? res.status() : 'no response'} at ${listing.source}`);
+        const status = res ? res.status() : 0;
+        const durable = DURABLE_REFUSAL.has(status);
+        if (durable) attempts[listing.id] = today;
+        report.errors.push(`${listing.id} — HTTP ${status || 'no response'} at ${listing.source}` +
+          (durable ? `, resting ${BACKOFF_DAYS} days (the server is refusing, not failing)` : ''));
         continue;
       }
       await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});

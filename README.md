@@ -328,9 +328,16 @@ behind a ticketing widget — and without a memory of having asked, those
 listings stay unknown forever and are re-fetched on every run: a standing
 bill, and a standing request to someone's server, for a question already
 answered no. An answer of "this page states no price" is recorded and re-asked after 30
-days. Being unable to ask — no API key, an HTTP error — is not an answer and
-is retried the next day, so setting the key does not look like it changed
-nothing for a month.
+days. A server refusing outright — 401, 403, 404, 410; `ago.ca` returns 403 to
+this bot — is also an answer, and rests too, rather than becoming a standing
+request to somewhere that has said no. Being unable to ask is not an answer
+and is retried next run: no API key, a timeout, a 5xx, or a 429 asking us to
+slow down. So setting the key does not look like it changed nothing for a
+month.
+
+The log is committed by the workflow along with `data.js`. It has to be — left
+uncommitted it is written on the runner and thrown away with it, every listing
+is asked again next run, and the backoff silently does nothing.
 
 **It needs `ANTHROPIC_API_KEY` to be of any use.** Twelve of the thirteen
 listings it targets sit on pages that publish no `schema.org` offer — museum

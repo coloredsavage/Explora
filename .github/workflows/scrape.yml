@@ -88,12 +88,17 @@ jobs:
         id: diff
         if: ${{ !(inputs.discover || github.ref_name == 'run-discover') }}
         run: |
-          if git diff --quiet -- scraped.js data.js; then
+          # price-attempts.json belongs in this list: it is the recheck's memory
+          # of which pages have already answered "no price". Left uncommitted it
+          # is written on the runner and thrown away with it, every listing is
+          # asked again on the next run, and the backoff silently does nothing.
+          files='scraped.js data.js scrape/price-attempts.json'
+          if git diff --quiet -- $files; then
             echo 'changed=false' >> "$GITHUB_OUTPUT"
-            echo 'No change in scraped.js or data.js.'
+            echo 'Nothing changed.'
           else
             echo 'changed=true' >> "$GITHUB_OUTPUT"
-            git --no-pager diff --stat -- scraped.js data.js
+            git --no-pager diff --stat -- $files
           fi
 
       # A pull request rather than a push to main: a person still decides what
@@ -109,7 +114,7 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -B "$branch"
-          git add scraped.js data.js
+          git add scraped.js data.js scrape/price-attempts.json
           git commit -m "Polled event sources on $(date -u +%Y-%m-%d)"
 
           # The checkout is shallow and fetches only the default branch, so if
