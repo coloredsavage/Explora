@@ -221,6 +221,10 @@ svg.about__art { width: 340px; height: auto; }
   letter-spacing: -0.01em;
 }
 
+/* Keeps a last line from ending on one word — "Email me." was breaking so
+   that "me." sat alone on a 48px line under a 508px paragraph. */
+.about p { text-wrap: pretty; }
+
 .about p {
   margin: 0 0 22px;
   font-size: 15px;
@@ -233,6 +237,11 @@ svg.about__art { width: 340px; height: auto; }
 .about__note { font-size: 14px !important; }
 .about a { text-decoration: none; border-bottom: 1px solid #c3c3c3; padding-bottom: 1px; }
 .about a:hover { border-bottom-color: var(--ink); }
+
+/* The handle is a signature, not a link in a sentence, so it carries no rule.
+   Needs to out-specify `.about a`, which is (0,1,1) — the same weight as
+   `.about__social a`, so source order was deciding and the border stayed. */
+.about p.about__social a { border-bottom: 0; padding-bottom: 0; }
 
 /* ------------------------------------------------------------------- card */
 
