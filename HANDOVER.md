@@ -151,6 +151,34 @@ was closed as superseded.
 
 ---
 
+## The categories, and why there are fifteen
+
+Ten described what was on the board; they did not describe what was going on it.
+Three listings were already wearing a category that did not fit — Saturday Night
+Swing filed as a drop-in, TIFF as a festival, and a Bad Dog improv night still a
+drop-in after `comedy` existed. All three are corrected.
+
+Added 2026-09-08: `music`, `film`, `outdoors`, `stage`, `food`. Four of the five
+start empty, which costs nothing — **the filter only offers a chip for a value
+some listing actually has**, so an unused category is invisible until something
+lands in it. They exist now so the illustration set can be drawn against a
+settled list rather than growing one category at a time.
+
+**Colour is what limits this, not naming.** Every category needs a light tint
+distinguishable from fourteen others at a glance, and the palette is most of the
+way full. Fifteen is close to the ceiling. If a sixteenth is ever tempting, ask
+first whether a per-listing `art` would carry the distinction instead — a
+listing may always name its own drawing, which is why thirty-four drawings serve
+forty-five listings.
+
+Two things that are deliberately **not** categories. Audience and attribute —
+kids, accessible, indoor/outdoor — belong in a third filter group beside
+Category and Price, not as more categories, because a card carries exactly one
+category. And watching sport folds into `outdoors`; a separate `sport` was
+considered and dropped for want of anything free or cheap to put in it.
+
+---
+
 ## Adding a category
 
 Three places, and missing any one of them fails quietly rather than loudly:
@@ -310,24 +338,33 @@ not repeat it:
   392 Spadina Avenue while the show is run with Sweet Action Theatre, and a
   guessed address sends someone across the city. Left out, per the rule.
 
-**`closes` is the earliest regular closing time, and it is deliberately
-lossy.** A phone card shows the start time bottom-right, and for a run with no
-daily time — an exhibition — it shows "Closes 5pm" from this field instead. Two
-things to know before extending it. Where a venue's hours differ by day it
-holds the EARLIEST regular close, so the card can never tell someone a place is
-open later than it is: the Gardiner is 10–9 on Wednesdays but the field says
-5pm, its Saturday close. And it does not model one-off early closures — the ROM
-says 17:30 every day of the week it publishes except one, where it shuts at
-15:00, and the field says 5:30pm. If that gap ever matters, the fix is per-day
-hours, not a different single value.
+**`closes` is per weekday.** A phone card shows the start time bottom-right,
+and for a run with no daily time — an exhibition — it shows "Closes 5pm"
+instead. The field is either one string, for a place that keeps the same hours
+all week, or seven values indexed by `getDay()` (0 = Sunday) with `null` for
+days it is shut. Per-day is not fussiness: MOCA closes at 5 most days and **9
+on Fridays**, the Gardiner at 6 on weekdays and 5 at weekends, the Image Centre
+at 8 on Wednesdays. A single figure was wrong four days out of seven, and a
+card showing nothing on a day the venue is closed is the point of the nulls.
+
+It still does not model one-off early closures. The ROM publishes 17:30 every
+day of the week it lists except one, labelled "Early Closure" at 15:00, and the
+field says 5:30pm throughout. That is an announced exception rather than its
+hours, and modelling it would mean fetching the rolling window on every poll.
 
 Only 7 of the 20 timeless listings have it. **The AGO's two are blocked**:
 ago.ca sits behind Cloudflare bot protection that refuses curl, WebFetch and a
-headless browser alike, so its daily hours could not be read. Confirmed and
-filled: the ROM (5:30pm), MOCA, the Gardiner, the Image Centre, Onsite Gallery
-and the Toronto Vintage Show (all 5pm). Still to do: the twelve festival,
-parade and fair listings, whose closing times are published per event rather
-than as venue hours.
+headless browser alike, so its daily hours could not be read. Filled from each
+venue's own hours page: the ROM, MOCA, the Gardiner, the Image Centre, Onsite
+Gallery and the Toronto Vintage Show. Still to do: the twelve festival, parade
+and fair listings, whose closing times are published per event rather than as
+venue hours.
+
+**Timed things sort before open-all-day things.** A run starts before the
+window does, so exhibitions used to sort to the very top of every column and
+push the day's actual events off the screen. `ongoing()` in `app.js` is the
+first sort key now: anything spanning more than one day sorts after everything
+with a start time.
 
 **Watch the unanchored pay-what-you-can test.** `priceOf` checks for PWYC
 anywhere in the line, not just at the start, so `"$5; pay what you can"` buckets

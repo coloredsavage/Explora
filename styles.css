@@ -56,6 +56,11 @@
   --c-dropin:       #f4eec3;  --s-dropin:       #fbf8e6;
   --c-social:       #e8e4dc;  --s-social:       #f6f4f0;
   --c-comedy:       #f0dbf5;  --s-comedy:       #faf2fc;
+  --c-stage:        #ecdcc9;  --s-stage:        #f7efe6;
+  --c-music:        #f6dbe1;  --s-music:        #fcf1f4;
+  --c-film:         #dcdef2;  --s-film:         #eff0fb;
+  --c-outdoors:     #d2e8ea;  --s-outdoors:     #ecf6f7;
+  --c-food:         #e6efd3;  --s-food:         #f4f8ea;
 
   --shadow: 0 8px 30px rgba(20, 20, 20, .10), 0 1px 3px rgba(20, 20, 20, .06);
 
@@ -236,6 +241,11 @@ svg.about__art { width: 340px; height: auto; }
 .card--dropin       { --card: var(--c-dropin); }
 .card--social       { --card: var(--c-social); }
 .card--comedy       { --card: var(--c-comedy); }
+.card--stage        { --card: var(--c-stage); }
+.card--music        { --card: var(--c-music); }
+.card--film         { --card: var(--c-film); }
+.card--outdoors     { --card: var(--c-outdoors); }
+.card--food         { --card: var(--c-food); }
 
 .card__title {
   margin: 0;
