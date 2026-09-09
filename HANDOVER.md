@@ -310,6 +310,25 @@ not repeat it:
   392 Spadina Avenue while the show is run with Sweet Action Theatre, and a
   guessed address sends someone across the city. Left out, per the rule.
 
+**`closes` is the earliest regular closing time, and it is deliberately
+lossy.** A phone card shows the start time bottom-right, and for a run with no
+daily time — an exhibition — it shows "Closes 5pm" from this field instead. Two
+things to know before extending it. Where a venue's hours differ by day it
+holds the EARLIEST regular close, so the card can never tell someone a place is
+open later than it is: the Gardiner is 10–9 on Wednesdays but the field says
+5pm, its Saturday close. And it does not model one-off early closures — the ROM
+says 17:30 every day of the week it publishes except one, where it shuts at
+15:00, and the field says 5:30pm. If that gap ever matters, the fix is per-day
+hours, not a different single value.
+
+Only 7 of the 20 timeless listings have it. **The AGO's two are blocked**:
+ago.ca sits behind Cloudflare bot protection that refuses curl, WebFetch and a
+headless browser alike, so its daily hours could not be read. Confirmed and
+filled: the ROM (5:30pm), MOCA, the Gardiner, the Image Centre, Onsite Gallery
+and the Toronto Vintage Show (all 5pm). Still to do: the twelve festival,
+parade and fair listings, whose closing times are published per event rather
+than as venue hours.
+
 **Watch the unanchored pay-what-you-can test.** `priceOf` checks for PWYC
 anywhere in the line, not just at the start, so `"$5; pay what you can"` buckets
 as **free**, not as $5 — the leading figure is ignored. If you mean a suggested

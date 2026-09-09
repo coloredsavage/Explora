@@ -335,12 +335,13 @@
   }
 
   /* When it starts, or — for a run with no daily time, like an exhibition —
-     when it stops, which is the useful thing left to say about it. The end
-     is deliberately not clipped to the column: "Until Oct 18" is the real
-     closing date whether you are looking at Today or This month. */
+     when it shuts. `closes` is the venue's own closing time, and where its
+     hours differ by day it holds the EARLIEST regular one, so a card can
+     never tell someone a place is open later than it is. A listing with
+     neither shows nothing rather than a guess. */
   function timeTag(occ) {
     if (occ.time) return occ.time;
-    if (!sameDay(occ.start, occ.end)) return 'Until ' + fmtDay(occ.end);
+    if (occ.event.closes) return 'Closes ' + occ.event.closes;
     return '';
   }
 
