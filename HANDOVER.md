@@ -65,10 +65,12 @@ Other facts that cost time to rediscover:
   `contents:write` but not `actions:write`, so `workflow_dispatch` returns 403
   *for that token*. A normal user token dispatches fine.
 - **Branch deletion silently no-ops** through the push proxy — it reports
-  "Everything up-to-date" and the ref stays. Several disposable `run-*` and
-  `show/*` branches are stuck on the remote for this reason. Harmless; nothing
-  pushes to them. Deleting them needs a session whose permissions allow a
-  `DELETE` on `git/refs` — the 2026-09-08 session had that blocked too.
+  "Everything up-to-date" and the ref stays. That is why disposable `run-*`
+  and `show/*` branches used to accumulate. They were all cleared on
+  2026-09-08 with `gh api -X DELETE repos/.../git/refs/heads/<branch>`, which
+  works where a plain push does not; `main` is now the only remote branch.
+  The trigger branches do not need to exist in advance — pushing
+  `main:run-poll` creates one on demand — so deleting them costs nothing.
 - **Playwright's installed version disagrees with the bundled browser.** The
   package wants `chromium-1243`; `/opt/pw-browsers` has `1194`. Launch with
   `chromium.launch({ executablePath: '/opt/pw-browsers/chromium' })` for local
