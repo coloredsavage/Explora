@@ -151,6 +151,25 @@ was closed as superseded.
 
 ---
 
+## Adding a category
+
+Three places, and missing any one of them fails quietly rather than loudly:
+
+1. `data.js` — a `CATEGORIES` entry (label + default art). **`app.js:150`
+   drops any listing whose category is not in `CATEGORIES`**, silently. That
+   applies to scraped listings too, so a source filing events under a new
+   category needs the key registered or the poller's output vanishes.
+2. `styles.css` — a `--c-<key>` / `--s-<key>` colour pair in `:root`.
+3. `styles.css` — a `.card--<key> { --card: var(--c-<key>); }` rule, because
+   `app.js:276` builds the class name from the category.
+
+`app.js` itself needs no change. No new art can be drawn, so pick from the
+symbols already in `index.html`; several are still unused (`art-filmreel`,
+`art-records`, `art-gramophone`, `art-tree`, `art-ravine`, `art-bicycle`,
+`art-lantern`, `art-streetcar`, `art-sculpture`).
+
+---
+
 ## Decisions already made — please don't silently re-litigate
 
 Each of these was argued through with the user. Reopen them if you have new
@@ -262,6 +281,59 @@ and a public repo served by Pages does both). `git rm` does not unpublish them �
 GitHub still serves those blobs. Actually removing them needs a history rewrite
 and a force-push over `391350c`, which breaks existing clones. The user has been
 told and has not asked for it.
+
+**The board is still narrow, and this is the live piece of work.** As of
+2026-09-08 it is 20 of 45 listings in galleries, museums, architecture and
+books, plus seven near-identical farmers' markets. `comedy` was the first new
+category (Comedy Bar's Hot Mic and Studio Mondays, plus the `comedybar` and
+`baddog` sources). **Music, repertory film, and outdoors/sport are still at
+zero** — the research pass for those three died on a session limit and was
+never redone. Findings from the part that did run, so the next attempt does
+not repeat it:
+
+- **The Paradise Theatre is a trap.** `paradiseonbloor.com` serves real
+  `ScreeningEvent` JSON-LD with `offers` and prices, so it looks like the
+  ideal fast-path source — but the nodes on its homepage are dated
+  **2025-02-17**, eighteen months stale. `normalize.mjs` would drop every one
+  as already past and the source would yield nothing. Verify dates before
+  trusting structured data.
+- Probed and still unresolved: `revuecinema.ca` (200, no JSON-LD),
+  `hotdocscinema.ca` and `therex.ca` (200, `ld+json` present but no Event
+  node), `tranzac.org/events/` (404 — wrong URL, worth finding the right one).
+- **City of Toronto drop-in recreation** — free public swims and skates — is
+  probably the single richest vein for this calendar and is not done.
+  `/explore-enjoy/recreation/` is 200 but the drop-in listings sit behind a
+  JS-driven search rather than an index page.
+- `bad-dog-bucket-show` was researched and **rejected**: its page confirms the
+  price ("$5 / Pay What You Can") and the schedule ("1st and 3rd Wednesday at
+  8:30pm") but never says *where* it happens. The site's own location block is
+  392 Spadina Avenue while the show is run with Sweet Action Theatre, and a
+  guessed address sends someone across the city. Left out, per the rule.
+
+**`closes` is the earliest regular closing time, and it is deliberately
+lossy.** A phone card shows the start time bottom-right, and for a run with no
+daily time — an exhibition — it shows "Closes 5pm" from this field instead. Two
+things to know before extending it. Where a venue's hours differ by day it
+holds the EARLIEST regular close, so the card can never tell someone a place is
+open later than it is: the Gardiner is 10–9 on Wednesdays but the field says
+5pm, its Saturday close. And it does not model one-off early closures — the ROM
+says 17:30 every day of the week it publishes except one, where it shuts at
+15:00, and the field says 5:30pm. If that gap ever matters, the fix is per-day
+hours, not a different single value.
+
+Only 7 of the 20 timeless listings have it. **The AGO's two are blocked**:
+ago.ca sits behind Cloudflare bot protection that refuses curl, WebFetch and a
+headless browser alike, so its daily hours could not be read. Confirmed and
+filled: the ROM (5:30pm), MOCA, the Gardiner, the Image Centre, Onsite Gallery
+and the Toronto Vintage Show (all 5pm). Still to do: the twelve festival,
+parade and fair listings, whose closing times are published per event rather
+than as venue hours.
+
+**Watch the unanchored pay-what-you-can test.** `priceOf` checks for PWYC
+anywhere in the line, not just at the start, so `"$5; pay what you can"` buckets
+as **free**, not as $5 — the leading figure is ignored. If you mean a suggested
+donation, write it as "Pay what you can, $5 suggested" so the line says what
+the rule will do with it.
 
 **`CHECKED` is `2026-09-08`.** The price work of that day deliberately did not
 bump it — reading a price is not re-confirming a date. Listings rot in

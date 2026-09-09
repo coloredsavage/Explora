@@ -131,12 +131,15 @@
   }
   function endOfMonth(d) { return new Date(d.getFullYear(), d.getMonth() + 1, 0, 12); }
 
+  /* `tab` is the short form used by the mobile tab strip, where five full
+     titles do not fit across a phone. It is never seen on a wide screen, and
+     the dates sit directly under it, so "Week" cannot be misread. */
   var WINDOWS = [
-    { id: 'today', title: 'Today',      from: TODAY,             to: TODAY,
+    { id: 'today', title: 'Today',      tab: 'Today', from: TODAY,             to: TODAY,
       range: fmtLongDate(TODAY), hideWhen: true },
-    { id: 'week',  title: 'This week',  from: addDays(TODAY, 1), to: endOfWeek(TODAY) },
-    { id: 'month', title: 'This month', from: TODAY,             to: endOfMonth(TODAY) },
-    { id: 'year',  title: 'This year',  from: TODAY,             to: YEAR_END }
+    { id: 'week',  title: 'This week',  tab: 'Week',  from: addDays(TODAY, 1), to: endOfWeek(TODAY) },
+    { id: 'month', title: 'This month', tab: 'Month', from: TODAY,             to: endOfMonth(TODAY) },
+    { id: 'year',  title: 'This year',  tab: 'Year',  from: TODAY,             to: YEAR_END }
   ];
   WINDOWS.forEach(function (w) {
     if (!w.range) w.range = fmtSpan(w.from, w.to);
@@ -284,16 +287,22 @@
     /* the visible dates are clipped to this column's window */
     var from = max(occ.start, win.from);
     var to = min(occ.end, win.to);
-    var when;
 
-    if (win.hideWhen) {
-      when = occ.time || null;                  /* today's column: time only */
-    } else if (sameDay(from, to)) {
-      when = fmtDay(from) + (occ.time ? ' · ' + occ.time : '');
-    } else {
-      when = fmtSpan(from, to);
+    /* Date and time go in separate spans so the phone can drop the time from
+       this line and show it in the card's footer instead, without either
+       layout having to render a different card. */
+    var dateText = win.hideWhen ? '' : (sameDay(from, to) ? fmtDay(from) : fmtSpan(from, to));
+    var when = el('p', 'card__when');
+    if (dateText) when.appendChild(el('span', 'card__when-date', dateText));
+    if (occ.time) {
+      when.appendChild(el('span', 'card__when-time', (dateText ? ' · ' : '') + occ.time));
     }
-    if (when) btn.appendChild(el('p', 'card__when', when));
+    if (when.childNodes.length) {
+      /* Today's cards carry only a time, and on the phone that has moved to
+         the footer — so the line has nothing left to say and is dropped. */
+      if (!dateText) when.className += ' card__when--time-only';
+      btn.appendChild(when);
+    }
 
     if (!seenArt[ev.id]) {
       seenArt[ev.id] = true;
@@ -301,7 +310,39 @@
       node.setAttribute('class', 'card__art');
       btn.appendChild(node);
     }
+
+    /* Phone only: what it costs, and when. */
+    var foot = el('div', 'card__foot');
+    foot.appendChild(el('span', 'card__price', priceTag(ev)));
+    foot.appendChild(el('span', 'card__time', timeTag(occ)));
+    btn.appendChild(foot);
+
     return btn;
+  }
+
+  /* The short form of a price, for the corner of a card. The whole `entry`
+     line stays in the modal; this is the number you want at a glance, and it
+     agrees with the filter because it asks priceOf which bucket applies
+     rather than re-reading the line its own way. */
+  function priceTag(ev) {
+    var t = String(ev.entry || '').trim();
+    if (!t) return '';
+    if (priceOf(ev) === 'free') {
+      return /pay[- ]what|pwyc/i.test(t) ? 'Pay what you can' : 'Free';
+    }
+    var m = t.match(/\$\s*(\d+(?:\.\d+)?)/);
+    return m ? '$' + m[1] : '';
+  }
+
+  /* When it starts, or — for a run with no daily time, like an exhibition —
+     when it shuts. `closes` is the venue's own closing time, and where its
+     hours differ by day it holds the EARLIEST regular one, so a card can
+     never tell someone a place is open later than it is. A listing with
+     neither shows nothing rather than a guess. */
+  function timeTag(occ) {
+    if (occ.time) return occ.time;
+    if (occ.event.closes) return 'Closes ' + occ.event.closes;
+    return '';
   }
 
   function render() {
@@ -313,6 +354,8 @@
 
     WINDOWS.forEach(function (win) {
       var col = el('section', 'col');
+      col.id = 'panel-' + win.id;
+      col.dataset.tab = win.tab;
       col.setAttribute('aria-labelledby', 'head-' + win.id);
 
       var head = el('header', 'col__head');
@@ -346,6 +389,7 @@
     statusEl.textContent = 'Today. ' + fmtLongDate(TODAY) + '. ' +
       todayCount + (todayCount === 1 ? ' event.' : ' events.');
     updateNav();
+    buildTabs();
   }
 
   /* --------------------------------------------------------------- modal */
@@ -543,21 +587,156 @@
 
   var prev = document.getElementById('nav-prev');
   var next = document.getElementById('nav-next');
+  var nextLabel = document.getElementById('nav-next-label');
 
-  function step() {
-    var col = board.querySelector('.col:not(.col--about)');
-    return col ? col.getBoundingClientRect().width : 360;
+  /* Where a column starts along the board, in the board's own scroll
+     coordinates. Read from layout rather than assumed, because the columns
+     are not all the same width — About is 640px against a window's 320 — and
+     stepping by a fixed amount lands mid-column every time you pass it. */
+  function colStart(col) {
+    return Math.round(
+      col.getBoundingClientRect().left - board.getBoundingClientRect().left + board.scrollLeft
+    );
   }
+  function columns() {
+    return Array.prototype.slice.call(board.querySelectorAll('.col'));
+  }
+  function colTitle(col) {
+    var t = col.querySelector('.col__title');
+    if (t) return t.textContent;
+    return col.classList.contains('col--about') ? 'About' : '';
+  }
+  function neighbour(dir) {
+    var list = columns();
+    if (dir > 0) {
+      for (var i = 0; i < list.length; i++) {
+        if (colStart(list[i]) > board.scrollLeft + 4) return list[i];
+      }
+      return null;
+    }
+    for (var j = list.length - 1; j >= 0; j--) {
+      if (colStart(list[j]) < board.scrollLeft - 4) return list[j];
+    }
+    return null;
+  }
+
   function updateNav() {
     var maxLeft = board.scrollWidth - board.clientWidth;
     prev.hidden = board.scrollLeft <= 4;
     next.hidden = board.scrollLeft >= maxLeft - 4;
+
+    /* Name the destination on the forward button. A chevron on its own reads
+       as decoration; the words are what tell someone the board keeps going. */
+    var ahead = neighbour(1);
+    var name = ahead ? colTitle(ahead) : '';
+    nextLabel.textContent = name;
+    next.classList.toggle('dock__nav--wide', !!name);
+    next.setAttribute('aria-label', name ? 'Scroll to ' + name : 'Scroll to the next column');
+
+    var back = neighbour(-1);
+    prev.setAttribute('aria-label', back ? 'Scroll to ' + colTitle(back) : 'Scroll to the previous column');
   }
 
-  prev.addEventListener('click', function () { board.scrollBy({ left: -step(), behavior: 'smooth' }); });
-  next.addEventListener('click', function () { board.scrollBy({ left: step(), behavior: 'smooth' }); });
+  function go(dir) {
+    var col = neighbour(dir);
+    if (col) board.scrollTo({ left: colStart(col), behavior: 'smooth' });
+  }
+  prev.addEventListener('click', function () { go(-1); });
+  next.addEventListener('click', function () { go(1); });
   board.addEventListener('scroll', updateNav, { passive: true });
   window.addEventListener('resize', updateNav);
+
+  /* ---------------------------------------------------------- mobile tabs */
+
+  /* A phone shows one column at a time and nothing else, so the sideways run
+     that works on a wide screen leaves a first-time visitor on the About
+     essay with no sign a calendar exists. On narrow screens the same columns
+     become tab panels: tap a window, scroll straight down. Nothing about the
+     cards, the filter or the modal changes — only how you get between the
+     four windows.
+
+     The tabs are ordered windows-first with About last, which is not DOM
+     order; About stays first in the markup because that is where it belongs
+     on a wide screen and for anyone reading the page without CSS. */
+
+  var tabsEl = document.getElementById('tabs');
+  var aboutBtn = document.getElementById('about-btn');
+  var activePanel = 'panel-today';
+
+  /* Every panel that can be shown. About is one of them, but it is reached
+     from the bar rather than the tab strip — it is not a time window, and
+     sitting it beside Today read as though it were one. */
+  function panels() {
+    var wins = Array.prototype.slice.call(board.querySelectorAll('.col:not(.col--about)'));
+    var about = board.querySelector('.col--about');
+    return about ? wins.concat([about]) : wins;
+  }
+  function windowPanels() {
+    return Array.prototype.slice.call(board.querySelectorAll('.col:not(.col--about)'));
+  }
+  function panelName(p) {
+    if (p.classList.contains('col--about')) return 'About';
+    if (p.dataset.tab) return p.dataset.tab;
+    var t = p.querySelector('.col__title');
+    return t ? t.textContent : '';
+  }
+
+  function selectPanel(id, moveFocus) {
+    var list = panels();
+    if (!list.some(function (p) { return p.id === id; })) {
+      id = list.length ? list[0].id : null;
+    }
+    if (!id) return;
+    activePanel = id;
+
+    list.forEach(function (p) {
+      p.classList.toggle('col--active', p.id === id);
+    });
+    Array.prototype.slice.call(tabsEl.children).forEach(function (b) {
+      var on = b.getAttribute('aria-controls') === id;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      /* One stop for the whole strip, as a tablist should be. When About is
+         showing nothing in the strip is selected, so the first tab takes the
+         stop rather than leaving the strip unreachable by keyboard. */
+      b.tabIndex = on ? 0 : -1;
+      if (on && moveFocus) b.focus();
+    });
+    var onAbout = id === 'panel-about';
+    aboutBtn.setAttribute('aria-pressed', onAbout ? 'true' : 'false');
+    if (onAbout && tabsEl.firstChild) tabsEl.firstChild.tabIndex = 0;
+
+    /* A panel switched into view keeps whatever scroll position it had from
+       last time, which reads as broken. Start each one at the top. */
+    var panel = document.getElementById(id);
+    if (panel) panel.scrollTop = 0;
+  }
+
+  function buildTabs() {
+    tabsEl.innerHTML = '';
+    windowPanels().forEach(function (p) {
+      var b = el('button', 'tab', panelName(p));
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-controls', p.id);
+      b.setAttribute('aria-selected', 'false');
+      b.tabIndex = -1;
+      b.addEventListener('click', function () { selectPanel(p.id); });
+      tabsEl.appendChild(b);
+    });
+    selectPanel(activePanel);
+  }
+
+  aboutBtn.addEventListener('click', function () { selectPanel('panel-about'); });
+
+  /* Left and right walk the strip, as a tablist is expected to. */
+  tabsEl.addEventListener('keydown', function (e) {
+    var dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+    if (!dir) return;
+    var tabs = Array.prototype.slice.call(tabsEl.children);
+    var at = tabs.findIndex(function (b) { return b.getAttribute('aria-selected') === 'true'; });
+    var to = tabs[(at + dir + tabs.length) % tabs.length];
+    if (to) { e.preventDefault(); selectPanel(to.getAttribute('aria-controls'), true); }
+  });
 
   /* The sidebar hero is a photograph if one has been added, and the drawn
      streetcar until then — so the page never shows a broken image. */

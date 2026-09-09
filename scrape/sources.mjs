@@ -146,6 +146,50 @@ export const SOURCES = [
     maxEvents: 12,
   },
   {
+    id: 'comedybar',
+    name: 'Comedy Bar',
+    url: 'https://comedybar.ca/',
+    /* The homepage is the index: a plain fetch returns 248 /shows/<slug>
+       links, no JS needed. Its own "SHOW CALENDAR" at /public/Event renders
+       only a location picker server-side and is useless here. No JSON-LD of
+       any kind on the show pages, so this reads through the model — and with
+       248 candidates the follow cap is what keeps the bill down, not the
+       source. robots.txt 404s, so nothing is disallowed. */
+    enabled: true,
+    category: 'comedy',
+    art: 'art-neon',
+    /* Two rooms, Bloor and Danforth, and the show pages name which. No
+       default address: guessing between them would put people outside the
+       wrong building, and normalize drops an event with no address, which is
+       the outcome we want when it cannot be read. */
+    defaultVenue: null,
+    defaultAddress: null,
+    followLinks: /^https:\/\/comedybar\.ca\/shows\/[a-z0-9-]+$/i,
+    maxFollow: 12,
+    maxEvents: 8,
+  },
+  {
+    id: 'baddog',
+    name: 'Bad Dog Theatre',
+    url: 'https://baddogtheatre.com/whats-on',
+    /* A Squarespace events collection, server-rendered, but only a rolling
+       window of what is coming up — roughly 9 to 11 links. JSON-LD is
+       LocalBusiness/WebSite with no Event node, so the model reads these too.
+       robots.txt disallows /*?format=json, so do NOT switch to the JSON feed
+       even though it answers. */
+    enabled: true,
+    category: 'comedy',
+    art: 'art-neon',
+    /* Bad Dog's own room is on Spadina, but it also stages shows at partner
+       venues, so the address has to come from the page rather than a default
+       that would quietly send people to the wrong one. */
+    defaultVenue: null,
+    defaultAddress: null,
+    followLinks: /^https:\/\/baddogtheatre\.com\/whats-on\/\d{4}\/\d{1,2}\/\d{1,2}\/[a-z0-9-]+$/i,
+    maxFollow: 10,
+    maxEvents: 8,
+  },
+  {
     id: 'akimbo',
     name: 'Akimbo',
     url: 'https://akimbo.ca/listings/',

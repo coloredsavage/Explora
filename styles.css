@@ -42,6 +42,8 @@
 
   --col-about:  640px;
   --col-window: 320px;
+  --tabs-h:     48px;
+  --topbar-h:   52px;
   --head-h:     56px;
 
   --c-museum:       #e7e2f6;  --s-museum:       #f5f1fd;
@@ -53,6 +55,7 @@
   --c-festival:     #fbe6de;  --s-festival:     #fdf1ec;
   --c-dropin:       #f4eec3;  --s-dropin:       #fbf8e6;
   --c-social:       #e8e4dc;  --s-social:       #f6f4f0;
+  --c-comedy:       #f0dbf5;  --s-comedy:       #faf2fc;
 
   --shadow: 0 8px 30px rgba(20, 20, 20, .10), 0 1px 3px rgba(20, 20, 20, .06);
 
@@ -232,6 +235,7 @@ svg.about__art { width: 340px; height: auto; }
 .card--festival     { --card: var(--c-festival); }
 .card--dropin       { --card: var(--c-dropin); }
 .card--social       { --card: var(--c-social); }
+.card--comedy       { --card: var(--c-comedy); }
 
 .card__title {
   margin: 0;
@@ -261,6 +265,89 @@ svg.about__art { width: 340px; height: auto; }
   margin: 28px auto 18px;
 }
 img.card__art { border-radius: 8px; }
+
+/* The footer belongs to the phone layout; on a wide screen the when-line
+   already carries the time and the price is one tap away in the modal. */
+.card__foot { display: none; }
+
+/* ----------------------------------------------------------------- topbar */
+
+/* Phone only. On a wide screen the About column carries the masthead and this
+   would just push the board down. */
+.topbar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--topbar-h);
+  padding: 0 calc(20px + var(--safe-r)) 0 calc(20px + var(--safe-l));
+  background: var(--paper);
+}
+.topbar__brand {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.topbar__about {
+  border: 0;
+  background: none;
+  padding: 6px 0;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+}
+.topbar__about[aria-pressed="true"] { color: var(--ink); }
+.topbar__about:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 6px; }
+
+/* ------------------------------------------------------------------- tabs */
+
+/* Hidden on wide screens, where the columns speak for themselves. */
+.tabs {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  align-items: stretch;
+  gap: 2px;
+  height: var(--tabs-h);
+  padding: 0 calc(10px + var(--safe-r)) 0 calc(10px + var(--safe-l));
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  flex: 0 0 auto;
+  position: relative;
+  border: 0;
+  background: none;
+  padding: 0 12px;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 15px;
+  line-height: 22px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+/* The underline is drawn on a pseudo-element so switching tabs does not
+   change any box's size and shuffle the strip. */
+.tab::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: transparent;
+}
+.tab[aria-selected="true"] { color: var(--ink); }
+.tab[aria-selected="true"]::after { background: var(--ink); }
+.tab:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; border-radius: 8px; }
 
 /* ------------------------------------------------------------------- dock */
 
@@ -293,6 +380,10 @@ img.card__art { border-radius: 8px; }
 }
 .dock__filter { height: 48px; padding: 0 16px; font-size: 15px; }
 .dock__nav { width: 48px; height: 48px; }
+/* The forward button carries the name of where it goes. A bare chevron is
+   read as decoration; "This week ›" is read as a direction. */
+.dock__nav--wide { width: auto; padding: 0 8px 0 16px; font-size: 15px; }
+.dock__nav__label { white-space: nowrap; }
 @media (hover: hover) {
   .dock__filter:hover, .dock__nav:hover { transform: translateY(-1px); }
 }
@@ -492,8 +583,22 @@ img.card__art { border-radius: 8px; }
 /* ----------------------------------------------------------------- mobile */
 
 @media (max-width: 720px) {
-  /* one column per screen — no peek of the next one */
   :root { --col-about: 100vw; --col-window: 100vw; --head-h: 52px; }
+
+  /* One panel at a time, chosen from the tab strip, scrolling straight down.
+     No sideways scrolling on a phone at all: the board stops being a run of
+     columns and becomes a container for whichever one is showing. */
+  .topbar { display: flex; }
+  .tabs { display: flex; }
+  .board { height: calc(100dvh - var(--tabs-h) - var(--topbar-h)); }
+  .col { display: none; flex: 1 1 auto; width: 100%; border-right: 0; }
+  .col--active { display: block; }
+  /* The tab already names the window, so the header keeps only the dates. */
+  .col:not(.col--about) .col__title { display: none; }
+  .col:not(.col--about) .col__range { color: var(--ink); }
+  .col--about .col__head { display: none; }
+  /* The tabs do this job now, and better. */
+  .dock__nav { display: none; }
 
   .board { scroll-snap-type: x mandatory; }
 
@@ -510,8 +615,29 @@ img.card__art { border-radius: 8px; }
     padding: 22px calc(20px + var(--safe-r)) calc(124px + var(--safe-b)) calc(20px + var(--safe-l));
   }
 
-  .card { padding: 16px; border-radius: 16px; }
-  .card__art { margin: 24px auto 14px; }
+  /* Shorter cards. At the desktop size two filled the screen and you could
+     not see what a window held without scrolling; the drawing is still the
+     first thing you notice, just not the only thing. */
+  .card { padding: 14px 16px; border-radius: 16px; }
+  .card__art { width: 132px; height: 132px; margin: 10px auto 4px; }
+
+  /* Price on the left, time on the right, along the bottom of every card. */
+  .card__foot {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ink-soft);
+  }
+  .card__price { font-weight: 500; color: var(--ink); }
+  .card__time { text-align: right; }
+  /* The time reads in the footer now, so it is dropped from the date line —
+     and a line left holding only a time has nothing to show at all. */
+  .card__when-time { display: none; }
+  .card__when--time-only { display: none; }
 
   /* dialogs rise from the bottom edge, thumb-first */
   .modal, .sheet {
