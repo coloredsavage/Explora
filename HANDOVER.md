@@ -233,9 +233,25 @@ price-source field. **If you want price provenance to survive in the data, that
 field is the thing to add.** Same gap for `art-toronto`, whose price is on its
 white-label ticketing host `tix123.com`.
 
-**`scrape/price-attempts.json` is `{}`** — the backoff memory the previous
-session described was never committed. Nothing is resting, so a
-`-f all_prices=true` run will re-ask every page.
+**The ROM pair is a live trap for the recheck job, and the backoff only
+delays it.** They are now the *only* listings `priceOf` calls unknown, so the
+default recheck pass targets exactly them — and `acceptable('$9')` returns
+`'$9'`, so if the model reads the ROM's confirmed "$9 Surcharge" as the price,
+the gate passes it and a ~$35 visit is filed under **$20**. They are rested in
+`scrape/price-attempts.json` until **2026-10-08**; after that the job will ask
+again. The durable fix is a way to mark a listing "deliberately unpriced" that
+`recheck.mjs` honours, and it does not exist yet. Until it does, read any PR
+that touches those two lines carefully.
+
+**Nine prices are now outside the self-correcting pool.** The default recheck
+only revisits listings with no price, so a price that goes stale is never
+re-asked. Two state their own expiry in the line — `art-toronto` ("$35 to
+October 1, then $40") and `one-of-a-kind` ("early bird to Nov 27, when it
+opens") — and both need re-reading after those dates. `-f all_prices=true`
+re-asks everything, but it reads each listing's `source`, and for the AGO pair
+and `art-toronto` that is a press release rather than the ticketing page the
+price came from, so it cannot confirm them. Adding a price-source field fixes
+both this and the provenance gap above.
 
 **~21 MB of SF Pro OTFs are still in git history** at commit `391350c`. The user
 uploaded them; I removed them from the tree (Apple's licence covers mocking up

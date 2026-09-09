@@ -126,7 +126,7 @@ export const SOURCES = [
     art: 'art-ravine',
     defaultVenue: 'Evergreen Brick Works',
     defaultAddress: '550 Bayview Ave, Toronto, ON M4W 3X8',
-    followLinks: /^https:\/\/www\.evergreen\.ca\/evergreen-brick-work\/(events|activities)\/[a-z0-9-]+\/$/i,
+    followLinks: /^https:\/\/www\.evergreen\.ca\/evergreen-brick-work\/(events|activities)\/[a-z0-9-]+\/?$/i,
     maxFollow: 20,
     maxEvents: 10,
   },
