@@ -17,8 +17,11 @@ on:
   #   git push origin main:run-poll       -> a real poll and a pull request
   #   git push origin main:run-recheck  -> re-read every price, not just the
   #                                         missing ones
+  #   git push origin main:show/fort-york -> print what that listing's page
+  #                                         actually says about price, and
+  #                                         write nothing
   push:
-    branches: [run-discover, run-poll, run-recheck]
+    branches: [run-discover, run-poll, run-recheck, 'show/**']
 
   workflow_dispatch:
     inputs:
@@ -60,12 +63,21 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
 
+      # Settling a price that looks wrong in a diff, from a machine that
+      # cannot reach the page. Reads one listing's source and prints the
+      # price-bearing lines plus the model's reading and its quote.
+      - name: Show what one listing's page says about price
+        if: ${{ startsWith(github.ref_name, 'show/') }}
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scrape/recheck.mjs --show "${GITHUB_REF_NAME#show/}"
+
       - name: Report how each source is best read
         if: ${{ inputs.discover || github.ref_name == 'run-discover' }}
         run: node scrape/discover.mjs --all
 
       - name: Poll the sources
-        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') }}
+        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') && !startsWith(github.ref_name, 'show/') }}
         env:
           # Optional. Without it, pages that publish no JSON-LD are reported as
           # skipped rather than read by the model, and the job still succeeds.
@@ -79,14 +91,14 @@ jobs:
       # known price, so the work shrinks as they get filled in; --all re-reads
       # every price, and is what to run when a season turns.
       - name: Look up the prices data.js is missing
-        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') }}
+        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') && !startsWith(github.ref_name, 'show/') }}
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scrape/recheck.mjs ${{ (inputs.all_prices || github.ref_name == 'run-recheck') && '--all' || '' }}
 
       - name: Did anything change?
         id: diff
-        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') }}
+        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') && !startsWith(github.ref_name, 'show/') }}
         run: |
           # price-attempts.json belongs in this list: it is the recheck's memory
           # of which pages have already answered "no price". Left uncommitted it

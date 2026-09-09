@@ -28,6 +28,11 @@ const argv = new Set(process.argv.slice(2));
 const ALL = argv.has('--all');
 const DRY = argv.has('--dry-run');
 const OFFLINE = argv.has('--offline');
+/* --show <id>: read one listing's page and print the evidence for its price
+   without writing anything. For settling a price that looks wrong in a diff
+   from a machine that cannot reach the page itself. */
+const SHOW = (process.argv.slice(2).find((a) => a.startsWith('--show=')) || '').slice(7) ||
+  (argv.has('--show') ? process.argv[process.argv.indexOf('--show') + 1] : '');
 
 const UA = 'ExploraCalendarBot/1.0 (+https://github.com/coloredsavage/Explora)';
 const report = { found: [], changed: [], unchanged: [], nothing: [], skipped: [], errors: [] };
@@ -166,12 +171,49 @@ async function priceFor(listing, html, url) {
   }
   const { extractPriceWithModel } = await import('./llm.mjs');
   const said = await extractPriceWithModel(readableText(html), { url, title: listing.title });
-  const ok = acceptable(said);
+  const ok = acceptable(said.entry);
   if (!ok) {
     report.nothing.push(`${listing.id} — the page does not state a price`);
     return { price: null, asked: true };
   }
-  return { price: { entry: ok, via: 'model' }, asked: true };
+  return { price: { entry: ok, via: 'model', evidence: said.evidence }, asked: true };
+}
+
+/* Read one page and say what it supports, writing nothing. */
+async function show(id, events, page) {
+  const listing = events.find((e) => e.id === id);
+  if (!listing) { console.log(`No listing with id "${id}".`); process.exitCode = 1; return; }
+
+  console.log(`${listing.id} — ${listing.title}`);
+  console.log(`recorded entry: ${listing.entry === undefined ? '(none)' : JSON.stringify(listing.entry)}`);
+  console.log(`source: ${listing.source}\n`);
+
+  const res = await page.goto(listing.source, { waitUntil: 'domcontentloaded', timeout: 30000 });
+  console.log(`HTTP ${res ? res.status() : 'no response'}`);
+  if (!res || !res.ok()) { process.exitCode = 1; return; }
+  await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
+  const html = await page.content();
+
+  const ld = fromJsonLd(html);
+  console.log(`JSON-LD events on the page: ${ld.length}` +
+    (ld.length ? ` — ${ld.map((e) => `${JSON.stringify(e.title)}: ${e.entry ?? 'no offer'}`).join('; ')}` : ''));
+
+  /* Every line that could bear on price, so the raw page speaks for itself
+     alongside whatever the model concluded from it. */
+  const text = readableText(html);
+  const hits = text.split(/(?<=[.!?])\s+|\n+/)
+    .filter((l) => /\$\s*\d|\bfree\b|\badmission\b|\bticket|\bpay what|\bdonation|\bmembers?\b/i.test(l))
+    .map((l) => l.trim()).filter(Boolean);
+  console.log(`\nlines mentioning price, admission or tickets (${hits.length}):`);
+  hits.slice(0, 25).forEach((l) => console.log('  · ' + l.slice(0, 200)));
+  if (hits.length > 25) console.log(`  … and ${hits.length - 25} more`);
+
+  if (!process.env.ANTHROPIC_API_KEY) { console.log('\nNo ANTHROPIC_API_KEY, so no model reading.'); return; }
+  const { extractPriceWithModel } = await import('./llm.mjs');
+  const said = await extractPriceWithModel(text, { url: listing.source, title: listing.title });
+  console.log(`\nthe model reads it as: ${JSON.stringify(said.entry)}`);
+  console.log(`quoting: ${said.evidence ? JSON.stringify(said.evidence) : '(nothing)'}`);
+  console.log(`which the gate ${acceptable(said.entry) ? 'accepts' : 'rejects'}.`);
 }
 
 /* ------------------------------------------------------------------- main */
@@ -180,6 +222,15 @@ async function main() {
   const { events, priceOf } = await loadSite();
   const today = new Date().toISOString().slice(0, 10);
   const attempts = await readAttempts();
+
+  if (SHOW) {
+    const { chromium } = await import('playwright');
+    const browser = await chromium.launch();
+    const ctx = await browser.newContext({ userAgent: UA });
+    try { await show(SHOW, events, await ctx.newPage()); }
+    finally { await browser.close(); }
+    return;
+  }
 
   let resting = 0;
   const targets = events.filter((ev) => {
@@ -252,7 +303,8 @@ async function main() {
         continue;
       }
       src = next;
-      const line = `${listing.id} — ${was ? `${was} -> ${price.entry}` : `${price.entry}`} (${price.via})`;
+      const line = `${listing.id} — ${was ? `${was} -> ${price.entry}` : `${price.entry}`} (${price.via})` +
+        (price.evidence ? `\n      quoting: ${JSON.stringify(price.evidence)}` : '');
       (was ? report.changed : report.found).push(line);
     } catch (err) {
       report.errors.push(`${listing.id} — ${err.message}`);

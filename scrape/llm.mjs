@@ -75,6 +75,14 @@ const Price = z.object({
   entry: z.string().nullable()
     .describe('Admission exactly as written, e.g. "Free", "$25", ' +
       '"Pay what you can". Null if the page does not state one.'),
+  /* The quote is what makes a price checkable without opening the page. A
+     figure on its own is unfalsifiable in a diff — "Free" for a museum reads
+     the same whether it was read off the page or inferred from the absence of
+     a price — and asking for the sentence also makes an answer that is not
+     actually on the page harder to produce. */
+  evidence: z.string().nullable()
+    .describe('The sentence from the page stating this, quoted exactly as ' +
+      'written. Null if entry is null.'),
 });
 
 const PRICE_SYSTEM = `You read one event page and report what it costs to get in.
@@ -87,7 +95,9 @@ Rules:
   rate, and not an optional extra like a workshop, catalogue or firing fee.
 - If the page states no admission price, entry is null. Null is the right
   answer far more often than a number is, and is always better than a guess.
-- If the page is not about the named event, set sameEvent false and entry null.`;
+- If the page is not about the named event, set sameEvent false and entry null.
+- Quote the sentence you took the price from in evidence, word for word from
+  the page. If you cannot quote it, you did not read it: return null.`;
 
 export async function extractPriceWithModel(text, { url, title, apiKey }) {
   const client = new Anthropic(apiKey ? { apiKey } : {});
@@ -104,6 +114,6 @@ export async function extractPriceWithModel(text, { url, title, apiKey }) {
   });
 
   const parsed = response.parsed_output;
-  if (!parsed || !parsed.sameEvent) return null;
-  return parsed.entry;
+  if (!parsed || !parsed.sameEvent) return { entry: null, evidence: null };
+  return { entry: parsed.entry, evidence: parsed.evidence };
 }

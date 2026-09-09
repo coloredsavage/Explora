@@ -286,9 +286,26 @@ looked at the hand-written listings again, which is why thirteen of them said
 and nobody went back for it.
 
 ```sh
-npm run recheck          # only listings with no known price
-npm run recheck:all      # every price, to catch one that changed
-npm run recheck:dry      # report, write nothing
+npm run recheck              # only listings with no known price
+npm run recheck:all          # every price, to catch one that changed
+npm run recheck:dry          # report, write nothing
+npm run recheck -- --show fort-york   # what does that page actually say?
+```
+
+**Every price it writes comes with the sentence it read.** A figure on its own
+is unfalsifiable in a diff — `Free` for a museum looks the same whether it was
+read off the page or inferred from the absence of a price — so the model is
+asked to quote the sentence word for word, and told that if it cannot quote it,
+it did not read it. The quote goes in the run log next to the price.
+
+`--show <id>` settles one listing without writing anything: it fetches the
+page and prints the HTTP status, any JSON-LD offers, every line mentioning a
+price, admission or tickets, and then the model's reading and its quote.
+Pushing to a `show/<id>` branch runs it in Actions, which is the way to check
+a page from a machine that cannot reach it:
+
+```sh
+git push origin main:show/fort-york
 ```
 
 The job runs on the poll's schedule, every second day (`17 11 */2 * *`). Note
