@@ -187,15 +187,17 @@ a { color: inherit; }
 }
 svg.about__art { width: 340px; height: auto; }
 
-/* Sits directly under the hero, so it reads as a caption rather than copy. */
-.about__credit {
-  margin: -22px 0 30px;
-  font-size: 13px;
-  line-height: 19px;
+/* Sits directly under the hero, so it reads as a caption rather than copy.
+   Selector has to out-specify `.about p`, which is (0,1,1) and would otherwise
+   put this back to 15px — it silently did exactly that until 2026-09-09. */
+.about p.about__credit {
+  margin: -26px 0 32px;
+  font-size: 11px;
+  line-height: 16px;
   color: var(--ink-soft);
-  letter-spacing: -0.005em;
+  letter-spacing: 0;
 }
-.about__credit a { color: inherit; }
+.about p.about__credit a { color: inherit; }
 
 .about__social { margin: 0 0 22px; }
 .about__social a {
@@ -208,7 +210,7 @@ svg.about__art { width: 340px; height: auto; }
   color: var(--ink);
   text-decoration: none;
 }
-.about__social a:hover { text-decoration: underline; }
+.about__social a { text-decoration: none; }
 .about__social-icon { width: 18px; height: 18px; display: block; }
 
 .about__lede {

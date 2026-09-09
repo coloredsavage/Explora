@@ -263,6 +263,25 @@ line is now "$14; free for 18 and under". The under-25 claim appears nowhere on
 MOCA's site. Note this makes the example in `price.js`'s comment historical —
 no listing carries that line any more, though it still illustrates the rule.
 
+**An aggregator may source a free street festival, and nothing else.** The
+rule at the top of this file still holds everywhere it mattered before — a
+price, a venue, an opening time is confirmed on the organisation's own page or
+it is not published. The owner relaxed it on 2026-09-09 for one narrow class,
+and the reasoning is sound: a street festival's dates and its free admission
+are simple public facts, reported the same way by every outlet, and not the
+kind of claim a box office has to settle.
+
+So `tiff-festival-street` and `tiff-cinema-park` cite a BlogTO article in
+`source`. That is deliberate and visible rather than laundered through a
+tiff.net link the reader would assume had been read — tiff.net sits behind a
+WAF that refuses curl, WebFetch and headless Chrome alike, so it was not.
+`url` still points at tiff.net, because that is where a reader should go.
+
+Two limits on this. It covers **free** street festivals: the moment money is
+involved the old rule applies, because a wrong price is the failure this
+project is built around. And it is not a licence to poll aggregators — see
+below, none of them can be read automatically anyway.
+
 **A price range slider was considered and rejected.** The whole calendar has
 three priced listings spanning $20–$25, and 11 with no number at all, which a
 number line has nowhere to put. The user asked; the data doesn't support it.
@@ -328,6 +347,32 @@ and a public repo served by Pages does both). `git rm` does not unpublish them �
 GitHub still serves those blobs. Actually removing them needs a history rewrite
 and a force-push over `391350c`, which breaks existing clones. The user has been
 told and has not asked for it.
+
+**No aggregator on this list can be read by a machine.** Asked whether BlogTO
+or Destination Toronto could broaden the source list, the answer turned out to
+be about access rather than trust. `blogto.com/events/` returns 200 to curl
+with a desktop user-agent but renders its listings client-side, so the HTML
+carries no events; to headless Chrome it serves an empty document.
+`destinationtoronto.com/events/` answers **Access Denied** to headless Chrome
+and gives curl a shell with one event name in it. BlogTO *article* pages are
+the exception — they are server-rendered and readable with a desktop
+user-agent, which is how Festival Street was confirmed. So an aggregator is
+usable as a thing a person reads and hands over, not as a source the poller
+can follow.
+
+**The City's own festivals feed exists and cannot be read.** The dataset
+`festivals-events` on Toronto's open data portal is exactly the aggregator this
+calendar wants — *"all festivals, special events and exhibits approved to
+appear on the City of Toronto Festivals and Events Calendar"*, refresh
+"Real-time", and it is where the community street festivals live that the
+City's own `/explore-enjoy/festivals-events/` page does not list. Both of its
+JSON resources resolve to `secure.toronto.ca/c3api_data/...`, which answers
+**Access Denied** to curl, to curl with a browser user-agent, and to a real
+headless browser. The CKAN download URL redirects to the same host and fails
+the same way. Whatever gates it is not the user-agent. If that host ever opens
+up, or someone finds the right referer, it is the single highest-value source
+on this list. The `/explore-enjoy/festivals-events/festivals-events-calendar/`
+page renders its listings client-side and carries none of them in the HTML.
 
 **Sources found but not yet wired.** The research that produced the film and
 music listings also checked four index pages and none are configured yet:
