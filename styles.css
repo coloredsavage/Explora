@@ -53,6 +53,7 @@
   --c-festival:     #fbe6de;  --s-festival:     #fdf1ec;
   --c-dropin:       #f4eec3;  --s-dropin:       #fbf8e6;
   --c-social:       #e8e4dc;  --s-social:       #f6f4f0;
+  --c-comedy:       #f0dbf5;  --s-comedy:       #faf2fc;
 
   --shadow: 0 8px 30px rgba(20, 20, 20, .10), 0 1px 3px rgba(20, 20, 20, .06);
 
@@ -232,6 +233,7 @@ svg.about__art { width: 340px; height: auto; }
 .card--festival     { --card: var(--c-festival); }
 .card--dropin       { --card: var(--c-dropin); }
 .card--social       { --card: var(--c-social); }
+.card--comedy       { --card: var(--c-comedy); }
 
 .card__title {
   margin: 0;

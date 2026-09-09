@@ -17,6 +17,7 @@ const CATEGORIES = {
   festival:     { label: 'Festivals',         art: 'art-festival'      },
   dropin:       { label: 'Drop-ins',          art: 'art-tools'         },
   social:       { label: 'Meetups',           art: 'art-mic'           },
+  comedy:       { label: 'Comedy',            art: 'art-neon'          },
 };
 
 /* Price buckets for the filter. These are derived from each listing's `entry`
@@ -663,5 +664,38 @@ const EVENTS = [
     checked: CHECKED,
     description: 'A live band upstairs at Dovercourt House, with a beginner lesson at six before the dance. Come alone — everyone rotates partners.',
     schedule: { kind: 'weekly', weekday: 6, from: '2026-01-01', to: '2026-12-31', time: 'lesson 6pm', hour: 18 },
+  },
+  {
+    id: 'comedy-bar-hot-mic',
+    title: 'Comedy Bar\u2019s Hot Mic',
+    category: 'comedy',
+    entry: '$13',
+    art: 'art-neon',
+    venue: 'Comedy Bar Danforth, Studio Theatre',
+    address: '2800 Danforth Ave, Toronto, ON M4C 1M1',
+    url: 'https://comedybar.ca/shows/comedy-bars-hot-mic',
+    source: 'https://comedybar.ca/shows/comedy-bars-hot-mic',
+    checked: CHECKED,
+    description: 'Emerging stand-ups do short sets in the Studio Theatre with a host running the room. Anyone can put their name in the bucket to get on stage, provided they do it by 8:30pm.',
+    schedule: { kind: 'weekly', weekday: 2, from: '2026-09-15', to: '2026-12-29', time: '8:30pm', hour: 20 },
+  },
+  {
+    id: 'comedy-bar-studio-mondays',
+    title: 'Studio Mondays',
+    category: 'comedy',
+    entry: '$13',
+    art: 'art-neon',
+    venue: 'Comedy Bar Danforth, Studio Theatre',
+    address: '2800 Danforth Ave, Toronto, ON M4C 1M1',
+    url: 'https://comedybar.ca/shows/studio-mondays',
+    source: 'https://comedybar.ca/shows/studio-mondays',
+    checked: CHECKED,
+    description: 'Three improv sets: a longform narrative built from an audience suggestion, a set from a Comedy Bar pro troupe, and the Jim-Jam, a bucket jam anyone can play with no experience. Names in the bucket by 8:30pm.',
+    /* Two ranges, not one weekly run: the venue's own schedule skips
+       October 12, which is Thanksgiving Monday. */
+    schedule: [
+      { kind: 'weekly', weekday: 1, from: '2026-09-14', to: '2026-10-05', time: '8:30pm', hour: 20 },
+      { kind: 'weekly', weekday: 1, from: '2026-10-19', to: '2026-12-28', time: '8:30pm', hour: 20 },
+    ],
   },
 ];
