@@ -287,16 +287,22 @@
     /* the visible dates are clipped to this column's window */
     var from = max(occ.start, win.from);
     var to = min(occ.end, win.to);
-    var when;
 
-    if (win.hideWhen) {
-      when = occ.time || null;                  /* today's column: time only */
-    } else if (sameDay(from, to)) {
-      when = fmtDay(from) + (occ.time ? ' · ' + occ.time : '');
-    } else {
-      when = fmtSpan(from, to);
+    /* Date and time go in separate spans so the phone can drop the time from
+       this line and show it in the card's footer instead, without either
+       layout having to render a different card. */
+    var dateText = win.hideWhen ? '' : (sameDay(from, to) ? fmtDay(from) : fmtSpan(from, to));
+    var when = el('p', 'card__when');
+    if (dateText) when.appendChild(el('span', 'card__when-date', dateText));
+    if (occ.time) {
+      when.appendChild(el('span', 'card__when-time', (dateText ? ' · ' : '') + occ.time));
     }
-    if (when) btn.appendChild(el('p', 'card__when', when));
+    if (when.childNodes.length) {
+      /* Today's cards carry only a time, and on the phone that has moved to
+         the footer — so the line has nothing left to say and is dropped. */
+      if (!dateText) when.className += ' card__when--time-only';
+      btn.appendChild(when);
+    }
 
     if (!seenArt[ev.id]) {
       seenArt[ev.id] = true;
@@ -304,7 +310,38 @@
       node.setAttribute('class', 'card__art');
       btn.appendChild(node);
     }
+
+    /* Phone only: what it costs, and when. */
+    var foot = el('div', 'card__foot');
+    foot.appendChild(el('span', 'card__price', priceTag(ev)));
+    foot.appendChild(el('span', 'card__time', timeTag(occ)));
+    btn.appendChild(foot);
+
     return btn;
+  }
+
+  /* The short form of a price, for the corner of a card. The whole `entry`
+     line stays in the modal; this is the number you want at a glance, and it
+     agrees with the filter because it asks priceOf which bucket applies
+     rather than re-reading the line its own way. */
+  function priceTag(ev) {
+    var t = String(ev.entry || '').trim();
+    if (!t) return '';
+    if (priceOf(ev) === 'free') {
+      return /pay[- ]what|pwyc/i.test(t) ? 'Pay what you can' : 'Free';
+    }
+    var m = t.match(/\$\s*(\d+(?:\.\d+)?)/);
+    return m ? '$' + m[1] : '';
+  }
+
+  /* When it starts, or — for a run with no daily time, like an exhibition —
+     when it stops, which is the useful thing left to say about it. The end
+     is deliberately not clipped to the column: "Until Oct 18" is the real
+     closing date whether you are looking at Today or This month. */
+  function timeTag(occ) {
+    if (occ.time) return occ.time;
+    if (!sameDay(occ.start, occ.end)) return 'Until ' + fmtDay(occ.end);
+    return '';
   }
 
   function render() {

@@ -266,6 +266,10 @@ svg.about__art { width: 340px; height: auto; }
 }
 img.card__art { border-radius: 8px; }
 
+/* The footer belongs to the phone layout; on a wide screen the when-line
+   already carries the time and the price is one tap away in the modal. */
+.card__foot { display: none; }
+
 /* ----------------------------------------------------------------- topbar */
 
 /* Phone only. On a wide screen the About column carries the masthead and this
@@ -616,6 +620,24 @@ img.card__art { border-radius: 8px; }
      first thing you notice, just not the only thing. */
   .card { padding: 14px 16px; border-radius: 16px; }
   .card__art { width: 132px; height: 132px; margin: 10px auto 4px; }
+
+  /* Price on the left, time on the right, along the bottom of every card. */
+  .card__foot {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--ink-soft);
+  }
+  .card__price { font-weight: 500; color: var(--ink); }
+  .card__time { text-align: right; }
+  /* The time reads in the footer now, so it is dropped from the date line —
+     and a line left holding only a time has nothing to show at all. */
+  .card__when-time { display: none; }
+  .card__when--time-only { display: none; }
 
   /* dialogs rise from the bottom edge, thumb-first */
   .modal, .sheet {
