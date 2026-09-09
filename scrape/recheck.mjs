@@ -176,11 +176,17 @@ async function main() {
         report.skipped.push(`${listing.id} — robots.txt disallows ${robots.rule}`);
         continue;
       }
-      const res = await page.goto(listing.source, { waitUntil: 'networkidle', timeout: 45000 });
+      /* domcontentloaded, then a bounded wait for the network to settle.
+         Waiting on networkidle outright loses the listing to any page that
+         never goes idle — a chat widget or an analytics beacon is enough, and
+         ago.ca's press releases are one: the first live run spent 45 seconds
+         there and timed out with the price sitting in the HTML all along. */
+      const res = await page.goto(listing.source, { waitUntil: 'domcontentloaded', timeout: 30000 });
       if (!res || !res.ok()) {
         report.errors.push(`${listing.id} — HTTP ${res ? res.status() : 'no response'} at ${listing.source}`);
         continue;
       }
+      await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
 
       const found = await priceFor(listing, await page.content(), listing.source);
       await new Promise((r) => setTimeout(r, 1500));      /* one page every 1.5s */

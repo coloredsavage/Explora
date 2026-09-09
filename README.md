@@ -311,6 +311,15 @@ It deliberately does **not** bump `checked`. Reading a price is not
 re-confirming a date, and a `checked` that overstates what was verified is
 worse than a stale one.
 
+**It needs `ANTHROPIC_API_KEY` to be of any use.** Twelve of the thirteen
+listings it targets sit on pages that publish no `schema.org` offer — museum
+and festival sites state the price in prose, in a table, or behind a ticketing
+link. Without the key the job still runs, still respects robots, and reports
+every listing as skipped, and `data.js` never changes. Set the secret under
+**Settings → Secrets and variables → Actions** and it starts filling them in.
+The same key is what lets the poller read the three sources it currently
+skips for the same reason.
+
 ## Illustrations
 
 Each event draws an object. By default that is one of the 30 inline SVG symbols
