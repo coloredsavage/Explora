@@ -310,6 +310,14 @@ GitHub still serves those blobs. Actually removing them needs a history rewrite
 and a force-push over `391350c`, which breaks existing clones. The user has been
 told and has not asked for it.
 
+**Sources found but not yet wired.** The research that produced the film and
+music listings also checked four index pages and none are configured yet:
+`revuecinema.ca/calendar/` (200, 128 links) and `revuecinema.ca/films/` (200,
+20), `therex.ca/events` (200, 85) and `grossmanstavern.com/events/` (200, 12).
+The Rex page is worth knowing about — its listings carry the price inline, and
+"Pay What You Can" sits inside the same block as the 5pm and 2pm sets and never
+inside an 8pm one, which is how that listing was verified.
+
 **The board is still narrow, and this is the live piece of work.** As of
 2026-09-08 it is 20 of 45 listings in galleries, museums, architecture and
 books, plus seven near-identical farmers' markets. `comedy` was the first new

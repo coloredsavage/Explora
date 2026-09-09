@@ -334,6 +334,10 @@
     var t = String(ev.entry || '').trim();
     if (!t) return '';
     if (priceOf(ev) === 'free') {
+      /* Follow the line's own lead. "Free, pay what you can" is a free door
+         with a donation box, and calling it pay-what-you-can on the card
+         undersells it; only a line that opens with the offer gets that tag. */
+      if (/^free\b/i.test(t)) return 'Free';
       return /pay[- ]what|pwyc/i.test(t) ? 'Pay what you can' : 'Free';
     }
     var m = t.match(/\$\s*(\d+(?:\.\d+)?)/);
