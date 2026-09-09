@@ -432,9 +432,20 @@
 </svg>
 
 <!-- --------------------------------------------------------------- board -->
+<!-- Mobile only, both of these. The board is a sideways run of time columns,
+     which reads fine on a wide screen where three are visible at once and not
+     at all on a phone where one fills the view. There, the bar names the site,
+     the tabs are the navigation, and each column becomes a vertical list. -->
+<header class="topbar">
+  <span class="topbar__brand">Explora</span>
+  <button class="topbar__about" id="about-btn" type="button" aria-controls="panel-about" aria-pressed="false">About</button>
+</header>
+
+<nav class="tabs" id="tabs" role="tablist" aria-label="Time window"></nav>
+
 <main class="board" id="board">
 
-  <section class="col col--about" aria-labelledby="about-head">
+  <section class="col col--about" id="panel-about" aria-labelledby="about-head">
     <header class="col__head">
       <h1 class="col__title" id="about-head">About</h1>
     </header>
@@ -454,8 +465,8 @@
       to keep track of those, the markets I want to wander through, and the shows worth
       crossing town for (I’m still stubborn about what a day out should cost).</p>
 
-      <p>Everything on it is free, cheap, or at least worth the fare. The columns run from
-      today outward, so the answer to the question is always the leftmost card.</p>
+      <p>Everything on it is free, cheap, or at least worth the fare. It runs from
+      today outward, so the answer to the question is always the first card.</p>
 
       <p>Every listing was checked against the venue’s own page, and every card says which
       one and when — open any of them and look at the bottom. Anything I couldn’t confirm
@@ -486,6 +497,7 @@
   </button>
 
   <button class="dock__nav" id="nav-next" type="button" aria-label="Scroll to the next column">
+    <span class="dock__nav__label" id="nav-next-label"></span>
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
 </div>
