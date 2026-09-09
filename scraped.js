@@ -4,41 +4,58 @@
 
 const SCRAPED = [
   {
-    "id": "wygo-cn-tower-lookalike-contest-2026-10-11",
-    "title": "CN Tower Lookalike Contest",
-    "category": "dropin",
-    "art": "art-star",
+    "id": "luma-toronto-book-launch-for-the-campfire-method-2026-09-09",
+    "title": "Toronto Book Launch for \"The Campfire Method\"",
+    "category": "social",
+    "art": "art-mic",
     "entry": "Free",
-    "venue": "Roundhouse Park",
-    "address": "255 Bremner Blvd, Toronto, ON",
-    "url": "https://wygo.world/lookalike",
-    "source": "https://wygo.world/lookalike",
-    "checked": "2026-09-08",
-    "description": "Dress as the CN Tower. Stand near the CN Tower. That is the whole idea.",
+    "venue": "Mentimeter North America Inc",
+    "address": "Toronto, Ontario",
+    "url": "https://luma.com/do33l36g",
+    "source": "https://luma.com/do33l36g",
+    "checked": "2026-09-09",
+    "description": "Join me in Toronto to launch “The Campfire Method” Come experience what warming up a room without awkward icebreakers actually feels like. ABOUT THE EVENT This is not a book reading…",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-11"
+      "date": "2026-09-09"
     },
-    "scrapedFrom": "wygo",
+    "scrapedFrom": "luma",
     "via": "json-ld"
   },
   {
-    "id": "wygo-ultimate-hide-seek-2026-09-20",
-    "title": "Ultimate Hide & Seek",
+    "id": "tpl-draw-joy-from-a-pencil-2026-09-09",
+    "title": "Draw Joy from a Pencil",
     "category": "dropin",
-    "art": "art-star",
-    "entry": "$20",
-    "venue": "Toronto Islands",
-    "address": "9 Queens Quay W, Toronto, ON, M5J 2H3",
-    "url": "https://wygo.world/hidenseek",
-    "source": "https://wygo.world/hidenseek",
-    "checked": "2026-09-08",
-    "description": "The Toronto Islands become one enormous hide-and-seek arena. Last player standing takes $200.",
+    "art": "art-books",
+    "venue": "Leaside",
+    "address": "165 McRae Drive, Toronto, ON, M4G 1S8",
+    "url": "https://tpl.bibliocommons.com/v2/events/6a8f560457c264087ad408b8",
+    "source": "https://tpl.bibliocommons.com/v2/events/6a8f560457c264087ad408b8",
+    "checked": "2026-09-09",
+    "description": "Find joy in using a simple pencil and piece of paper to create a beautiful piece of art…",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-20"
+      "date": "2026-09-09"
     },
-    "scrapedFrom": "wygo",
+    "scrapedFrom": "tpl",
+    "via": "json-ld"
+  },
+  {
+    "id": "tpl-laverne-cox-jason-stanley-identity-power-and-the-2026-09-09",
+    "title": "Laverne Cox & Jason Stanley: Identity, Power and the Politics of Our Time",
+    "category": "dropin",
+    "art": "art-books",
+    "venue": "Toronto Reference Library",
+    "address": "789 Yonge Street, Toronto, ON, M4W 2G8",
+    "url": "https://tpl.bibliocommons.com/v2/events/6a85b4814c610f0038954eb9",
+    "source": "https://tpl.bibliocommons.com/v2/events/6a85b4814c610f0038954eb9",
+    "checked": "2026-09-09",
+    "description": "Join actor and activist Laverne Cox and philosopher Jason Stanley for a conversation about the political forces reshaping our world.As civil rights, historical truth and democratic norms come under pressure in the…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-09"
+    },
+    "scrapedFrom": "tpl",
     "via": "json-ld"
   }
 ];
