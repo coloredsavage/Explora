@@ -274,6 +274,12 @@
     return svg;
   }
 
+  /* A run you can drop in on across many days, rather than something with a
+     start. Sorts after the timed events in every window. */
+  function ongoing(occ) {
+    return sameDay(occ.start, occ.end) ? 0 : 1;
+  }
+
   function cardFor(occ, win) {
     var ev = occ.event;
     var btn = el('button', 'card card--' + ev.category);
@@ -314,7 +320,7 @@
     /* Phone only: what it costs, and when. */
     var foot = el('div', 'card__foot');
     foot.appendChild(el('span', 'card__price', priceTag(ev)));
-    foot.appendChild(el('span', 'card__time', timeTag(occ)));
+    foot.appendChild(el('span', 'card__time', timeTag(occ, from)));
     btn.appendChild(foot);
 
     return btn;
@@ -335,14 +341,20 @@
   }
 
   /* When it starts, or — for a run with no daily time, like an exhibition —
-     when it shuts. `closes` is the venue's own closing time, and where its
-     hours differ by day it holds the EARLIEST regular one, so a card can
-     never tell someone a place is open later than it is. A listing with
-     neither shows nothing rather than a guess. */
-  function timeTag(occ) {
+     when it shuts on the day you are looking at.
+
+     `closes` is either one time, for a place that keeps the same hours all
+     week, or seven indexed by weekday (0 = Sunday) with null for the days it
+     is shut. Per-day matters more than it looks: MOCA closes at 5 most days
+     and 9 on Fridays, and the Gardiner at 6 on weekdays and 5 at weekends, so
+     a single figure was wrong four days out of seven. A day it is closed, or
+     a listing with no hours at all, shows nothing rather than a guess. */
+  function timeTag(occ, day) {
     if (occ.time) return occ.time;
-    if (occ.event.closes) return 'Closes ' + occ.event.closes;
-    return '';
+    var c = occ.event.closes;
+    if (!c) return '';
+    var at = typeof c === 'string' ? c : c[day.getDay()];
+    return at ? 'Closes ' + at : '';
   }
 
   function render() {
@@ -369,7 +381,14 @@
       var list = ALL.filter(function (o) {
         return shown(o.event) && inWindow(o, win);
       }).sort(function (a, b) {
-        return cmp(max(a.start, win.from), max(b.start, win.from)) ||
+        /* Things that happen at a time come before things that are simply
+           open. An exhibition running until October is worth knowing about,
+           but it is not an answer to "what should we do today" in the way a
+           7pm gig is — and because a run starts before the window does, it
+           used to sort to the very top and push the day's actual events off
+           the screen. */
+        return (ongoing(a) - ongoing(b)) ||
+               cmp(max(a.start, win.from), max(b.start, win.from)) ||
                a.hour - b.hour ||
                a.event.title.localeCompare(b.event.title);
       });
