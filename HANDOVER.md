@@ -120,7 +120,7 @@ Recent work, newest first:
 `scrape/run.mjs` polls the sources in `scrape/sources.mjs` and writes
 `scraped.js`. `scrape/recheck.mjs` goes back to the hand-written listings and
 fills in prices they are missing. Both run in `.github/workflows/scrape.yml`
-every second day and propose changes as a pull request — never a direct push.
+daily and propose changes as a pull request — never a direct push.
 
 `ANTHROPIC_API_KEY` **is set** as a repo secret (the user added it 2026-09-09).
 Without it the model fallback is skipped and pages with no JSON-LD are reported
