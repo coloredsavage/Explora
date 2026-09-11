@@ -301,6 +301,12 @@ console.log('\nA page that describes itself');
     assert.equal(metaDescription('<meta property="og:description" content="Bad Dog">'), null));
   check('a page with none says so', () =>
     assert.equal(metaDescription('<html><head><title>x</title></head></html>'), null));
+  check('a credit block is not a description', () =>
+    assert.equal(metaDescription('<meta property="og:description" content="A Bad Dog Theatre Company Production Created by: Bita Joudaki Producers: Stephanie Malek Dates: Fridays in September Time: 7pm Location: Comedy Bar Bloor">'), null));
+  check('one stray label does not sink a real one', () =>
+    assert.match(
+      metaDescription('<meta property="og:description" content="An improvised show about auditions, different every night. Location: Comedy Bar Bloor.">'),
+      /^An improvised show/));
 }
 
 console.log('\nA title with the site bolted on');

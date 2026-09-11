@@ -32,6 +32,11 @@ const startOf = (e) => (e.schedule.kind === 'day' ? e.schedule.date : e.schedule
 async function harvest(source, pages) {
   const out = [];
   for (const { url, html } of pages) {
+    /* The page's own summary of itself. On a CMS the readable text opens with
+       the entire navigation menu, and this is the part an editor wrote about
+       this event — so the model gets it as well as the body, and it is the
+       last resort if nothing writes a description at all. */
+    const meta = metaDescription(html);
     let raws = fromJsonLd(html);
 
     if (raws.length === 0) {
@@ -41,19 +46,12 @@ async function harvest(source, pages) {
       }
       try {
         const { extractWithModel } = await import('./llm.mjs');
-        raws = await extractWithModel(readableText(html), { url, today });
+        raws = await extractWithModel(readableText(html), { url, today, summary: meta });
       } catch (err) {
         report.errors.push(`${url} — model extraction failed: ${err.message}`);
         continue;
       }
     }
-
-    /* The page's own summary, used when the extraction did not produce one.
-       Bad Dog's event pages are the case that prompted this: no Event JSON-LD,
-       and a body that opens with a thousand characters of navigation, so what
-       came back was the "Listed by …" placeholder while the page carried a
-       perfectly good description in its og: tag the whole time. */
-    const meta = metaDescription(html);
 
     for (const raw of raws) {
       const result = normalize(
