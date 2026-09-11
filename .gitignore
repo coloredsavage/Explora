@@ -1,2 +1,10 @@
 node_modules/
 scrape/discovery/
+
+# Written by scripts/build-seo.mjs at deploy time, from data.js. Committing
+# them would guarantee they go stale the moment a listing changes.
+/listings.html
+/listings.md
+/llms.txt
+/robots.txt
+/sitemap.xml

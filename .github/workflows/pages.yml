@@ -33,12 +33,20 @@ jobs:
       # fails with "Resource not accessible by integration".
       - uses: actions/configure-pages@v5
 
+      # The board is drawn in the browser, so the HTML a crawler receives holds
+      # no listings at all. This writes the static counterparts from data.js:
+      # Event JSON-LD into the head, plus listings.html, listings.md, llms.txt,
+      # robots.txt and sitemap.xml. Must run before the cache-bust below, which
+      # stamps the generated page's stylesheet too.
+      - name: Generate the crawlable artifacts
+        run: node scripts/build-seo.mjs
+
       # Stamp the asset URLs with this commit so a browser can never mix a new
       # index.html with a cached older app.js — that pairing throws inside the
       # click handler and the page looks dead while reporting nothing.
       - name: Cache-bust the asset URLs
         run: |
-          sed -i "s/?v=dev/?v=${GITHUB_SHA::7}/g" index.html
+          sed -i "s/?v=dev/?v=${GITHUB_SHA::7}/g" index.html listings.html
           grep -o 'href="styles.css?v=[^"]*"\|src="app.js?v=[^"]*"' index.html
 
       # There is no build step: the site is the repository.
