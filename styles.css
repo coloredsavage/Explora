@@ -199,19 +199,6 @@ svg.about__art { width: 340px; height: auto; }
 }
 .about p.about__credit a { color: inherit; }
 
-/* A quiet line at the end of the column — a way out to the full index, not
-   part of the copy. Out-specifies `.about p`-weight rules the same way the
-   credit does. */
-.about .about__footer {
-  margin: 26px 0 0;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-  font-size: 12px;
-  line-height: 18px;
-  color: var(--ink-soft);
-}
-.about .about__footer a { color: inherit; }
-
 .about__social { margin: 0 0 22px; }
 .about__social a {
   display: inline-flex;

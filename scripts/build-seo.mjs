@@ -590,20 +590,19 @@ const homeGraph = {
 const homeBlock = `${OPEN}\n<script type="application/ld+json">${JSON.stringify(homeGraph)}</script>\n${CLOSE}\n`;
 index = index.replace('</head>', homeBlock + '</head>');
 
-const NAVOPEN = '<!-- build-seo:links -->';
-const NAVCLOSE = '<!-- build-seo:links-end -->';
-index = index.replace(new RegExp('\\n*' + rx(NAVOPEN) + '[\\s\\S]*?' + rx(NAVCLOSE) + '\\n?', 'g'), '');
-const nav = `\n${NAVOPEN}
-      <p>Browse by what you’re after:
-      ${published.map((c) => `<a href="${c.path}">${esc(c.title.toLowerCase())}</a>`).join(', ')},
-      or <a href="/listings.html">every listing on one page</a>.</p>
-      ${NAVCLOSE}
-`;
-index = index.replace('      <p>Have fun!</p>', '      <p>Have fun!</p>\n' + nav);
+/* No link block is written into the home page. The thirteen collections plus
+   the full index came to fourteen links dropped into the middle of the About
+   copy, which read as keyword stuffing to a person and probably to a crawler
+   too. Discovery does not depend on them: sitemap.xml carries all seventy
+   URLs and is submitted, the collections link each other, and every event
+   page breadcrumbs up to its collection. What is given up is the sliver of
+   link equity the home page would have passed down, which on a domain with
+   no inbound links is worth less than a clean page. */
+
 await writeFile(path.join(root, 'index.html'), index);
 
 console.log(`build-seo: ${LISTINGS.length} listings, ${upcoming.length} upcoming`);
 console.log(`  collections published: ${published.length}${skipped.length ? `, skipped as thin (<${MIN_IN_COLLECTION}): ${skipped.map((c) => c.title + ' (' + c.rows.length + ')').join(', ')}` : ''}`);
 console.log(`  event pages: ${rows.length}`);
 console.log(`  sitemap urls: ${urls.length}`);
-console.log(`  index.html: ${homeGraph['@graph'].length - 1} events of JSON-LD + collection links`);
+console.log(`  index.html: ${homeGraph['@graph'].length - 1} events of JSON-LD`);
