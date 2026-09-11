@@ -230,7 +230,16 @@ function page({ title, desc, canonical, body, jsonld, crumb }) {
   dt { color: var(--ink-soft); }
   dd { margin: 0; }
   p.desc { margin: 8px 0 0; font-size: 14px; line-height: 21px; color: var(--ink-soft); }
-  .tag { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 999px; background: var(--line); color: var(--ink-soft); }
+  /* The pill carries its category's own colour, the same one the card wears
+     on the calendar, so the two read as one system. styles.css defines
+     --c-<key> for every category; the fallback is only reached if a listing
+     somehow carries a category with no token. */
+  .tag {
+    display: inline-block; font-size: 12px; line-height: 18px;
+    padding: 2px 10px; border-radius: 999px;
+    background: var(--line); color: var(--ink);
+    box-shadow: inset 0 0 0 1px rgba(25, 25, 25, .07);
+  }
   footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-soft); }
   footer a { color: inherit; }
   ul.more { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; }
@@ -259,7 +268,7 @@ const crumbNav = (trail, here) =>
 
 const card = (r, { headingLink = true } = {}) => `<article>
   <h2>${headingLink ? `<a href="${r.href}">${esc(r.ev.title)}</a>` : esc(r.ev.title)}</h2>
-  <span class="tag">${esc(r.cat)}</span>
+  <span class="tag" style="background: var(--c-${esc(r.ev.category)}, var(--line))">${esc(r.cat)}</span>
   <dl>
     <dt>When</dt><dd>${esc(r.when)}</dd>
     <dt>Where</dt><dd>${esc(r.ev.venue)}${r.ev.address ? ', ' + esc(r.ev.address) : ''}</dd>
