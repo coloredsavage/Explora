@@ -33,8 +33,24 @@ const asDate = (v) => {
   return ISO.test(d) ? d : null;
 };
 
+/* A page title is often "The Audition — Bad Dog Theatre Company - Toronto's
+   Best Improv": the event, then the site's name bolted on. Strip the tail
+   only when it actually names the source, so a title that legitimately
+   contains a dash keeps it. */
+function stripSiteSuffix(title, sourceName) {
+  if (!sourceName) return title;
+  const words = sourceName.toLowerCase().split(/\s+/).filter((w) => w.length > 2);
+  if (!words.length) return title;
+  const parts = title.split(/\s+[—–|]\s+/);
+  if (parts.length < 2) return title;
+  const head = parts[0].trim();
+  const tail = parts.slice(1).join(' ').toLowerCase();
+  const namesTheSource = words.every((w) => tail.includes(w));
+  return namesTheSource && head.length >= 3 ? head : title;
+}
+
 export function normalize(raw, source, { today, checked }) {
-  const title = (raw.title ?? '').trim();
+  const title = stripSiteSuffix((raw.title ?? '').trim(), source.name);
   const start = asDate(raw.startDate);
   const end = asDate(raw.endDate);
   const venue = (raw.venue ?? source.defaultVenue ?? '').trim();

@@ -66,6 +66,30 @@ function offerText(offers) {
 }
 
 /** The visible words of a page, for the model to read when JSON-LD is absent. */
+/* The page's own summary of itself. Squarespace, WordPress and most CMSes
+   write one, and it is almost always the description a human editor typed —
+   cleaner than anything recoverable from the body, which on these pages opens
+   with a thousand characters of navigation. og: first, because it is the one
+   written for sharing; the plain meta description second. */
+export function metaDescription(html) {
+  const pick = (re) => {
+    const m = re.exec(html);
+    return m ? m[1] : null;
+  };
+  const raw =
+    pick(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']*)["']/i) ||
+    pick(/<meta[^>]+content=["']([^"']*)["'][^>]+property=["']og:description["']/i) ||
+    pick(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']*)["']/i) ||
+    pick(/<meta[^>]+content=["']([^"']*)["'][^>]+name=["']description["']/i);
+  if (!raw) return null;
+  const t = raw
+    .replace(/&amp;amp;/g, '&').replace(/&amp;/g, '&')
+    .replace(/&nbsp;/g, ' ').replace(/&#39;|&rsquo;/g, "'")
+    .replace(/&quot;|&ldquo;|&rdquo;/g, '"').replace(/&mdash;/g, '—')
+    .replace(/\s+/g, ' ').trim();
+  return t.length > 40 ? t : null;      /* a stub is worse than nothing */
+}
+
 export function readableText(html, limit = 12000) {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
