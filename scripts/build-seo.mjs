@@ -15,7 +15,7 @@
  * Run from the repo root. It reads the same data.js the page does, through a
  * vm context, so nothing here can drift from what a visitor sees. */
 
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import vm from 'node:vm';
 import path from 'node:path';
 
@@ -161,9 +161,15 @@ sameAs: ['https://www.tiktok.com/@explora.to'],
   ],
 };
 
+
 /* ------------------------------------------------------------------ pages */
 
+const slug = (s) => String(s).toLowerCase()
+  .replace(/['’]/g, '').replace(/&/g, 'and')
+  .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
 const fmtDate = (d) => d.toLocaleDateString('en-CA', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+const fmtShort = (d) => d.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
 const when = (o) => (iso(o.start) === iso(o.end) ? fmtDate(o.start) : `${fmtDate(o.start)} – ${fmtDate(o.end)}`)
   + (o.time ? `, ${o.time}` : '');
 
@@ -172,56 +178,216 @@ const rows = upcoming.map(({ ev, occ }) => ({
   cat: CATEGORIES[ev.category].label,
   price: ev.entry || 'Price not listed',
   when: when(occ),
+  href: `/event/${ev.id}/`,
+  free: priceOf(ev) === 'free',
 }));
 
-const listingsHtml = `<!doctype html>
+/* The shell every generated page shares. The site's own stylesheet, a link
+   home, and nothing that needs JavaScript to be readable. */
+function page({ title, desc, canonical, body, jsonld, crumb }) {
+  const ld = crumb
+    ? { '@context': 'https://schema.org', '@graph': [jsonld, crumb] }
+    : { '@context': 'https://schema.org', ...jsonld };
+  return `<!doctype html>
 <html lang="en-CA">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Every listing on Explora — free and cheap things to do in Toronto</title>
-<meta name="description" content="All ${rows.length} events on Explora, with dates, venues and prices. Every listing checked against the venue's own page.">
-<link rel="canonical" href="${SITE}/listings.html">
-<meta property="og:title" content="Every listing on Explora">
-<meta property="og:description" content="All ${rows.length} free and cheap things to do in Toronto, with dates, venues and prices.">
-<meta property="og:url" content="${SITE}/listings.html">
-<meta property="og:image" content="${SITE}/hero.png">
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(desc)}">
+<link rel="canonical" href="${SITE}${canonical}">
 <meta property="og:type" content="website">
-<link rel="stylesheet" href="styles.css?v=dev">
+<meta property="og:site_name" content="Explora">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(desc)}">
+<meta property="og:url" content="${SITE}${canonical}">
+<meta property="og:image" content="${SITE}/hero.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(title)}">
+<meta name="twitter:description" content="${esc(desc)}">
+<meta name="twitter:image" content="${SITE}/hero.png">
+<link rel="stylesheet" href="/styles.css?v=dev">
 <style>
-  body { margin: 0 auto; padding: 40px 24px 80px; max-width: 720px; background: var(--paper); color: var(--ink); }
-  h1 { font-size: 24px; line-height: 32px; letter-spacing: -0.02em; margin: 0 0 8px; }
-  .sub { color: var(--ink-soft); margin: 0 0 36px; }
+  body { margin: 0 auto; padding: 28px 24px 80px; max-width: 720px; background: var(--paper); color: var(--ink); }
+  nav.crumbs { font-size: 13px; color: var(--ink-soft); margin: 0 0 26px; }
+  nav.crumbs a { color: inherit; }
+  h1 { font-size: 26px; line-height: 34px; letter-spacing: -0.02em; margin: 0 0 10px; text-wrap: balance; }
+  p.sub { color: var(--ink-soft); margin: 0 0 32px; line-height: 22px; }
   article { padding: 18px 0; border-top: 1px solid var(--line); }
-  h2 { font-size: 16px; line-height: 24px; margin: 0 0 4px; }
-  dl { display: grid; grid-template-columns: 96px 1fr; gap: 2px 12px; margin: 8px 0 0; font-size: 14px; line-height: 21px; }
+  article h2 { font-size: 16px; line-height: 24px; margin: 0 0 6px; }
+  article h2 a { color: inherit; text-decoration: none; }
+  article h2 a:hover { text-decoration: underline; }
+  dl { display: grid; grid-template-columns: 92px 1fr; gap: 2px 12px; margin: 8px 0 0; font-size: 14px; line-height: 21px; }
   dt { color: var(--ink-soft); }
   dd { margin: 0; }
-  p.desc { margin: 6px 0 0; font-size: 14px; line-height: 21px; color: var(--ink-soft); }
-  a { color: inherit; }
+  p.desc { margin: 8px 0 0; font-size: 14px; line-height: 21px; color: var(--ink-soft); }
+  .tag { display: inline-block; font-size: 12px; padding: 2px 9px; border-radius: 999px; background: var(--line); color: var(--ink-soft); }
+  footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-soft); }
+  footer a { color: inherit; }
+  ul.more { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 13px; }
 </style>
 </head>
 <body>
-<h1>Every listing on Explora</h1>
-<p class="sub">All ${rows.length} things to do in Toronto currently on the calendar, soonest first.
-Each was checked against the venue’s own page. <a href="/">Back to the calendar</a>.</p>
-
-${rows.map(({ ev, cat, price, when }) => `<article>
-  <h2>${esc(ev.title)}</h2>
-  <dl>
-    <dt>When</dt><dd>${esc(when)}</dd>
-    <dt>Where</dt><dd>${esc(ev.venue)}${ev.address ? ', ' + esc(ev.address) : ''}</dd>
-    <dt>Price</dt><dd>${esc(price)}</dd>
-    <dt>Category</dt><dd>${esc(cat)}</dd>
-    <dt>Source</dt><dd><a href="${esc(ev.source || ev.url)}" rel="nofollow noopener">${esc((ev.source || ev.url || '').replace(/^https?:\/\//, '').split('/')[0])}</a></dd>
-  </dl>
-  ${ev.description ? `<p class="desc">${esc(ev.description)}</p>` : ''}
-</article>`).join('\n')}
-
-<script type="application/ld+json">${JSON.stringify(graph)}</script>
+${body}
+<footer>
+  <p><a href="/">Explora</a> — a calendar of free and cheap things to do in Toronto.
+  Every listing checked against the venue’s own page; anything unconfirmed is left out.
+  Got something to add? <a href="mailto:savage@explora.city">Email me</a>.</p>
+</footer>
+<script type="application/ld+json">${JSON.stringify(ld)}</script>
 </body>
 </html>
 `;
+}
+
+const crumbs = (trail) => ({
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((t, i) => ({ '@type': 'ListItem', position: i + 1, name: t.name, item: SITE + t.href })),
+});
+
+const crumbNav = (trail, here) =>
+  `<nav class="crumbs">${trail.map((t) => `<a href="${t.href}">${esc(t.name)}</a>`).join(' › ')} › ${esc(here)}</nav>`;
+
+const card = (r, { headingLink = true } = {}) => `<article>
+  <h2>${headingLink ? `<a href="${r.href}">${esc(r.ev.title)}</a>` : esc(r.ev.title)}</h2>
+  <span class="tag">${esc(r.cat)}</span>
+  <dl>
+    <dt>When</dt><dd>${esc(r.when)}</dd>
+    <dt>Where</dt><dd>${esc(r.ev.venue)}${r.ev.address ? ', ' + esc(r.ev.address) : ''}</dd>
+    <dt>Price</dt><dd>${esc(r.price)}</dd>
+  </dl>
+  ${r.ev.description ? `<p class="desc">${esc(r.ev.description)}</p>` : ''}
+</article>`;
+
+/* ---------------------------------------------------------- collections */
+
+/* An aggregator's pages are its collections — "free things to do in Toronto"
+   is a thing people search; "Explora" is not, yet. One page per intent, each
+   listing only what it actually holds. A collection under three listings is
+   not published: a page with one item on it is a thin page. */
+const MIN_IN_COLLECTION = 3;
+
+function weekendRange(from) {
+  const sat = addDays(from, (6 - from.getDay() + 7) % 7);
+  return [sat, addDays(sat, 1)];
+}
+const [SAT, SUN] = weekendRange(TODAY);
+
+const onIn = (r, from, to) => {
+  const occ = occurrences(r.ev, from, to);
+  return occ.length > 0;
+};
+
+const collections = [];
+
+collections.push({
+  path: '/free-things-to-do-in-toronto/',
+  title: 'Free things to do in Toronto',
+  desc: 'Everything on Explora that costs nothing — museum free nights, markets, gigs, walks and street festivals. Each checked against the venue’s own page.',
+  intro: 'Everything on the calendar with no door price. Museum free nights, farmers’ markets, gallery openings, street festivals and pay-what-you-can rooms.',
+  rows: rows.filter((r) => r.free),
+});
+
+collections.push({
+  path: '/things-to-do-in-toronto-this-weekend/',
+  title: 'Things to do in Toronto this weekend',
+  desc: `What’s on in Toronto on ${fmtShort(SAT)} and ${fmtShort(SUN)} — free and cheap events, each checked against the venue’s own page.`,
+  intro: `On this coming Saturday and Sunday, ${fmtShort(SAT)} and ${fmtShort(SUN)}. Regenerated every deploy, so it is always the next weekend rather than a fixed one.`,
+  rows: rows.filter((r) => onIn(r, SAT, SUN)),
+});
+
+collections.push({
+  path: '/cheap-things-to-do-in-toronto/',
+  title: 'Cheap things to do in Toronto — under $20',
+  desc: 'Everything on Explora that costs less than twenty dollars at the door, with the price and the page it was checked against.',
+  intro: 'Under twenty dollars at the door. The price shown is what the venue charges, taken from its own page.',
+  rows: rows.filter((r) => priceOf(r.ev) === 'under20'),
+});
+
+for (const [key, c] of Object.entries(CATEGORIES)) {
+  const inCat = rows.filter((r) => r.ev.category === key);
+  if (inCat.length < MIN_IN_COLLECTION) continue;
+  const label = c.label.toLowerCase();
+  collections.push({
+    path: `/${slug(c.label)}-in-toronto/`,
+    title: `${c.label} in Toronto`,
+    desc: `${inCat.length} ${label} listings on Explora, free and cheap, each checked against the venue’s own page.`,
+    intro: `Everything on the calendar filed under ${label}.`,
+    rows: inCat,
+  });
+}
+
+const published = collections.filter((c) => c.rows.length >= MIN_IN_COLLECTION);
+const skipped = collections.filter((c) => c.rows.length < MIN_IN_COLLECTION);
+
+const otherLinks = (exclude) => `<ul class="more">${published
+  .filter((c) => c.path !== exclude)
+  .map((c) => `<li><a href="${c.path}">${esc(c.title)}</a></li>`).join('')}</ul>`;
+
+/* ------------------------------------------------------------------ write */
+
+const written = [];
+async function put(rel, html) {
+  const full = path.join(root, rel);
+  await mkdir(path.dirname(full), { recursive: true });
+  await writeFile(full, html);
+  written.push(rel);
+}
+
+for (const c of published) {
+  const trail = [{ name: 'Explora', href: '/' }];
+  await put(c.path.replace(/^\//, '') + 'index.html', page({
+    title: `${c.title} — Explora`,
+    desc: c.desc,
+    canonical: c.path,
+    crumb: crumbs([...trail, { name: c.title, href: c.path }]),
+    jsonld: {
+      '@type': 'CollectionPage',
+      name: c.title,
+      description: c.desc,
+      url: SITE + c.path,
+      isPartOf: { '@type': 'WebSite', name: 'Explora', url: SITE + '/' },
+      mainEntity: {
+        '@type': 'ItemList',
+        numberOfItems: c.rows.length,
+        itemListElement: c.rows.map((r, i) => ({
+          '@type': 'ListItem', position: i + 1, url: SITE + r.href, name: r.ev.title,
+        })),
+      },
+    },
+    body: `${crumbNav(trail, c.title)}
+<h1>${esc(c.title)}</h1>
+<p class="sub">${esc(c.intro)} ${c.rows.length} listing${c.rows.length === 1 ? '' : 's'}, soonest first.</p>
+${c.rows.map((r) => card(r)).join('\n')}
+<h2 style="margin-top:40px;font-size:15px">Elsewhere on Explora</h2>
+${otherLinks(c.path)}`,
+  }));
+}
+
+for (const r of rows) {
+  const trail = [{ name: 'Explora', href: '/' }];
+  const catCollection = published.find((c) => c.rows.includes(r) && c.path.endsWith('-in-toronto/') && !c.path.startsWith('/free') && !c.path.startsWith('/cheap') && !c.path.startsWith('/things-to-do'));
+  if (catCollection) trail.push({ name: catCollection.title, href: catCollection.path });
+  await put(`event/${r.ev.id}/index.html`, page({
+    title: `${r.ev.title} — ${r.when.split(',')[0]}, Toronto`,
+    desc: `${r.ev.title} at ${r.ev.venue}. ${r.when}. ${r.price}. Checked against the venue’s own page.`,
+    canonical: r.href,
+    crumb: crumbs([...trail, { name: r.ev.title, href: r.href }]),
+    jsonld: eventNode({ ev: r.ev, occ: r.occ }),
+    body: `${crumbNav(trail, r.ev.title)}
+<h1>${esc(r.ev.title)}</h1>
+<p class="sub">${esc(r.cat)} in Toronto${r.free ? ', free' : ''}.</p>
+${card(r, { headingLink: false }).replace(/<h2>[\s\S]*?<\/h2>\n/, '')}
+<p class="desc" style="margin-top:18px">
+  Checked against <a href="${esc(r.ev.source || r.ev.url)}" rel="nofollow noopener">the venue’s own page</a>${r.ev.checked ? ` on ${esc(r.ev.checked)}` : ''}.
+  ${r.ev.url ? `<a href="${esc(r.ev.url)}" rel="nofollow noopener">Full details</a>.` : ''}
+</p>
+<h2 style="margin-top:40px;font-size:15px">More on Explora</h2>
+${otherLinks('')}`,
+  }));
+}
+
+/* --------------------------------------------- index, feeds and directives */
 
 const listingsMd = `# Explora — free and cheap things to do in Toronto
 
@@ -230,31 +396,42 @@ page; anything that could not be confirmed is not here. Updated ${iso(TODAY)}.
 
 Calendar: ${SITE}/
 
-${rows.map(({ ev, cat, price, when }) => `## ${ev.title}
+## Collections
 
-- When: ${when}
-- Where: ${ev.venue}${ev.address ? ', ' + ev.address : ''}
-- Price: ${price}
-- Category: ${cat}
-- Source: ${ev.source || ev.url}
-${ev.description ? '\n' + ev.description + '\n' : ''}`).join('\n')}
+${published.map((c) => `- [${c.title}](${SITE}${c.path}) — ${c.rows.length} listings`).join('\n')}
+
+## Listings
+
+${rows.map((r) => `### ${r.ev.title}
+
+- When: ${r.when}
+- Where: ${r.ev.venue}${r.ev.address ? ', ' + r.ev.address : ''}
+- Price: ${r.price}
+- Category: ${r.cat}
+- Page: ${SITE}${r.href}
+- Source: ${r.ev.source || r.ev.url}
+${r.ev.description ? '\n' + r.ev.description + '\n' : ''}`).join('\n')}
 `;
 
 const llms = `# Explora
 
-> A calendar of free and cheap things to do in Toronto. Every listing is checked
-> against the venue's own page before it is published; anything that could not be
-> confirmed is left out and the gap is recorded rather than guessed at.
+> A calendar of free and cheap things to do in Toronto. It is an aggregator:
+> it gathers what is on across the city into one place. Every listing is
+> checked against the venue's own page before publishing, and anything that
+> could not be confirmed is left out rather than guessed at.
 
 The calendar runs from today outward in time windows — Today, this week, this
 month, this year — so the first card is always the answer to "what should I do
-today?". ${rows.length} listings across ${new Set(rows.map((r) => r.cat)).size} categories:
-${[...new Set(rows.map((r) => r.cat))].sort().join(', ')}.
+today?". ${rows.length} listings across ${new Set(rows.map((r) => r.cat)).size} categories.
 
-## Listings
+## Collections
 
-- [Every listing, as plain text](${SITE}/listings.md): all ${rows.length} with dates, venues, prices and sources
-- [Every listing, as a page](${SITE}/listings.html): the same, as HTML
+${published.map((c) => `- [${c.title}](${SITE}${c.path}): ${c.rows.length} listings`).join('\n')}
+
+## Everything at once
+
+- [All listings, plain text](${SITE}/listings.md): dates, venues, prices, sources
+- [All listings, as a page](${SITE}/listings.html)
 - [The calendar itself](${SITE}/): interactive, renders in the browser
 
 ## Notes for anyone quoting this
@@ -262,7 +439,7 @@ ${[...new Set(rows.map((r) => r.cat))].sort().join(', ')}.
 Prices are what the venue charges at the door, taken from its own page on the
 date in the listing's source. They go stale — check the source before relying
 on one. A listing with no price means the venue publishes none, not that it is
-free.
+free. Dates for recurring things are the next occurrence, not the only one.
 
 Contact: savage@explora.city
 `;
@@ -329,8 +506,10 @@ Sitemap: ${SITE}/sitemap.xml
 
 const urls = [
   { loc: SITE + '/', priority: '1.0', freq: 'daily' },
-  { loc: SITE + '/listings.html', priority: '0.8', freq: 'daily' },
-  { loc: SITE + '/listings.md', priority: '0.5', freq: 'daily' },
+  ...published.map((c) => ({ loc: SITE + c.path, priority: '0.9', freq: 'daily' })),
+  ...rows.map((r) => ({ loc: SITE + r.href, priority: '0.7', freq: 'weekly' })),
+  { loc: SITE + '/listings.html', priority: '0.6', freq: 'daily' },
+  { loc: SITE + '/listings.md', priority: '0.4', freq: 'daily' },
 ];
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -343,7 +522,35 @@ ${urls.map((u) => `  <url>
 </urlset>
 `;
 
-/* --------------------------------------------------------------- injection */
+const listingsHtml = page({
+  title: 'Every listing on Explora — free and cheap things to do in Toronto',
+  desc: `All ${rows.length} events on Explora, with dates, venues and prices. Every listing checked against the venue's own page.`,
+  canonical: '/listings.html',
+  crumb: crumbs([{ name: 'Explora', href: '/' }, { name: 'Every listing', href: '/listings.html' }]),
+  jsonld: {
+    '@type': 'CollectionPage',
+    name: 'Every listing on Explora',
+    url: SITE + '/listings.html',
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: rows.length,
+      itemListElement: rows.map((r, i) => ({ '@type': 'ListItem', position: i + 1, url: SITE + r.href, name: r.ev.title })),
+    },
+  },
+  body: `${crumbNav([{ name: 'Explora', href: '/' }], 'Every listing')}
+<h1>Every listing on Explora</h1>
+<p class="sub">All ${rows.length} things to do in Toronto currently on the calendar, soonest first.
+Each was checked against the venue’s own page.</p>
+${rows.map((r) => card(r)).join('\n')}
+<h2 style="margin-top:40px;font-size:15px">Collections</h2>
+${otherLinks('')}`,
+});
+
+await put('listings.html', listingsHtml);
+await put('listings.md', listingsMd);
+await put('llms.txt', llms);
+await put('robots.txt', robots);
+await put('sitemap.xml', sitemapXml);
 
 /* Idempotent: strip any block this script wrote before, then write a fresh
    one. The workflow runs on a clean checkout, but a developer running it
@@ -351,18 +558,43 @@ ${urls.map((u) => `  <url>
 let index = await readFile(path.join(root, 'index.html'), 'utf8');
 const OPEN = '<!-- build-seo:start -->';
 const CLOSE = '<!-- build-seo:end -->';
-const between = new RegExp(OPEN.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s\\S]*?' + CLOSE.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\n?', 'g');
-index = index.replace(between, '');
-const block = `${OPEN}\n<script type="application/ld+json">${JSON.stringify(graph)}</script>\n${CLOSE}\n`;
-index = index.replace('</head>', block + '</head>');
+const rx = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+index = index.replace(new RegExp(rx(OPEN) + '[\\s\\S]*?' + rx(CLOSE) + '\\n', 'g'), '');
+
+/* The home page points at the collections so a crawler arriving there has
+   somewhere to go — without them every generated page is an orphan. */
+const homeGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': SITE + '/#website',
+      name: 'Explora',
+      url: SITE + '/',
+      description: 'A calendar of free and cheap things to do in Toronto, every listing checked against the venue’s own page.',
+      inLanguage: 'en-CA',
+      sameAs: ['https://www.tiktok.com/@explora.to'],
+    },
+    ...upcoming.map(eventNode),
+  ],
+};
+const homeBlock = `${OPEN}\n<script type="application/ld+json">${JSON.stringify(homeGraph)}</script>\n${CLOSE}\n`;
+index = index.replace('</head>', homeBlock + '</head>');
+
+const NAVOPEN = '<!-- build-seo:links -->';
+const NAVCLOSE = '<!-- build-seo:links-end -->';
+index = index.replace(new RegExp('\\n*' + rx(NAVOPEN) + '[\\s\\S]*?' + rx(NAVCLOSE) + '\\n?', 'g'), '');
+const nav = `\n${NAVOPEN}
+      <p>Browse by what you’re after:
+      ${published.map((c) => `<a href="${c.path}">${esc(c.title.toLowerCase())}</a>`).join(', ')},
+      or <a href="/listings.html">every listing on one page</a>.</p>
+      ${NAVCLOSE}
+`;
+index = index.replace('      <p>Have fun!</p>', '      <p>Have fun!</p>\n' + nav);
 await writeFile(path.join(root, 'index.html'), index);
 
-await writeFile(path.join(root, 'listings.html'), listingsHtml);
-await writeFile(path.join(root, 'listings.md'), listingsMd);
-await writeFile(path.join(root, 'llms.txt'), llms);
-await writeFile(path.join(root, 'robots.txt'), robots);
-await writeFile(path.join(root, 'sitemap.xml'), sitemapXml);
-
 console.log(`build-seo: ${LISTINGS.length} listings, ${upcoming.length} upcoming`);
-console.log(`  index.html   +${JSON.stringify(graph).length} bytes of JSON-LD (${graph['@graph'].length - 1} events)`);
-console.log(`  listings.html listings.md llms.txt robots.txt sitemap.xml`);
+console.log(`  collections published: ${published.length}${skipped.length ? `, skipped as thin (<${MIN_IN_COLLECTION}): ${skipped.map((c) => c.title + ' (' + c.rows.length + ')').join(', ')}` : ''}`);
+console.log(`  event pages: ${rows.length}`);
+console.log(`  sitemap urls: ${urls.length}`);
+console.log(`  index.html: ${homeGraph['@graph'].length - 1} events of JSON-LD + collection links`);
