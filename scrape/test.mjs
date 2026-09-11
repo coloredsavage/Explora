@@ -345,6 +345,26 @@ console.log('\nWhat a library runs that is not a day out');
                  'Friday Night Film: Chinatown', 'Teen Craft Afternoon', 'Silent Book Club'];
   for (const t of drops) check(`drops "${t}"`, () => assert.ok(tpl.exclude.test(t)));
   for (const t of keeps) check(`keeps "${t}"`, () => assert.ok(!tpl.exclude.test(t)));
+  check('drops "Wellness Recovery Action Plan (WRAP)"', () =>
+    assert.ok(tpl.exclude.test('Wellness Recovery Action Plan (WRAP)')));
+  check('drops "Caregiver Support Group"', () =>
+    assert.ok(tpl.exclude.test('Caregiver Support Group')));
+  check('keeps "Gift Wrapping Workshop" — wrap is a word', () =>
+    assert.ok(!tpl.exclude.test('Gift Wrapping Workshop')));
+}
+
+console.log('\nAnnouncements that nothing is on');
+{
+  const src = { id: 'bentway', name: 'The Bentway', category: 'architecture', art: 'art-skates',
+                url: 'x', defaultAddress: '250 Fort York Blvd, Toronto, ON M5V 3K9' };
+  const when = { today: '2026-09-11', checked: '2026-09-11' };
+  const ok = (title) => normalize({ title, startDate: '2026-09-20', venue: 'The Bentway',
+    address: '250 Fort York Blvd', description: 'x'.repeat(60) }, src, when).ok;
+
+  for (const t of ['Skate Trail Closed', 'Event Cancelled', 'Public Trust — Postponed'])
+    check(`drops "${t}"`, () => assert.equal(ok(t), false));
+  for (const t of ['Closing Party for Public Trust', 'Closing Night at the Bentway'])
+    check(`keeps "${t}"`, () => assert.equal(ok(t), true));
 }
 
 console.log('\nEntities that arrived half-eaten');
