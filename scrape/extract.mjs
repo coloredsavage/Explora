@@ -87,19 +87,26 @@ export function metaDescription(html) {
     .replace(/&nbsp;/g, ' ').replace(/&#39;|&rsquo;/g, "'")
     .replace(/&quot;|&ldquo;|&rdquo;/g, '"').replace(/&mdash;/g, '—')
     .replace(/\s+/g, ' ').trim();
-  if (t.length <= 40) return null;      /* a stub is worse than nothing */
+  return t.length > 40 ? t : null;      /* a stub is worse than nothing */
+}
 
-  /* A lot of meta descriptions are the credit block and the logistics, which
-     is everything the card already shows and nothing about the event. Bad
-     Dog's reads "A Bad Dog Theatre Company Production Created by: … Producers:
-     … Dates: … Time: … Location: …" before it reaches a word about the show,
-     and trimmed to fit a card it is all preamble. Two or more of those labels
-     up front means this is not a description, and a plain "Listed by …" is
-     more honest than a paragraph of names. */
+/* Whether that summary is fit to print as it stands.
+ *
+ * Two readers want the meta description and they want different things. The
+ * model wants all of it — Bad Dog's opens with credits and logistics but the
+ * sentence describing the show is in there, and pulling that out is exactly
+ * what it is for. The card wants only text that is already a description,
+ * because nothing will rewrite it before it is shown.
+ *
+ * Two or more "Created by:" / "Dates:" / "Location:" labels in the opening
+ * means it is a credit block, and "Listed by …" is more honest on a card than
+ * a paragraph of names. One stray label does not sink a real description. */
+export function readsAsDescription(t) {
+  if (!t) return false;
   const labels = (t.slice(0, 240).match(
     /\b(created by|produced by|producers?|directed by|starring|cast|dates?|time|location|venue|tickets?|price|admission|doors|presented by)\s*:/gi
   ) || []).length;
-  return labels >= 2 ? null : t;
+  return labels < 2;
 }
 
 export function readableText(html, limit = 12000) {

@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import { fromJsonLd, readableText, candidateLinks, metaDescription } from './extract.mjs';
+import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
 import { normalize, validate } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
@@ -301,12 +301,22 @@ console.log('\nA page that describes itself');
     assert.equal(metaDescription('<meta property="og:description" content="Bad Dog">'), null));
   check('a page with none says so', () =>
     assert.equal(metaDescription('<html><head><title>x</title></head></html>'), null));
-  check('a credit block is not a description', () =>
-    assert.equal(metaDescription('<meta property="og:description" content="A Bad Dog Theatre Company Production Created by: Bita Joudaki Producers: Stephanie Malek Dates: Fridays in September Time: 7pm Location: Comedy Bar Bloor">'), null));
-  check('one stray label does not sink a real one', () =>
+  check('a credit block still reaches the model, which can read past it', () =>
     assert.match(
-      metaDescription('<meta property="og:description" content="An improvised show about auditions, different every night. Location: Comedy Bar Bloor.">'),
-      /^An improvised show/));
+      metaDescription('<meta property="og:description" content="A Bad Dog Theatre Company Production Created by: Bita Joudaki Producers: Stephanie Malek Dates: Fridays in September Time: 7pm Location: Comedy Bar Bloor">'),
+      /^A Bad Dog Theatre/));
+}
+
+console.log('\nFit to print as it stands');
+{
+  check('a credit block is not a description', () =>
+    assert.equal(readsAsDescription('A Bad Dog Theatre Company Production Created by: Bita Joudaki Producers: Stephanie Malek Dates: Fridays in September Time: 7pm Location: Comedy Bar Bloor'), false));
+  check('one stray label does not sink a real one', () =>
+    assert.equal(readsAsDescription('An improvised show about auditions, different every night. Location: Comedy Bar Bloor.'), true));
+  check('plain prose passes', () =>
+    assert.equal(readsAsDescription('Performers work through cold reads and callbacks, improvised and different every night.'), true));
+  check('nothing is not a description', () =>
+    assert.equal(readsAsDescription(null), false));
 }
 
 console.log('\nA title with the site bolted on');

@@ -12,7 +12,7 @@ import { readFile, writeFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { enabledSources } from './sources.mjs';
-import { fromJsonLd, readableText, candidateLinks, metaDescription } from './extract.mjs';
+import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
 import { normalize, validate } from './normalize.mjs';
 import { allowedBy } from './robots.mjs';
 
@@ -55,7 +55,8 @@ async function harvest(source, pages) {
 
     for (const raw of raws) {
       const result = normalize(
-        { ...raw, url: raw.url ?? url, description: raw.description || meta },
+        { ...raw, url: raw.url ?? url,
+          description: raw.description || (readsAsDescription(meta) ? meta : null) },
         source, { today, checked: today });
       if (!result.ok) { report.dropped.push(`${source.id}: ${result.title} — ${result.why}`); continue; }
 
