@@ -13,7 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { enabledSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
-import { normalize, validate } from './normalize.mjs';
+import { normalize, validate, stripSiteSuffix } from './normalize.mjs';
 import { allowedBy } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -61,10 +61,26 @@ async function harvest(source, pages) {
         if (raws.length === 0) {
           raws = fromModel;
         } else {
-          /* Keep the structured facts, borrow only the words. */
-          const norm = (x) => String(x ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-          const prose = new Map(fromModel.filter((e) => e.description).map((e) => [norm(e.title), e.description]));
-          raws = raws.map((r) => ({ ...r, description: r.description ?? prose.get(norm(r.title)) ?? null }));
+          /* Keep the structured facts, borrow only the words.
+             The two sides name the same event differently: Bad Dog's JSON-LD
+             calls it "The Audition  — Bad Dog Theatre Company - Toronto's Best
+             Improv", because the node's name is the page title, while a model
+             reading the page returns "The Audition". Matching those literally
+             found nothing and the prose was thrown away. Both sides lose the
+             site suffix first, and then one title matching the start of the
+             other is enough — a page's structured name and its prose name
+             agree about the beginning even when they disagree about the end. */
+          const norm = (x) => stripSiteSuffix(String(x ?? '').trim(), source.name)
+            .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+          const said = fromModel.filter((e) => e.description).map((e) => [norm(e.title), e.description]);
+          const proseFor = (title) => {
+            const t = norm(title);
+            if (!t) return null;
+            const hit = said.find(([k]) => k === t)
+              || said.find(([k]) => k.length >= 8 && (k.startsWith(t) || t.startsWith(k)));
+            return hit ? hit[1] : null;
+          };
+          raws = raws.map((r) => ({ ...r, description: r.description ?? proseFor(r.title) }));
         }
       } catch (err) {
         report.errors.push(`${url} — model extraction failed: ${err.message}`);

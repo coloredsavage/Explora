@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
-import { normalize, validate } from './normalize.mjs';
+import { normalize, validate, stripSiteSuffix } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
 
@@ -334,6 +334,20 @@ console.log('\nA title with the site bolted on');
     assert.equal(titleOf('Dungeons & Dragons — Live!'), 'Dungeons & Dragons — Live!'));
   check('keeps a title with no tail at all', () =>
     assert.equal(titleOf('Maestro'), 'Maestro'));
+}
+
+console.log('\nMatching the two names one page gives an event');
+{
+  const name = 'Bad Dog Theatre';
+  const norm = (x) => stripSiteSuffix(String(x ?? '').trim(), name)
+    .toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+  check('the structured name and the written one meet in the middle', () =>
+    assert.equal(
+      norm("The Audition  — Bad Dog Theatre Company - Toronto's Best Improv"),
+      norm('The Audition')));
+  check('two different shows still do not match', () =>
+    assert.notEqual(norm('The Audition'), norm('Super Hot Date Night')));
 }
 
 console.log('\nAn address with the city left off');

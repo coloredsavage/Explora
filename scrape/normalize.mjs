@@ -49,7 +49,7 @@ const asDate = (v) => {
    Best Improv": the event, then the site's name bolted on. Strip the tail
    only when it actually names the source, so a title that legitimately
    contains a dash keeps it. */
-function stripSiteSuffix(title, sourceName) {
+export function stripSiteSuffix(title, sourceName) {
   if (!sourceName) return title;
   const words = sourceName.toLowerCase().split(/\s+/).filter((w) => w.length > 2);
   if (!words.length) return title;
