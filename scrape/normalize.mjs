@@ -27,6 +27,18 @@ const NOT_A_PLACE = /\b(online|virtual|webinar|zoom|livestream|remote|anywhere)\
    would read "Where: Toronto, ON, Toronto, ON". */
 const CITY_ONLY = /^\s*(toronto|scarborough|etobicoke|north york|east york|ontario|canada|downtown( toronto)?)(\s*,\s*(on|ont|ontario|canada))*\s*$/i;
 
+/* "250 Fort York Blvd, Toronto, ON M5V 3K9" -> "Toronto, ON". The postal code
+   is deliberately left behind: it belongs to the source's own front door, not
+   to whatever address is being repaired with it. */
+function cityOf(defaultAddress) {
+  if (!defaultAddress || !IN_TOWN.test(defaultAddress)) return null;
+  const parts = defaultAddress.split(',').map((x) => x.trim()).filter(Boolean);
+  if (parts.length < 2) return null;
+  const city = parts[1];
+  const region = (parts[2] || '').replace(/\s*[A-Z]\d[A-Z]\s*\d[A-Z]\d\s*$/i, '').trim();
+  return region ? `${city}, ${region}` : city;
+}
+
 const asDate = (v) => {
   if (!v) return null;
   const d = String(v).slice(0, 10);
@@ -54,7 +66,7 @@ export function normalize(raw, source, { today, checked }) {
   const start = asDate(raw.startDate);
   const end = asDate(raw.endDate);
   const venue = (raw.venue ?? source.defaultVenue ?? '').trim();
-  const address = dedupeAddress(venue, (raw.address ?? source.defaultAddress ?? '').trim());
+  let address = dedupeAddress(venue, (raw.address ?? source.defaultAddress ?? '').trim());
 
   const reject = (why) => ({ ok: false, why, title: title || '(untitled)' });
 
@@ -68,7 +80,18 @@ export function normalize(raw, source, { today, checked }) {
   if (!address) return reject('no address');
   if (PLACEHOLDER.test(address)) return reject(`placeholder address (${address})`);
   if (NOT_A_PLACE.test(`${address} ${venue}`)) return reject(`not somewhere you can go (${venue})`);
-  if (!IN_TOWN.test(`${address} ${venue}`)) return reject(`not in Toronto (${address})`);
+  /* A page often gives a bare street address — "250 Fort York Blvd" — and the
+     gate below reads the missing city as a missing Toronto. When the source
+     is itself a Toronto venue, by its own defaultAddress, a bare address from
+     it is a Toronto address, and the city is added so the card and its map
+     link both read properly. The Bentway was losing every listing to this.
+     Sources that range across the region carry no default — Wygo's first two
+     hits were in Waterloo — so they are unaffected and still rejected. */
+  if (!IN_TOWN.test(`${address} ${venue}`)) {
+    const city = cityOf(source.defaultAddress);
+    if (!city) return reject(`not in Toronto (${address})`);
+    address = `${address}, ${city}`;
+  }
   if (end && end < start) return reject('ends before it starts');
 
   const schedule = end && end !== start
