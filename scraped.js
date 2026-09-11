@@ -4,40 +4,42 @@
 
 const SCRAPED = [
   {
-    "id": "baddog-academy-showcase-harold-process-2026-09-30",
-    "title": "Academy Showcase Harold Process",
+    "id": "baddog-academy-showcase-narrative-process-sweet-sweet-f-2026-09-23",
+    "title": "Academy Showcase: Narrative Process & Sweet Sweet Friends",
     "category": "comedy",
     "art": "art-neon",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street\nToronto, ON, M6J 2W5\nCanada",
-    "url": "https://baddogtheatre.com/whats-on/2026/9/30/academy-showcase-harold-process",
-    "source": "https://baddogtheatre.com/whats-on/2026/9/30/academy-showcase-harold-process",
+    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
+    "url": "https://baddogtheatre.com/whats-on",
+    "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-09-11",
-    "description": "Bad Dog Academy Presents ACADEMY SHOWCASE Watch our talented Studio Series Students do Their Thing! This hilarious showcase features performances by Alex Tindal",
+    "description": "Listed by Bad Dog Theatre.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-30"
+      "date": "2026-09-23",
+      "time": "7:00 PM – 8:00 PM"
     },
     "scrapedFrom": "baddog",
-    "via": "json-ld"
+    "via": "model"
   },
   {
-    "id": "baddog-academy-showcase-narrative-process-amp-sweet-swe-2026-09-23",
-    "title": "Academy Showcase: Narrative Process &amp; Sweet Sweet Friends",
+    "id": "baddog-sweet-sweet-friends-2026-09-16",
+    "title": "Sweet Sweet Friends",
     "category": "comedy",
     "art": "art-neon",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street\nToronto, ON, M6J 2W5\nCanada",
-    "url": "https://baddogtheatre.com/whats-on/2026/9/23/academy-showcase-narrative-process-amp-sweet-sweet-friends",
-    "source": "https://baddogtheatre.com/whats-on/2026/9/23/academy-showcase-narrative-process-amp-sweet-sweet-friends",
+    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
+    "url": "https://baddogtheatre.com/whats-on",
+    "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-09-11",
-    "description": "Bad Dog Academy Presents ACADEMY SHOWCASE Watch our talented Studio Series Students do Their Thing! This hilarious showcase features performances by Gavin Williams",
+    "description": "Listed by Bad Dog Theatre.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-23"
+      "date": "2026-09-16",
+      "time": "7:00 PM – 8:00 PM"
     },
     "scrapedFrom": "baddog",
-    "via": "json-ld"
+    "via": "model"
   },
   {
     "id": "baddog-sweet-sweet-friends-2026-09-16",
@@ -67,7 +69,7 @@ const SCRAPED = [
     "url": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm",
     "source": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm",
     "checked": "2026-09-11",
-    "description": "A Bad Dog Theatre Company Production Created by: Bita Joudaki & Nicole Passmore Producers: Stephanie Malek & Alia Rasul THE AUDITION Dates: Fridays in in September Time: 7pm Location: Comedy Bar Bloor (945 Bloor St…",
+    "description": "Listed by Bad Dog Theatre.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-11"
@@ -85,13 +87,50 @@ const SCRAPED = [
     "url": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm-977bl",
     "source": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm-977bl",
     "checked": "2026-09-11",
-    "description": "A Bad Dog Theatre Company Production Created by: Bita Joudaki & Nicole Passmore Producers: Stephanie Malek & Alia Rasul THE AUDITION Dates: Fridays in in September Time: 7pm Location: Comedy Bar Bloor (945 Bloor St…",
+    "description": "Listed by Bad Dog Theatre.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-18"
     },
     "scrapedFrom": "baddog",
     "via": "json-ld"
+  },
+  {
+    "id": "baddog-the-bucket-show-2026-09-16",
+    "title": "The Bucket Show",
+    "category": "comedy",
+    "art": "art-neon",
+    "venue": "Sweet Action",
+    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5, Canada",
+    "url": "https://baddogtheatre.com/whats-on",
+    "source": "https://baddogtheatre.com/whats-on",
+    "checked": "2026-09-11",
+    "description": "Listed by Bad Dog Theatre.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-16",
+      "time": "8:30 PM – 9:30 PM"
+    },
+    "scrapedFrom": "baddog",
+    "via": "model"
+  },
+  {
+    "id": "bentway-a-persistent-crossing-2026-09-11",
+    "title": "A Persistent Crossing",
+    "category": "architecture",
+    "art": "art-skates",
+    "venue": "Bentway Staging Grounds",
+    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
+    "url": "https://thebentway.ca/whats-on/",
+    "source": "https://thebentway.ca/whats-on/",
+    "checked": "2026-09-11",
+    "description": "An immersive installation of human silhouettes, native vegetation and Ontario pollinators, on view through to Spring 2027.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-11"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
   },
   {
     "id": "bentway-artist-talk-with-paul-ram-rez-jonas-2026-09-15",
@@ -103,7 +142,7 @@ const SCRAPED = [
     "url": "https://thebentway.ca/whats-on/",
     "source": "https://thebentway.ca/whats-on/",
     "checked": "2026-09-11",
-    "description": "To mark the Canadian premiere of Public Trust, join acclaimed artist Paul Ramírez Jonas in conversation with The Bentway's Director of Programming Anna Gallagher-Ross about his imaginative body of work and his long-time…",
+    "description": "A conversation with the artist about his body of work and his long-time engagement with democracy, participation and the public realm, marking the Canadian premiere of Public Trust.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-15"
@@ -112,21 +151,38 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "bentway-artist-talk-with-paul-ram-rez-jonas-2026-09-15",
-    "title": "Artist Talk with Paul Ramírez Jonas",
+    "id": "bentway-make-the-world-go-round-2026-09-11",
+    "title": "Make the World Go Round",
     "category": "architecture",
     "art": "art-skates",
-    "entry": "Free registration",
-    "venue": "Toronto Public Library, Fort York branch",
-    "address": "190 Fort York Blvd",
-    "url": "https://thebentway.ca/event/public-trust/",
-    "source": "https://thebentway.ca/event/public-trust/",
+    "venue": "The Bentway Skate Trail",
+    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
+    "url": "https://thebentway.ca/whats-on/",
+    "source": "https://thebentway.ca/whats-on/",
     "checked": "2026-09-11",
-    "description": "Artist Talk with Paul Ramírez Jonas.",
+    "description": "A signature mural wrapping the columns of the skate trail with illustrated Toronto sights and scenes by Caitlin Taguibao.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-09-11",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "bentway-petal-and-stone-2026-09-11",
+    "title": "Petal and Stone",
+    "category": "architecture",
+    "art": "art-skates",
+    "venue": "The Bentway",
+    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
+    "url": "https://thebentway.ca/whats-on/",
+    "source": "https://thebentway.ca/whats-on/",
+    "checked": "2026-09-11",
+    "description": "A 10,000 square-foot mural across the concrete between The Bentway and Exhibition Place, depicting site memory, native flora and symbolic passage. On view through 2027.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-15",
-      "time": "6:00pm"
+      "date": "2026-09-11"
     },
     "scrapedFrom": "bentway",
     "via": "model"
@@ -138,10 +194,10 @@ const SCRAPED = [
     "art": "art-skates",
     "venue": "The Bentway",
     "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
-    "url": "https://thebentway.ca/event/bentway-after-school/",
-    "source": "https://thebentway.ca/event/bentway-after-school/",
+    "url": "https://thebentway.ca/whats-on/",
+    "source": "https://thebentway.ca/whats-on/",
     "checked": "2026-09-11",
-    "description": "Torontonians are invited to make promises to themselves and their community—not just as inhabitants of the city, but as co-authors of its future…",
+    "description": "Visitors make written promises to themselves and their community in a non-partisan installation that treats civic engagement as something personal and playful.",
     "schedule": {
       "kind": "range",
       "start": "2026-09-15",
@@ -156,12 +212,12 @@ const SCRAPED = [
     "category": "architecture",
     "art": "art-skates",
     "entry": "Free",
-    "venue": "Toronto Public Library Fort York branch, Marina Quay West, Harbourfront Centre, The Bentway",
-    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
+    "venue": "Toronto Public Library Fort York branch (Sep 15); Marina Quay West (Sep 17–20); Harbourfront Centre (Sep 24–27); The Bentway (Oct 1–4)",
+    "address": "190 Fort York Blvd; 539 Queens Quay W; 235 Queens Quay W; 250 Fort York Blvd, Toronto",
     "url": "https://thebentway.ca/event/public-trust/",
     "source": "https://thebentway.ca/event/public-trust/",
     "checked": "2026-09-11",
-    "description": "Paul Ramírez Jonas' Public Trust asks participants to examine the value of their word: participants declare a promise that is recorded in a drawing they can keep and published anonymously on a large-scale marquee…",
+    "description": "An interactive artwork of a large-scale marquee and two eight-foot tables staffed by local performers: you make a promise out loud, swearing on a sacred text or an object meaningful to you, and it's recorded in a…",
     "schedule": {
       "kind": "range",
       "start": "2026-09-15",
@@ -180,30 +236,10 @@ const SCRAPED = [
     "url": "https://thebentway.ca/whats-on/",
     "source": "https://thebentway.ca/whats-on/",
     "checked": "2026-09-11",
-    "description": "Torontonians are invited to make promises to themselves and their community—not just as inhabitants of the city, but as co-authors of its future.",
+    "description": "A pop-up edition of the installation where Torontonians make promises to themselves and their community.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-15"
-    },
-    "scrapedFrom": "bentway",
-    "via": "model"
-  },
-  {
-    "id": "bentway-public-trust-toronto-public-library-fort-york-br-2026-09-15",
-    "title": "Public Trust – Toronto Public Library, Fort York branch (International Day of Democracy)",
-    "category": "architecture",
-    "art": "art-skates",
-    "entry": "Free",
-    "venue": "Toronto Public Library, Fort York branch",
-    "address": "190 Fort York Blvd",
-    "url": "https://thebentway.ca/event/public-trust/",
-    "source": "https://thebentway.ca/event/public-trust/",
-    "checked": "2026-09-11",
-    "description": "International Day of Democracy presentation of Public Trust, with an Artist Talk with Paul Ramírez Jonas at 6:00pm (free registration).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-15",
-      "time": "10:30 am – 5:30 pm"
     },
     "scrapedFrom": "bentway",
     "via": "model"
@@ -215,10 +251,10 @@ const SCRAPED = [
     "art": "art-skates",
     "venue": "The Bentway",
     "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
-    "url": "https://thebentway.ca/event/artist-talk-with-paul-ramirez-jonas/",
-    "source": "https://thebentway.ca/event/artist-talk-with-paul-ramirez-jonas/",
+    "url": "https://thebentway.ca/whats-on/",
+    "source": "https://thebentway.ca/whats-on/",
     "checked": "2026-09-11",
-    "description": "Fridays from Aug 7 to Sep 25, 2026. Learn how to roll with us! This summer, we're offering weekly roller skate lessons for those who are looking to gain basic skills.",
+    "description": "Weekly beginner lessons where instructors help novice skaters build confidence on wheels and navigate the figure-eight trail.",
     "schedule": {
       "kind": "range",
       "start": "2026-09-11",
@@ -237,7 +273,7 @@ const SCRAPED = [
     "url": "https://thebentway.ca/whats-on/",
     "source": "https://thebentway.ca/whats-on/",
     "checked": "2026-09-11",
-    "description": "Learn how to roll with us! This summer, we're offering weekly roller skate lessons for those who are looking to gain basic skills…",
+    "description": "A weekly lesson for beginners on wheels, where instructors help you build basic skills and get around the figure-eight skate trail.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-11",
@@ -247,21 +283,367 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "bentway-skate-trail-closed-2026-09-12",
-    "title": "Skate Trail Closed",
+    "id": "bentway-roller-skate-rentals-2026-09-11",
+    "title": "Roller Skate Rentals",
     "category": "architecture",
     "art": "art-skates",
-    "venue": "The Bentway",
+    "venue": "The Bentway Skate Trail",
     "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
     "url": "https://thebentway.ca/whats-on/",
     "source": "https://thebentway.ca/whats-on/",
     "checked": "2026-09-11",
-    "description": "Listed by The Bentway.",
+    "description": "Rent roller skates and protective gear from the Skate Rental Container on site and skate the trail.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-09-11",
+      "end": "2026-09-27"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-late-bad-game-hour-2026-10-02",
+    "title": "LATE BAD GAME HOUR",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$20 online/$25 at the door",
+    "venue": "Comedy Bar Bloor (Main Stage)",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/late-bad",
+    "source": "https://comedybar.ca/shows/late-bad",
+    "checked": "2026-09-11",
+    "description": "The game show edition of the improvised late-night show, with a celebrity panel and oversized characters, followed by a dance party with a live DJ.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-02",
+      "time": "11:15 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-late-bad-rises-2026-10-01",
+    "title": "LATE BAD RISES",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$20 online/$25 at the door",
+    "venue": "Comedy Bar Bloor (Main Stage)",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/late-bad",
+    "source": "https://comedybar.ca/shows/late-bad",
+    "checked": "2026-09-11",
+    "description": "An improvised late-night talk show mixing interviews, games and performances, with new characters brought out of retirement for the festival.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-01",
+      "time": "11:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-laugh-sabbath-2026-09-24",
+    "title": "Laugh Sabbath",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$20.75",
+    "venue": "Comedy Bar Bloor (Cabaret)",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/laugh-sabbath-jfl",
+    "source": "https://comedybar.ca/shows/laugh-sabbath-jfl",
+    "checked": "2026-09-11",
+    "description": "A weekly stand-up showcase running since 2006, with a rotating lineup of Toronto comedians. Lineups are announced on the show's Instagram.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-24",
+      "time": "9:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-private-event-2026-09-13",
+    "title": "PRIVATE EVENT",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "Not ticketed",
+    "venue": "Comedy Bar Bloor - Main Stage",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/private-event-mar18",
+    "source": "https://comedybar.ca/shows/private-event-mar18",
+    "checked": "2026-09-11",
+    "description": "Listed by Comedy Bar.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-13",
+      "time": "9:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-studio-thursdays-2026-09-17",
+    "title": "STUDIO THURSDAYS",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$13",
+    "venue": "Studio Theatre, Comedy Bar Danforth",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/studio-thursdays",
+    "source": "https://comedybar.ca/shows/studio-thursdays",
+    "checked": "2026-09-11",
+    "description": "Three improv sets in one night: scenic improv built from audience suggestions, a longform set from one of the venue's newer teams, and a bucket-style improv jam anyone can join by putting their name in by 8:30pm.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-17",
+      "time": "8:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-studio-thursdays-2026-09-24",
+    "title": "STUDIO THURSDAYS",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$13",
+    "venue": "Studio Theatre, Comedy Bar Danforth",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/studio-thursdays",
+    "source": "https://comedybar.ca/shows/studio-thursdays",
+    "checked": "2026-09-11",
+    "description": "Three improv sets in one night: scenic improv built from audience suggestions, a longform set from one of the venue's newer teams, and a bucket-style improv jam anyone can join by putting their name in by 8:30pm.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-24",
+      "time": "8:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-studio-thursdays-2026-10-01",
+    "title": "STUDIO THURSDAYS",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$13",
+    "venue": "Studio Theatre, Comedy Bar Danforth",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/studio-thursdays",
+    "source": "https://comedybar.ca/shows/studio-thursdays",
+    "checked": "2026-09-11",
+    "description": "Three improv sets in one night: scenic improv built from audience suggestions, a longform set from one of the venue's newer teams, and a bucket-style improv jam anyone can join by putting their name in by 8:30pm.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-01",
+      "time": "8:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-the-perfect-show-2026-09-19",
+    "title": "The Perfect Show",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$15",
+    "venue": "Comedy Bar Bloor (Main Stage)",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/the-perfect-show",
+    "source": "https://comedybar.ca/shows/the-perfect-show",
+    "checked": "2026-09-11",
+    "description": "An improv ensemble attempts the rarely seen \"Perfect Scene\", with opening sets from other improv groups.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-19",
+      "time": "5:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-cycle-toronto-rec-hub-2026-09-27",
+    "title": "Cycle Toronto Rec Hub",
+    "category": "dropin",
+    "art": "art-ravine",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-09-11",
+    "description": "A drop-in DIY bike repair station, open Wednesdays, Saturdays and Sundays.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-family-wander-2026-09-27",
+    "title": "Family Wander",
+    "category": "dropin",
+    "art": "art-ravine",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-09-11",
+    "description": "Listed by Evergreen Brick Works.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-free-public-site-tours-of-evergreen-brick-works-2026-09-12",
+    "title": "Free Public Site Tours of Evergreen Brick Works",
+    "category": "dropin",
+    "art": "art-ravine",
+    "entry": "Free",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "checked": "2026-09-11",
+    "description": "An hour-long guided walk, meeting at the Welcome Desk in Building 14 and running rain or shine…",
     "schedule": {
       "kind": "day",
       "date": "2026-09-12"
     },
-    "scrapedFrom": "bentway",
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-intro-to-forest-bathing-walk-2026-09-20",
+    "title": "Intro to Forest Bathing Walk",
+    "category": "dropin",
+    "art": "art-ravine",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-09-11",
+    "description": "Listed by Evergreen Brick Works.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-20"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-little-discoveries-2026-09-20",
+    "title": "Little Discoveries",
+    "category": "dropin",
+    "art": "art-ravine",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-09-11",
+    "description": "Listed by Evergreen Brick Works.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-20"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-mighty-minis-child-portrait-photos-2026-09-13",
+    "title": "Mighty Minis: Child Portrait Photos",
+    "category": "dropin",
+    "art": "art-ravine",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-09-11",
+    "description": "Bookable portrait photo sessions for children.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-09-13",
+      "end": "2026-09-20"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-monthly-roller-skating-night-2026-09-13",
+    "title": "Monthly Roller Skating Night",
+    "category": "dropin",
+    "art": "art-ravine",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-09-11",
+    "description": "A roller skating night where you can rent skates on site or bring your own.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-13"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-ontario-artisan-market-and-ontario-vintage-marke-2026-09-13",
+    "title": "Ontario Artisan Market and Ontario Vintage Market",
+    "category": "dropin",
+    "art": "art-ravine",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
+    "checked": "2026-09-11",
+    "description": "Over 40 local artists and makers sell handmade goods like jewelry, skin care, art and candles, alongside vintage dealers with curated antiques…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-13",
+      "time": "10am-3pm"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-ontario-artisan-market-and-ontario-vintage-marke-2026-09-20",
+    "title": "Ontario Artisan Market and Ontario Vintage Market",
+    "category": "dropin",
+    "art": "art-ravine",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
+    "checked": "2026-09-11",
+    "description": "Local makers sell handmade jewelry, skin care, art and candles while vintage vendors bring curated antiques; food vendors and a drinks container round out the day.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-20",
+      "time": "10am-3pm"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-saturday-farmers-market-2026-09-12",
+    "title": "Saturday Farmers Market",
+    "category": "dropin",
+    "art": "art-ravine",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/saturday-farmers-market/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/saturday-farmers-market/",
+    "checked": "2026-09-11",
+    "description": "Shop produce and goods from Ontario farmers and producers, all based within 205 km of the site, plus a local food court that stays open an hour later. From May to October the stalls set up outdoors under the pavilions.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-12",
+      "time": "8am – 1pm (Local Food Court open until 2pm)"
+    },
+    "scrapedFrom": "evergreen",
     "via": "model"
   },
   {
@@ -338,6 +720,24 @@ const SCRAPED = [
       "date": "2026-09-13"
     },
     "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
+    "id": "tpl-microsoft-application-series-2026-09-11",
+    "title": "Microsoft Application Series",
+    "category": "dropin",
+    "art": "art-books",
+    "venue": "Humberwood",
+    "address": "850 Humberwood Boulevard, Toronto, ON, M9W 7A6",
+    "url": "https://tpl.bibliocommons.com/v2/events/6a88a5fa3b6c71003e5a6edb",
+    "source": "https://tpl.bibliocommons.com/v2/events/6a88a5fa3b6c71003e5a6edb",
+    "checked": "2026-09-11",
+    "description": "Are you interested in improving your computer skills?…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-11"
+    },
+    "scrapedFrom": "tpl",
     "via": "json-ld"
   },
   {
