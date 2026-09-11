@@ -213,19 +213,26 @@ svg.about__art { width: 340px; height: auto; }
 }
 .about .about__footer a { color: inherit; }
 
-.about__social { margin: 0 0 22px; }
-.about__social a {
+/* Both handles sit on one line at the foot of the column, at the footer's
+   size rather than the body's — they are a signature, not a paragraph. */
+.about .about__footer p { margin: 0; font-size: inherit; line-height: inherit; color: inherit; }
+.about .about__footer .about__social {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+}
+.about .about__footer .about__social a {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 22px;
-  color: var(--ink);
+  gap: 6px;
+  color: inherit;
   text-decoration: none;
+  border-bottom: 0;
+  padding-bottom: 0;
 }
-.about__social a { text-decoration: none; }
-.about__social-icon { width: 18px; height: 18px; display: block; }
+.about .about__footer .about__social a:hover { color: var(--ink); }
+.about__social-icon { width: 14px; height: 14px; display: block; flex: none; }
 
 .about__lede {
   margin: 0 0 24px;
