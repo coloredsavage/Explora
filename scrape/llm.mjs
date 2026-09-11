@@ -1,8 +1,19 @@
-/* The fallback for pages that publish no structured data.
+/* The fallback for pages that publish no structured data, or publish it
+ * without a description.
  *
- * Only reached when JSON-LD comes back empty, so on a well-marked-up site this
- * costs nothing. Runs at low effort: reading a page and filling in six fields
- * is not work that repays deep thinking. */
+ * Two calls live here and they are deliberately not the same model.
+ *
+ * Reading an event off a page is bounded work — six fields, every one of them
+ * checked afterwards by normalize and validate, and a wrong answer is dropped
+ * rather than published. Haiku does it, and the difference against Opus is
+ * most of what a poll costs: up to 121 pages a run, every one of them a few
+ * thousand tokens of page text.
+ *
+ * The price extractor below stays on Opus. That decision is recorded in the
+ * handover and still holds: a confidently wrong price is the one failure the
+ * acceptable() gate cannot catch, and it is the failure that sends someone to
+ * a door with the wrong money. It runs on far fewer pages, so it is also the
+ * cheaper place to keep the better model. */
 
 import Anthropic from '@anthropic-ai/sdk';
 import { z } from 'zod';
@@ -71,8 +82,10 @@ export async function extractWithModel(text, { url, today, apiKey, summary }) {
   const client = new Anthropic(apiKey ? { apiKey } : {});
 
   const response = await client.messages.parse({
-    model: 'claude-opus-5',
-    max_tokens: 16000,
+    model: 'claude-haiku-4-5-20251001',
+    /* A page yields a handful of events, not sixteen thousand tokens of them.
+       The old ceiling was never reached and never needed to be there. */
+    max_tokens: 3000,
     system: SYSTEM,
     output_config: {
       format: zodOutputFormat(Extracted),
