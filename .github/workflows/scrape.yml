@@ -16,7 +16,7 @@ on:
     # late — the first one here fired at 15:07 — so treat the time as "some
     # time that morning", not a deadline. Off the hour so it is not sitting
     # behind everyone else's midnight cron.
-    - cron: '17 11 * * *'
+    - cron: '17 11 */2 * *'
   # Anything that can push can start a run. The Claude Code GitHub App holds
   # contents:write but not actions:write, so dispatching the workflow through
   # the API returns 403 — pushing to one of these branches is the way round it.
