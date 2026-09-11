@@ -22,6 +22,14 @@ const OFFLINE = argv.has('--offline');
 const DRY = argv.has('--dry-run');
 
 const UA = 'ExploraCalendarBot/1.0 (+https://github.com/coloredsavage/Explora)';
+
+/* A hard stop on model calls per run, because nothing else was one. Seven
+   sources with follow caps of ten to twenty is up to 121 pages, and on a bad
+   day every one of them is a paid call. Past this the poll keeps going and
+   takes whatever structured data it can read for free; it does not fail, and
+   it says in the report that it stopped asking. */
+const MODEL_CALL_BUDGET = Number(process.env.MODEL_CALL_BUDGET || 40);
+let modelCalls = 0;
 const today = new Date().toISOString().slice(0, 10);
 
 const report = { kept: [], dropped: [], skipped: [], errors: [] };
@@ -65,7 +73,12 @@ async function harvest(source, pages) {
         if (raws.length === 0) report.skipped.push(`${url} — no JSON-LD and no ANTHROPIC_API_KEY`);
         continue;
       }
+      if (modelCalls >= MODEL_CALL_BUDGET) {
+        if (raws.length === 0) report.skipped.push(`${url} — model budget spent`);
+        continue;
+      }
       try {
+        modelCalls += 1;
         const { extractWithModel } = await import('./llm.mjs');
         const fromModel = await extractWithModel(readableText(html), { url, today, summary: meta });
         if (raws.length === 0) {
@@ -233,7 +246,7 @@ async function main() {
 
 const SCRAPED = [\n${body}\n];\n`;
 
-  console.log(`\nkept ${report.kept.length}   dropped ${report.dropped.length}   skipped ${report.skipped.length}   errors ${report.errors.length}`);
+  console.log(`\nkept ${report.kept.length}   dropped ${report.dropped.length}   skipped ${report.skipped.length}   errors ${report.errors.length}   model calls ${modelCalls}/${MODEL_CALL_BUDGET}`);
   for (const [label, list] of [['kept', report.kept], ['dropped', report.dropped], ['skipped', report.skipped], ['errors', report.errors]]) {
     if (list.length) console.log(`\n${label}:\n  ` + list.join('\n  '));
   }
