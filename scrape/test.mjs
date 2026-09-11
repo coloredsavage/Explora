@@ -326,6 +326,29 @@ console.log('\nA title with the site bolted on');
     assert.equal(titleOf('Maestro'), 'Maestro'));
 }
 
+console.log('\nAn address with the city left off');
+{
+  const when = { today: '2026-09-11', checked: '2026-09-11' };
+  const base = { title: 'Public Trust', startDate: '2026-09-15', description: 'x'.repeat(60) };
+  const bentway = { id: 'bentway', name: 'The Bentway', category: 'architecture', art: 'art-skates',
+                    url: 'https://thebentway.ca/whats-on',
+                    defaultAddress: '250 Fort York Blvd, Toronto, ON M5V 3K9' };
+  const wygo = { id: 'wygo', name: 'Wygo', category: 'dropin', art: 'art-star',
+                 url: 'https://wygo.world/o/wygo', defaultAddress: null };
+  const run = (src, venue, address) => normalize({ ...base, venue, address }, src, when);
+
+  check('a Toronto source lends its city to a bare address', () => {
+    const r = run(bentway, 'The Bentway', '250 Fort York Blvd');
+    assert.ok(r.ok); assert.equal(r.event.address, '250 Fort York Blvd, Toronto, ON');
+  });
+  check('it does not lend its postal code as well', () =>
+    assert.doesNotMatch(run(bentway, 'Harbourfront Centre', '235 Queens Quay W').event.address, /M5V 3K9/));
+  check('a source that ranges wider cannot repair anything', () =>
+    assert.equal(run(wygo, 'Some Hall', '12 King St').ok, false));
+  check('and an address that names another city is still refused', () =>
+    assert.equal(run(wygo, 'Some Hall', '12 King St, Waterloo, ON').ok, false));
+}
+
 console.log('\nListing the same thing twice');
 {
   /* the key run.mjs collapses on */
