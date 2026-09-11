@@ -19,7 +19,7 @@ const ISO = /^\d{4}-\d{2}-\d{2}$/;
    touches those. This is only the gate on what arrives automatically, which
    should not be quietly adding things the calendar would not have chosen.
    Above this, a listing is reported as dropped rather than published. */
-const CEILING = 40;
+const CEILING = 35;
 
 /* The same reading as priceOf in price.js: a line starting "Free", or
    pay-what-you-can, is free whatever else it mentions, and otherwise the

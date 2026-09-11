@@ -362,7 +362,9 @@ console.log('\nPast what the calendar is for');
 
   check('a $50 workshop does not belong on it', () => assert.equal(ok('$50'), false));
   check('nor does $41.94', () => assert.equal(ok('$41.94'), false));
-  check('$40 is the line and stays', () => assert.equal(ok('$40'), true));
+  check('nor does $36', () => assert.equal(ok('$36'), false));
+  check('$35 is the line and stays', () => assert.equal(ok('$35'), true));
+  check('$30 is comfortably under it', () => assert.equal(ok('$30'), true));
   check('free is free whatever else the line says', () =>
     assert.equal(ok('Free; the thematic tours are $50'), true));
   check('pay what you can is never too dear', () => assert.equal(ok('Pay what you can'), true));
