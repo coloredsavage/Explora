@@ -146,6 +146,14 @@ function trimDescription(text, limit = 220) {
        literal backslash-n rather than a line break. Collapsing whitespace
        cannot see those. */
     .replace(/\\[nrt]/g, ' ')
+    /* And some arrive with their entities half-eaten — the library's feed
+       says "PowerPointnbsp;classes.nbsp;", an &nbsp; that lost both ends
+       somewhere upstream. Left alone it reads as a typo in the middle of a
+       sentence on the card. */
+    .replace(/&?nbsp;?/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&#39;|&rsquo;/g, "'")
+    .replace(/&quot;|&ldquo;|&rdquo;/g, '"')
     .replace(/^\s*\[[^\]]*\]\s*/, '')          /* a leading "[Note: ...]" aside */
     .replace(/\s*\(https?:\/\/[^)]+\)/g, '')     /* inline link parentheses */
     .replace(/\s+/g, ' ')
