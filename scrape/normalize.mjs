@@ -23,6 +23,14 @@ const PLACEHOLDER = /^\s*(tbd|tba|to be (announced|confirmed|determined)|unknown
 /* A calendar that answers "what should we do today" has no use for a webinar. */
 const NOT_A_PLACE = /\b(online|virtual|webinar|zoom|livestream|remote|anywhere)\b/i;
 
+/* Some things a venue publishes are announcements that there is nothing on.
+   The Bentway posts "Skate Trail Closed" as an event, which is the precise
+   opposite of one, and it was reaching the board. This is not per-source:
+   nowhere is a closure something to do. A "closing party" or "closing night"
+   is, so the word alone is not enough. */
+const NOT_AN_EVENT = /\b(closed|closure|cancelled|canceled|postponed|sold out|rescheduled)\b/i;
+const IS_AN_EVENT_ANYWAY = /\b(closing (party|night|reception|weekend)|close[sd]? out)\b/i;
+
 /* "Toronto, ON" in the venue field is the city, not a place to meet. The card
    would read "Where: Toronto, ON, Toronto, ON". */
 const CITY_ONLY = /^\s*(toronto|scarborough|etobicoke|north york|east york|ontario|canada|downtown( toronto)?)(\s*,\s*(on|ont|ontario|canada))*\s*$/i;
@@ -80,6 +88,7 @@ export function normalize(raw, source, { today, checked }) {
   if (!address) return reject('no address');
   if (PLACEHOLDER.test(address)) return reject(`placeholder address (${address})`);
   if (NOT_A_PLACE.test(`${address} ${venue}`)) return reject(`not somewhere you can go (${venue})`);
+  if (NOT_AN_EVENT.test(title) && !IS_AN_EVENT_ANYWAY.test(title)) return reject('an announcement that nothing is on');
   /* A page often gives a bare street address — "250 Fort York Blvd" — and the
      gate below reads the missing city as a missing Toronto. When the source
      is itself a Toronto venue, by its own defaultAddress, a bare address from
