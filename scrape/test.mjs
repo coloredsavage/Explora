@@ -320,5 +320,33 @@ console.log('\nA title with the site bolted on');
     assert.equal(titleOf('Maestro'), 'Maestro'));
 }
 
+console.log('\nListing the same thing twice');
+{
+  /* the key run.mjs collapses on */
+  const norm = (x) => String(x ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const key = (e) => norm(e.title) + '|' + (e.schedule.date ?? e.schedule.start ?? '') + '|' + norm(e.venue);
+  const at = (title, date, venue) => ({ title, venue, schedule: { kind: 'day', date } });
+
+  check('the same show on the same night at the same room is one listing', () =>
+    assert.equal(
+      key(at('The Audition', '2026-09-11', 'Comedy Bar Bloor')),
+      key(at('The Audition', '2026-09-11', 'Comedy Bar Bloor'))));
+
+  check('a weekly show keeps every week it runs', () =>
+    assert.notEqual(
+      key(at('The Audition', '2026-09-11', 'Comedy Bar Bloor')),
+      key(at('The Audition', '2026-09-18', 'Comedy Bar Bloor'))));
+
+  check('the same name at two places on one day is two things', () =>
+    assert.notEqual(
+      key(at('Leisure Swim', '2026-09-11', 'Main Square Community Recreation Centre')),
+      key(at('Leisure Swim', '2026-09-11', 'Memorial Pool and Health Club'))));
+
+  check('punctuation and case do not make a second listing', () =>
+    assert.equal(
+      key(at('The Audition', '2026-09-11', 'Comedy Bar Bloor')),
+      key(at('the  audition!', '2026-09-11', 'COMEDY BAR — BLOOR'))));
+}
+
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
 process.exitCode = failures ? 1 : 0;

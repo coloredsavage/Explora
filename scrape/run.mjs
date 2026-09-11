@@ -148,9 +148,18 @@ async function main() {
      the two even had different ids. Collapse them on title-and-date, keeping
      the copy that came from the event's own page over the one scraped off
      the index, and the fuller description between equals. */
+  const norm = (x) => String(x ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   const key = (e) => {
     const d = e.schedule.date ?? e.schedule.start ?? '';
-    return e.title.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() + '|' + d;
+    /* Title and date alone would merge two different things that share a
+       name on one day — a leisure swim at two pools, an artist talk the
+       gallery and the library each list at their own address. The venue
+       keeps those apart. It costs the occasional pair of listings for one
+       event carried by two sources, which is clutter; merging two real
+       events loses one off the board, which is worse. A recurring show is
+       untouched either way: same title, same venue, different date, so
+       every Thursday keeps its own entry. */
+    return norm(e.title) + '|' + d + '|' + norm(e.venue);
   };
   const better = (a, b) => {
     const deep = (e) => (e.url && e.url !== e.scrapedFromUrl && e.url.replace(/\/$/, '').split('/').length > 4 ? 1 : 0);
