@@ -205,9 +205,15 @@ function trimDescription(text, limit = 220) {
   }
   /* One sentence can be longer than the whole budget — the loop above always
      takes the first, so cut it back to a word boundary. */
-  if (out.length > limit) out = out.slice(0, limit).replace(/\s+\S*$/, '');
+  const cutMidSentence = out.length > limit;
+  if (cutMidSentence) out = out.slice(0, limit).replace(/\s+\S*$/, '');
 
-  return out.length < s.length ? out.replace(/[\s.,;:]+$/, '') + '…' : out;
+  /* The ellipsis is only honest when the sentence was cut off. Stopping at a
+     full stop and then adding one made eleven of the board's descriptions
+     read as broken — "…seasonal observation for families…" is a whole
+     sentence wearing a sign saying it is not. */
+  if (!cutMidSentence && /[.!?]$/.test(out)) return out;
+  return out.replace(/[\s.,;:]+$/, '') + '…';
 }
 
 export function validate(event) {

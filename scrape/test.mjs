@@ -120,12 +120,15 @@ check('leaves a real street address alone', () =>
 check('keeps an address identical to the venue rather than emptying it', () =>
   assert.equal(tidy({ venue: 'The Bentway, Toronto', address: 'The Bentway, Toronto' }).address,
     'The Bentway, Toronto'));
-check('cuts a long description at a sentence boundary', () => {
-  const d = tidy({ venue: 'V', address: '1 King St W, Toronto, ON',
-    description: 'One sentence here. ' + 'Another sentence that runs on. '.repeat(20) }).description;
+check('cuts a long description at a sentence boundary, and says nothing about it', () => {
+  const long = 'One sentence here. ' + 'Another sentence that runs on. '.repeat(20);
+  const d = tidy({ venue: 'V', address: '1 King St W, Toronto, ON', description: long }).description;
   assert.ok(d.length <= 225, `got ${d.length}`);
-  assert.match(d, /…$/);
-  assert.doesNotMatch(d.slice(0, -1), /\s$/);
+  assert.ok(d.length < long.length, 'it should have been shortened');
+  /* It stopped on a full stop, so it reads as a finished thought and does not
+     need an ellipsis announcing that more exists. */
+  assert.match(d, /\.$/);
+  assert.doesNotMatch(d, /…$/);
 });
 check('leaves a short description untouched', () =>
   assert.equal(tidy({ venue: 'V', address: '1 King St W, Toronto, ON',
@@ -319,6 +322,10 @@ console.log('\nFit to print as it stands');
     assert.equal(readsAsDescription('designwalks™ Walk 11: 📍 Trinity Bellwoods Park (We’ll be meeting at Strachan Ave & Queen St W.) 🕒 3:00-5:00p.m., Saturday'), false));
   check('one pin does not sink a real description', () =>
     assert.equal(readsAsDescription('📍 A walk through the ravine looking at how the city drains, led by a hydrologist.'), true));
+  check('a poster that shouts is not a description', () =>
+    assert.equal(readsAsDescription('BAD DOG THEATRE PRESENTS SWEET SWEET FRIENDS Tonight, a delectable selection of RISING STARS take the stage.'), false));
+  check('acronyms are not shouting', () =>
+    assert.equal(readsAsDescription('TIFF and the AGO both run free nights; the ROM charges but is worth it.'), true));
   check('naming a meeting point is allowed once', () =>
     assert.equal(readsAsDescription('A guided walk through Trinity Bellwoods looking at how the park was built; meet at the gates.'), true));
   check('nothing is not a description', () =>
@@ -391,6 +398,24 @@ console.log('\nAnnouncements that nothing is on');
     check(`drops "${t}"`, () => assert.equal(ok(t), false));
   for (const t of ['Closing Party for Public Trust', 'Closing Night at the Bentway'])
     check(`keeps "${t}"`, () => assert.equal(ok(t), true));
+}
+
+console.log('\nAn ellipsis that means something');
+{
+  const src = { id: 'x', name: 'X', category: 'dropin', art: 'art-tools', url: 'x', defaultAddress: null };
+  const when = { today: '2026-09-11', checked: '2026-09-11' };
+  const desc = (d) => normalize({ title: 'T', startDate: '2026-09-20', venue: 'V',
+    address: '1 King St W, Toronto, ON', description: d }, src, when).event.description;
+
+  check('a description that ends on a full stop does not wear an ellipsis', () => {
+    const whole = 'A guided walk through the ravine at the Brick Works, with sensory activities for families. '
+      + 'Registration is required and it runs rain or shine. Bring boots you do not mind wetting.';
+    assert.doesNotMatch(desc(whole), /…$/);
+  });
+  check('one that is genuinely cut off still says so', () =>
+    assert.match(desc('A '.padEnd(320, 'long ') + 'sentence that never stops'), /…$/));
+  check('a short description is left exactly alone', () =>
+    assert.equal(desc('A quiet reading room, open to anyone.'), 'A quiet reading room, open to anyone.'));
 }
 
 console.log('\nEntities that arrived half-eaten');
