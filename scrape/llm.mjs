@@ -51,11 +51,21 @@ venue's own salesmanship: no "unforgettable", no "you won't want to miss".
 If the page never says what happens, the description is null. A null is
 better than a paragraph of credits.
 
-Good: "Performers work through cold reads, callbacks and increasingly strange
+Most pages bury the one useful sentence under credits and logistics. Dig it
+out; do not give up and return null because the page opens badly.
+
+Given: "A Bad Dog Theatre Company Production. Created by Bita Joudaki & Nicole
+Passmore. Producers: Stephanie Malek & Alia Rasul. THE AUDITION. Dates:
+Fridays in September. Time: 7pm. Location: Comedy Bar Bloor. The Audition
+dives into the chaotic world of trying to book the job. Each night, performers
+move through cold reads, callbacks, strange direction, and unexpected twists."
+
+Write: "Performers work through cold reads, callbacks and increasingly strange
 direction, all of it improvised and different every night."
-Bad: "A Bad Dog Theatre Company Production. Created by Bita Joudaki & Nicole
-Passmore. Producers: Stephanie Malek & Alia Rasul. Dates: Fridays in
-September. Time: 7pm."`;
+
+Everything before "The Audition dives" was credits and logistics and none of
+it belongs in the description. The sentences after it are the event, and they
+were there the whole time.`;
 
 export async function extractWithModel(text, { url, today, apiKey, summary }) {
   const client = new Anthropic(apiKey ? { apiKey } : {});
