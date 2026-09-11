@@ -559,7 +559,7 @@ let index = await readFile(path.join(root, 'index.html'), 'utf8');
 const OPEN = '<!-- build-seo:start -->';
 const CLOSE = '<!-- build-seo:end -->';
 const rx = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-index = index.replace(new RegExp(rx(OPEN) + '[\\s\\S]*?' + rx(CLOSE) + '\\n?', 'g'), '');
+index = index.replace(new RegExp(rx(OPEN) + '[\\s\\S]*?' + rx(CLOSE) + '\\n', 'g'), '');
 
 /* The home page points at the collections so a crawler arriving there has
    somewhere to go — without them every generated page is an orphan. */
@@ -583,14 +583,14 @@ index = index.replace('</head>', homeBlock + '</head>');
 
 const NAVOPEN = '<!-- build-seo:links -->';
 const NAVCLOSE = '<!-- build-seo:links-end -->';
-index = index.replace(new RegExp(rx(NAVOPEN) + '[\\s\\S]*?' + rx(NAVCLOSE) + '\\n?', 'g'), '');
-const nav = `${NAVOPEN}
+index = index.replace(new RegExp('\\n*' + rx(NAVOPEN) + '[\\s\\S]*?' + rx(NAVCLOSE) + '\\n?', 'g'), '');
+const nav = `\n${NAVOPEN}
       <p>Browse by what you’re after:
       ${published.map((c) => `<a href="${c.path}">${esc(c.title.toLowerCase())}</a>`).join(', ')},
       or <a href="/listings.html">every listing on one page</a>.</p>
       ${NAVCLOSE}
 `;
-index = index.replace('      <p>Have fun!</p>', '      <p>Have fun!</p>\n\n' + nav);
+index = index.replace('      <p>Have fun!</p>', '      <p>Have fun!</p>\n' + nav);
 await writeFile(path.join(root, 'index.html'), index);
 
 console.log(`build-seo: ${LISTINGS.length} listings, ${upcoming.length} upcoming`);
