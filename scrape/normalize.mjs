@@ -11,6 +11,30 @@ const slug = (s) => s.toLowerCase()
 
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
+/* The site's own promise is "free, cheap, or at least worth the fare", and
+   nothing in here was holding the poller to it — a $50 workshop had made the
+   board. Whether something dear is worth the fare is a judgement, and the
+   hand-written listings in data.js make it: Art Toronto at $35 and TIFF at
+   $30 are there because someone decided they were worth it. Nothing here
+   touches those. This is only the gate on what arrives automatically, which
+   should not be quietly adding things the calendar would not have chosen.
+   Above this, a listing is reported as dropped rather than published. */
+const CEILING = 35;
+
+/* The same reading as priceOf in price.js: a line starting "Free", or
+   pay-what-you-can, is free whatever else it mentions, and otherwise the
+   first dollar figure is the door price. */
+function tooDear(entry) {
+  const t = String(entry ?? '').trim().toLowerCase();
+  if (!t) return null;
+  if (t.startsWith('free')) return null;
+  if (/pay[- ]what[- ]you[- ](can|want|wish|choose)|\bpwyc\b/.test(t)) return null;
+  const m = t.match(/\$\s*(\d+(?:\.\d+)?)/);
+  if (!m) return null;
+  const n = parseFloat(m[1]);
+  return n > CEILING ? n : null;
+}
+
 /* This is a Toronto calendar. A source can list anywhere — Wygo's first two
    hits were in Waterloo — so an address has to place the event in the city
    before it earns a card. */
@@ -89,6 +113,9 @@ export function normalize(raw, source, { today, checked }) {
   if (PLACEHOLDER.test(address)) return reject(`placeholder address (${address})`);
   if (NOT_A_PLACE.test(`${address} ${venue}`)) return reject(`not somewhere you can go (${venue})`);
   if (NOT_AN_EVENT.test(title) && !IS_AN_EVENT_ANYWAY.test(title)) return reject('an announcement that nothing is on');
+
+  const dear = tooDear(raw.entry);
+  if (dear) return reject(`$${dear} is past what this calendar is for`);
   /* A page often gives a bare street address — "250 Fort York Blvd" — and the
      gate below reads the missing city as a missing Toronto. When the source
      is itself a Toronto venue, by its own defaultAddress, a bare address from

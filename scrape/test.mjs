@@ -353,6 +353,26 @@ console.log('\nWhat a library runs that is not a day out');
     assert.ok(!tpl.exclude.test('Gift Wrapping Workshop')));
 }
 
+console.log('\nPast what the calendar is for');
+{
+  const src = { id: 'luma', name: 'Luma', category: 'social', art: 'art-mic', url: 'x', defaultAddress: null };
+  const when = { today: '2026-09-11', checked: '2026-09-11' };
+  const ok = (entry) => normalize({ title: 'A thing', startDate: '2026-09-20', venue: 'A Hall',
+    address: '1 King St W, Toronto, ON', description: 'x'.repeat(60), entry }, src, when).ok;
+
+  check('a $50 workshop does not belong on it', () => assert.equal(ok('$50'), false));
+  check('nor does $41.94', () => assert.equal(ok('$41.94'), false));
+  check('nor does $36', () => assert.equal(ok('$36'), false));
+  check('$35 is the line and stays', () => assert.equal(ok('$35'), true));
+  check('$30 is comfortably under it', () => assert.equal(ok('$30'), true));
+  check('free is free whatever else the line says', () =>
+    assert.equal(ok('Free; the thematic tours are $50'), true));
+  check('pay what you can is never too dear', () => assert.equal(ok('Pay what you can'), true));
+  check('the first figure is the door price, not the largest', () =>
+    assert.equal(ok('$22, plus $5 and up to fire a piece'), true));
+  check('no price is not a dear price', () => assert.equal(ok(null), true));
+}
+
 console.log('\nAnnouncements that nothing is on');
 {
   const src = { id: 'bentway', name: 'The Bentway', category: 'architecture', art: 'art-skates',
