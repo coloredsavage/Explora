@@ -208,7 +208,16 @@ function page({ title, desc, canonical, body, jsonld, crumb }) {
 <meta name="twitter:image" content="${SITE}/hero.png">
 <link rel="stylesheet" href="/styles.css?v=dev">
 <style>
-  body { margin: 0 auto; padding: 28px 24px 80px; max-width: 720px; background: var(--paper); color: var(--ink); }
+  /* styles.css is written for the calendar, which is an app shell that must
+     not scroll: it sets html,body{height:100%} and body{overflow:hidden}.
+     These are documents and have to scroll, so both are undone here — without
+     it everything below the first screen is simply unreachable. */
+  html { height: auto; }
+  body {
+    height: auto; min-height: 100%; overflow: visible;
+    margin: 0 auto; padding: 28px 24px 80px; max-width: 720px;
+    background: var(--paper); color: var(--ink);
+  }
   nav.crumbs { font-size: 13px; color: var(--ink-soft); margin: 0 0 26px; }
   nav.crumbs a { color: inherit; }
   h1 { font-size: 26px; line-height: 34px; letter-spacing: -0.02em; margin: 0 0 10px; text-wrap: balance; }
