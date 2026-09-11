@@ -39,17 +39,36 @@ async function harvest(source, pages) {
     const meta = metaDescription(html);
     let raws = fromJsonLd(html);
 
-    if (raws.length === 0) {
+    /* Structured data is authoritative for the facts and frequently silent on
+       the prose. Bad Dog's event pages carry an Event node with name, dates,
+       location and image and no description at all, so the model — the only
+       thing here that can write one — was never reached, and the card fell
+       back to "Listed by …" while the page described the show three ways.
+       When that happens the model is asked for the prose and the JSON-LD
+       keeps everything else. */
+    const noProse = raws.length > 0
+      && raws.every((r) => !r.description)
+      && !readsAsDescription(meta);
+
+    if (raws.length === 0 || noProse) {
       if (!process.env.ANTHROPIC_API_KEY) {
-        report.skipped.push(`${url} — no JSON-LD and no ANTHROPIC_API_KEY`);
+        if (raws.length === 0) report.skipped.push(`${url} — no JSON-LD and no ANTHROPIC_API_KEY`);
         continue;
       }
       try {
         const { extractWithModel } = await import('./llm.mjs');
-        raws = await extractWithModel(readableText(html), { url, today, summary: meta });
+        const fromModel = await extractWithModel(readableText(html), { url, today, summary: meta });
+        if (raws.length === 0) {
+          raws = fromModel;
+        } else {
+          /* Keep the structured facts, borrow only the words. */
+          const norm = (x) => String(x ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+          const prose = new Map(fromModel.filter((e) => e.description).map((e) => [norm(e.title), e.description]));
+          raws = raws.map((r) => ({ ...r, description: r.description ?? prose.get(norm(r.title)) ?? null }));
+        }
       } catch (err) {
         report.errors.push(`${url} — model extraction failed: ${err.message}`);
-        continue;
+        if (raws.length === 0) continue;
       }
     }
 
