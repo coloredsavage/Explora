@@ -37,9 +37,27 @@ Rules:
 - Ignore navigation, newsletter signups, past events, and other venues'
   listings that happen to be linked.
 - Dates must be ISO YYYY-MM-DD. If a year is not given, use the one that
-  makes the date fall on or after today.`;
+  makes the date fall on or after today.
 
-export async function extractWithModel(text, { url, today, apiKey }) {
+The description is the one field you write rather than copy. One or two
+sentences on what actually happens at the thing — what a person would see or
+do if they turned up. Plain and specific, the way you would tell a friend.
+
+Leave out what the rest of the card already says: the date, the time, the
+venue, the price. Leave out the credits — who created, produced, directed or
+presented it — unless a name is the reason anyone would go. Leave out the
+venue's own salesmanship: no "unforgettable", no "you won't want to miss".
+
+If the page never says what happens, the description is null. A null is
+better than a paragraph of credits.
+
+Good: "Performers work through cold reads, callbacks and increasingly strange
+direction, all of it improvised and different every night."
+Bad: "A Bad Dog Theatre Company Production. Created by Bita Joudaki & Nicole
+Passmore. Producers: Stephanie Malek & Alia Rasul. Dates: Fridays in
+September. Time: 7pm."`;
+
+export async function extractWithModel(text, { url, today, apiKey, summary }) {
   const client = new Anthropic(apiKey ? { apiKey } : {});
 
   const response = await client.messages.parse({
@@ -52,7 +70,14 @@ export async function extractWithModel(text, { url, today, apiKey }) {
     },
     messages: [{
       role: 'user',
-      content: `Today is ${today}. This is the readable text of ${url}.\n\n${text}`,
+      /* The page's own meta summary goes first when there is one. On a CMS
+         the readable text opens with the whole navigation menu, and the
+         summary is the part an editor actually wrote about this event. */
+      content: [
+        `Today is ${today}. This is ${url}.`,
+        summary ? `\nThe page summarises itself as:\n${summary}` : '',
+        `\nIts readable text:\n\n${text}`,
+      ].join(''),
     }],
   });
 
