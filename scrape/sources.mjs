@@ -141,6 +141,12 @@ export const SOURCES = [
     enabled: true,
     category: 'dropin',
     art: 'art-books',
+    /* The library runs a great deal that is useful and nothing to do with a
+       day out: computer classes, job-hunting help, tax clinics, settlement
+       and literacy sessions. They belong in a library's calendar and not in
+       an answer to "what should we do today". Author talks, film nights,
+       craft afternoons and book clubs all survive this. */
+    exclude: /\b(microsoft|ms word|powerpoint|excel|computer (skills|basics|class|help|training)|digital literacy|tech (help|support)|drop-in tech|job (search|club|help)|r[ée]sum[ée]|career|employment|interview skills|tax (clinic|help)|income tax|financial literacy|legal (advice|clinic)|citizenship|newcomer|settlement services|esl\b|english (conversation|practice|class)|literacy (circle|program)|homework (club|help)|tutoring|book a librarian|library (tour|orientation)|blood pressure|flu shot|vaccin)/i,
     followLinks: /^https:\/\/tpl\.bibliocommons\.com\/events\/[a-f0-9]{6,}/i,
     maxFollow: 20,
     maxEvents: 12,

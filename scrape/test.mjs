@@ -336,6 +336,32 @@ console.log('\nA title with the site bolted on');
     assert.equal(titleOf('Maestro'), 'Maestro'));
 }
 
+console.log('\nWhat a library runs that is not a day out');
+{
+  const tpl = SOURCES.find((x) => x.id === 'tpl');
+  const drops = ['Microsoft Application Series', 'Computer Basics for Beginners',
+                 'Job Search Club', 'Free Tax Clinic', 'ESL Conversation Circle', 'Resume Workshop'];
+  const keeps = ['Randy Boyagoda: Lords of Serendipity', 'Draw Joy from a Pencil',
+                 'Friday Night Film: Chinatown', 'Teen Craft Afternoon', 'Silent Book Club'];
+  for (const t of drops) check(`drops "${t}"`, () => assert.ok(tpl.exclude.test(t)));
+  for (const t of keeps) check(`keeps "${t}"`, () => assert.ok(!tpl.exclude.test(t)));
+}
+
+console.log('\nEntities that arrived half-eaten');
+{
+  const src = { id: 'tpl', name: 'Toronto Public Library', category: 'dropin', art: 'art-books',
+                url: 'x', defaultAddress: null };
+  const when = { today: '2026-09-11', checked: '2026-09-11' };
+  const desc = (d) => normalize({ title: 'A talk', startDate: '2026-09-18',
+    venue: 'Toronto Reference Library', address: '789 Yonge St, Toronto, ON M4W 2G8',
+    description: d }, src, when).event.description;
+
+  check('a stripped &nbsp; does not become a typo', () =>
+    assert.equal(desc('Word and PowerPointnbsp;classes.nbsp;'), 'Word and PowerPoint classes.'));
+  check('an ampersand survives as itself', () =>
+    assert.match(desc('Dungeons &amp; Dragons, every Tuesday at the library.'), /Dungeons & Dragons/));
+}
+
 console.log('\nMatching the two names one page gives an event');
 {
   const name = 'Bad Dog Theatre';
