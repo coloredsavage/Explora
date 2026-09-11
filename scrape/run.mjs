@@ -12,7 +12,7 @@ import { readFile, writeFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { enabledSources } from './sources.mjs';
-import { fromJsonLd, readableText, candidateLinks } from './extract.mjs';
+import { fromJsonLd, readableText, candidateLinks, metaDescription } from './extract.mjs';
 import { normalize, validate } from './normalize.mjs';
 import { allowedBy } from './robots.mjs';
 
@@ -48,8 +48,17 @@ async function harvest(source, pages) {
       }
     }
 
+    /* The page's own summary, used when the extraction did not produce one.
+       Bad Dog's event pages are the case that prompted this: no Event JSON-LD,
+       and a body that opens with a thousand characters of navigation, so what
+       came back was the "Listed by …" placeholder while the page carried a
+       perfectly good description in its og: tag the whole time. */
+    const meta = metaDescription(html);
+
     for (const raw of raws) {
-      const result = normalize({ ...raw, url: raw.url ?? url }, source, { today, checked: today });
+      const result = normalize(
+        { ...raw, url: raw.url ?? url, description: raw.description || meta },
+        source, { today, checked: today });
       if (!result.ok) { report.dropped.push(`${source.id}: ${result.title} — ${result.why}`); continue; }
 
       const problems = validate(result.event);
@@ -133,6 +142,31 @@ async function main() {
     }
   }
   if (browser) await browser.close();
+
+  /* The same event arrives more than once: the index page lists it and the
+     page it links to describes it, and until the title suffix was stripped
+     the two even had different ids. Collapse them on title-and-date, keeping
+     the copy that came from the event's own page over the one scraped off
+     the index, and the fuller description between equals. */
+  const key = (e) => {
+    const d = e.schedule.date ?? e.schedule.start ?? '';
+    return e.title.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim() + '|' + d;
+  };
+  const better = (a, b) => {
+    const deep = (e) => (e.url && e.url !== e.scrapedFromUrl && e.url.replace(/\/$/, '').split('/').length > 4 ? 1 : 0);
+    if (deep(a) !== deep(b)) return deep(a) > deep(b) ? a : b;
+    return (a.description || '').length >= (b.description || '').length ? a : b;
+  };
+  const byKey = new Map();
+  let collapsed = 0;
+  for (const e of events) {
+    const k = key(e);
+    if (byKey.has(k)) { byKey.set(k, better(byKey.get(k), e)); collapsed += 1; }
+    else byKey.set(k, e);
+  }
+  if (collapsed) report.skipped.push(`${collapsed} duplicate${collapsed === 1 ? '' : 's'} collapsed`);
+  events.length = 0;
+  events.push(...byKey.values());
 
   /* keep the file stable between runs so an unchanged poll is an empty diff */
   events.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));

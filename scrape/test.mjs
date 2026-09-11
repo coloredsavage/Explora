@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import { fromJsonLd, readableText, candidateLinks } from './extract.mjs';
+import { fromJsonLd, readableText, candidateLinks, metaDescription } from './extract.mjs';
 import { normalize, validate } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
@@ -282,6 +282,43 @@ check('429 is not a refusal — it asks us to slow down, so retry', () =>
   assert.ok(!DURABLE_REFUSAL.has(429)));
 check('a 5xx is the request failing, not being refused', () =>
   assert.ok(!DURABLE_REFUSAL.has(500) && !DURABLE_REFUSAL.has(503)));
+
+console.log('\nA page that describes itself');
+{
+  const og = '<html><head><meta property="og:description" content="The Audition dives into the chaotic world of trying to book the job, completely improvised.">' +
+             '<title>x</title></head><body>nav nav nav</body></html>';
+  check('takes the og:description a page writes for sharing', () =>
+    assert.match(metaDescription(og), /^The Audition dives into/));
+  check('decodes the entities a CMS leaves in it', () =>
+    assert.equal(
+      metaDescription('<meta property="og:description" content="Bita &amp;amp; Nicole present a show that is more than forty characters long">'),
+      'Bita & Nicole present a show that is more than forty characters long'));
+  check('falls back to the plain meta description', () =>
+    assert.match(
+      metaDescription('<meta name="description" content="An improvised look at auditions, at Comedy Bar Bloor every Friday.">'),
+      /improvised look/));
+  check('a stub is worse than nothing', () =>
+    assert.equal(metaDescription('<meta property="og:description" content="Bad Dog">'), null));
+  check('a page with none says so', () =>
+    assert.equal(metaDescription('<html><head><title>x</title></head></html>'), null));
+}
+
+console.log('\nA title with the site bolted on');
+{
+  const src = { id: 'baddog', name: 'Bad Dog Theatre', category: 'comedy', art: 'art-neon',
+                url: 'https://baddogtheatre.com/whats-on' };
+  const base = { startDate: '2026-09-11', venue: 'Comedy Bar Bloor',
+                 address: '945 Bloor St W, Toronto, ON', description: 'x'.repeat(60) };
+  const when = { today: '2026-09-11', checked: '2026-09-11' };
+  const titleOf = (t) => normalize({ ...base, title: t }, src, when).event.title;
+
+  check('drops a tail that names the source', () =>
+    assert.equal(titleOf("The Audition — Bad Dog Theatre Company - Toronto's Best Improv"), 'The Audition'));
+  check('keeps a dash the title actually wanted', () =>
+    assert.equal(titleOf('Dungeons & Dragons — Live!'), 'Dungeons & Dragons — Live!'));
+  check('keeps a title with no tail at all', () =>
+    assert.equal(titleOf('Maestro'), 'Maestro'));
+}
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
 process.exitCode = failures ? 1 : 0;
