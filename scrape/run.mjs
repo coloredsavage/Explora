@@ -46,6 +46,16 @@ async function harvest(source, pages) {
        back to "Listed by …" while the page described the show three ways.
        When that happens the model is asked for the prose and the JSON-LD
        keeps everything else. */
+    /* A description that is really a logistics block counts as none. Luma's
+       Event nodes carry one — "📍 Trinity Bellwoods Park … 🕒 3:00-5:00p.m."
+       — so raws arrived with descriptions, the page never looked short of
+       prose, and the model was never asked while the card showed a meeting
+       point it already displayed twice. */
+    raws = raws.map((r) => ({
+      ...r,
+      description: r.description && readsAsDescription(r.description) ? r.description : null,
+    }));
+
     const noProse = raws.length > 0
       && raws.every((r) => !r.description)
       && !readsAsDescription(meta);

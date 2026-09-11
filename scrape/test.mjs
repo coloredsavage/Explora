@@ -315,6 +315,12 @@ console.log('\nFit to print as it stands');
     assert.equal(readsAsDescription('An improvised show about auditions, different every night. Location: Comedy Bar Bloor.'), true));
   check('plain prose passes', () =>
     assert.equal(readsAsDescription('Performers work through cold reads and callbacks, improvised and different every night.'), true));
+  check('a logistics block in emoji is not a description either', () =>
+    assert.equal(readsAsDescription('designwalks™ Walk 11: 📍 Trinity Bellwoods Park (We’ll be meeting at Strachan Ave & Queen St W.) 🕒 3:00-5:00p.m., Saturday'), false));
+  check('one pin does not sink a real description', () =>
+    assert.equal(readsAsDescription('📍 A walk through the ravine looking at how the city drains, led by a hydrologist.'), true));
+  check('naming a meeting point is allowed once', () =>
+    assert.equal(readsAsDescription('A guided walk through Trinity Bellwoods looking at how the park was built; meet at the gates.'), true));
   check('nothing is not a description', () =>
     assert.equal(readsAsDescription(null), false));
 }

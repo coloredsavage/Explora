@@ -103,10 +103,24 @@ export function metaDescription(html) {
  * a paragraph of names. One stray label does not sink a real description. */
 export function readsAsDescription(t) {
   if (!t) return false;
-  const labels = (t.slice(0, 240).match(
+  const head = t.slice(0, 300);
+
+  /* "Created by: … Producers: … Dates: … Location: …" */
+  const labels = (head.match(
     /\b(created by|produced by|producers?|directed by|starring|cast|dates?|time|location|venue|tickets?|price|admission|doors|presented by)\s*:/gi
   ) || []).length;
-  return labels < 2;
+
+  /* The same block written in emoji, which a lot of listings prefer: a pin
+     for where, a clock for when, a ticket for how much. Luma's designwalks
+     reads "📍 Trinity Bellwoods Park (We'll be meeting at Strachan & Queen)
+     🕒 3:00-5:00p.m., Saturday, September 12" — every fact already on the
+     card and not a word about the walk. */
+  const markers = (head.match(/[\u{1F4CD}\u{1F553}-\u{1F55E}\u{1F550}-\u{1F552}\u{23F0}\u{1F4C5}\u{1F5D3}\u{1F39F}\u{1F4B5}\u{1F4B0}]/gu) || []).length;
+
+  /* And the plain-English version of the same thing. */
+  const meeting = /\b(we'?ll be meeting|we will be meeting|meet(ing)? (point|at the|us at)|meet at)\b/i.test(head) ? 1 : 0;
+
+  return labels + markers + meeting < 2;
 }
 
 export function readableText(html, limit = 12000) {
