@@ -120,7 +120,14 @@ export function readsAsDescription(t) {
   /* And the plain-English version of the same thing. */
   const meeting = /\b(we'?ll be meeting|we will be meeting|meet(ing)? (point|at the|us at)|meet at)\b/i.test(head) ? 1 : 0;
 
-  return labels + markers + meeting < 2;
+  /* Copy that shouts is the venue's poster, not a description of anything:
+     "BAD DOG THEATRE PRESENTS SWEET SWEET FRIENDS Tonight, a delectable
+     selection of RISING STARS…". A run of three capitalised words is the
+     tell. Acronyms are safe — the ROM, TIFF and the AGO never come three in
+     a row. */
+  const shouting = /\b[A-Z][A-Z0-9'’-]{2,}(\s+[A-Z][A-Z0-9'’-]{2,}){2,}/.test(head);
+
+  return !shouting && labels + markers + meeting < 2;
 }
 
 export function readableText(html, limit = 12000) {

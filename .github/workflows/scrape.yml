@@ -91,6 +91,16 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: node scrape/run.mjs
 
+      # What the poll just wrote, checked against the ways a description has
+      # gone wrong before — a credit block, a meeting point, an ellipsis on a
+      # finished sentence. Printed into the run so a bad batch is visible here
+      # rather than on the site. Never fails the job: a thin description is
+      # sometimes the honest answer and should not block a deploy.
+      - name: Read over the descriptions
+        if: ${{ !startsWith(github.ref_name, 'run-discover') && !startsWith(github.ref_name, 'show/') }}
+        continue-on-error: true
+        run: node scripts/audit-descriptions.mjs
+
       # The poll only ever discovers new events. This goes back to the
       # hand-written listings and looks up the prices they are missing, from
       # each listing's own source — which is why thirteen of them said
