@@ -4,40 +4,23 @@
 
 const SCRAPED = [
   {
-    "id": "baddog-academy-showcase-harold-process-2026-09-30",
-    "title": "Academy Showcase Harold Process",
+    "id": "baddog-academy-showcase-narrative-process-sweet-sweet-f-2026-09-23",
+    "title": "Academy Showcase: Narrative Process & Sweet Sweet Friends",
     "category": "comedy",
     "art": "art-neon",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street\nToronto, ON, M6J 2W5\nCanada",
-    "url": "https://baddogtheatre.com/whats-on/2026/9/30/academy-showcase-harold-process",
-    "source": "https://baddogtheatre.com/whats-on/2026/9/30/academy-showcase-harold-process",
+    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
+    "url": "https://baddogtheatre.com/whats-on",
+    "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-09-11",
-    "description": "Bad Dog Academy Presents ACADEMY SHOWCASE Watch our talented Studio Series Students do Their Thing! This hilarious showcase features performances by Alex Tindal",
+    "description": "Listed by Bad Dog Theatre.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-30"
+      "date": "2026-09-23",
+      "time": "7:00 PM – 8:00 PM"
     },
     "scrapedFrom": "baddog",
-    "via": "json-ld"
-  },
-  {
-    "id": "baddog-academy-showcase-narrative-process-amp-sweet-swe-2026-09-23",
-    "title": "Academy Showcase: Narrative Process &amp; Sweet Sweet Friends",
-    "category": "comedy",
-    "art": "art-neon",
-    "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street\nToronto, ON, M6J 2W5\nCanada",
-    "url": "https://baddogtheatre.com/whats-on/2026/9/23/academy-showcase-narrative-process-amp-sweet-sweet-friends",
-    "source": "https://baddogtheatre.com/whats-on/2026/9/23/academy-showcase-narrative-process-amp-sweet-sweet-friends",
-    "checked": "2026-09-11",
-    "description": "Bad Dog Academy Presents ACADEMY SHOWCASE Watch our talented Studio Series Students do Their Thing! This hilarious showcase features performances by Gavin Williams",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-23"
-    },
-    "scrapedFrom": "baddog",
-    "via": "json-ld"
+    "via": "model"
   },
   {
     "id": "baddog-sweet-sweet-friends-2026-09-16",
@@ -67,7 +50,7 @@ const SCRAPED = [
     "url": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm",
     "source": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm",
     "checked": "2026-09-11",
-    "description": "Listed by Bad Dog Theatre.",
+    "description": "Performers move through cold reads, callbacks, strange direction and unexpected twists as the audition process spirals — completely improvised and never the same twice.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-11"
@@ -85,7 +68,7 @@ const SCRAPED = [
     "url": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm-977bl",
     "source": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm-977bl",
     "checked": "2026-09-11",
-    "description": "Listed by Bad Dog Theatre.",
+    "description": "Performers move through cold reads, callbacks, strange direction and unexpected twists as the audition process spirals — completely improvised and never the same twice.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-18"
@@ -94,21 +77,296 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
-    "id": "evergreen-cycle-toronto-rec-hub-2026-09-27",
-    "title": "Cycle Toronto Rec Hub",
-    "category": "dropin",
-    "art": "art-ravine",
-    "venue": "Evergreen Brick Works",
-    "address": "550 Bayview Ave, Toronto",
-    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "id": "baddog-the-bucket-show-2026-09-16",
+    "title": "The Bucket Show",
+    "category": "comedy",
+    "art": "art-neon",
+    "venue": "Sweet Action",
+    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5, Canada",
+    "url": "https://baddogtheatre.com/whats-on",
+    "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-09-11",
-    "description": "A drop-in DIY bike repair hub, open Wednesdays, Saturdays and Sundays.",
+    "description": "Listed by Bad Dog Theatre.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-27"
+      "date": "2026-09-16",
+      "time": "8:30 PM – 9:30 PM"
     },
-    "scrapedFrom": "evergreen",
+    "scrapedFrom": "baddog",
+    "via": "model"
+  },
+  {
+    "id": "bentway-artist-talk-with-paul-ram-rez-jonas-2026-09-15",
+    "title": "Artist Talk with Paul Ramírez Jonas",
+    "category": "architecture",
+    "art": "art-skates",
+    "venue": "The Bentway",
+    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
+    "url": "https://thebentway.ca/whats-on/",
+    "source": "https://thebentway.ca/whats-on/",
+    "checked": "2026-09-11",
+    "description": "A conversation with the artist about his body of work and his long-time engagement with democracy, participation and the public realm, marking the Canadian premiere of Public Trust.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-15"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "bentway-artist-talk-with-paul-ram-rez-jonas-2026-09-15",
+    "title": "Artist Talk with Paul Ramírez Jonas",
+    "category": "architecture",
+    "art": "art-skates",
+    "entry": "Free",
+    "venue": "Toronto Public Library – Fort York Branch",
+    "address": "Fort York Boulevard, Toronto, ON, Canada",
+    "url": "https://thebentway.ca/event/artist-talk-with-paul-ramirez-jonas/",
+    "source": "https://thebentway.ca/event/artist-talk-with-paul-ramirez-jonas/",
+    "checked": "2026-09-11",
+    "description": "A conversation about Ramírez Jonas's participatory works, from Key to the City and The Commons to Public Trust, and how everyday acts of exchange and promise become ways of imagining new social contracts.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-15",
+      "time": "6:00 pm – 7:30 pm"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "bentway-public-trust-2026-09-15",
+    "title": "Public Trust",
+    "category": "architecture",
+    "art": "art-skates",
+    "venue": "The Bentway",
+    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
+    "url": "https://thebentway.ca/event/bentway-after-school/",
+    "source": "https://thebentway.ca/event/bentway-after-school/",
+    "checked": "2026-09-11",
+    "description": "Torontonians are invited into a non-partisan space to make promises to themselves and their community as co-authors of the city's future.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-09-15",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "bentway-public-trust-2026-09-15",
+    "title": "Public Trust",
+    "category": "architecture",
+    "art": "art-skates",
+    "entry": "Free",
+    "venue": "Toronto Public Library Fort York branch; Marina Quay West; Harbourfront Centre; The Bentway",
+    "address": "190 Fort York Blvd; 539 Queens Quay W; 235 Queens Quay W; 250 Fort York Blvd, Toronto",
+    "url": "https://thebentway.ca/event/public-trust/",
+    "source": "https://thebentway.ca/event/public-trust/",
+    "checked": "2026-09-11",
+    "description": "An interactive artwork with a large marquee and two eight-foot tables staffed by local performers: you make a promise aloud, swearing on a sacred text or an object that matters to you, and it is recorded in a drawing…",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-09-15",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "bentway-public-trust-2026-09-15",
+    "title": "Public Trust",
+    "category": "architecture",
+    "art": "art-skates",
+    "entry": "Free",
+    "venue": "Toronto Public Library, Fort York branch",
+    "address": "190 Fort York Blvd, Toronto",
+    "url": "https://thebentway.ca/event/public-trust-toronto-public-library/",
+    "source": "https://thebentway.ca/event/public-trust-toronto-public-library/",
+    "checked": "2026-09-11",
+    "description": "An interactive artwork with a large-scale marquee and two eight-foot tables staffed by performers: you make a promise out loud, swearing on a sacred text or an object of your choosing, and it's recorded in a drawing you…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-15",
+      "time": "10:30 am – 5:30 pm"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "bentway-public-trust-toronto-public-library-2026-09-15",
+    "title": "Public Trust @ Toronto Public Library",
+    "category": "architecture",
+    "art": "art-skates",
+    "venue": "Toronto Public Library",
+    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
+    "url": "https://thebentway.ca/whats-on/",
+    "source": "https://thebentway.ca/whats-on/",
+    "checked": "2026-09-11",
+    "description": "Visitors are invited to make promises to themselves and their community in a welcoming, non-partisan space.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-15"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "bentway-public-trust-toronto-public-library-fort-york-br-2026-09-15",
+    "title": "Public Trust — Toronto Public Library, Fort York branch (International Day of Democracy)",
+    "category": "architecture",
+    "art": "art-skates",
+    "entry": "Free",
+    "venue": "Toronto Public Library, Fort York branch",
+    "address": "190 Fort York Blvd, Toronto",
+    "url": "https://thebentway.ca/event/public-trust/",
+    "source": "https://thebentway.ca/event/public-trust/",
+    "checked": "2026-09-11",
+    "description": "The indoor leg of the touring promise-making installation, where performers record your promise in a drawing and post it on the marquee.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-15",
+      "time": "10:30 am – 5:30 pm"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "bentway-roller-skate-lessons-september-11-2026-09-11",
+    "title": "Roller Skate Lessons: September 11",
+    "category": "architecture",
+    "art": "art-skates",
+    "venue": "The Bentway",
+    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
+    "url": "https://thebentway.ca/whats-on/",
+    "source": "https://thebentway.ca/whats-on/",
+    "checked": "2026-09-11",
+    "description": "A weekly lesson for novice skaters, where instructors teach basic skills and help you get around the figure-eight skate trail.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-11",
+      "time": "6:30pm-7:30pm and 7:30pm-8:30pm"
+    },
+    "scrapedFrom": "bentway",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-matt-wright-the-peekaboo-tour-2026-09-12",
+    "title": "Matt Wright - The Peekaboo Tour",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$25",
+    "venue": "Comedy Bar Bloor (Main Stage)",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/matt-wright-the-peekaboo-tour",
+    "source": "https://comedybar.ca/shows/matt-wright-the-peekaboo-tour",
+    "checked": "2026-09-11",
+    "description": "Stand-up from Matt Wright, his last Ontario date before he records a new special.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-12",
+      "time": "7:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-16",
+    "title": "Toronto's Best New Comic: Semi Finals",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$18",
+    "venue": "Comedy Bar Bloor - Main Stage",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "checked": "2026-09-11",
+    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-16",
+      "time": "9:30pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-17",
+    "title": "Toronto's Best New Comic: Semi Finals",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$18",
+    "venue": "Comedy Bar Bloor - Main Stage",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "checked": "2026-09-11",
+    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-17",
+      "time": "9:30pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-20",
+    "title": "Toronto's Best New Comic: Semi Finals",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$18",
+    "venue": "Comedy Bar Bloor - Main Stage",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "checked": "2026-09-11",
+    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-20",
+      "time": "7:00pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-21",
+    "title": "Toronto's Best New Comic: Semi Finals",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$18",
+    "venue": "Comedy Bar Bloor - Main Stage",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "checked": "2026-09-11",
+    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-21",
+      "time": "9:30pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-23",
+    "title": "Toronto's Best New Comic: Semi Finals",
+    "category": "comedy",
+    "art": "art-neon",
+    "entry": "$18",
+    "venue": "Comedy Bar Bloor - Main Stage",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
+    "checked": "2026-09-11",
+    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-23",
+      "time": "9:30pm"
+    },
+    "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
@@ -116,22 +374,44 @@ const SCRAPED = [
     "title": "Family Wander",
     "category": "dropin",
     "art": "art-ravine",
+    "entry": "Suggested $20 donation per family",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto",
-    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-09-11",
-    "description": "A guided wander for families; registration required.",
+    "description": "A guided hour-long walk through the ravine nature at the Brick Works, with sensory activities and seasonal observation for families…",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-27"
+      "date": "2026-09-27",
+      "time": "10:00 am – 11:00 am"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
   },
   {
-    "id": "evergreen-free-public-tours-of-evergreen-brick-works-2026-09-12",
-    "title": "Free Public Tours of Evergreen Brick Works",
+    "id": "evergreen-family-wander-2026-11-15",
+    "title": "Family Wander",
+    "category": "dropin",
+    "art": "art-ravine",
+    "entry": "Suggested $20 donation per family",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "checked": "2026-09-11",
+    "description": "A guided hour-long walk through the ravine nature at the Brick Works, with sensory activities and seasonal observation for families…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-15",
+      "time": "10:00 am – 11:00 am"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-free-public-site-tours-of-evergreen-brick-works-2026-09-12",
+    "title": "Free Public Site Tours of Evergreen Brick Works",
     "category": "dropin",
     "art": "art-ravine",
     "entry": "Free",
@@ -140,7 +420,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
     "checked": "2026-09-11",
-    "description": "Hour-long guided walks that meet at the Welcome Desk in Building 14 and run rain or shine…",
+    "description": "An hour-long guided walk that meets at the Welcome Desk in Building 14 and runs rain or shine…",
     "schedule": {
       "kind": "day",
       "date": "2026-09-12"
@@ -167,7 +447,7 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "evergreen-little-discoveries-2026-09-20",
+    "id": "evergreen-little-discoveries-2026-09-27",
     "title": "Little Discoveries",
     "category": "dropin",
     "art": "art-ravine",
@@ -176,10 +456,10 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "checked": "2026-09-11",
-    "description": "A registered program for young children.",
+    "description": "A program for young kids; registration required.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-20"
+      "date": "2026-09-27"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -194,7 +474,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "checked": "2026-09-11",
-    "description": "Booked photo sessions for children's portraits.",
+    "description": "Booked mini photo sessions for children's portraits.",
     "schedule": {
       "kind": "range",
       "start": "2026-09-13",
@@ -231,7 +511,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "checked": "2026-09-11",
-    "description": "Two markets side by side: over 40 local artists and makers selling handmade jewelry, skin care, art and candles, plus vintage dealers with curated antiques and one-of-a-kind finds…",
+    "description": "Two markets side by side on Sundays: over 40 local artists and makers selling handmade jewelry, skin care, art and candles, plus vintage vendors with curated antiques…",
     "schedule": {
       "kind": "range",
       "start": "2026-09-13",
@@ -250,7 +530,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/saturday-farmers-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/saturday-farmers-market/",
     "checked": "2026-09-11",
-    "description": "A year-round Saturday market where you can shop from Ontario farmers and producers based within 205 km of the site, plus a local food court. From May to October the stalls are set up outdoors under the pavilions.",
+    "description": "A year-round Saturday market where you can shop from Ontario farmers and food producers based within 205 km of the site, plus a local food court. From May to October the stalls set up outdoors under the pavilions.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-12",
