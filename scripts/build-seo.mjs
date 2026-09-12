@@ -113,13 +113,25 @@ const esc = (s) => String(s == null ? '' : s)
   .replace(/"/g, '&quot;');
 
 function offersFor(ev) {
-  const bucket = priceOf(ev);
-  if (bucket === 'free') {
-    return { '@type': 'Offer', price: '0', priceCurrency: 'CAD', availability: 'https://schema.org/InStock', url: ev.url };
-  }
+  /* validFrom is when the offer is known to hold. The honest answer is the
+     day the listing was checked against the venue's own page — that is the
+     date we can say the price was true, and nothing here knows when tickets
+     first went on sale. */
+  const base = {
+    '@type': 'Offer',
+    priceCurrency: 'CAD',
+    availability: 'https://schema.org/InStock',
+    url: ev.url,
+    ...(ev.checked ? { validFrom: ev.checked } : {}),
+  };
+  if (priceOf(ev) === 'free') return { ...base, price: '0' };
   const m = String(ev.entry || '').match(/\$\s*(\d+(?:\.\d+)?)/);
-  if (!m) return null;                     /* unknown stays unknown */
-  return { '@type': 'Offer', price: m[1], priceCurrency: 'CAD', availability: 'https://schema.org/InStock', url: ev.url };
+  /* A listing with no confirmable price gets no offer at all. Search Console
+     asks for one on every event; inventing a number to satisfy it would be
+     the wrong-money failure this whole project is built to avoid, written in
+     a form machines read. The two ROM listings are the ones this affects. */
+  if (!m) return null;
+  return { ...base, price: m[1] };
 }
 
 function eventNode({ ev, occ }) {
@@ -131,6 +143,8 @@ function eventNode({ ev, occ }) {
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     description: ev.description || undefined,
+    /* Only where the source published one of its own. */
+    image: ev.image || undefined,
     url: ev.url || SITE,
     location: {
       '@type': 'Place',
