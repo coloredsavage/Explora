@@ -32,7 +32,7 @@ const SCRAPED = [
     "url": "https://baddogtheatre.com/whats-on/2026/9/16/sweet-sweet-friends",
     "source": "https://baddogtheatre.com/whats-on/2026/9/16/sweet-sweet-friends",
     "checked": "2026-09-11",
-    "description": "BAD DOG THEATRE PRESENTS SWEET SWEET FRIENDS Tonight, a delectable selection of RISING STARS take the Sweet Sweet Wednesday stage once more to bring you an extra helping of laughs!…",
+    "description": "Bad Dog’s alumni all-stars take the Wednesday stage with guest performers and whoever else they have talked into coming along.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-16"
@@ -163,7 +163,7 @@ const SCRAPED = [
     "url": "https://thebentway.ca/event/public-trust/",
     "source": "https://thebentway.ca/event/public-trust/",
     "checked": "2026-09-11",
-    "description": "An interactive artwork with a large marquee and two eight-foot tables staffed by local performers: you make a promise aloud, swearing on a sacred text or an object that matters to you, and it is recorded in a drawing…",
+    "description": "An interactive artwork with a large marquee and two eight-foot tables staffed by local performers: you make a promise aloud, swearing on a sacred text or an object that matters to you, and it is recorded in a drawing.",
     "schedule": {
       "kind": "range",
       "start": "2026-09-15",
@@ -183,7 +183,7 @@ const SCRAPED = [
     "url": "https://thebentway.ca/event/public-trust-toronto-public-library/",
     "source": "https://thebentway.ca/event/public-trust-toronto-public-library/",
     "checked": "2026-09-11",
-    "description": "An interactive artwork with a large-scale marquee and two eight-foot tables staffed by performers: you make a promise out loud, swearing on a sacred text or an object of your choosing, and it's recorded in a drawing you…",
+    "description": "An interactive artwork with a large-scale marquee and two eight-foot tables staffed by performers: you make a promise out loud, swearing on a sacred text or an object of your choosing, and it's recorded in a drawing you.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-15",
@@ -380,7 +380,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-09-11",
-    "description": "A guided hour-long walk through the ravine nature at the Brick Works, with sensory activities and seasonal observation for families…",
+    "description": "A guided hour-long walk through the ravine nature at the Brick Works, with sensory activities and seasonal observation for families.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-27",
@@ -400,7 +400,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-09-11",
-    "description": "A guided hour-long walk through the ravine nature at the Brick Works, with sensory activities and seasonal observation for families…",
+    "description": "A guided hour-long walk through the ravine nature at the Brick Works, with sensory activities and seasonal observation for families.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-15",
@@ -420,7 +420,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
     "checked": "2026-09-11",
-    "description": "An hour-long guided walk that meets at the Welcome Desk in Building 14 and runs rain or shine…",
+    "description": "An hour-long guided walk that meets at the Welcome Desk in Building 14 and runs rain or shine.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-12"
@@ -511,7 +511,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "checked": "2026-09-11",
-    "description": "Two markets side by side on Sundays: over 40 local artists and makers selling handmade jewelry, skin care, art and candles, plus vintage vendors with curated antiques…",
+    "description": "Two markets side by side on Sundays: over 40 local artists and makers selling handmade jewelry, skin care, art and candles, plus vintage vendors with curated antiques.",
     "schedule": {
       "kind": "range",
       "start": "2026-09-13",
@@ -550,7 +550,7 @@ const SCRAPED = [
     "url": "https://luma.com/gp4fjufz",
     "source": "https://luma.com/gp4fjufz",
     "checked": "2026-09-11",
-    "description": "Bring the book you're currently reading. That's it - that's the whole assignment. No assigned reading, no discussion questions, no pressure to have finished anything…",
+    "description": "Bring the book you're currently reading. That's it - that's the whole assignment.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-13"
@@ -569,7 +569,7 @@ const SCRAPED = [
     "url": "https://luma.com/qmvmmfvk",
     "source": "https://luma.com/qmvmmfvk",
     "checked": "2026-09-11",
-    "description": "designwalks™ - Toronto About Walk 11: 📍 Trinity Bellwoods Park (We’ll be meeting at the intersection of Strachan Ave & Queen St W.) 🕒 3:00-5:00p.m., Saturday, September 12…",
+    "description": "A monthly walk-and-talk for the design community, out on a Saturday afternoon. This one crosses Trinity Bellwoods arguing about whether a design can be built to provoke an emotion on purpose.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-12"
@@ -588,7 +588,7 @@ const SCRAPED = [
     "url": "https://luma.com/b1q8dpsr",
     "source": "https://luma.com/b1q8dpsr",
     "checked": "2026-09-11",
-    "description": "THIS SUNDAY٫ we’re taking the finish line to HEVAL!…",
+    "description": "A Sunday morning group run that starts and finishes at Heval on Spadina. The café puts on a runners’ combo afterwards and takes a quarter off coffee until one.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-13"
@@ -606,7 +606,7 @@ const SCRAPED = [
     "url": "https://tpl.bibliocommons.com/v2/events/6a85b730fa71a30d92946b60",
     "source": "https://tpl.bibliocommons.com/v2/events/6a85b730fa71a30d92946b60",
     "checked": "2026-09-11",
-    "description": "TPL presents novelist Randy Boyagoda in conversation with Parul Sehgal at the Toronto Reference Library's Appel Salon.In his wildly funny and richly observed new novel Lords of Serendipity, acclaimed author Randy…",
+    "description": "TPL presents novelist Randy Boyagoda in conversation with Parul Sehgal at the Toronto Reference Library's Appel Salon.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-11"
