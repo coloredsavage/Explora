@@ -39,6 +39,12 @@ export function fromJsonLd(html) {
     url: text(e.url),
     description: text(e.description),
     entry: offerText(e.offers),
+    /* Search Console asks for an image on every Event. A source that marks up
+       its events usually has one, and it is the event's own picture rather
+       than something of ours standing in for it. Where there is none we send
+       none — a site-wide photograph attached to somebody's comedy night is
+       not an image of that night. */
+    image: imageOf(e.image),
     via: 'json-ld',
   }));
 }
@@ -46,6 +52,15 @@ export function fromJsonLd(html) {
 function text(v) {
   if (typeof v === 'string') return v.trim() || null;
   if (Array.isArray(v)) return text(v[0]);
+  return null;
+}
+
+/* schema.org allows a string, an ImageObject, or an array of either. */
+function imageOf(v) {
+  if (!v) return null;
+  if (Array.isArray(v)) return imageOf(v[0]);
+  if (typeof v === 'string') return /^https?:\/\//i.test(v.trim()) ? v.trim() : null;
+  if (typeof v === 'object') return imageOf(v.url ?? v.contentUrl);
   return null;
 }
 

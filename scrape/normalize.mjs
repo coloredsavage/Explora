@@ -144,6 +144,7 @@ export function normalize(raw, source, { today, checked }) {
       ...(raw.entry ? { entry: tidyPrice(raw.entry) } : {}),
       venue,
       address,
+      ...(raw.image ? { image: raw.image } : {}),
       url: raw.url ?? source.url,
       source: raw.url ?? source.url,
       checked,
