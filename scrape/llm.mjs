@@ -87,9 +87,19 @@ export async function extractWithModel(text, { url, today, apiKey, summary }) {
        The old ceiling was never reached and never needed to be there. */
     max_tokens: 3000,
     system: SYSTEM,
+    /* No `effort` here, and do not add one back. It is an Opus/Sonnet-tier
+       parameter: Haiku 4.5 answers a request carrying it with 400 "This model
+       does not support the effort parameter", and because run.mjs catches a
+       failed extraction per page and carries on, that 400 is invisible — the
+       poll still exits 0 and still opens a pull request, just with the
+       model-read sources silently missing. That is exactly what happened
+       between 2026-09-13 and 2026-09-17: the switch to Haiku kept the
+       `effort: 'low'` that belonged to the Opus call above it, and three
+       polls in a row came back with only the handful of events that need no
+       model at all. Haiku has no thinking to budget, so there is nothing to
+       set here. The price extractor below is on Opus and keeps its effort. */
     output_config: {
       format: zodOutputFormat(Extracted),
-      effort: 'low',
     },
     messages: [{
       role: 'user',
