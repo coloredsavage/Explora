@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
-import { normalize, validate, stripSiteSuffix } from './normalize.mjs';
+import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
 
@@ -496,6 +496,130 @@ console.log('\nListing the same thing twice');
     assert.equal(
       key(at('The Audition', '2026-09-11', 'Comedy Bar Bloor')),
       key(at('the  audition!', '2026-09-11', 'COMEDY BAR — BLOOR'))));
+}
+
+console.log('\nEntities outside the description');
+{
+  const src = { id: 'baddog', name: 'Bad Dog Theatre', category: 'comedy', art: 'art-neon',
+                defaultVenue: null, defaultAddress: null };
+  const read = (over) => normalize({
+    title: 'Narrative Process &amp; Sweet Sweet Friends',
+    startDate: '2026-09-23',
+    venue: 'Sweet Action Theatre',
+    address: '180 Shaw Street, Toronto, ON, M6J 2W5',
+    ...over,
+  }, src, { today: '2026-09-08', checked: '2026-09-08' });
+
+  check('an ampersand in a title is decoded, not printed as an entity', () => {
+    const r = read({});
+    assert.ok(r.ok, r.why);
+    assert.equal(r.event.title, 'Narrative Process & Sweet Sweet Friends');
+  });
+
+  check('and it does not ride into the id either', () => {
+    const r = read({});
+    assert.ok(!r.event.id.includes('amp'), r.event.id);
+  });
+
+  check('a venue carrying one is decoded too', () => {
+    const r = read({ venue: 'Sweet &amp; Sour Theatre' });
+    assert.ok(r.ok, r.why);
+    assert.equal(r.event.venue, 'Sweet & Sour Theatre');
+  });
+
+  check('a half-eaten nbsp does not weld two words together', () => {
+    const r = read({ title: 'Sketchnbsp;Party' });
+    assert.ok(r.ok, r.why);
+    assert.equal(r.event.title, 'Sketch Party');
+  });
+}
+
+console.log('\nOne id per listing');
+{
+  const at = (venue) => ({ id: 'bentway-public-trust-2026-09-15', title: 'Public Trust', venue });
+
+  check('listings the dedupe kept apart do not share an id', () => {
+    const events = [
+      at('The Bentway'),
+      at('Toronto Public Library, Fort York branch'),
+      at('Harbourfront Centre'),
+    ];
+    disambiguateIds(events);
+    assert.equal(new Set(events.map((e) => e.id)).size, 3);
+  });
+
+  check('the venue is what tells them apart', () => {
+    const events = [at('The Bentway'), at('Harbourfront Centre')];
+    disambiguateIds(events);
+    assert.equal(events[0].id, 'bentway-public-trust-2026-09-15-the-bentway');
+    assert.equal(events[1].id, 'bentway-public-trust-2026-09-15-harbourfront-centre');
+  });
+
+  check('an id that collides with nothing is left where it was', () => {
+    const events = [at('The Bentway'), { id: 'bentway-roller-skate-lessons-2026-09-11', title: 'Roller Skate Lessons', venue: 'The Bentway' }];
+    disambiguateIds(events);
+    assert.equal(events[0].id, 'bentway-public-trust-2026-09-15');
+    assert.equal(events[1].id, 'bentway-roller-skate-lessons-2026-09-11');
+  });
+
+  check('two venues that slug the same still get an id each', () => {
+    const long = 'Toronto Public Library Fort York Branch Community Room ';
+    const events = [at(long + 'One'), at(long + 'Two')];
+    disambiguateIds(events);
+    assert.equal(new Set(events.map((e) => e.id)).size, 2);
+  });
+
+  check('it reports which ids were shared', () => {
+    const events = [at('The Bentway'), at('Harbourfront Centre')];
+    const out = disambiguateIds(events);
+    assert.deepEqual(out.shared, ['bentway-public-trust-2026-09-15']);
+    assert.equal(out.changed, 2);
+  });
+}
+
+console.log('\nA source that stopped answering');
+{
+  const counts = (o) => new Map(Object.entries(o));
+  const enabled = ['wygo', 'luma', 'bentway', 'evergreen', 'tpl', 'comedybar', 'baddog'];
+  const ids = (list) => list.map((x) => x.id).sort();
+
+  check('the poll that hid for five days would not have been written', () => {
+    /* 09-11 against what 09-13 actually came back with */
+    const before = counts({ baddog: 8, bentway: 5, comedybar: 6, evergreen: 7, luma: 3, tpl: 3 });
+    const now = counts({ baddog: 2, luma: 3, tpl: 1 });
+    assert.deepEqual(ids(silentSources(before, now, enabled)),
+      ['bentway', 'comedybar', 'evergreen']);
+  });
+
+  check('a steady run passes', () => {
+    const before = counts({ baddog: 8, bentway: 5, tpl: 3 });
+    const now = counts({ baddog: 7, bentway: 6, tpl: 3 });
+    assert.deepEqual(silentSources(before, now, enabled), []);
+  });
+
+  check('a source that found nothing last time either is not the alarm', () => {
+    const before = counts({ baddog: 8 });
+    const now = counts({ baddog: 8 });
+    assert.deepEqual(silentSources(before, now, enabled), []);
+  });
+
+  check('a source parked since the last run does not fail the next one', () => {
+    const before = counts({ baddog: 8, blogto: 4 });
+    const now = counts({ baddog: 8 });
+    assert.deepEqual(silentSources(before, now, enabled), []);
+  });
+
+  check('naming a source lets a genuinely quiet one through', () => {
+    const before = counts({ baddog: 8, bentway: 5 });
+    const now = counts({ baddog: 8 });
+    assert.deepEqual(silentSources(before, now, enabled, new Set(['bentway'])), []);
+  });
+
+  check('it says how many the source had before', () => {
+    const before = counts({ bentway: 5 });
+    const now = counts({});
+    assert.deepEqual(silentSources(before, now, enabled), [{ id: 'bentway', had: 5 }]);
+  });
 }
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');

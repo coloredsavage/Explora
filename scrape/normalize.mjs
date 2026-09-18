@@ -9,6 +9,31 @@ const slug = (s) => s.toLowerCase()
   .replace(/^-|-$/g, '')
   .slice(0, 48);
 
+/* Entities arrive in every field, not only the prose, and this was only ever
+   applied to the prose. Bad Dog's titles come through as "Narrative Process
+   &amp; Sweet Sweet Friends", so the entity reached the card, the slug and
+   the event page's URL, while the description beside it read correctly. One
+   decoder, used by every field that reaches a card. */
+const decodeEntities = (s) => String(s)
+  /* Some feeds escape their newlines twice, so the text arrives carrying a
+     literal backslash-n rather than a line break. Collapsing whitespace
+     cannot see those. */
+  .replace(/\\[nrt]/g, ' ')
+  /* And some arrive with their entities half-eaten — the library's feed
+     says "PowerPointnbsp;classes.nbsp;", an &nbsp; that lost both ends
+     somewhere upstream. Left alone it reads as a typo in the middle of a
+     sentence on the card. */
+  .replace(/&?nbsp;?/g, ' ')
+  /* Before the numeric ones, so a double-encoded "&amp;#39;" lands on an
+     apostrophe rather than stopping half way. */
+  .replace(/&amp;/g, '&')
+  .replace(/&#39;|&rsquo;/g, "'")
+  .replace(/&quot;|&ldquo;|&rdquo;/g, '"');
+
+/* A single-line field: decoded, and with the whitespace an entity may have
+   just turned into a space collapsed back down. */
+const clean = (s) => decodeEntities(s ?? '').replace(/\s+/g, ' ').trim();
+
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
 /* The site's own promise is "free, cheap, or at least worth the fare", and
@@ -94,11 +119,11 @@ export function stripSiteSuffix(title, sourceName) {
 }
 
 export function normalize(raw, source, { today, checked }) {
-  const title = stripSiteSuffix((raw.title ?? '').trim(), source.name);
+  const title = stripSiteSuffix(clean(raw.title), source.name);
   const start = asDate(raw.startDate);
   const end = asDate(raw.endDate);
-  const venue = (raw.venue ?? source.defaultVenue ?? '').trim();
-  let address = dedupeAddress(venue, (raw.address ?? source.defaultAddress ?? '').trim());
+  const venue = clean(raw.venue ?? source.defaultVenue);
+  let address = dedupeAddress(venue, clean(raw.address ?? source.defaultAddress));
 
   const reject = (why) => ({ ok: false, why, title: title || '(untitled)' });
 
@@ -156,6 +181,77 @@ export function normalize(raw, source, { today, checked }) {
   };
 }
 
+/* Two listings that the dedupe deliberately kept apart can still arrive with
+   the same id, because the key it collapses on carries the venue and the id
+   does not — the id is source, title and date. The Bentway's "Public Trust"
+   arrives three times on one day: the umbrella listing, the library's day of
+   it, and the after-school strand, at three addresses. Three listings by the
+   key, one id between them.
+
+   An id is not decoration. build-seo writes each event to /event/<id>/ and
+   app.js dedupes the board on it, so two of those three were overwritten at
+   build time and dropped at render time. Nobody saw them.
+
+   Where an id is shared, the venue that already told the listings apart goes
+   into it. An id that collides with nothing is left exactly as it was, so no
+   event page that has already been published moves. Mutates in place and
+   returns what it changed, for the run's report. */
+export function disambiguateIds(events) {
+  const byId = new Map();
+  for (const e of events) {
+    if (!byId.has(e.id)) byId.set(e.id, []);
+    byId.get(e.id).push(e);
+  }
+
+  const shared = [...byId.keys()].filter((id) => byId.get(id).length > 1);
+  const taken = new Set([...byId.keys()].filter((id) => byId.get(id).length === 1));
+  let changed = 0;
+
+  for (const id of shared) {
+    for (const e of byId.get(id)) {
+      /* Venue first, and a counter only if that still is not enough: slug()
+         truncates at 48 characters, so two long venue names sharing a prefix
+         can land on the same suffix. */
+      const base = `${id}-${slug(e.venue)}`;
+      let next = base;
+      for (let n = 2; taken.has(next); n += 1) next = `${base}-${n}`;
+      taken.add(next);
+      e.id = next;
+      changed += 1;
+    }
+  }
+
+  return { shared, changed };
+}
+
+/* The last gate, and the only one that looks beyond a single run.
+
+   For five days the extractor answered 400 to every page it was handed, and
+   every one of those was caught per-page and carried past. The run exited 0,
+   opened its pull request, and the four sources that need the model were
+   simply absent from it — a poll finding 6 events where the one before it
+   found 32, reported as a success three times running. Only the fact that
+   nobody merged those pull requests kept the board intact.
+
+   Zero events was already guarded, and zero events is not what this looks
+   like: whatever still reads for free comes through and carries the run. So
+   the comparison that matters is per source and against the last run, rather
+   than against nothing. A source that was producing and has stopped is either
+   broken or finished for the season, and both want a person to look.
+
+   `before` and `now` are id -> count. Only sources still being polled are
+   considered: parking one in sources.mjs is a decision already taken and
+   should not fail the next run. `allowed` is the override for a source that
+   really has gone quiet. */
+export function silentSources(before, now, enabled, allowed = new Set()) {
+  const out = [];
+  for (const id of enabled) {
+    const had = before.get(id) ?? 0;
+    if (had > 0 && !(now.get(id) > 0) && !allowed.has(id)) out.push({ id, had });
+  }
+  return out;
+}
+
 /** Last line of defence before anything is written out. */
 const tidyPrice = (s) => s.trim().replace(/(\$\d+)\.00\b/g, '$1');
 
@@ -178,19 +274,7 @@ function dedupeAddress(venue, address) {
    and a wall of marketing copy next to them looks like a different site. Keep
    whole sentences, and only as many as fit. */
 function trimDescription(text, limit = 220) {
-  let s = String(text)
-    /* Some feeds escape their newlines twice, so the text arrives carrying a
-       literal backslash-n rather than a line break. Collapsing whitespace
-       cannot see those. */
-    .replace(/\\[nrt]/g, ' ')
-    /* And some arrive with their entities half-eaten — the library's feed
-       says "PowerPointnbsp;classes.nbsp;", an &nbsp; that lost both ends
-       somewhere upstream. Left alone it reads as a typo in the middle of a
-       sentence on the card. */
-    .replace(/&?nbsp;?/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&#39;|&rsquo;/g, "'")
-    .replace(/&quot;|&ldquo;|&rdquo;/g, '"')
+  let s = decodeEntities(text)
     .replace(/^\s*\[[^\]]*\]\s*/, '')          /* a leading "[Note: ...]" aside */
     .replace(/\s*\(https?:\/\/[^)]+\)/g, '')     /* inline link parentheses */
     .replace(/\s+/g, ' ')

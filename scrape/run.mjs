@@ -13,7 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { enabledSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
-import { normalize, validate, stripSiteSuffix } from './normalize.mjs';
+import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
 import { allowedBy } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -128,6 +128,27 @@ async function harvest(source, pages) {
   return out;
 }
 
+/* What the file on disk says each source found last time. Parsed rather than
+   imported: scraped.js is a module with a top-level const, and this only ever
+   needs the array out of it. A file that is missing, truncated or not yet in
+   this shape returns null, which the caller reads as "nothing to compare
+   against" rather than as a source having gone quiet. */
+async function previousCounts() {
+  let text;
+  try { text = await readFile(path.join(root, 'scraped.js'), 'utf8'); }
+  catch { return null; }
+  const open = text.indexOf('[');
+  const close = text.lastIndexOf(']');
+  if (open < 0 || close < open) return null;
+  let prev;
+  try { prev = JSON.parse(text.slice(open, close + 1)); }
+  catch { return null; }
+  if (!Array.isArray(prev)) return null;
+  const counts = new Map();
+  for (const e of prev) counts.set(e.scrapedFrom, (counts.get(e.scrapedFrom) ?? 0) + 1);
+  return counts;
+}
+
 /* --------------------------------------------------------------- fetching */
 
 async function offlinePages(source) {
@@ -234,6 +255,13 @@ async function main() {
   events.length = 0;
   events.push(...byKey.values());
 
+  /* The dedupe above kept some listings apart that the id would put back
+     together; see disambiguateIds. */
+  const ids = disambiguateIds(events);
+  for (const id of ids.shared) {
+    report.skipped.push(`listings shared the id ${id} — told apart by venue`);
+  }
+
   /* keep the file stable between runs so an unchanged poll is an empty diff */
   events.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
@@ -249,6 +277,33 @@ const SCRAPED = [\n${body}\n];\n`;
   console.log(`\nkept ${report.kept.length}   dropped ${report.dropped.length}   skipped ${report.skipped.length}   errors ${report.errors.length}   model calls ${modelCalls}/${MODEL_CALL_BUDGET}`);
   for (const [label, list] of [['kept', report.kept], ['dropped', report.dropped], ['skipped', report.skipped], ['errors', report.errors]]) {
     if (list.length) console.log(`\n${label}:\n  ` + list.join('\n  '));
+  }
+
+  /* The failure this poll cannot see on its own; see silentSources. Offline
+     replays fixtures and has no bearing on what the sources hold, so it is
+     exempt. To land a poll where a source really has gone quiet, name it:
+       ALLOW_SILENT_SOURCES=bentway,evergreen node scrape/run.mjs */
+  let silent = [];
+  if (!OFFLINE) {
+    const before = await previousCounts();
+    if (before) {
+      const now = new Map();
+      for (const e of events) now.set(e.scrapedFrom, (now.get(e.scrapedFrom) ?? 0) + 1);
+      const allowed = new Set((process.env.ALLOW_SILENT_SOURCES || '')
+        .split(',').map((x) => x.trim()).filter(Boolean));
+      silent = silentSources(before, now, enabledSources().map((x) => x.id), allowed);
+    }
+  }
+
+  if (silent.length) {
+    console.error(`\n${silent.length} source${silent.length === 1 ? '' : 's'} went quiet:`);
+    for (const { id, had } of silent) console.error(`  ${id} — ${had} last run, none this one`);
+    console.error('\nscraped.js not written. Check the errors above — a source that was'
+      + '\nproducing and now is not usually means the poller broke, not the city.'
+      + '\nIf it really has gone quiet, name it and run again:'
+      + `\n  ALLOW_SILENT_SOURCES=${silent.map((x) => x.id).join(',')}`);
+    process.exitCode = 1;
+    return;
   }
 
   if (DRY) { console.log('\n--dry-run: scraped.js not written'); return; }
