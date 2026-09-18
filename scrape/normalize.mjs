@@ -13,7 +13,32 @@ const slug = (s) => s.toLowerCase()
    applied to the prose. Bad Dog's titles come through as "Narrative Process
    &amp; Sweet Sweet Friends", so the entity reached the card, the slug and
    the event page's URL, while the description beside it read correctly. One
-   decoder, used by every field that reaches a card. */
+   decoder, used by every field that reaches a card.
+
+   The named list alone was not enough. WordPress writes the numeric forms —
+   Grossman's Tavern lists "The Swingin&#8217; Blackjacks" and "Sat &#038;
+   Sun", and its zero-padded &#039; does not match a rule looking for &#39;.
+   So numerics are decoded by value rather than enumerated.
+
+   Decoding &lt; and &gt; here is safe, and worth saying why: nothing renders
+   these as markup. app.js puts a title on the page with textContent, and
+   build-seo escapes every field through esc() on its way into HTML. A title
+   is data all the way to the edge; this only stops the entity being printed
+   at a reader. */
+const NAMED = {
+  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'",
+  lsquo: '\u2018', rsquo: '\u2019', ldquo: '\u201C', rdquo: '\u201D',
+  ndash: '\u2013', mdash: '\u2014', hellip: '\u2026',
+  laquo: '\u00AB', raquo: '\u00BB', deg: '\u00B0',
+};
+
+/* A codepoint that is not printable is worse than the entity that named it,
+   so anything in the control ranges is left exactly as it arrived. */
+const codepoint = (n, original) => {
+  if (!Number.isInteger(n) || n < 32 || (n >= 127 && n < 160) || n > 0x10ffff) return original;
+  try { return String.fromCodePoint(n); } catch { return original; }
+};
+
 const decodeEntities = (s) => String(s)
   /* Some feeds escape their newlines twice, so the text arrives carrying a
      literal backslash-n rather than a line break. Collapsing whitespace
@@ -24,11 +49,12 @@ const decodeEntities = (s) => String(s)
      somewhere upstream. Left alone it reads as a typo in the middle of a
      sentence on the card. */
   .replace(/&?nbsp;?/g, ' ')
-  /* Before the numeric ones, so a double-encoded "&amp;#39;" lands on an
+  /* Ampersand first, so a double-encoded "&amp;#039;" gets down to an
      apostrophe rather than stopping half way. */
   .replace(/&amp;/g, '&')
-  .replace(/&#39;|&rsquo;/g, "'")
-  .replace(/&quot;|&ldquo;|&rdquo;/g, '"');
+  .replace(/&#(\d+);/g, (m, n) => codepoint(Number(n), m))
+  .replace(/&#x([0-9a-f]+);/gi, (m, n) => codepoint(parseInt(n, 16), m))
+  .replace(/&([a-z]+);/gi, (m, name) => NAMED[name.toLowerCase()] ?? m);
 
 /* A single-line field: decoded, and with the whitespace an entity may have
    just turned into a space collapsed back down. */

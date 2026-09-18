@@ -527,6 +527,26 @@ console.log('\nEntities outside the description');
     assert.equal(r.event.venue, 'Sweet & Sour Theatre');
   });
 
+  /* Every one of these was taken off a real listing page. */
+  check('WordPress numeric entities decode, zero-padded or not', () => {
+    assert.equal(read({ title: 'The Swingin&#8217; Blackjacks' }).event.title, 'The Swingin\u2019 Blackjacks');
+    assert.equal(read({ title: 'Hold &#038; Release' }).event.title, 'Hold & Release');
+    assert.equal(read({ title: 'Frieda&#039;s Longshots' }).event.title, "Frieda's Longshots");
+    assert.equal(read({ title: 'Sat &#8211; Sun' }).event.title, 'Sat \u2013 Sun');
+  });
+
+  check('a double-encoded entity gets all the way down', () => {
+    assert.equal(read({ title: 'Frieda&amp;#039;s Longshots' }).event.title, "Frieda's Longshots");
+  });
+
+  check('an entity that names nothing is left alone rather than mangled', () => {
+    assert.equal(read({ title: 'Rock &widget; Roll' }).event.title, 'Rock &widget; Roll');
+  });
+
+  check('a control codepoint is refused, not printed', () => {
+    assert.equal(read({ title: 'Jazz &#7; Night' }).event.title, 'Jazz &#7; Night');
+  });
+
   check('a half-eaten nbsp does not weld two words together', () => {
     const r = read({ title: 'Sketchnbsp;Party' });
     assert.ok(r.ok, r.why);
