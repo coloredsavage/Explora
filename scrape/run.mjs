@@ -185,13 +185,22 @@ async function apiRecords(source) {
     if (res.status === 400 && page > 1) break;
     if (!res.ok) { report.errors.push(`${paged} — HTTP ${res.status}`); break; }
 
-    let batch;
-    try { batch = await res.json(); }
+    let body;
+    try { body = await res.json(); }
     catch (err) { report.errors.push(`${paged} — not JSON: ${err.message}`); break; }
-    if (!Array.isArray(batch) || batch.length === 0) break;
 
+    /* Two shapes in the wild: WordPress core returns a bare array, The
+       Events Calendar wraps it as { events, total_pages }. A source can name
+       its own accessor if it is neither. */
+    const batch = source.api.records
+      ? source.api.records(body)
+      : (Array.isArray(body) ? body : body?.events);
+    if (!Array.isArray(batch) || batch.length === 0) break;
     out.push(...batch);
-    const total = Number(res.headers.get('x-wp-totalpages'));
+
+    /* Page count comes from the header on core and from the body on the
+       plugin; whichever answers, stop when the feed says there is no more. */
+    const total = Number(res.headers.get('x-wp-totalpages') ?? body?.total_pages);
     if (Number.isFinite(total) && total > 0 && page >= total) break;
     await new Promise((r) => setTimeout(r, 1000));
   }

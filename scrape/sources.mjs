@@ -6,7 +6,7 @@
  * source without deleting what you learned about it. */
 
 import { asIsoDate } from './normalize.mjs';
-import { stripTags, priceFrom, splitPlace, timeRange } from './api.mjs';
+import { stripTags, priceFrom, splitPlace, timeRange, fromTribe } from './api.mjs';
 
 export const SOURCES = [
   {
@@ -245,6 +245,81 @@ export const SOURCES = [
     followLinks: /^https:\/\/baddogtheatre\.com\/whats-on\/\d{4}\/\d{1,2}\/\d{1,2}\/[a-z0-9-]+$/i,
     maxFollow: 10,
     maxEvents: 8,
+  },
+  /* ------------------------------------------------------------------------
+     Music. The category had nothing in it and the calendar has had `music`
+     since the beginning, so every live listing on the board was hand-written.
+
+     All three run The Events Calendar, so all three read through fromTribe
+     and cost nothing to poll. They were picked for fitting what this
+     calendar is for — a $12 jazz set and a $20 party clear the ceiling
+     easily — rather than for being the biggest rooms in town. Resident
+     Advisor, Songkick and Bandsintown all have better coverage and all three
+     forbid this in their terms; two of them name this kind of crawler in
+     robots.txt. They are not options.
+     ------------------------------------------------------------------------ */
+  {
+    id: 'revival',
+    name: 'Revival Event Venue',
+    url: 'https://www.revivaleventvenue.ca/events/',
+    enabled: true,
+    category: 'music',
+    art: 'art-records',
+    /* Its venue object carries a full address, so these stand unused unless
+       a listing arrives without one. */
+    defaultVenue: 'Revival Event Venue',
+    defaultAddress: '783 College St, Toronto, ON M6G 1C5',
+    api: {
+      url: 'https://www.revivaleventvenue.ca/wp-json/tribe/events/v1/events?per_page=50',
+      maxPages: 2,
+      map: fromTribe,
+    },
+    maxEvents: 25,
+  },
+  {
+    id: 'emmetray',
+    name: 'The Emmet Ray',
+    url: 'https://www.theemmetray.com/events/',
+    /* Jazz most nights, $12 to $15 at the door, which is the part of the
+       city's music this calendar is actually for. */
+    enabled: true,
+    category: 'music',
+    art: 'art-records',
+    /* Its listings name the room — "Back Viewing Room" — and no street, so
+       the address has to come from here. 924 College Street is what its own
+       contact page states; nothing else on the site gives one. */
+    defaultVenue: 'The Emmet Ray',
+    defaultAddress: '924 College St, Toronto, ON',
+    api: {
+      url: 'https://www.theemmetray.com/wp-json/tribe/events/v1/events?per_page=50',
+      maxPages: 2,
+      map: fromTribe,
+    },
+    maxEvents: 25,
+  },
+  {
+    id: 'grossmans',
+    name: 'Grossman\u2019s Tavern',
+    url: 'https://grossmanstavern.com/events/',
+    enabled: true,
+    category: 'music',
+    art: 'art-records',
+    /* 377 Spadina, not 379 — its own site says so twice and a guess would
+       have put the door two buildings along. The feed sends an empty venue
+       object on every record, so this is the only address there is. */
+    defaultVenue: 'Grossman\u2019s Tavern',
+    defaultAddress: '377 Spadina Ave, Toronto, ON',
+    api: {
+      url: 'https://grossmanstavern.com/wp-json/tribe/events/v1/events?per_page=50',
+      maxPages: 2,
+      map: fromTribe,
+    },
+    /* Its cost field is empty on every listing. The room is known for free
+       and pay-what-you-can nights, and that is exactly why nothing is filled
+       in here: what the room usually does is not what tonight costs, and the
+       recheck asks the page rather than assuming. These arrive under "price
+       not listed" until it does. */
+    maxEvents: 25,
   },
   {
     id: 'akimbo',

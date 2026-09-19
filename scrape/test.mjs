@@ -10,6 +10,7 @@ import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescr
 import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { allowedBy, PRODUCT_TOKEN } from './robots.mjs';
+import { fromTribe, priceFrom, splitPlace } from './api.mjs';
 import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -783,6 +784,83 @@ console.log('\nA run that has started and has not finished');
 
   check('an end before the start is refused rather than read as a long run', () =>
     assert.equal(run('2026-09-19', '2026-09-01').ok, false));
+}
+
+console.log('\nReading The Events Calendar');
+{
+  const rec = (over) => fromTribe({
+    status: 'publish', title: 'A Show', start_date: '2026-09-19 21:30:00',
+    end_date: '2026-09-19 23:30:00', cost: '$20', url: 'https://x.test/e/1',
+    venue: { venue: 'Revival Event Venue', address: '783 College Street', city: 'Toronto' },
+    ...over,
+  });
+
+  /* Renaissance runs 21:30 to 02:30 — one night, not a two-day festival. */
+  check('a night that ends after midnight is still one night', () => {
+    const r = rec({ end_date: '2026-09-20 02:30:00' });
+    assert.equal(r.startDate, '2026-09-19');
+    assert.equal(r.endDate, null);
+    assert.equal(r.time, '9:30pm – 2:30am');
+  });
+
+  check('but a genuine two-day run keeps its end', () =>
+    assert.equal(rec({ end_date: '2026-09-20 18:00:00' }).endDate, '2026-09-20'));
+
+  check('and a long festival keeps its end too', () =>
+    assert.equal(rec({ end_date: '2026-09-27 18:00:00' }).endDate, '2026-09-27'));
+
+  check('a venue with an address is used', () => {
+    const r = rec({});
+    assert.equal(r.venue, 'Revival Event Venue');
+    assert.equal(r.address, '783 College Street, Toronto');
+  });
+
+  /* Grossman's sends this on every record; the Emmet Ray names a room. */
+  check('an empty venue object leaves the source default to stand', () => {
+    const r = rec({ venue: {} });
+    assert.equal(r.venue, null);
+    assert.equal(r.address, null);
+  });
+
+  check('a venue naming a room but no street also falls back', () =>
+    assert.equal(rec({ venue: { venue: 'Back Viewing Room' } }).venue, null));
+
+  check('an empty cost is not read as free', () =>
+    assert.equal(rec({ cost: '' }).entry, null));
+
+  check('a draft is not published', () =>
+    assert.equal(rec({ status: 'draft' }), null));
+
+  check('an event hidden from its own listings is not republished here', () =>
+    assert.equal(rec({ hide_from_listings: true }), null));
+
+  check('an all-day event carries no clock time', () =>
+    assert.equal(rec({ all_day: true }).time, null));
+
+  check('a record with no usable start is refused', () =>
+    assert.equal(rec({ start_date: '' }), null));
+}
+
+console.log('\nReading a price and a place out of a feed');
+{
+  check('free wins whatever else the line says', () =>
+    assert.equal(priceFrom('<p>Free, donations welcome ($10 suggested)</p>'), 'Free'));
+  check('pay-what-you-can is free', () =>
+    assert.equal(priceFrom('PWYC at the door'), 'Free'));
+  check('otherwise the first figure is the door price', () =>
+    assert.equal(priceFrom('<p><a href="#">$25</a></p>'), '$25'));
+  check('and no figure at all is not a price', () =>
+    assert.equal(priceFrom('<p>Tickets at the bar</p>'), null));
+
+  check('a named venue splits off the front of the address', () =>
+    assert.deepEqual(splitPlace('The Bentway Skate Trail, 250 Fort York Boulevard, Toronto, ON, Canada'),
+      { venue: 'The Bentway Skate Trail', address: '250 Fort York Boulevard, Toronto, ON, Canada' }));
+  check('a bare street line has no venue to split off', () =>
+    assert.deepEqual(splitPlace('250 Fort York Blvd, Toronto, ON'),
+      { venue: null, address: '250 Fort York Blvd, Toronto, ON' }));
+  check('a Plus Code is a grid reference, not a place', () =>
+    assert.equal(splitPlace('JJQ2+373 Toronto, Ontario, Canada'), null));
+  check('nothing at all is nothing', () => assert.equal(splitPlace(''), null));
 }
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');

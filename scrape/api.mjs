@@ -68,3 +68,71 @@ export function timeRange(start, end) {
   if (a && b) return `${a} – ${b}`;
   return a || b || null;
 }
+
+/* ------------------------------------------------- The Events Calendar */
+
+/* The WordPress plugin a great many Toronto venues run, and it exposes the
+   whole calendar at /wp-json/tribe/events/v1/events with the fields already
+   separated — title, start, end, cost, and a venue object. One shape, so one
+   reader, and each source only has to say where to find it. */
+
+const clock = (value) => {
+  const m = /\d{4}-\d{2}-\d{2}[ T](\d{2}):(\d{2})/.exec(String(value ?? ''));
+  if (!m) return null;
+  const hour = Number(m[1]);
+  const suffix = hour >= 12 ? 'pm' : 'am';
+  const h12 = hour % 12 || 12;
+  return m[2] === '00' ? `${h12}${suffix}` : `${h12}:${m[2]}${suffix}`;
+};
+
+const dayAfter = (iso) => {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + 1);
+  return d.toISOString().slice(0, 10);
+};
+
+export function fromTribe(rec) {
+  if (rec.status && rec.status !== 'publish') return null;
+  if (rec.hide_from_listings) return null;
+
+  const start = String(rec.start_date ?? '');
+  const end = String(rec.end_date ?? '');
+  const startDay = start.slice(0, 10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(startDay)) return null;
+
+  /* A club night is one night. Renaissance runs 21:30 to 02:30, so its end
+     date is the following morning — taken at face value that is a two-day
+     festival, and the card would say so. A finish in the small hours of the
+     next day belongs to the night it started. */
+  const endDay = end.slice(0, 10);
+  let range = null;
+  if (endDay && endDay > startDay) {
+    const endHour = Number(/[ T](\d{2}):/.exec(end)?.[1] ?? 99);
+    const lateNight = endDay === dayAfter(startDay) && endHour < 6;
+    if (!lateNight) range = endDay;
+  }
+
+  /* The venue object is often present but empty — Grossman's sends one with
+     nothing in it, and the Emmet Ray names a room inside the pub rather than
+     the pub. Neither can place someone on a street, so the source's own
+     defaultVenue/defaultAddress stand instead. */
+  const v = rec.venue ?? {};
+  const placed = Boolean(v.venue && (v.address || v.city));
+
+  return {
+    title: rec.title,
+    startDate: startDay,
+    endDate: range,
+    time: rec.all_day ? null : timeRange(clock(start), clock(end)),
+    venue: placed ? v.venue : null,
+    address: placed ? [v.address, v.city, v.province, v.zip].filter(Boolean).join(', ') : null,
+    url: rec.url,
+    /* The plugin's own cost field, which is the venue's own words. Left null
+       when empty rather than assumed — a venue that is usually free is not
+       the same as this night being free, and a wrong price sends someone to
+       a door with the wrong money. */
+    entry: rec.cost || null,
+    description: stripTags(rec.description),
+    via: 'api',
+  };
+}
