@@ -150,7 +150,88 @@ async function previousCounts() {
   return counts;
 }
 
+/* ------------------------------------------------------------ json sources */
+
+/* A source with an `api` block is read from its own JSON rather than from
+   its pages. No browser, no model, no follow cap — and no chance of the
+   listing page hiding half its calendar behind a month selector, which is
+   what the Bentway's was doing.
+
+   robots.txt still decides. A JSON endpoint is a URL like any other, and
+   until this run the rules that would cover one were the exact shapes
+   robots.mjs could not read. */
+async function apiRecords(source) {
+  const { url, maxPages = 1 } = source.api;
+  const fetchText = async (u) => {
+    const res = await fetch(u, { headers: { 'User-Agent': UA } });
+    return res.ok ? res.text() : null;
+  };
+
+  const robots = await allowedBy(fetchText, url);
+  if (!robots.allowed) {
+    report.skipped.push(`${url} — robots.txt disallows ${robots.rule}`);
+    return [];
+  }
+
+  const out = [];
+  for (let page = 1; page <= maxPages; page += 1) {
+    const paged = `${url}${url.includes('?') ? '&' : '?'}page=${page}`;
+    let res;
+    try { res = await fetch(paged, { headers: { 'User-Agent': UA, Accept: 'application/json' } }); }
+    catch (err) { report.errors.push(`${paged} — ${err.message}`); break; }
+
+    /* WordPress answers 400 past the last page rather than an empty array,
+       so a run out of pages is the end of the feed and not a failure. */
+    if (res.status === 400 && page > 1) break;
+    if (!res.ok) { report.errors.push(`${paged} — HTTP ${res.status}`); break; }
+
+    let batch;
+    try { batch = await res.json(); }
+    catch (err) { report.errors.push(`${paged} — not JSON: ${err.message}`); break; }
+    if (!Array.isArray(batch) || batch.length === 0) break;
+
+    out.push(...batch);
+    const total = Number(res.headers.get('x-wp-totalpages'));
+    if (Number.isFinite(total) && total > 0 && page >= total) break;
+    await new Promise((r) => setTimeout(r, 1000));
+  }
+  return out;
+}
+
+async function harvestApi(source, records) {
+  const out = [];
+  for (const rec of records) {
+    let raw;
+    try { raw = source.api.map(rec); }
+    catch (err) { report.errors.push(`${source.id} — map failed: ${err.message}`); continue; }
+    /* A map returning null has read the record and decided against it —
+       already past, no location it could print. Not worth reporting one by
+       one; the feed carries years of them. */
+    if (!raw) continue;
+
+    const result = normalize({ ...raw, url: raw.url ?? source.url }, source, { today, checked: today });
+    if (!result.ok) { report.dropped.push(`${source.id}: ${result.title} — ${result.why}`); continue; }
+
+    const problems = validate(result.event);
+    if (problems.length) { report.dropped.push(`${source.id}: ${result.event.title} — ${problems.join(', ')}`); continue; }
+
+    out.push(result.event);
+    report.kept.push(`${source.id}: ${result.event.title} (${result.event.via})`);
+  }
+  return out;
+}
+
 /* --------------------------------------------------------------- fetching */
+
+/* Offline replays a fixture for a json source the same way it does for a
+   page, so the shape of a feed is something the suite can hold still. */
+async function offlineRecords(source) {
+  try {
+    const raw = await readFile(path.join(root, 'scrape', 'fixtures', `${source.id}.api.json`), 'utf8');
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch { return []; }
+}
 
 async function offlinePages(source) {
   const dir = path.join(root, 'scrape', 'fixtures');
@@ -205,10 +286,16 @@ async function main() {
   const events = [];
   for (const source of enabledSources()) {
     try {
-      const pages = OFFLINE ? await offlinePages(source) : await livePages(source, browser);
-      if (pages.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
-
-      let found = await harvest(source, pages);
+      let found;
+      if (source.api) {
+        const records = OFFLINE ? await offlineRecords(source) : await apiRecords(source);
+        if (records.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
+        found = await harvestApi(source, records);
+      } else {
+        const pages = OFFLINE ? await offlinePages(source) : await livePages(source, browser);
+        if (pages.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
+        found = await harvest(source, pages);
+      }
       if (source.maxEvents && found.length > source.maxEvents) {
         /* soonest first, so a cap keeps what is most use */
         found.sort((a, b) => startOf(a).localeCompare(startOf(b)));

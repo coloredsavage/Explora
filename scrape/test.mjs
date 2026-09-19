@@ -744,5 +744,46 @@ console.log('\nRules robots.txt writes, and this used to wave through');
   })();
 }
 
+console.log('\nA run that has started and has not finished');
+{
+  const src = { id: 'bentway', name: 'The Bentway', category: 'architecture', art: 'art-skates',
+                defaultVenue: 'The Bentway', defaultAddress: '250 Fort York Blvd, Toronto, ON M5V 3K9' };
+  const run = (startDate, endDate, today = '2026-09-19') => normalize({
+    title: 'Public Pier', startDate, endDate,
+    venue: 'Marina Quay West', address: '539 Queens Quay West, Toronto, ON',
+  }, src, { today, checked: today });
+
+  check('yesterday to next month is on today', () => {
+    const r = run('2026-09-18', '2026-10-03');
+    assert.ok(r.ok, r.why);
+    assert.deepEqual(r.event.schedule, { kind: 'range', start: '2026-09-18', end: '2026-10-03' });
+  });
+
+  check('a run that ends today is still today', () =>
+    assert.ok(run('2026-09-01', '2026-09-19').ok));
+
+  check('a run that ended yesterday is past', () =>
+    assert.equal(run('2026-09-01', '2026-09-18').ok, false));
+
+  check('a single past day is still past', () =>
+    assert.equal(run('2026-09-18', null).ok, false));
+
+  check('a single future day is untouched', () =>
+    assert.ok(run('2026-09-25', null).ok));
+
+  /* The Bentway's Waterfront ReConnect pieces: Dec 2023 to Mar 2027. */
+  check('a three-year installation is a fixture, not an event', () => {
+    const r = run('2023-12-01', '2027-03-31');
+    assert.equal(r.ok, false);
+    assert.match(r.why, /fixture/);
+  });
+
+  check('the longest run anyone has published by hand still fits', () =>
+    assert.ok(run('2026-09-08', '2027-06-30').ok));
+
+  check('an end before the start is refused rather than read as a long run', () =>
+    assert.equal(run('2026-09-19', '2026-09-01').ok, false));
+}
+
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
 process.exitCode = failures ? 1 : 0;

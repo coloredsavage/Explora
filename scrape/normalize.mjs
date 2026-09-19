@@ -72,6 +72,19 @@ const ISO = /^\d{4}-\d{2}-\d{2}$/;
    Above this, a listing is reported as dropped rather than published. */
 const CEILING = 35;
 
+/* Counting a run in progress as current is right, and it let in something
+   that is not an event: the Bentway's "Waterfront ReConnect" pieces run from
+   December 2023 to March 2027, so they would answer "what should we do
+   today" every day for three more years and crowd out the things that only
+   happen once.
+
+   The line has to go somewhere, and the hand-written listings say where. The
+   longest run anyone has chosen to put on this board by hand is 295 days —
+   an exhibition — so a year and a bit is comfortably above every editorial
+   decision already made and comfortably below a permanent installation.
+   Above this a listing is reported as dropped, not published. */
+const LONGEST_RUN_DAYS = 400;
+
 /* The same reading as priceOf in price.js: a line starting "Free", or
    pay-what-you-can, is free whatever else it mentions, and otherwise the
    first dollar figure is the door price. */
@@ -128,6 +141,33 @@ const asDate = (v) => {
   return ISO.test(d) ? d : null;
 };
 
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july',
+  'august', 'september', 'october', 'november', 'december'];
+
+/* normalize itself only ever accepts ISO, and that strictness is the point:
+   a date it cannot read is a listing it drops rather than guesses at. But a
+   JSON API is not obliged to send ISO — the Bentway's ACF fields say
+   "September 19, 2026" — so an adapter needs somewhere to turn a written
+   date into one this file will take. Written dates only; anything ambiguous
+   between day-first and month-first is refused rather than guessed. */
+export function asIsoDate(v) {
+  if (!v) return null;
+  const s = String(v).trim();
+  if (ISO.test(s.slice(0, 10))) return s.slice(0, 10);
+
+  const m = /^([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})$/.exec(s);
+  if (!m) return null;
+  const month = MONTHS.findIndex((name) => name.startsWith(m[1].toLowerCase()));
+  if (month < 0) return null;
+  const day = Number(m[2]);
+  if (day < 1 || day > 31) return null;
+  const iso = `${m[3]}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  /* A date that does not exist — February 31 — round-trips to something
+     else through Date, so check rather than trust it. */
+  const back = new Date(`${iso}T00:00:00Z`);
+  return Number.isNaN(back.getTime()) || back.toISOString().slice(0, 10) !== iso ? null : iso;
+}
+
 /* A page title is often "The Audition — Bad Dog Theatre Company - Toronto's
    Best Improv": the event, then the site's name bolted on. Strip the tail
    only when it actually names the source, so a title that legitimately
@@ -156,7 +196,20 @@ export function normalize(raw, source, { today, checked }) {
   if (!title) return reject('no title');
   if (source.exclude && source.exclude.test(title)) return reject('excluded by this source’s filter');
   if (!start) return reject('no usable start date');
-  if (start < today) return reject(`already past (${start})`);
+  /* A run that began before today and has not finished is on today, which
+     is the question this calendar answers. Comparing the start alone threw
+     away every exhibition and every festival already under way: Public Pier
+     runs September 18th to October 3rd and was refused on the 19th for
+     having started on the 18th. What makes something past is its last day,
+     not its first.
+
+     An end before the start is nonsense rather than a long run, so it does
+     not extend anything; the gate further down rejects that outright. */
+  const lastDay = end && end >= start ? end : start;
+  if (lastDay < today) return reject(`already past (${lastDay})`);
+
+  const runDays = Math.round((Date.parse(`${lastDay}T00:00:00Z`) - Date.parse(`${start}T00:00:00Z`)) / 86400000);
+  if (runDays > LONGEST_RUN_DAYS) return reject(`runs ${runDays} days — a fixture, not an event`);
   if (!venue) return reject('no venue');
   if (PLACEHOLDER.test(venue)) return reject(`placeholder venue (${venue})`);
   if (CITY_ONLY.test(venue)) return reject(`venue is just the city (${venue})`);
