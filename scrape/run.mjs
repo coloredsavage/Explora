@@ -14,14 +14,15 @@ import { fileURLToPath } from 'node:url';
 import { enabledSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
-import { allowedBy } from './robots.mjs';
+import { allowedBy, USER_AGENT } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = new Set(process.argv.slice(2));
 const OFFLINE = argv.has('--offline');
 const DRY = argv.has('--dry-run');
 
-const UA = 'ExploraCalendarBot/1.0 (+https://github.com/coloredsavage/Explora)';
+/* One name, defined beside the rules it is matched against. */
+const UA = USER_AGENT;
 
 /* A hard stop on model calls per run, because nothing else was one. Seven
    sources with follow caps of ten to twenty is up to 121 pages, and on a bad

@@ -9,6 +9,7 @@ import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
+import { allowedBy, PRODUCT_TOKEN } from './robots.mjs';
 import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -18,9 +19,27 @@ const realSrc = await readFile(path.join(here, '..', 'data.js'), 'utf8');
 const priceSrc = await readFile(path.join(here, '..', 'price.js'), 'utf8');
 
 let failures = 0;
+const pass = (name) => console.log('  ok   ' + name);
+const fail = (name, err) => { failures++; console.log('  FAIL ' + name + '\n       ' + err.message); };
+
+/* An async fn handed to this returns a promise rather than throwing, so a
+   failed assertion inside one used to sail past the catch and print "ok".
+   Fifteen robots tests passed that way, including one asserting that false
+   equalled the string "DELIBERATELY WRONG". Refuse the promise instead of
+   swallowing it; checkAsync is the one that awaits. */
 const check = (name, fn) => {
-  try { fn(); console.log('  ok   ' + name); }
-  catch (err) { failures++; console.log('  FAIL ' + name + '\n       ' + err.message); }
+  try {
+    const out = fn();
+    if (out && typeof out.then === 'function') {
+      throw new Error('async check passed to check() — use checkAsync()');
+    }
+    pass(name);
+  } catch (err) { fail(name, err); }
+};
+
+const checkAsync = async (name, fn) => {
+  try { await fn(); pass(name); }
+  catch (err) { fail(name, err); }
 };
 
 const index = await fixture('wygo.html');
@@ -640,6 +659,89 @@ console.log('\nA source that stopped answering');
     const now = counts({});
     assert.deepEqual(silentSources(before, now, enabled), [{ id: 'bentway', had: 5 }]);
   });
+}
+
+console.log('\nRules robots.txt writes, and this used to wave through');
+{
+  /* allowedBy caches per origin, so each case needs a host of its own. */
+  let n = 0;
+  const against = (robots) => {
+    const host = `https://r${n += 1}.test`;
+    return async (u) => {
+      const r = await allowedBy(async () => robots, host + u);
+      return r.allowed;
+    };
+  };
+
+  /* Bad Dog's rule, which sources.mjs carries a comment about because the
+     code could not enforce it. The Piston and the Rex publish it too. */
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /*?format=json-pretty\n');
+    await checkAsync('a query-string rule is enforced, not ignored', async () =>
+      assert.equal(await ask('/shows/thing?format=json-pretty'), false));
+    await checkAsync('and the same page without the query is still fine', async () =>
+      assert.equal(await ask('/shows/thing'), true));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /en/events?*\n');
+    await checkAsync('Culture Days: the filtered listing is refused', async () =>
+      assert.equal(await ask('/en/events?city=toronto'), false));
+    await checkAsync('Culture Days: a detail page is allowed', async () =>
+      assert.equal(await ask('/en/events/cf5038fa-3b93-4e03-91d8-d90f52c492b9'), true));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /*.pdf$\n');
+    await checkAsync('a wildcard with an end anchor matches', async () =>
+      assert.equal(await ask('/reports/annual.pdf'), false));
+    await checkAsync('and does not match past the anchor', async () =>
+      assert.equal(await ask('/reports/annual.pdf.html'), true));
+  })();
+
+  /* The arrangement on half the WordPress sites this calendar reads. */
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n');
+    await checkAsync('Allow beats a shorter Disallow', async () =>
+      assert.equal(await ask('/wp-admin/admin-ajax.php'), true));
+    await checkAsync('the rest of the directory stays refused', async () =>
+      assert.equal(await ask('/wp-admin/options.php'), false));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow:\n');
+    await checkAsync('an empty Disallow is permission, not a rule matching everything', async () =>
+      assert.equal(await ask('/anything'), true));
+  })();
+
+  /* Culture Days again: two Disallow: / groups that are not ours. */
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /en/events?*\n\nUser-agent: GPTBot\nDisallow: /\n');
+    await checkAsync('another crawler being shut out is not our rule', async () =>
+      assert.equal(await ask('/en/events/abc'), true));
+  })();
+
+  await (async () => {
+    const ask = against(`User-agent: *\nDisallow:\n\nUser-agent: ${PRODUCT_TOKEN}\nDisallow: /\n`);
+    await checkAsync('but a group naming this crawler outranks the catch-all', async () =>
+      assert.equal(await ask('/anything'), false));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: A\nUser-agent: B\nDisallow: /x/\n\nUser-agent: *\nDisallow: /y/\n');
+    await checkAsync('consecutive user-agent lines share the group that follows', async () =>
+      assert.equal(await ask('/x/thing'), true));
+    await checkAsync('and the catch-all group is still read', async () =>
+      assert.equal(await ask('/y/thing'), false));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /wp-admin/\n');
+    await checkAsync('a plain prefix still works exactly as before', async () =>
+      assert.equal(await ask('/wp-admin/x'), false));
+    await checkAsync('and an unrelated path is untouched', async () =>
+      assert.equal(await ask('/ok/page'), true));
+  })();
 }
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');

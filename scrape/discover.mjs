@@ -18,13 +18,14 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { enabledSources, allSources } from './sources.mjs';
 import { jsonLdBlocks, readableText, candidateLinks } from './extract.mjs';
-import { allowedBy } from './robots.mjs';
+import { allowedBy, USER_AGENT } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
 const only = args.filter((a) => !a.startsWith('-'));
 const sources = args.includes('--all') ? allSources() : enabledSources();
-const UA = 'ExploraCalendarBot/1.0 (+https://github.com/coloredsavage/Explora)';
+/* One name, defined beside the rules it is matched against. */
+const UA = USER_AGENT;
 
 /* Does this JSON look like a list of events? */
 function scoreJson(value) {
