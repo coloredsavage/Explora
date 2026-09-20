@@ -132,11 +132,17 @@ const EVENTS = [
        Sterling Road, so a window that runs too long would put the park's
        address on a Monday when everyone is a kilometre away indoors.
 
-       Re-read before late October and ask the organiser directly if the site
-       still has not said. */
+       Kept deliberately rather than dropped, which is the call that was made
+       on 2026-09-20: the market is genuinely on, the day, time and venue are
+       the organiser's own, and October 26th errs early — it stops the listing
+       too soon rather than too late. `unconfirmed` below is what makes that
+       decision visible instead of buried in a comment; the schedule audit
+       prints every listing carrying one, so this comes back round for a
+       re-read rather than quietly becoming permanent. */
     url: 'https://soraurenmarket.com/',
     source: 'https://soraurenmarket.com/',
     checked: '2026-09-20',
+    unconfirmed: 'closing date — the organiser publishes no 2026 dates; Oct 26 is ours, chosen to err early',
     description: 'A Monday-evening market in Roncesvalles — dinner from a stall, eaten on the grass while the dog park fills up. Runs to October 26.',
     schedule: { kind: 'weekly', weekday: 1, from: '2026-05-04', to: '2026-10-26', time: '3–7pm', hour: 15 },
   },
@@ -500,32 +506,17 @@ const EVENTS = [
   },
 
   /* ------------------------------------------------------- architecture */
-  {
-    id: 'tsa-downtown-yonge',
-    title: 'Free architectural walking tours',
-    category: 'architecture',
-    entry: 'Free; the thematic tours are $15',
-    art: 'art-architecture',
-    venue: 'Toronto Society of Architects, Downtown Yonge',
-    address: 'Yonge St & Dundas St, Toronto, ON M5B 1R8',
-    /* Half-checked, and left that way deliberately. The society's own tours
-       page confirms the Downtown Yonge walk exists and that tours run
-       "Saturday and Sunday". It does not give an end date anywhere I could
-       read, so October 24th still rests on the NOW Toronto listing in
-       `source` and that is why the aggregator is still cited.
+  /* The architects' society's free Downtown Yonge walks were here and have
+     been removed. The tour is real — it is on their tours page, and tours run
+     "Saturday and Sunday" — but that page carries no dates at all. Not a
+     season, not a start, not the October 24th end this listing published.
+     Every date on it came from a NOW Toronto listing.
 
-       The open question is the kind this board has been getting wrong: a
-       range says the thing is on for every day between its ends, and if these
-       really are weekends only then a Tuesday in October puts a tour on the
-       board that nobody is running. Wants either a weekly schedule on the
-       society's own word, or a confirmed end date. Do not widen it until
-       then. */
-    url: 'https://torontosocietyofarchitects.ca/tours/',
-    source: 'https://nowtoronto.com/event/free-architectural-walking-tours/',
-    checked: CHECKED,
-    description: 'Architect-led walks through Downtown Yonge, free, through to October 24. The society’s nine thematic tours elsewhere in the city are $15 and run 90 to 120 minutes.',
-    schedule: { kind: 'range', start: '2026-07-12', end: '2026-10-24' },
-  },
+     A range claims the thing is on every day between its ends, so a
+     weekend-only tour published as a July-to-October range was telling
+     anyone reading on a Tuesday that they could go. Add it back when the
+     society publishes dates:
+       https://torontosocietyofarchitects.ca/tours/ */
   {
     id: 'spadina-museum',
     title: 'Spadina Museum house tour',

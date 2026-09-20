@@ -127,6 +127,30 @@ for (const { e, hits } of [...found.values()].sort((a, b) => a.e.id.localeCompar
   console.log(`     source ${e.source ?? '(none)'}`);
 }
 
+/* Listings that say so themselves. The standard on this board is that only
+   what is confirmed gets published, and once in a while a listing is kept
+   anyway because the event is plainly on and the only soft part is a date at
+   the far end of it. That is a decision someone took, not an oversight, and
+   the difference between the two is whether it comes back round. An entry
+   carrying `unconfirmed` is printed here every run until the field goes. */
+const declared = all.filter((e) => e.unconfirmed);
+if (declared.length) {
+  console.log(`\n${declared.length} listing${declared.length === 1 ? '' : 's'} carrying something not confirmed:\n`);
+  for (const e of declared) {
+    /* How long there is to settle it. A declared guess two months out is a
+       note to self; the same guess next week is something to go and check,
+       because whatever posts from this board will post it. */
+    const next = schedulesOf(e)
+      .map((sc) => endOf(sc))
+      .filter((d) => d && d >= today)
+      .sort()[0];
+    const countdown = next ? `${days(today, next)} days` : 'no date ahead';
+    console.log(`  ${e.title.trim().slice(0, 46)}   (${countdown})`);
+    console.log(`     ${e.unconfirmed}`);
+    console.log(`     last read ${e.checked ?? '(never)'} · ${e.source}`);
+  }
+}
+
 const staleScraped = all.filter((e) => e.from !== 'hand'
   && schedulesOf(e).every((s) => { const x = endOf(s); return x && x < today; })).length;
 if (staleScraped) {
