@@ -81,9 +81,15 @@ const checks = [
     && schedulesOf(e).every((s) => { const x = endOf(s); return x && x < today; }),
     'every date on this listing is in the past'],
 
+  /* Only when nobody with authority said so. Four markets here genuinely run
+     all year and each says so on its own page — the Stop's, Dufferin Grove,
+     St. Lawrence, Brick Works — so flagging a December window on its own was
+     four false positives and no signal. What is worth catching is a winter
+     claim made on an aggregator's word. */
   ['runs past its season', (e) => SEASONAL.has(e.category)
+    && AGGREGATORS.has(host(e.source))
     && schedulesOf(e).some((s) => recurs(s) && /-12-(2[5-9]|3[01])$/.test(String(s.to ?? ''))),
-    'an outdoor listing scheduled into late December'],
+    'an outdoor listing scheduled into winter on a page the organiser did not write'],
 
   /* Only where a time is a fact about the event rather than opening hours.
      An exhibition runs all day for three months and has none to give; a
