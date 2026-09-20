@@ -360,11 +360,33 @@ const EVENTS = [
     art: 'art-flea',
     venue: 'Ashbridge Estate',
     address: '1444 Queen St E, Toronto, ON M4L 1E1',
-    url: 'https://artsmarket.ca/toronto-flea/',
-    source: 'https://festmore.com/events/leslieville-flea-market-toronto-2026',
-    checked: CHECKED,
-    description: 'Formerly the Leslieville Flea. Furniture, records and mid-century everything on the lawn of a two-hundred-year-old farmhouse. Last Sunday of the season is October 4.',
-    schedule: { kind: 'weekly', weekday: 0, from: '2026-05-03', to: '2026-10-04', time: '11am–5pm', hour: 11 },
+    url: 'https://torontoflea.com/',
+    /* Was a Festmore aggregator page reading "Sundays May–October", which is
+       where the weekly schedule came from and it is wrong. The organiser's own
+       site names one remaining date — "our LAST market of the season on Sunday
+       October 4th" — and Arts Market names the opener, Sunday May 3rd. Between
+       them, nothing. A weekly listing put this on the board every Sunday since
+       May, and on the 13th and the 20th of September it sent people to a
+       market that was not on.
+
+       Left as the single date the organiser states, rather than re-guessed as
+       monthly. Neither its site nor Arts Market gives a frequency or a date
+       list at all — torontoflea.com says only "FOLLOW US ON INSTAGRAM FOR
+       DAILY UPDATES" — and Instagram blocks scrapers, so there is no primary
+       source for a recurrence to cite. May 3rd and October 4th are both first
+       Sundays, which is suggestive; 2021 ran September 12th and October 3rd,
+       which is a second Sunday and a first, and is not. Guessing a rule from
+       two points is what put it here.
+
+       For the rest of this season the question is moot: the next first Sunday
+       is October 4th either way. If the Instagram dates confirm a monthly
+       pattern, this becomes
+         { kind: 'nth', weekday: 0, nth: 1, from, to, time: '11am–5pm', hour: 11 }
+       which the board already supports — Pedestrian Sundays uses nth: -1. */
+    source: 'https://torontoflea.com/',
+    checked: '2026-09-20',
+    description: 'Formerly the Leslieville Flea. Furniture, records and mid-century everything on the lawn of a two-hundred-year-old farmhouse. The organiser calls this the last market of the season.',
+    schedule: { kind: 'day', date: '2026-10-04', time: '11am–5pm', hour: 11 },
   },
   {
     id: 'kensington-pedestrian-sundays',
