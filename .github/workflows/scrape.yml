@@ -101,6 +101,18 @@ jobs:
         continue-on-error: true
         run: node scripts/audit-descriptions.mjs
 
+      # Every schedule on the board, checked against the ways one has been
+      # wrong. The Toronto Flea was listed as a weekly Sunday market because
+      # its source was an aggregator summarising a season as "Sundays
+      # May-October"; the organiser runs it a handful of times. It showed on
+      # twenty-seven Sundays and the social pipeline posted two of them.
+      # A repeating schedule is a claim about every date it generates, and
+      # something downstream posts all of them. Never fails the job.
+      - name: Read over the schedules
+        if: ${{ !(inputs.discover || github.ref_name == 'run-discover') && !startsWith(github.ref_name, 'show/') }}
+        continue-on-error: true
+        run: node scripts/audit-schedules.mjs
+
       # Street festivals and block parties the board does not have, read out
       # of the City's noise exemption permits — the one City feed that is not
       # behind the Akamai block on secure.toronto.ca. Printed for a person to
