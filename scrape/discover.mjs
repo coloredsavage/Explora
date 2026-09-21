@@ -17,7 +17,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import { enabledSources, allSources } from './sources.mjs';
-import { jsonLdBlocks, readableText, candidateLinks } from './extract.mjs';
+import { jsonLdBlocks, readableText, candidateLinks, fromJsonLd } from './extract.mjs';
 import { allowedBy, USER_AGENT } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -26,6 +26,7 @@ const only = args.filter((a) => !a.startsWith('-'));
 const sources = args.includes('--all') ? allSources() : enabledSources();
 /* One name, defined beside the rules it is matched against. */
 const UA = USER_AGENT;
+const today = new Date().toISOString().slice(0, 10);
 
 /* Does this JSON look like a list of events? */
 function scoreJson(value) {
@@ -80,6 +81,18 @@ for (const source of sources) {
     report.status = res ? res.status() : null;
     const html = await page.content();
 
+    /* Structure is only half of whether a source is worth having. The other
+       half is whether anything it says is still true — see the freshness
+       block below. */
+    const dates = [];
+    const collect = (markup) => {
+      for (const e of fromJsonLd(markup)) {
+        const d = String(e.startDate ?? '').slice(0, 10);
+        if (/^\d{4}-\d{2}-\d{2}$/.test(d)) dates.push(d);
+      }
+    };
+    collect(html);
+
     const ld = jsonLdBlocks(html);
     report.jsonLd = {
       blocks: ld.length,
@@ -100,6 +113,7 @@ for (const source of sources) {
       try {
         const r = await page.goto(link, { waitUntil: 'networkidle', timeout: 45000 });
         const sub = await page.content();
+        collect(sub);
         const subLd = jsonLdBlocks(sub);
         report.samples.push({
           url: link,
@@ -112,6 +126,7 @@ for (const source of sources) {
       }
     }
 
+    report.dates = dates;
     report.textSample = readableText(html, 600);
     report.blocked = /just a moment|checking your browser|cf-chl|access denied/i.test(html)
       || (report.status !== null && report.status >= 400);
@@ -122,11 +137,30 @@ for (const source of sources) {
 
   const sampleEvents = (report.samples ?? []).reduce((n, s) => n + (s.events ?? 0), 0);
 
+  /* The Paradise Theatre trap, which the handover describes and nothing here
+     could see. paradiseonbloor.com serves real ScreeningEvent JSON-LD with
+     offers and prices — the ideal fast-path source by every structural
+     measure — and the nodes on its homepage were dated eighteen months in the
+     past. normalize would drop every one as already past and the source would
+     yield nothing, after discovery had called it perfect.
+
+     A source is only worth enabling if it is both relevant and current, and
+     currency is a fact about its dates rather than its markup. */
+  const seen = (report.dates ?? []).slice().sort();
+  const ahead = seen.filter((d) => d >= today);
+  report.freshness = seen.length
+    ? { events: seen.length, upcoming: ahead.length, oldest: seen[0], newest: seen[seen.length - 1] }
+    : null;
+
+  const staleFeed = seen.length > 0 && ahead.length === 0;
+
   const verdict = report.error ? `could not load — ${report.error}`
     : report.robots && !report.robots.allowed ? `robots.txt disallows ${report.robots.rule} — the poller will skip this`
     : report.status === 404 ? 'HTTP 404 — the URL is wrong or the page moved, not a refusal'
     : report.status !== null && report.status >= 400 ? `HTTP ${report.status} to a headless browser — refusing automated access`
     : report.blocked ? 'looks like a bot challenge — this is the case a VPS might fix'
+    : staleFeed ? `STALE — ${seen.length} events marked up and not one in the future, newest ${seen[seen.length - 1]}. `
+      + 'The markup is fine and the calendar behind it is not; every listing would be dropped as already past'
     : report.jsonLd?.events > 0 ? `JSON-LD on the index, ${report.jsonLd.events} events — free and exact, no key needed`
     : sampleEvents > 0 ? `JSON-LD on the event pages (${sampleEvents} in ${report.samples.length} sampled) — free and exact, no key needed`
     : report.jsonApis?.length ? `a JSON API at ${report.jsonApis[0].url} — free, write a small adapter`
@@ -142,6 +176,9 @@ for (const source of sources) {
     console.log(`  sampled    ${smp.url}`);
     console.log(`             ${smp.error ? 'error: ' + smp.error : `HTTP ${smp.status}, ${smp.events} events, types: ${smp.types.join(', ') || 'none'}`}`);
   }
+  console.log(`  freshness  ${report.freshness
+    ? `${report.freshness.upcoming} of ${report.freshness.events} dated events still ahead (${report.freshness.oldest} … ${report.freshness.newest})`
+    : 'no dated events found to judge'}`);
   console.log(`  json apis  ${report.jsonApis?.length ? report.jsonApis.map((a) => `${a.url} (${a.rows} rows)`).join('\n             ') : 'none that look like events'}`);
   console.log(`  verdict    ${verdict}`);
 

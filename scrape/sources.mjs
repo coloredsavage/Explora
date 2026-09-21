@@ -3,7 +3,31 @@
  * Adding a source is meant to be a few lines here. `category` and `art` decide
  * how its events appear; `defaultVenue`/`defaultAddress` fill the gaps for
  * sites that only give a venue name in prose. Set `enabled: false` to park a
- * source without deleting what you learned about it. */
+ * source without deleting what you learned about it.
+ *
+ * Two questions before adding one, and they are not the same question.
+ *
+ * Is it RELEVANT — does whoever wrote the page run the thing it describes?
+ * An aggregator is not a schedule. It summarises somebody else's calendar,
+ * and a summary drops the exceptions: "Sundays, May to October" is a fair
+ * description of a market that happens on four of those Sundays. Every
+ * listing that has had to be pulled off this board was on the strength of a
+ * page its organiser did not write — a Festmore round-up put the Toronto
+ * Flea on twenty-seven Sundays, a BIA page kept a museum class alive two
+ * years after it was discontinued, and an aggregator had Pedestrian Sundays
+ * running in a year nobody has said it runs.
+ *
+ * Is it CURRENT — is anything it says still true? This is a fact about its
+ * dates, not its markup, and the two come apart more often than you would
+ * think. The parked `paradise` entry below is the case to remember: perfect
+ * ScreeningEvent JSON-LD with prices, and every date on it months in the
+ * past. discover.mjs prints a freshness line and will say STALE outright
+ * when a source has dated events and none of them are ahead. Read that line
+ * before enabling anything, because the structural verdict above it will
+ * happily call such a source ideal.
+ *
+ * A source that fails either one does not get enabled. Park it with what you
+ * learned, which is what the parked entries here are. */
 
 import { asIsoDate } from './normalize.mjs';
 import { stripTags, priceFrom, splitPlace, timeRange, fromTribe } from './api.mjs';
@@ -320,6 +344,31 @@ export const SOURCES = [
        recheck asks the page rather than assuming. These arrive under "price
        not listed" until it does. */
     maxEvents: 25,
+  },
+  {
+    id: 'paradise',
+    name: 'Paradise Theatre',
+    url: 'https://paradiseonbloor.com/',
+    /* Parked, and worth keeping parked in writing because it is the most
+       convincing bad source anyone has found here. It serves real
+       ScreeningEvent JSON-LD with offers and prices — by every structural
+       measure the ideal fast path, no model needed — and the nodes on its
+       homepage were dated 2025-02-17 when it was probed, eighteen months
+       stale. Every listing would be dropped as already past and the source
+       would quietly yield nothing.
+
+       This is the source discovery's freshness line was written for. Run
+       `node scrape/discover.mjs --all paradise` before ever enabling it: if
+       it still reports nothing ahead, the markup is fine and the calendar
+       behind it is not. */
+    enabled: false,
+    category: 'film',
+    art: 'art-filmreel',
+    defaultVenue: 'Paradise Theatre',
+    defaultAddress: '1006 Bloor St W, Toronto, ON M6H 1M2',
+    followLinks: /^https:\/\/paradiseonbloor\.com\/event\/[a-z0-9-]+\/?$/i,
+    maxFollow: 12,
+    maxEvents: 10,
   },
   {
     id: 'akimbo',
