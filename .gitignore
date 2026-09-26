@@ -12,3 +12,6 @@ scrape/discovery/
 /event/
 /*-in-toronto/
 /things-to-do-in-toronto-this-weekend/
+
+# Written by scripts/art-sheet.mjs for reviewing the illustration set.
+/_art-sheet.html
