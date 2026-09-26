@@ -322,11 +322,22 @@ export function disambiguateIds(events) {
    considered: parking one in sources.mjs is a decision already taken and
    should not fail the next run. `allowed` is the override for a source that
    really has gone quiet. */
+/* A source has to have been producing something before its silence means
+   anything. The library yields one or two events on a good day and often
+   none — its branch addresses vary, so it carries no default and an event
+   that does not name its branch is dropped, which is most of them. Going
+   from one to zero is noise, and a guard that stops a poll of 190 events
+   over it is a guard people will learn to override without reading.
+
+   Three is where a source stops being incidental. The collapse this was
+   written for was five, six and nine going to nothing at once. */
+const A_REAL_BASELINE = 3;
+
 export function silentSources(before, now, enabled, allowed = new Set()) {
   const out = [];
   for (const id of enabled) {
     const had = before.get(id) ?? 0;
-    if (had > 0 && !(now.get(id) > 0) && !allowed.has(id)) out.push({ id, had });
+    if (had >= A_REAL_BASELINE && !(now.get(id) > 0) && !allowed.has(id)) out.push({ id, had });
   }
   return out;
 }

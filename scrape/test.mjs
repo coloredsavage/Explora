@@ -637,6 +637,20 @@ console.log('\nA source that stopped answering');
     assert.deepEqual(silentSources(before, now, enabled), []);
   });
 
+  check('one event going to none is noise, not a collapse', () => {
+    /* The library, on the first poll after the extractor was fixed: it had
+       one event, produced none, and stopped a run that kept 190. */
+    const before = counts({ baddog: 8, tpl: 1 });
+    const now = counts({ baddog: 8 });
+    assert.deepEqual(silentSources(before, now, enabled), []);
+  });
+
+  check('but three going to none still is', () => {
+    const before = counts({ baddog: 8, tpl: 3 });
+    const now = counts({ baddog: 8 });
+    assert.deepEqual(ids(silentSources(before, now, enabled)), ['tpl']);
+  });
+
   check('a source that found nothing last time either is not the alarm', () => {
     const before = counts({ baddog: 8 });
     const now = counts({ baddog: 8 });
