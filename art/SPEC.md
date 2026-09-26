@@ -53,28 +53,35 @@ being the story. The museum is one symmetrical mass with a hard horizontal
 edge, so there is nothing to look at except the gap. Treat anything past −8 as
 a drawing to open, not a drawing to reject.
 
-### 2. Detail is the thing, not simplicity
+### 2. Detail in proportion to the subject
 
-The instinct with flat vector is to reduce. The measurements say the opposite.
+The first version of this rule said more detail is better, on the strength of
+the best drawings carrying twelve to fourteen distinct fills against a median
+of six. The correlation is real and the conclusion was wrong.
 
-| | distinct fills |
-|---|---|
-| `art-streetcar` | 14 |
-| `art-market` | 13 |
-| `art-architecture` | 12 |
-| median across all 34 | 6 |
-| `art-bicycle` | 2 |
-| `art-fossil` | 3 |
-| `art-jar` | 3 |
+A streetcar has fourteen fills because a streetcar *has* windows, a trolley
+pole, a destination board, a skirt and wheels. The detail is earned by the
+object. A microphone is a simpler thing in the world, and drawing it with
+fourteen tones would not make it better — it would make it fussy, and fussy is
+its own failure. The market basket earns thirteen; a jar of preserves does not
+need thirteen and should not be given them.
 
-The drawings that read well carry ten to fourteen distinct fills: a body tone, a
-shaded plane, a highlight, trim, and two or three small pieces of specific
-detail — the streetcar's pole and destination board, the market's crates and
-individual fruit. The weak ones are one silhouette in two tones, and a
-silhouette in two tones is a pictogram, not an illustration.
+So the question is not how many, it is whether the drawing has as many pieces
+as the thing it depicts. Both directions are faults:
 
-**Aim for 8 to 14 distinct fills.** If a drawing is under six, it is probably
-under-drawn rather than elegant.
+- **Under-drawn** — a complex object flattened to a silhouette in two tones.
+  `art-neon` was a rectangle and an arc standing in for a lit sign.
+  `art-bicycle` is one fill for a machine made of tubes, wheels and a chain.
+- **Over-drawn** — a simple object given planes, trim and highlights it does
+  not have, so it reads as decorated rather than depicted.
+
+**Two to three fills is a floor worth questioning, not a target to beat.** Below
+about four, a drawing is almost certainly a pictogram whatever its subject. Above
+that, the count says nothing on its own and the tool reports it without judging.
+
+The honest test is the same one as for everything else here: put it on the
+sheet next to the others. A drawing that is too plain looks unfinished in
+company, and one that is too busy looks loud. Neither is a number.
 
 ### 3. Centred, and the frame is 260 × 200
 
@@ -134,6 +141,34 @@ thing.
 Draw the object someone would actually see: a brick-lit club sign, a boot with a
 blade. If a stranger cannot name it in a second with the label covered, it has
 failed, however well it is drawn.
+
+## What this method can and cannot draw
+
+Worth recording, because three attempts were wasted finding out.
+
+These symbols get written as SVG path data by hand, without a vector editor
+and without seeing the shape until it renders. That works for **rectilinear
+subjects** — the marquee sign is boxes, a post and a row of circles; the
+museum is a pediment, four columns and three steps. Every coordinate can be
+reasoned about and checked by arithmetic before it is drawn.
+
+It does not work for **organic silhouettes**. `art-skates` was attempted three
+times — front-on, then in profile with curves, then in profile from explicit
+points — and every version measured correctly (gap −2, nine fills, centred)
+and still read as a bench, then a parcel, then a boot on a ramp. A skate boot
+is a compound curve, and a compound curve guessed at blind fails in a way no
+measurement catches.
+
+The ones still in the queue split the same way:
+
+| rectilinear, drawable here | organic, needs an editor |
+|---|---|
+| `art-filmreel`, `art-books`, `art-tent` | `art-skates`, `art-ravine`, `art-shoe` |
+| `art-jar`, `art-records` | `art-gramophone`, `art-fossil` |
+
+For the right-hand column, trace over a reference in a vector tool and paste
+the path in. That is not a failure of the spec — the spec still says what the
+result has to satisfy — it is a different instrument for a different shape.
 
 ## Checking a drawing
 

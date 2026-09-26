@@ -118,7 +118,13 @@ const rows = symbols.map(({ id, body }) => {
   const faults = [];
   if (gap != null && gap < -8) faults.push(`floats (${gap})`);
   if (m && Math.abs(m.cx - 130) > 3) faults.push(`off-centre (${m.cx})`);
-  if (fills.size < 6) faults.push(`thin (${fills.size} fills)`);
+  /* A floor, not a target. Fill count cannot tell a simple subject from an
+     under-drawn one — a microphone is genuinely simpler than a streetcar — so
+     below four is called out as almost certainly a pictogram and everything
+     above it is reported without a verdict. See SPEC.md §2; the first version
+     of this flagged anything under six and told you to beat the number, which
+     is how you get a fussy jar. */
+  if (fills.size < 4) faults.push(`flat (${fills.size} fills)`);
   if (m && m.groundCy == null) faults.push('no ground');
   return { id, cx: m ? m.cx : null, gap, fills: fills.size, uses: counts.get(id) ?? 0, faults };
 });
