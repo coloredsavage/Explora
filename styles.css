@@ -660,11 +660,14 @@ img.card__art { border-radius: 8px; }
   border-radius: 999px;
   background: var(--s-books);
   color: var(--ink-soft);
-  font-size: 9px;
+  /* Sentence case. The letter-spacing and the very small size were both
+     propping up all-caps, which does not need the help here — set plainly it
+     can sit a point larger and still read as the quietest thing on the
+     card. */
+  font-size: 10px;
   font-weight: 600;
   line-height: 14px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.01em;
   white-space: nowrap;
   vertical-align: 1px;
 }
