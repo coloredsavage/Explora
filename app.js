@@ -262,6 +262,96 @@
     return symbolFor(event);
   }
 
+  /* The same shape as the close and filter icons: 24-grid, currentColor,
+     1.6 stroke. Built here rather than written into index.html because the
+     code line only exists for listings that carry an offer. */
+  function icon(paths, filled) {
+    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < paths.length; i++) {
+      var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', paths[i]);
+      /* Stroked at button size, filled at pill size. A 1.6 stroke on an
+         eleven-pixel glyph closes up into a smudge; a solid shape holds. */
+      if (filled) {
+        path.setAttribute('fill', 'currentColor');
+      } else {
+        path.setAttribute('fill', 'none');
+        path.setAttribute('stroke', 'currentColor');
+        path.setAttribute('stroke-width', '1.6');
+        path.setAttribute('stroke-linecap', 'round');
+        path.setAttribute('stroke-linejoin', 'round');
+      }
+      svg.appendChild(path);
+    }
+    return svg;
+  }
+
+  /* A paper plane, because the thing the tag records is that somebody sent
+     this to us. Filled rather than drawn, for the reason above. */
+  var ICON_SENT = ['M2 21l21-9L2 3v7l15 2-15 2z'];
+
+  var ICON_COPY = ['M11 9h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2z',
+                   'M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3'];
+  var ICON_DONE = ['M5 12.5l4.5 4.5L19 7'];
+
+  /* A promo code is meant to be typed into someone else's checkout, and
+     selecting nine characters of small grey text on a phone is the kind of
+     friction that means nobody uses it. So: the code in a box with a button
+     beside it.
+
+     The button never claims success it did not have. Clipboard access can be
+     refused outright — an insecure origin, a browser that will not do it
+     without a gesture it recognises — and in that case the code is selected
+     instead, so the reader can copy it the ordinary way. Saying "Copied"
+     when nothing was copied is worse than not offering the button. */
+  function codeBox(offer) {
+    var wrap = el('span', 'code-box');
+    var text = el('code', 'code-box__code', offer.code);
+    wrap.appendChild(text);
+
+    var btn = el('button', 'code-box__copy');
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Copy code ' + offer.code);
+    btn.appendChild(icon(ICON_COPY));
+    wrap.appendChild(btn);
+
+    var revert;
+    function show(state, label) {
+      btn.textContent = '';
+      btn.appendChild(icon(state === 'done' ? ICON_DONE : ICON_COPY));
+      btn.className = 'code-box__copy' + (state === 'done' ? ' is-done' : '');
+      btn.setAttribute('aria-label', label);
+      clearTimeout(revert);
+      if (state === 'done') {
+        revert = setTimeout(function () { show('idle', 'Copy code ' + offer.code); }, 1600);
+      }
+    }
+
+    function selectInstead() {
+      try {
+        var range = document.createRange();
+        range.selectNodeContents(text);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      } catch (err) { /* nothing left to offer */ }
+    }
+
+    btn.addEventListener('click', function () {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(offer.code).then(function () {
+          show('done', 'Code copied');
+        }, function () { selectInstead(); });
+      } else {
+        selectInstead();
+      }
+    });
+
+    return wrap;
+  }
+
   function symbolFor(event) {
     var id = event.art || CATEGORIES[event.category].art;
     var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -299,7 +389,12 @@
   function titleWith(tag, cls, ev) {
     var h = el(tag, cls, ev.title);
     var how = partnerOf(ev);
-    if (how) h.appendChild(el('span', 'tag', how));
+    if (how) {
+      var pill = el('span', 'tag');
+      pill.appendChild(icon(ICON_SENT, true));
+      pill.appendChild(el('span', '', how));
+      h.appendChild(pill);
+    }
     return h;
   }
 
@@ -474,7 +569,12 @@
     var mTitle = document.getElementById('modal-title');
     mTitle.textContent = ev.title;
     var mHow = partnerOf(ev);
-    if (mHow) mTitle.appendChild(el('span', 'tag', mHow));
+    if (mHow) {
+      var mPill = el('span', 'tag');
+      mPill.appendChild(icon(ICON_SENT, true));
+      mPill.appendChild(el('span', '', mHow));
+      mTitle.appendChild(mPill);
+    }
 
     var art = document.getElementById('modal-art');
     art.textContent = '';
@@ -507,11 +607,13 @@
        applies to. Built rather than assigned so the code itself can be set
        apart from the sentence around it. */
     if (ev.offer && ev.offer.code) {
+      /* Spans rather than bare text nodes: the line is a flex row so the box
+         and the words either side of it centre on each other, and a loose
+         text node in a flex container cannot be aligned or spaced. */
       var line = el('span', 'modal__code');
-      line.appendChild(document.createTextNode('Use code '));
-      line.appendChild(el('code', '', ev.offer.code));
-      line.appendChild(document.createTextNode(
-        ev.offer.off ? ' for ' + ev.offer.off : ''));
+      line.appendChild(el('span', '', 'Use code'));
+      line.appendChild(codeBox(ev.offer));
+      if (ev.offer.off) line.appendChild(el('span', '', 'for ' + ev.offer.off));
       entry.appendChild(line);
       entry.hidden = entryLabel.hidden = false;
     }

@@ -646,15 +646,17 @@ img.card__art { border-radius: 8px; }
 
    So: a pastel fill from the same family as everything else here, and the
    definition carried by a stroke rather than by contrast. The stroke is
-   thick enough to hold its shape at this size and held well under full
-   opacity so it reads as an outline and not as a border. The label is set
+   thick enough to hold its shape at this size and held at seven percent, so
+   it reads as an edge rather than as a border. The label is set
    smaller than any other text on the card, because it is the least important
    thing on it and only has to be findable, not first. */
 .tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   margin-left: 8px;
-  padding: 1px 7px;
-  border: 2px solid rgba(25, 25, 25, 0.14);
+  padding: 2px 8px 2px 6px;
+  border: 2px solid rgba(25, 25, 25, 0.07);
   border-radius: 999px;
   background: var(--s-books);
   color: var(--ink-soft);
@@ -664,25 +666,61 @@ img.card__art { border-radius: 8px; }
   letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
-  vertical-align: 2px;
+  vertical-align: 1px;
 }
+.tag svg { width: 11px; height: 11px; flex: none; opacity: 0.55; }
 
 /* The organiser's own code, under what it costs, because that is the moment
    it is useful. Not part of `entry`: that line is what the door costs, and a
    code is a way to pay less than it. */
 .modal__code {
-  display: block;
-  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-top: 6px;
   font-size: 13px;
   line-height: 1.5;
   color: var(--ink-soft);
 }
-.modal__code code {
+/* A promo code is meant to be typed into someone else's checkout, and
+   selecting nine characters of small grey text on a phone is the friction
+   that means nobody uses it. Boxed, with the button sharing the box so the
+   two read as one control rather than as a word and an afterthought. */
+.code-box {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--paper);
+  overflow: hidden;
+}
+.code-box__code {
+  padding: 3px 8px;
   font: inherit;
   font-weight: 600;
   letter-spacing: 0.03em;
   color: var(--ink);
+  user-select: all;
 }
+.code-box__copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.code-box__copy svg { width: 15px; height: 15px; display: block; }
+.code-box__copy:hover { background: var(--s-books); color: var(--ink); }
+.code-box__copy:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+/* Green only while it is true — it reverts to the copy icon after a moment,
+   so the tick is never left standing as a claim about a stale action. */
+.code-box__copy.is-done { color: #3f7d55; }
 
 .modal__caveat {
   margin: 24px 0 0;
