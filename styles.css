@@ -305,6 +305,17 @@ svg.about__art { width: 340px; height: auto; }
 
 .card__title {
   margin: 0;
+  /* A flex row so the tag wraps to the left edge under the title rather than
+     carrying an indent with it. It used to sit inline with margin-left: 8px,
+     which is right while it fits on the line and wrong the moment it does
+     not — the margin stays put and the tag lands eight pixels in from
+     everything above it. The row gap is what gives it air when it wraps; the
+     column gap is the old margin, applied only when it is actually beside
+     something. */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 8px;
   font-size: 15px;
   font-weight: 500;
   line-height: 22px;
@@ -611,6 +622,10 @@ img.card__art { border-radius: 8px; }
 
 .modal__title {
   margin: 0 60px 26px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 8px;
   font-size: 17px;
   font-weight: 500;
   line-height: 1.35;
@@ -654,7 +669,6 @@ img.card__art { border-radius: 8px; }
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-left: 8px;
   padding: 2px 8px 2px 6px;
   border: 2px solid rgba(25, 25, 25, 0.07);
   border-radius: 999px;
@@ -669,7 +683,9 @@ img.card__art { border-radius: 8px; }
   line-height: 14px;
   letter-spacing: 0.01em;
   white-space: nowrap;
-  vertical-align: 1px;
+  /* The card underlines its title on hover and text-decoration reaches into
+     every descendant, tag included. */
+  text-decoration: none;
 }
 .tag svg { width: 11px; height: 11px; flex: none; opacity: 0.55; }
 
