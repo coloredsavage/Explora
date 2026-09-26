@@ -636,38 +636,52 @@ img.card__art { border-radius: 8px; }
 }
 .link:hover { border-bottom-color: var(--ink); }
 
-/* How a listing got here, when it was not simply found. Deliberately quiet —
-   it is a disclosure, not a badge of honour, and it should not compete with
-   the title it sits under. Same ink as the soft text, a hairline border
-   rather than a fill, so it reads as a note and not as a sticker. */
-.card__tag {
+/* How a listing got here, when it was not simply found.
+
+   Two versions of this were wrong before this one. Soft ink inside a hairline
+   vanished into the card, which is the wrong failure for a disclosure. Solid
+   ink shouted louder than the event it was labelling, which is the other
+   wrong failure — it made a note about provenance the loudest thing on a card
+   about a night out.
+
+   So: a pastel fill from the same family as everything else here, and the
+   definition carried by a stroke rather than by contrast. The stroke is
+   thick enough to hold its shape at this size and held well under full
+   opacity so it reads as an outline and not as a border. The label is set
+   smaller than any other text on the card, because it is the least important
+   thing on it and only has to be findable, not first. */
+.tag {
   display: inline-block;
-  margin: 2px 0 0;
+  margin-left: 8px;
   padding: 1px 7px;
-  border: 1px solid var(--line);
+  border: 2px solid rgba(25, 25, 25, 0.14);
   border-radius: 999px;
-  font-size: 11px;
-  font-weight: 500;
-  line-height: 16px;
-  letter-spacing: 0.02em;
+  background: var(--s-books);
   color: var(--ink-soft);
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: 2px;
 }
 
-.modal__note {
-  margin: 16px 0 0;
-  font-size: 14px;
+/* The organiser's own code, under what it costs, because that is the moment
+   it is useful. Not part of `entry`: that line is what the door costs, and a
+   code is a way to pay less than it. */
+.modal__code {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
   line-height: 1.5;
   color: var(--ink-soft);
 }
-.modal__note-tag {
-  display: inline-block;
-  padding: 1px 7px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--ink-soft);
+.modal__code code {
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--ink);
 }
 
 .modal__caveat {

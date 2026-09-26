@@ -289,24 +289,19 @@
 
      Only `submitted` is in use. The other two are here so that adding them
      later is a data change and not a rewrite. */
-  var PARTNER = {
-    submitted: {
-      pill: 'Submitted',
-      note: 'The organiser sent us this one. It was checked and listed on the '
-        + 'same terms as everything else here, and no money changed hands.'
-    },
-    sponsored: {
-      pill: 'Sponsored',
-      note: 'Paid placement. It still had to clear the same bar as everything '
-        + 'else here — payment buys a place on the board, not an exception to it.'
-    },
-    affiliate: {
-      pill: 'Affiliate',
-      note: 'We may earn something if you buy through this link.'
-    }
-  };
+  var PARTNER = { submitted: 'Submitted', sponsored: 'Sponsored', affiliate: 'Affiliate' };
 
   function partnerOf(ev) { return (ev && ev.partner && PARTNER[ev.partner]) || null; }
+
+  /* The pill goes inside the heading so it sits on the same line as the name
+     it qualifies, and wraps with it rather than drifting onto a line of its
+     own. */
+  function titleWith(tag, cls, ev) {
+    var h = el(tag, cls, ev.title);
+    var how = partnerOf(ev);
+    if (how) h.appendChild(el('span', 'tag', how));
+    return h;
+  }
 
   function cardFor(occ, win) {
     var ev = occ.event;
@@ -321,10 +316,7 @@
     btn.dataset.time = occ.time || '';
     btn.dataset.price = priceOf(ev);
 
-    btn.appendChild(el('h3', 'card__title', ev.title));
-
-    var how = partnerOf(ev);
-    if (how) btn.appendChild(el('span', 'card__tag', how.pill));
+    btn.appendChild(titleWith('h3', 'card__title', ev));
 
     /* the visible dates are clipped to this column's window */
     var from = max(occ.start, win.from);
@@ -477,7 +469,12 @@
     if (onDay) occ = onDay;
     if (!occ) return;
 
-    document.getElementById('modal-title').textContent = ev.title;
+    /* textContent would wipe the pill, so the heading is rebuilt rather than
+       assigned into. */
+    var mTitle = document.getElementById('modal-title');
+    mTitle.textContent = ev.title;
+    var mHow = partnerOf(ev);
+    if (mHow) mTitle.appendChild(el('span', 'tag', mHow));
 
     var art = document.getElementById('modal-art');
     art.textContent = '';
@@ -506,18 +503,23 @@
     entry.textContent = ev.entry || '';
     entry.hidden = entryLabel.hidden = !ev.entry;
 
+    /* A code the organiser gave us for readers, shown under the price it
+       applies to. Built rather than assigned so the code itself can be set
+       apart from the sentence around it. */
+    if (ev.offer && ev.offer.code) {
+      var line = el('span', 'modal__code');
+      line.appendChild(document.createTextNode('Use code '));
+      line.appendChild(el('code', '', ev.offer.code));
+      line.appendChild(document.createTextNode(
+        ev.offer.off ? ' for ' + ev.offer.off : ''));
+      entry.appendChild(line);
+      entry.hidden = entryLabel.hidden = false;
+    }
+
     var caveat = document.getElementById('modal-caveat');
     caveat.textContent = ev.unconfirmed || '';
     caveat.hidden = !ev.unconfirmed;
 
-    /* Said in full here rather than left to a one-word pill. A pill is a
-       flag; this is the sentence that makes it honest. */
-    var how2 = partnerOf(ev);
-    var note = document.getElementById('modal-note');
-    var noteTag = document.getElementById('modal-note-tag');
-    noteTag.textContent = how2 ? how2.pill : '';
-    note.lastChild.textContent = how2 ? ' ' + how2.note : '';
-    note.hidden = !how2;
 
     lastFocus = document.activeElement;
     scrim.hidden = false;

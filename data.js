@@ -535,6 +535,10 @@ const EVENTS = [
        a one-word pill. When something here is genuinely paid for, the value
        becomes 'sponsored' and the sentence changes with it. */
     partner: 'submitted',
+    /* Their code, kept out of `entry` on purpose. That line is what the door
+       costs and has to stay readable as a price; this is a way to pay less
+       than it, which is a different thing and belongs under it. */
+    offer: { code: 'xoxogossipgirl', off: '15% off' },
     description: 'A pop-culture podcast records its fifth-anniversary episode in front of a room, with games and a book club announcement. Book Bar does coffee, cake and cocktails and is new to Mirvish Village.',
     schedule: { kind: 'day', date: '2026-09-30', time: '7–9pm', hour: 19 },
   },
