@@ -505,6 +505,34 @@ const EVENTS = [
     schedule: { kind: 'range', start: '2026-10-28', end: '2026-11-01' },
   },
 
+  /* -------------------------------------------------------------- stage */
+  {
+    id: 'reheat-live',
+    title: 'The Reheat Podcast: Live!',
+    category: 'stage',
+    entry: '$19.70',
+    art: 'art-lamp',
+    venue: 'Book Bar',
+    address: '600 Markham St, Toronto, ON M6G 2L8',
+    /* Came in as a pitch from one of the hosts, and then checked the way
+       anything else here is: the date, the hours, the address and the price
+       are all read off the organiser's own ticket page, not off the email.
+       They agree, which is worth knowing rather than assuming.
+
+       Eventbrite sits in the audit's aggregator list and this is the
+       exception that list could not see: a /e/…-tickets-<id> page is the
+       organiser's own listing, written by the people running the night, not
+       a third party summarising it. The audit now tells those apart.
+
+       $19.70 is the offer's own figure. Eventbrite may add a service fee at
+       checkout — the page does not say so, so neither does this. */
+    url: 'https://www.eventbrite.com/e/the-reheat-podcast-live-tickets-1997921693568',
+    source: 'https://www.eventbrite.com/e/the-reheat-podcast-live-tickets-1997921693568',
+    checked: '2026-09-26',
+    description: 'A pop-culture podcast records its fifth-anniversary episode in front of a room, with games and a book club announcement. Book Bar does coffee, cake and cocktails and is new to Mirvish Village.',
+    schedule: { kind: 'day', date: '2026-09-30', time: '7–9pm', hour: 19 },
+  },
+
   /* ------------------------------------------------------- architecture */
   /* The architects' society's free Downtown Yonge walks were here and have
      been removed. The tour is real — it is on their tours page, and tours run

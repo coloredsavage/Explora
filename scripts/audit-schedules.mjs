@@ -51,6 +51,28 @@ const AGGREGATORS = new Set([
   'nowtoronto.com', 'toronto.com', 'eventbrite.ca', 'eventbrite.com',
 ]);
 
+/* The question is who wrote the page, not which domain it sits on, and a
+   ticketing platform is the one place those two come apart. Eventbrite's /d/
+   pages are a search over everybody's events — an aggregator by any reading.
+   An /e/<slug>-tickets-<id> page is one event's own listing, written by the
+   people running it, with the date and the price they are actually selling.
+   That is a primary source hosted on somebody else's website.
+
+   Treating the whole domain as an aggregator flagged The Reheat's own ticket
+   page, which is the sort of false alarm that teaches people to skim past
+   this report. */
+const TICKET_PAGE = /^\/(e|o)\//;
+
+function isAggregator(url) {
+  const h = host(url);
+  if (!h) return false;
+  if (!AGGREGATORS.has(h)) return false;
+  if (/^eventbrite\./.test(h)) {
+    try { return !TICKET_PAGE.test(new URL(url).pathname); } catch { return true; }
+  }
+  return true;
+}
+
 /* A listing may carry one schedule or several. */
 const schedulesOf = (e) => (Array.isArray(e.schedule) ? e.schedule : [e.schedule]).filter(Boolean);
 const recurs = (s) => s.kind === 'weekly' || s.kind === 'nth';
@@ -67,10 +89,10 @@ const checks = [
   ['recurrence from a third party', (e) => {
     const src = host(e.source);
     return schedulesOf(e).some(recurs)
-      && src && (AGGREGATORS.has(src) || (host(e.url) && src !== host(e.url)));
+      && src && (isAggregator(e.source) || (host(e.url) && src !== host(e.url)));
   }, 'the schedule repeats, and the page it was read from is not the organiser’s'],
 
-  ['aggregator as source', (e) => AGGREGATORS.has(host(e.source)) && !schedulesOf(e).some(recurs),
+  ['aggregator as source', (e) => isAggregator(e.source) && !schedulesOf(e).some(recurs),
     'a single date, but still cited to a page the organiser did not write'],
 
   /* Only the hand-written ones. A polled listing going out of date is the
@@ -87,7 +109,7 @@ const checks = [
      four false positives and no signal. What is worth catching is a winter
      claim made on an aggregator's word. */
   ['runs past its season', (e) => SEASONAL.has(e.category)
-    && AGGREGATORS.has(host(e.source))
+    && isAggregator(e.source)
     && schedulesOf(e).some((s) => recurs(s) && /-12-(2[5-9]|3[01])$/.test(String(s.to ?? ''))),
     'an outdoor listing scheduled into winter on a page the organiser did not write'],
 
