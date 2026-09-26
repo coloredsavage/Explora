@@ -61,6 +61,56 @@ export const RULES = [
   [/forest|ravine|nature|bird|garden|wander|hike|trail|park\b|walk\b/i, 'art-ravine'],
 ];
 
+/* A family is one idea with more than one drawing of it.
+ *
+ * Fifty-nine of the last hundred and ninety listings were jazz. One
+ * saxophone on fifty-nine cards is wallpaper however well it is drawn, and
+ * the board stops reading as a calendar and starts reading as a template.
+ * Roughly one drawing per twelve listings is where a symbol stops being
+ * noticeable as a repeat, which is where the counts below come from.
+ *
+ * Variants are different things, not the same thing drawn twice: a jazz
+ * night is as honestly a double bass as a saxophone, and four instruments
+ * read as range where four saxophones read as a mistake.
+ *
+ * A family with one member is the normal case and costs nothing. Adding a
+ * drawing later is a string in this table and nothing else. */
+export const FAMILIES = {
+  'art-records': ['art-records'],
+  'art-neon':    ['art-neon'],
+  'art-ravine':  ['art-ravine'],
+  'art-market':  ['art-market'],
+};
+
+/* Which drawing a listing gets, out of its family.
+ *
+ * Seeded on the title so it is stable: the same night keeps the same drawing
+ * across every poll, and a weekly residency keeps it week after week, which
+ * reads as the show having an identity rather than as a shuffle. Two
+ * different shows land wherever the hash puts them, which is the point.
+ *
+ * Adding a drawing to a family reshuffles that family. That is a one-off and
+ * worth it; nothing downstream depends on a listing keeping its drawing
+ * forever. */
+function pick(family, seed) {
+  const options = FAMILIES[family];
+  if (!options || options.length < 2) return family;
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i += 1) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  /* FNV alone spread ninety-five music titles 27/24/23/12/9 across five
+     drawings — a three-to-one gap, because the modulo only sees the low bits
+     and these titles share too much shape ("… Quartet, Straight Ahead Jazz").
+     The avalanche below is murmur3's finalizer: it mixes the high bits down
+     before the modulo reads them. */
+  h ^= h >>> 16; h = Math.imul(h, 2246822507);
+  h ^= h >>> 13; h = Math.imul(h, 3266489909);
+  h ^= h >>> 16;
+  return options[(h >>> 0) % options.length];
+}
+
 /* Title first, and the description only if the title says nothing.
  *
  * Reading both at once loses to incidental words, because a title is a name
@@ -74,12 +124,21 @@ export const RULES = [
  * "Sweet Sweet Friends" says nothing at all, and its page says improv. */
 export function matchArt(raw) {
   const title = String(raw.title ?? '');
-  for (const [when, art] of RULES) if (when.test(title)) return art;
-
   const description = String(raw.description ?? '');
-  for (const [when, art] of RULES) if (when.test(description)) return art;
+
+  let family = null;
+  for (const [when, art] of RULES) if (when.test(title)) { family = art; break; }
+  if (!family) for (const [when, art] of RULES) if (when.test(description)) { family = art; break; }
 
   /* Null means keep the source's default. A wrong specific symbol is worse
      than a vague one — the default is at least true of the venue. */
-  return null;
+  if (!family) return null;
+  return pick(family, title);
+}
+
+/* The source's own default goes through the same expansion, so a listing
+   that matched nothing still gets the variety of its family rather than
+   always the first drawing in it. */
+export function variantOf(art, seed) {
+  return pick(art, String(seed ?? ''));
 }

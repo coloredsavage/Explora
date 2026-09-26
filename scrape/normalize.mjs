@@ -1,4 +1,4 @@
-import { matchArt } from './art-match.mjs';
+import { matchArt, variantOf } from './art-match.mjs';
 
 /* Raw extraction -> the shape data.js speaks, or nothing at all.
  *
@@ -249,7 +249,7 @@ export function normalize(raw, source, { today, checked }) {
       /* The source's symbol is the fallback, not the answer. Stamping one
          per source is how every Bentway event became a roller skate,
          including an artist talk; see art-match.mjs. */
-      art: matchArt(raw) ?? source.art,
+      art: matchArt(raw) ?? variantOf(source.art, title),
       ...(raw.entry ? { entry: tidyPrice(raw.entry) } : {}),
       venue,
       address,

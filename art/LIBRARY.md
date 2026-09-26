@@ -44,25 +44,59 @@ Counted across those 190 titles:
 Jazz alone is 59 of 190. A single symbol for it is worth more than the other
 eight put together.
 
-## What to add, in order of how much of the board it fixes
+## What to add
 
-Nine drawings. Not thirty-four, and not a large generated set — the existing
-thirty-four already cover everything outside music, and ten of twenty-three
-polled titles were fixed by matching alone, with nothing new drawn at all.
+One drawing per idea is not enough, even when the idea is right. Fifty-nine
+jazz listings drawing one saxophone is wallpaper however well the saxophone
+is drawn — the board stops reading as a calendar and starts reading as a
+template. **Roughly one drawing per twelve listings** is where a repeat stops
+being noticeable, and that is where these counts come from.
 
-| | symbol | covers | subject |
+Variants are different things, not the same thing drawn twice. A jazz night
+is as honestly a double bass as a saxophone; four instruments read as range,
+where four saxophones read as a mistake.
+
+| family | listings | drawings | what they are |
 |---|---|---|---|
-| 1 | `art-sax` | 59 | a saxophone or upright bass — jazz, and the single biggest win available |
-| 2 | `art-jam` | 26 | a stool and a mic stand, or two guitars leaning together |
-| 3 | `art-kids` | 9 | something a family programme reads as — a paper boat, a kite |
-| 4 | `art-blues` | 8 | an electric guitar, which also carries rock and roots |
-| 5 | `art-improv` | 8 | two chairs facing, which is what improv looks like |
-| 6 | `art-decks` | 6 | turntables — DJ and dance nights |
-| 7 | `art-folk` | 6 | an acoustic guitar or a fiddle |
-| 8 | `art-standup` | 1 | a brick wall and a mic — the only honest stand-up image |
-| 9 | `art-civic` | 2 | a ballot box or a ribbon — for participatory work like Public Trust |
+| jazz | 59 | **5** | saxophone, double bass, trumpet, piano, drum kit |
+| comedy | 30 | **3** | the existing `art-neon`, plus two chairs for improv, brick-wall-and-mic for stand-up |
+| jam / open session | 26 | **3** | a stool and mic stand, two guitars leaning, a hand drum |
+| outdoors | 10 | **2** | the existing `art-ravine`, plus a boardwalk or a footbridge |
+| kids and family | 9 | **1** | a paper boat, a kite |
+| blues and roots | 8 | **1** | an electric guitar |
+| folk / songwriter | 6 | **1** | an acoustic guitar or a fiddle |
+| DJ and dance | 6 | **1** | turntables |
+| civic / participatory | 2 | **1** | a ballot box — Public Trust currently draws a roller skate |
 
-Adding 1 and 2 alone takes `art-records` from 68% of the board to about 24%.
+**Sixteen new drawings, for a library of fifty.** After which no symbol lands
+on more than about twelve of a hundred and ninety, against `art-records`'s
+current hundred and thirty.
+
+Start with the five jazz drawings. They are a third of the whole gain.
+
+### How a listing gets one of them
+
+`FAMILIES` in `art-match.mjs` maps an idea to its drawings; a family with one
+member is the normal case and costs nothing. Adding a drawing later is a
+string in that table and nothing else.
+
+Which one a listing gets is a hash of its title, so it is stable: the same
+night keeps the same drawing across every poll, and a weekly residency keeps
+it week after week, which reads as the show having an identity rather than as
+a shuffle. Two different shows land wherever the hash puts them.
+
+Measured over fifty-nine unique music titles across five drawings: 15, 13,
+12, 10, 9 against an ideal of 11.8 — inside one standard deviation. The
+listing-level counts look lumpier than that, because thirty-six of the
+ninety-five are repeats of recurring nights that deliberately keep one
+drawing each.
+
+Two notes for whoever draws these. Adding a drawing reshuffles its family,
+which is a one-off and harmless — nothing downstream depends on a listing
+keeping its drawing forever. And the hash needed murmur3's finalizer on the
+end of FNV: without it the modulo only reads the low bits, and titles that
+share this much shape — "… Quartet, Straight Ahead Jazz" — spread 27/24/23/12/9
+instead.
 
 ## What is already there and staying
 
