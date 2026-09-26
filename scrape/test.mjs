@@ -9,6 +9,7 @@ import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
+import { matchArt } from './art-match.mjs';
 import { allowedBy, PRODUCT_TOKEN } from './robots.mjs';
 import { fromTribe, priceFrom, splitPlace } from './api.mjs';
 import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
@@ -875,6 +876,42 @@ console.log('\nReading a price and a place out of a feed');
   check('a Plus Code is a grid reference, not a place', () =>
     assert.equal(splitPlace('JJQ2+373 Toronto, Ontario, Canada'), null));
   check('nothing at all is nothing', () => assert.equal(splitPlace(''), null));
+}
+
+console.log('\nPicking an illustration per listing');
+{
+  const m = (title, description) => matchArt({ title, description });
+
+  /* Every one of these is a title the poller has actually returned. */
+  check('an artist talk is not a roller skate', () =>
+    assert.equal(m('Artist Talk with Paul Ramírez Jonas'), 'art-mic'));
+  check('a farmers market is not a ravine', () =>
+    assert.equal(m('Saturday Farmers Market'), 'art-market'));
+  check('an artisan and vintage market is still a market', () =>
+    assert.equal(m('Ontario Artisan Market and Ontario Vintage Market'), 'art-market'));
+  check('a skating night beats its source default', () =>
+    assert.equal(m('Monthly Roller Skating Night'), 'art-skates'));
+  check('child portrait photos are a camera', () =>
+    assert.equal(m('Mighty Minis: Child Portrait Photos'), 'art-camera'));
+  check('a book club is books, not a microphone', () =>
+    assert.equal(m('Currently Reading - a Sunday morning mid-book club'), 'art-books'));
+  check('a site tour of a heritage building is architecture', () =>
+    assert.equal(m('Free Public Site Tours of Evergreen Brick Works'), 'art-architecture'));
+
+  /* Title beats description, because a title is chosen and prose is not. */
+  check('a walk-and-talk in the prose does not make a design walk a talk', () =>
+    assert.equal(m('designwalks™ - Toronto - Walk 11',
+      'A monthly walk-and-talk for the design community.'), 'art-architecture'));
+  check('"make promises" in the prose does not make a civic project a pot', () =>
+    assert.notEqual(m('Public Trust',
+      'Torontonians are invited into a non-partisan space to make promises.'), 'art-vase'));
+
+  /* But the description is still read when the title is only a name. */
+  check('a title that says nothing falls through to its page', () =>
+    assert.equal(m('Sweet Sweet Friends', 'An improv show at Bad Dog Theatre.'), 'art-neon'));
+
+  check('and nothing at all keeps the source default', () =>
+    assert.equal(m('Step6ix Sunday Social Run', 'A social run.'), null));
 }
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
