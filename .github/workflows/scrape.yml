@@ -40,6 +40,10 @@ on:
         description: 'Re-read every price, not only the listings missing one'
         type: boolean
         default: false
+      allow_silent:
+        description: 'Sources allowed to return nothing, comma separated (e.g. tpl)'
+        type: string
+        default: ''
 
 permissions:
   contents: write
@@ -89,6 +93,11 @@ jobs:
           # Optional. Without it, pages that publish no JSON-LD are reported as
           # skipped rather than read by the model, and the job still succeeds.
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # The escape hatch run.mjs documents, which had no way to be reached
+          # from here. A source that has genuinely gone quiet — a season that
+          # ended, a venue that closed — otherwise stops every poll after it
+          # until somebody edits the code.
+          ALLOW_SILENT_SOURCES: ${{ inputs.allow_silent }}
         run: node scrape/run.mjs
 
       # What the poll just wrote, checked against the ways a description has
