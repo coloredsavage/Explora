@@ -305,6 +305,17 @@ svg.about__art { width: 340px; height: auto; }
 
 .card__title {
   margin: 0;
+  /* A flex row so the tag wraps to the left edge under the title rather than
+     carrying an indent with it. It used to sit inline with margin-left: 8px,
+     which is right while it fits on the line and wrong the moment it does
+     not — the margin stays put and the tag lands eight pixels in from
+     everything above it. The row gap is what gives it air when it wraps; the
+     column gap is the old margin, applied only when it is actually beside
+     something. */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 8px;
   font-size: 15px;
   font-weight: 500;
   line-height: 22px;
@@ -611,6 +622,10 @@ img.card__art { border-radius: 8px; }
 
 .modal__title {
   margin: 0 60px 26px 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 8px;
   font-size: 17px;
   font-weight: 500;
   line-height: 1.35;
@@ -635,6 +650,96 @@ img.card__art { border-radius: 8px; }
   padding-bottom: 1px;
 }
 .link:hover { border-bottom-color: var(--ink); }
+
+/* How a listing got here, when it was not simply found.
+
+   Two versions of this were wrong before this one. Soft ink inside a hairline
+   vanished into the card, which is the wrong failure for a disclosure. Solid
+   ink shouted louder than the event it was labelling, which is the other
+   wrong failure — it made a note about provenance the loudest thing on a card
+   about a night out.
+
+   So: a pastel fill from the same family as everything else here, and the
+   definition carried by a stroke rather than by contrast. The stroke is
+   thick enough to hold its shape at this size and held at seven percent, so
+   it reads as an edge rather than as a border. The label is set
+   smaller than any other text on the card, because it is the least important
+   thing on it and only has to be findable, not first. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px 2px 6px;
+  border: 2px solid rgba(25, 25, 25, 0.07);
+  border-radius: 999px;
+  background: var(--s-books);
+  color: var(--ink-soft);
+  /* Sentence case. The letter-spacing and the very small size were both
+     propping up all-caps, which does not need the help here — set plainly it
+     can sit a point larger and still read as the quietest thing on the
+     card. */
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  /* The card underlines its title on hover and text-decoration reaches into
+     every descendant, tag included. */
+  text-decoration: none;
+}
+.tag svg { width: 11px; height: 11px; flex: none; opacity: 0.55; }
+
+/* The organiser's own code, under what it costs, because that is the moment
+   it is useful. Not part of `entry`: that line is what the door costs, and a
+   code is a way to pay less than it. */
+.modal__code {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+/* A promo code is meant to be typed into someone else's checkout, and
+   selecting nine characters of small grey text on a phone is the friction
+   that means nobody uses it. Boxed, with the button sharing the box so the
+   two read as one control rather than as a word and an afterthought. */
+.code-box {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--paper);
+  overflow: hidden;
+}
+.code-box__code {
+  padding: 3px 8px;
+  font: inherit;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  user-select: all;
+}
+.code-box__copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: none;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.code-box__copy svg { width: 15px; height: 15px; display: block; }
+.code-box__copy:hover { background: var(--s-books); color: var(--ink); }
+.code-box__copy:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+/* Green only while it is true — it reverts to the copy icon after a moment,
+   so the tick is never left standing as a claim about a stale action. */
+.code-box__copy.is-done { color: #3f7d55; }
 
 .modal__caveat {
   margin: 24px 0 0;

@@ -97,9 +97,17 @@ const EVENTS = [
     art: 'art-jar',
     venue: 'Dufferin Grove Park Clubhouse',
     address: '875 Dufferin St, Toronto, ON M6H 3L3',
-    url: 'https://dufferinpark.ca/market/',
-    source: 'https://www.familyfuncanada.com/toronto/outdoor-farmers-markets-toronto/',
-    checked: CHECKED,
+    /* dufferinpark.ca/market/ is a meta-refresh stub; the market's own site is
+       the live one. Checked against it rather than the familyfuncanada round-up
+       that used to sit in `source` — same page the Toronto Flea's weekly
+       schedule came off, and the reason this one was re-read.
+         "Year 'Round  Every Thursday 3pm — 7pm"
+         "Every Thursday 3—7pm, at the New Dufferin Grove Clubhouse"
+       Year-round is the organiser's own word for it, so the January-to-December
+       window is what the page says and not an assumption. */
+    url: 'https://dufferingrovemarket.ca/',
+    source: 'https://dufferingrovemarket.ca/',
+    checked: '2026-09-20',
     description: 'All-organic and year-round, at the clubhouse. Small enough to talk to everyone selling.',
     schedule: { kind: 'weekly', weekday: 4, from: '2026-01-01', to: '2026-12-31', time: '3–7pm', hour: 15 },
   },
@@ -111,9 +119,30 @@ const EVENTS = [
     art: 'art-corn',
     venue: 'Sorauren Avenue Park',
     address: '50 Wabash Ave, Toronto, ON M6R 1H8',
+    /* Day and time are the organiser's: "Every Monday from 3:00pm - 7:00pm
+       including statotory holidays" [sic]. The venue is theirs too — "During
+       the outdoor season, we operate in Sorauren Park".
+
+       The closing date is NOT theirs and is the weak point of this listing.
+       The site gives no 2026 date for the end of the outdoor season; the most
+       recent thing it says is "Move indoors - Nov 4, 2024", which is a notice
+       from two years ago. October 26th is the last Monday before the start of
+       November and errs on the early side, which is the safe direction: the
+       market does not stop in the fall, it moves to Henderson Brewing at 128A
+       Sterling Road, so a window that runs too long would put the park's
+       address on a Monday when everyone is a kilometre away indoors.
+
+       Kept deliberately rather than dropped, which is the call that was made
+       on 2026-09-20: the market is genuinely on, the day, time and venue are
+       the organiser's own, and October 26th errs early — it stops the listing
+       too soon rather than too late. `unconfirmed` below is what makes that
+       decision visible instead of buried in a comment; the schedule audit
+       prints every listing carrying one, so this comes back round for a
+       re-read rather than quietly becoming permanent. */
     url: 'https://soraurenmarket.com/',
-    source: 'https://www.familyfuncanada.com/toronto/outdoor-farmers-markets-toronto/',
-    checked: CHECKED,
+    source: 'https://soraurenmarket.com/',
+    checked: '2026-09-20',
+    unconfirmed: 'closing date — the organiser publishes no 2026 dates; Oct 26 is ours, chosen to err early',
     description: 'A Monday-evening market in Roncesvalles — dinner from a stall, eaten on the grass while the dog park fills up. Runs to October 26.',
     schedule: { kind: 'weekly', weekday: 1, from: '2026-05-04', to: '2026-10-26', time: '3–7pm', hour: 15 },
   },
@@ -125,11 +154,15 @@ const EVENTS = [
     art: 'art-tent',
     venue: 'Withrow Park',
     address: '725 Logan Ave, Toronto, ON M4K 3C7',
+    /* Was cited to a blogTO round-up, which had the season starting a week
+       late. The organiser's own line: "The market runs every Saturdays, from
+       9am to 1pm, starting May 30 through to October 17." Day, time and the
+       October 17 finish were right; June 6 was not. */
     url: 'https://withrowmarket.ca/',
-    source: 'https://www.blogto.com/eat_drink/2026/07/9-farmers-markets-toronto-summer/',
-    checked: CHECKED,
+    source: 'https://withrowmarket.ca/',
+    checked: '2026-09-20',
     description: 'The east end’s Saturday morning ritual, in the shade at the north end of the park. Last market of the season is October 17.',
-    schedule: { kind: 'weekly', weekday: 6, from: '2026-06-06', to: '2026-10-17', time: '9am–1pm', hour: 9 },
+    schedule: { kind: 'weekly', weekday: 6, from: '2026-05-30', to: '2026-10-17', time: '9am–1pm', hour: 9 },
   },
   {
     id: 'trinity-bellwoods-market',
@@ -330,9 +363,13 @@ const EVENTS = [
     art: 'art-star',
     venue: 'Across the city',
     address: 'Nathan Phillips Square, 100 Queen St W, Toronto, ON M5H 2N2',
-    url: 'https://nbto.com/',
-    source: 'https://www.destinationontario.com/en-ca/articles/guide-toronto-nuit-blanche',
-    checked: CHECKED,
+    /* nbto.com now 301s to the City's page, every path of it, so the url
+       followed a redirect. The date is the City's own and is corroborated by
+       its noise exemption permits, which carry "Nuit Blanche 2026" starting
+       2026-10-03 at 100 Queen St W. */
+    url: 'https://www.toronto.ca/explore-enjoy/festivals-events/nuitblanche/',
+    source: 'https://www.toronto.ca/explore-enjoy/festivals-events/nuitblanche/',
+    checked: '2026-09-20',
     description: 'Free contemporary art from 7pm to 7am. Pick one neighbourhood and walk it properly instead of chasing the map.',
     schedule: { kind: 'day', date: '2026-10-03', time: '7pm–7am', hour: 19 },
   },
@@ -360,26 +397,54 @@ const EVENTS = [
     art: 'art-flea',
     venue: 'Ashbridge Estate',
     address: '1444 Queen St E, Toronto, ON M4L 1E1',
-    url: 'https://artsmarket.ca/toronto-flea/',
-    source: 'https://festmore.com/events/leslieville-flea-market-toronto-2026',
-    checked: CHECKED,
-    description: 'Formerly the Leslieville Flea. Furniture, records and mid-century everything on the lawn of a two-hundred-year-old farmhouse. Last Sunday of the season is October 4.',
-    schedule: { kind: 'weekly', weekday: 0, from: '2026-05-03', to: '2026-10-04', time: '11am–5pm', hour: 11 },
+    url: 'https://torontoflea.com/',
+    /* Was a Festmore aggregator page reading "Sundays May–October", which is
+       where the weekly schedule came from and it is wrong. The organiser's own
+       site names one remaining date — "our LAST market of the season on Sunday
+       October 4th" — and Arts Market names the opener, Sunday May 3rd. Between
+       them, nothing. A weekly listing put this on the board every Sunday since
+       May, and on the 13th and the 20th of September it sent people to a
+       market that was not on.
+
+       Left as the single date the organiser states, rather than re-guessed as
+       monthly. Neither its site nor Arts Market gives a frequency or a date
+       list at all — torontoflea.com says only "FOLLOW US ON INSTAGRAM FOR
+       DAILY UPDATES" — and Instagram blocks scrapers, so there is no primary
+       source for a recurrence to cite. May 3rd and October 4th are both first
+       Sundays, which is suggestive; 2021 ran September 12th and October 3rd,
+       which is a second Sunday and a first, and is not. Guessing a rule from
+       two points is what put it here.
+
+       For the rest of this season the question is moot: the next first Sunday
+       is October 4th either way. If the Instagram dates confirm a monthly
+       pattern, this becomes
+         { kind: 'nth', weekday: 0, nth: 1, from, to, time: '11am–5pm', hour: 11 }
+       which the board already supports — Pedestrian Sundays uses nth: -1. */
+    source: 'https://torontoflea.com/',
+    checked: '2026-09-20',
+    description: 'Formerly the Leslieville Flea. Furniture, records and mid-century everything on the lawn of a two-hundred-year-old farmhouse. The organiser calls this the last market of the season.',
+    schedule: { kind: 'day', date: '2026-10-04', time: '11am–5pm', hour: 11 },
   },
-  {
-    id: 'kensington-pedestrian-sundays',
-    title: 'Pedestrian Sundays in Kensington',
-    category: 'flea',
-    entry: 'Free',
-    art: 'art-lantern',
-    venue: 'Kensington Market',
-    address: 'Augusta Ave & Baldwin St, Toronto, ON M5T 2L7',
-    url: 'https://www.pskensington.ca/',
-    source: 'https://www.todocanada.ca/city/toronto/event/pedestrian-sundays-kensington-market/',
-    checked: CHECKED,
-    description: 'Cars out, everyone else in: drum circles, stoop sales, and the market at its loudest. Augusta stays closed to 10pm. Last Sunday of the month, May to October.',
-    schedule: { kind: 'nth', weekday: 0, nth: -1, from: '2026-05-01', to: '2026-10-31', time: '12–7pm', hour: 12 },
-  },
+  /* Pedestrian Sundays was here and has been removed. Nothing confirms it is
+     running in 2026, and as scheduled it would next have appeared on Sunday
+     September 27th.
+
+     The url this listing published, pskensington.ca, no longer answers on
+     https at all, and over http it serves a page titled "Kensington Market"
+     about Toronto's PATH network with affiliate links on it. The words
+     "Pedestrian Sunday" do not appear anywhere on it. We were sending readers
+     to a parked domain.
+
+     The organiser is the Kensington Market BIA, whose own page —
+     pedestriansunday.carrd.co — is frozen on 2024: "2024 Pedestrian Sundays",
+     "May to October on the last Sunday of the month: May 26 | Jun 30 | Jul 28
+     | Aug 25 | Sep 29 | Oct 27", and a volunteer sign-up for that year. It
+     mentions no 2025 and no 2026. The event has skipped years before, so an
+     organiser page that stopped two years ago is not evidence it is on.
+
+     The last-Sunday rule and the 12–7pm here came from todocanada, an
+     aggregator, and restate 2024. Add it back when the BIA says something
+     about 2026 — their live channel is Instagram, @kensingtonmarketbia. */
   {
     id: 'toronto-vintage-show',
     title: 'Toronto Vintage Show',
@@ -440,21 +505,56 @@ const EVENTS = [
     schedule: { kind: 'range', start: '2026-10-28', end: '2026-11-01' },
   },
 
-  /* ------------------------------------------------------- architecture */
+  /* -------------------------------------------------------------- stage */
   {
-    id: 'tsa-downtown-yonge',
-    title: 'Free architectural walking tours',
-    category: 'architecture',
-    entry: 'Free; the thematic tours are $15',
-    art: 'art-architecture',
-    venue: 'Toronto Society of Architects, Downtown Yonge',
-    address: 'Yonge St & Dundas St, Toronto, ON M5B 1R8',
-    url: 'https://torontosocietyofarchitects.ca/tours/',
-    source: 'https://nowtoronto.com/event/free-architectural-walking-tours/',
-    checked: CHECKED,
-    description: 'Architect-led walks through Downtown Yonge, free, through to October 24. The society’s nine thematic tours elsewhere in the city are $15 and run 90 to 120 minutes.',
-    schedule: { kind: 'range', start: '2026-07-12', end: '2026-10-24' },
+    id: 'reheat-live',
+    title: 'The Reheat Podcast: Live!',
+    category: 'stage',
+    entry: '$19.70',
+    art: 'art-lamp',
+    venue: 'Book Bar',
+    address: '600 Markham St, Toronto, ON M6G 2L8',
+    /* Came in as a pitch from one of the hosts, and then checked the way
+       anything else here is: the date, the hours, the address and the price
+       are all read off the organiser's own ticket page, not off the email.
+       They agree, which is worth knowing rather than assuming.
+
+       Eventbrite sits in the audit's aggregator list and this is the
+       exception that list could not see: a /e/…-tickets-<id> page is the
+       organiser's own listing, written by the people running the night, not
+       a third party summarising it. The audit now tells those apart.
+
+       $19.70 is the offer's own figure. Eventbrite may add a service fee at
+       checkout — the page does not say so, so neither does this. */
+    url: 'https://www.eventbrite.com/e/the-reheat-podcast-live-tickets-1997921693568',
+    source: 'https://www.eventbrite.com/e/the-reheat-podcast-live-tickets-1997921693568',
+    checked: '2026-09-26',
+    /* One of the hosts sent this in. Nothing was paid for it, so it is not
+       sponsored and does not say so — `submitted` is the honest word, and the
+       modal spells out what it means rather than leaving a reader to guess at
+       a one-word pill. When something here is genuinely paid for, the value
+       becomes 'sponsored' and the sentence changes with it. */
+    partner: 'submitted',
+    /* Their code, kept out of `entry` on purpose. That line is what the door
+       costs and has to stay readable as a price; this is a way to pay less
+       than it, which is a different thing and belongs under it. */
+    offer: { code: 'xoxogossipgirl', off: '15% off' },
+    description: 'A pop-culture podcast records its fifth-anniversary episode in front of a room, with games and a book club announcement. Book Bar does coffee, cake and cocktails and is new to Mirvish Village.',
+    schedule: { kind: 'day', date: '2026-09-30', time: '7–9pm', hour: 19 },
   },
+
+  /* ------------------------------------------------------- architecture */
+  /* The architects' society's free Downtown Yonge walks were here and have
+     been removed. The tour is real — it is on their tours page, and tours run
+     "Saturday and Sunday" — but that page carries no dates at all. Not a
+     season, not a start, not the October 24th end this listing published.
+     Every date on it came from a NOW Toronto listing.
+
+     A range claims the thing is on every day between its ends, so a
+     weekend-only tour published as a July-to-October range was telling
+     anyone reading on a Tuesday that they could go. Add it back when the
+     society publishes dates:
+       https://torontosocietyofarchitects.ca/tours/ */
   {
     id: 'spadina-museum',
     title: 'Spadina Museum house tour',
@@ -491,9 +591,12 @@ const EVENTS = [
     art: 'art-skates',
     venue: 'The Bentway',
     address: '250 Fort York Blvd, Toronto, ON M5V 3K9',
-    url: 'https://thebentway.ca/',
-    source: 'https://curiocity.com/bentway-skating-trail-toronto-open-late-summer/',
-    checked: CHECKED,
+    /* The date is right and now comes from the organiser rather than a
+       curiocity write-up: the Bentway's own feed has roller-skate-rentals
+       running "August 7, 2026" to "September 27, 2026". */
+    url: 'https://thebentway.ca/event/roller-skate-rentals/',
+    source: 'https://thebentway.ca/event/roller-skate-rentals/',
+    checked: '2026-09-20',
     description: 'The 220-metre figure-eight threaded between the columns of the Gardiner closes for the summer today. Go, or wait for the ice near Christmas.',
     schedule: { kind: 'day', date: '2026-09-27' },
   },
@@ -586,21 +689,25 @@ const EVENTS = [
   },
 
   /* ----------------------------------------------------------- drop-ins */
-  {
-    id: 'gardiner-clay',
-    title: 'Drop-in clay class at the Gardiner',
-    category: 'dropin',
-    closes: ['5pm', '6pm', '6pm', '9pm', '6pm', '6pm', '5pm'],
-    art: 'art-sculpture',
-    entry: '$22, plus $5 and up to fire a piece',
-    venue: 'Gardiner Museum',
-    address: '111 Queens Park, Toronto, ON M5S 2C7',
-    url: 'https://www.gardinermuseum.on.ca/classes/',
-    source: 'https://www.bloor-yorkville.com/events/drop-in-clay-classes-at-the-gardiner-museum/',
-    checked: CHECKED,
-    description: 'An hour at the wheel with no course to sign up for. Registration opens online at 10am the morning of each class and it goes quickly. Firing is extra and paid at the front desk.',
-    schedule: { kind: 'weekly', weekday: [3, 6], from: '2026-01-01', to: '2026-12-31' },
-  },
+  /* The Gardiner's drop-in clay class was here and has been removed. It does
+     not exist any more: the museum replaced it with "Single Classes", whose
+     tickets "are released at 10:00 am on the 15th of each month for the
+     following month" — booked a month ahead, not walked into. The url this
+     listing published, /classes/, answers 404, and every other field had gone
+     stale with it: $22 and a $5 firing fee were the 2024 drop-in prices,
+     against $35 today with one firing included and $10 for each one after.
+
+     It was here on the strength of the Bloor-Yorkville BIA's page rather than
+     the museum's, which is why two years of change went unnoticed. It said
+     "weekly, Wednesdays and Saturdays, all year" and carried no time of day at
+     all, because there was none to carry.
+
+     Not rewritten as Single Classes, because the museum publishes no day or
+     time for them — the schedule lives only in a box office that refuses
+     automated requests. A listing needs a day and an hour to be worth
+     anything, and guessing those is how the Toronto Flea happened. Someone
+     can read them off by hand and add it back:
+       https://www.gardinermuseum.on.ca/learn-make/single-classes/ */
   {
     id: 'tsa-life-drawing',
     title: 'Open life drawing at the Toronto School of Art',

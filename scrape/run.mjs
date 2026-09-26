@@ -13,15 +13,16 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { enabledSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
-import { normalize, validate, stripSiteSuffix } from './normalize.mjs';
-import { allowedBy } from './robots.mjs';
+import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
+import { allowedBy, USER_AGENT } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = new Set(process.argv.slice(2));
 const OFFLINE = argv.has('--offline');
 const DRY = argv.has('--dry-run');
 
-const UA = 'ExploraCalendarBot/1.0 (+https://github.com/coloredsavage/Explora)';
+/* One name, defined beside the rules it is matched against. */
+const UA = USER_AGENT;
 
 /* A hard stop on model calls per run, because nothing else was one. Seven
    sources with follow caps of ten to twenty is up to 121 pages, and on a bad
@@ -128,7 +129,118 @@ async function harvest(source, pages) {
   return out;
 }
 
+/* What the file on disk says each source found last time. Parsed rather than
+   imported: scraped.js is a module with a top-level const, and this only ever
+   needs the array out of it. A file that is missing, truncated or not yet in
+   this shape returns null, which the caller reads as "nothing to compare
+   against" rather than as a source having gone quiet. */
+async function previousCounts() {
+  let text;
+  try { text = await readFile(path.join(root, 'scraped.js'), 'utf8'); }
+  catch { return null; }
+  const open = text.indexOf('[');
+  const close = text.lastIndexOf(']');
+  if (open < 0 || close < open) return null;
+  let prev;
+  try { prev = JSON.parse(text.slice(open, close + 1)); }
+  catch { return null; }
+  if (!Array.isArray(prev)) return null;
+  const counts = new Map();
+  for (const e of prev) counts.set(e.scrapedFrom, (counts.get(e.scrapedFrom) ?? 0) + 1);
+  return counts;
+}
+
+/* ------------------------------------------------------------ json sources */
+
+/* A source with an `api` block is read from its own JSON rather than from
+   its pages. No browser, no model, no follow cap — and no chance of the
+   listing page hiding half its calendar behind a month selector, which is
+   what the Bentway's was doing.
+
+   robots.txt still decides. A JSON endpoint is a URL like any other, and
+   until this run the rules that would cover one were the exact shapes
+   robots.mjs could not read. */
+async function apiRecords(source) {
+  const { url, maxPages = 1 } = source.api;
+  const fetchText = async (u) => {
+    const res = await fetch(u, { headers: { 'User-Agent': UA } });
+    return res.ok ? res.text() : null;
+  };
+
+  const robots = await allowedBy(fetchText, url);
+  if (!robots.allowed) {
+    report.skipped.push(`${url} — robots.txt disallows ${robots.rule}`);
+    return [];
+  }
+
+  const out = [];
+  for (let page = 1; page <= maxPages; page += 1) {
+    const paged = `${url}${url.includes('?') ? '&' : '?'}page=${page}`;
+    let res;
+    try { res = await fetch(paged, { headers: { 'User-Agent': UA, Accept: 'application/json' } }); }
+    catch (err) { report.errors.push(`${paged} — ${err.message}`); break; }
+
+    /* WordPress answers 400 past the last page rather than an empty array,
+       so a run out of pages is the end of the feed and not a failure. */
+    if (res.status === 400 && page > 1) break;
+    if (!res.ok) { report.errors.push(`${paged} — HTTP ${res.status}`); break; }
+
+    let body;
+    try { body = await res.json(); }
+    catch (err) { report.errors.push(`${paged} — not JSON: ${err.message}`); break; }
+
+    /* Two shapes in the wild: WordPress core returns a bare array, The
+       Events Calendar wraps it as { events, total_pages }. A source can name
+       its own accessor if it is neither. */
+    const batch = source.api.records
+      ? source.api.records(body)
+      : (Array.isArray(body) ? body : body?.events);
+    if (!Array.isArray(batch) || batch.length === 0) break;
+    out.push(...batch);
+
+    /* Page count comes from the header on core and from the body on the
+       plugin; whichever answers, stop when the feed says there is no more. */
+    const total = Number(res.headers.get('x-wp-totalpages') ?? body?.total_pages);
+    if (Number.isFinite(total) && total > 0 && page >= total) break;
+    await new Promise((r) => setTimeout(r, 1000));
+  }
+  return out;
+}
+
+async function harvestApi(source, records) {
+  const out = [];
+  for (const rec of records) {
+    let raw;
+    try { raw = source.api.map(rec); }
+    catch (err) { report.errors.push(`${source.id} — map failed: ${err.message}`); continue; }
+    /* A map returning null has read the record and decided against it —
+       already past, no location it could print. Not worth reporting one by
+       one; the feed carries years of them. */
+    if (!raw) continue;
+
+    const result = normalize({ ...raw, url: raw.url ?? source.url }, source, { today, checked: today });
+    if (!result.ok) { report.dropped.push(`${source.id}: ${result.title} — ${result.why}`); continue; }
+
+    const problems = validate(result.event);
+    if (problems.length) { report.dropped.push(`${source.id}: ${result.event.title} — ${problems.join(', ')}`); continue; }
+
+    out.push(result.event);
+    report.kept.push(`${source.id}: ${result.event.title} (${result.event.via})`);
+  }
+  return out;
+}
+
 /* --------------------------------------------------------------- fetching */
+
+/* Offline replays a fixture for a json source the same way it does for a
+   page, so the shape of a feed is something the suite can hold still. */
+async function offlineRecords(source) {
+  try {
+    const raw = await readFile(path.join(root, 'scrape', 'fixtures', `${source.id}.api.json`), 'utf8');
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch { return []; }
+}
 
 async function offlinePages(source) {
   const dir = path.join(root, 'scrape', 'fixtures');
@@ -183,10 +295,16 @@ async function main() {
   const events = [];
   for (const source of enabledSources()) {
     try {
-      const pages = OFFLINE ? await offlinePages(source) : await livePages(source, browser);
-      if (pages.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
-
-      let found = await harvest(source, pages);
+      let found;
+      if (source.api) {
+        const records = OFFLINE ? await offlineRecords(source) : await apiRecords(source);
+        if (records.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
+        found = await harvestApi(source, records);
+      } else {
+        const pages = OFFLINE ? await offlinePages(source) : await livePages(source, browser);
+        if (pages.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
+        found = await harvest(source, pages);
+      }
       if (source.maxEvents && found.length > source.maxEvents) {
         /* soonest first, so a cap keeps what is most use */
         found.sort((a, b) => startOf(a).localeCompare(startOf(b)));
@@ -234,6 +352,13 @@ async function main() {
   events.length = 0;
   events.push(...byKey.values());
 
+  /* The dedupe above kept some listings apart that the id would put back
+     together; see disambiguateIds. */
+  const ids = disambiguateIds(events);
+  for (const id of ids.shared) {
+    report.skipped.push(`listings shared the id ${id} — told apart by venue`);
+  }
+
   /* keep the file stable between runs so an unchanged poll is an empty diff */
   events.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
@@ -249,6 +374,33 @@ const SCRAPED = [\n${body}\n];\n`;
   console.log(`\nkept ${report.kept.length}   dropped ${report.dropped.length}   skipped ${report.skipped.length}   errors ${report.errors.length}   model calls ${modelCalls}/${MODEL_CALL_BUDGET}`);
   for (const [label, list] of [['kept', report.kept], ['dropped', report.dropped], ['skipped', report.skipped], ['errors', report.errors]]) {
     if (list.length) console.log(`\n${label}:\n  ` + list.join('\n  '));
+  }
+
+  /* The failure this poll cannot see on its own; see silentSources. Offline
+     replays fixtures and has no bearing on what the sources hold, so it is
+     exempt. To land a poll where a source really has gone quiet, name it:
+       ALLOW_SILENT_SOURCES=bentway,evergreen node scrape/run.mjs */
+  let silent = [];
+  if (!OFFLINE) {
+    const before = await previousCounts();
+    if (before) {
+      const now = new Map();
+      for (const e of events) now.set(e.scrapedFrom, (now.get(e.scrapedFrom) ?? 0) + 1);
+      const allowed = new Set((process.env.ALLOW_SILENT_SOURCES || '')
+        .split(',').map((x) => x.trim()).filter(Boolean));
+      silent = silentSources(before, now, enabledSources().map((x) => x.id), allowed);
+    }
+  }
+
+  if (silent.length) {
+    console.error(`\n${silent.length} source${silent.length === 1 ? '' : 's'} went quiet:`);
+    for (const { id, had } of silent) console.error(`  ${id} — ${had} last run, none this one`);
+    console.error('\nscraped.js not written. Check the errors above — a source that was'
+      + '\nproducing and now is not usually means the poller broke, not the city.'
+      + '\nIf it really has gone quiet, name it and run again:'
+      + `\n  ALLOW_SILENT_SOURCES=${silent.map((x) => x.id).join(',')}`);
+    process.exitCode = 1;
+    return;
   }
 
   if (DRY) { console.log('\n--dry-run: scraped.js not written'); return; }

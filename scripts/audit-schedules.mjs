@@ -1,0 +1,187 @@
+/* Every schedule on the board, checked against the ways one has been wrong.
+ *
+ * Written after the Toronto Flea. It was listed as a weekly Sunday market
+ * because its `source` pointed at an aggregator page reading "Sundays
+ * May–October". The organiser runs it a handful of times a season. The board
+ * showed it on twenty-seven Sundays, the social pipeline posted it on two of
+ * them, and people went to a market that was not on.
+ *
+ * That is the failure this file exists to catch, and the shape of it is
+ * specific enough to look for: a recurrence — every Sunday, the last Sunday
+ * of the month — asserted on the strength of a page the organiser did not
+ * write. An aggregator summarising a season as "Sundays 11–5" is not lying,
+ * it is just not a schedule, and the moment it is copied into one the board
+ * starts making a claim nobody checked.
+ *
+ * The rest of the checks are the neighbouring ways a listing goes stale: a
+ * season that ended, a window that runs to December on something that packs
+ * up in October, a listing nobody has re-read in a month.
+ *
+ * A report, not a gate. Some of these are fine and known — the two BlogTO
+ * article sources are deliberate and recorded in the handover. It prints what
+ * it finds so a person can decide, and never fails the build.
+ *
+ *   node scripts/audit-schedules.mjs
+ */
+
+import { readFileSync } from 'node:fs';
+import vm from 'node:vm';
+
+const root = process.cwd();
+const ctx = vm.createContext({});
+for (const f of ['price.js', 'data.js', 'scraped.js']) {
+  vm.runInContext(readFileSync(`${root}/${f}`, 'utf8'), ctx, { filename: f });
+}
+const EVENTS = vm.runInContext('EVENTS', ctx);
+const SCRAPED = vm.runInContext('SCRAPED', ctx);
+const all = EVENTS.map((e) => ({ ...e, from: 'hand' }))
+  .concat(SCRAPED.map((e) => ({ ...e, from: e.scrapedFrom })));
+
+const today = new Date().toISOString().slice(0, 10);
+const host = (u) => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return null; } };
+
+/* Sites that write about events rather than running them. Being on this list
+   is not an accusation — they are good pages, and two of them are cited
+   deliberately. It means they cannot confirm a recurrence, because they are
+   summarising someone else's calendar and a summary drops the exceptions. */
+const AGGREGATORS = new Set([
+  'festmore.com', 'familyfuncanada.com', 'blogto.com', 'todocanada.ca',
+  'curiocity.com', 'timeout.com', 'narcity.com', 'dailyhive.com',
+  'destinationontario.com', 'destinationtoronto.com', 'bloor-yorkville.com',
+  'nowtoronto.com', 'toronto.com', 'eventbrite.ca', 'eventbrite.com',
+]);
+
+/* The question is who wrote the page, not which domain it sits on, and a
+   ticketing platform is the one place those two come apart. Eventbrite's /d/
+   pages are a search over everybody's events — an aggregator by any reading.
+   An /e/<slug>-tickets-<id> page is one event's own listing, written by the
+   people running it, with the date and the price they are actually selling.
+   That is a primary source hosted on somebody else's website.
+
+   Treating the whole domain as an aggregator flagged The Reheat's own ticket
+   page, which is the sort of false alarm that teaches people to skim past
+   this report. */
+const TICKET_PAGE = /^\/(e|o)\//;
+
+function isAggregator(url) {
+  const h = host(url);
+  if (!h) return false;
+  if (!AGGREGATORS.has(h)) return false;
+  if (/^eventbrite\./.test(h)) {
+    try { return !TICKET_PAGE.test(new URL(url).pathname); } catch { return true; }
+  }
+  return true;
+}
+
+/* A listing may carry one schedule or several. */
+const schedulesOf = (e) => (Array.isArray(e.schedule) ? e.schedule : [e.schedule]).filter(Boolean);
+const recurs = (s) => s.kind === 'weekly' || s.kind === 'nth';
+const endOf = (s) => s.to ?? s.end ?? s.date ?? null;
+const startOf = (s) => s.from ?? s.start ?? s.date ?? null;
+
+/* Things that pack up for the winter. A weekly one of these running to the
+   31st of December is claiming a January farmers' market. */
+const SEASONAL = new Set(['market', 'flea', 'outdoors', 'festival']);
+
+const days = (a, b) => Math.round((Date.parse(`${b}T00:00:00Z`) - Date.parse(`${a}T00:00:00Z`)) / 86400000);
+
+const checks = [
+  ['recurrence from a third party', (e) => {
+    const src = host(e.source);
+    return schedulesOf(e).some(recurs)
+      && src && (isAggregator(e.source) || (host(e.url) && src !== host(e.url)));
+  }, 'the schedule repeats, and the page it was read from is not the organiser’s'],
+
+  ['aggregator as source', (e) => isAggregator(e.source) && !schedulesOf(e).some(recurs),
+    'a single date, but still cited to a page the organiser did not write'],
+
+  /* Only the hand-written ones. A polled listing going out of date is the
+     system working — the next poll rewrites scraped.js from scratch — and
+     listing forty of them buries the handful somebody has to act on. They
+     are counted at the end instead. */
+  ['season already over', (e) => e.from === 'hand'
+    && schedulesOf(e).every((s) => { const x = endOf(s); return x && x < today; }),
+    'every date on this listing is in the past'],
+
+  /* Only when nobody with authority said so. Four markets here genuinely run
+     all year and each says so on its own page — the Stop's, Dufferin Grove,
+     St. Lawrence, Brick Works — so flagging a December window on its own was
+     four false positives and no signal. What is worth catching is a winter
+     claim made on an aggregator's word. */
+  ['runs past its season', (e) => SEASONAL.has(e.category)
+    && isAggregator(e.source)
+    && schedulesOf(e).some((s) => recurs(s) && /-12-(2[5-9]|3[01])$/.test(String(s.to ?? ''))),
+    'an outdoor listing scheduled into winter on a page the organiser did not write'],
+
+  /* Only where a time is a fact about the event rather than opening hours.
+     An exhibition runs all day for three months and has none to give; a
+     weekly class has one and is missing it. */
+  ['no time of day', (e) => schedulesOf(e).some((s) => recurs(s) && !s.time),
+    'a repeating listing with no time — the pipeline has none to post'],
+
+  ['not re-read in a month', (e) => e.from === 'hand' && e.checked && days(e.checked, today) > 30
+    && schedulesOf(e).some(recurs),
+    'a repeating listing whose source has not been looked at in over 30 days'],
+];
+
+const found = new Map();
+for (const e of all) {
+  const hits = checks.filter(([, fn]) => { try { return fn(e); } catch { return false; } }).map(([n]) => n);
+  if (hits.length) found.set(e.id, { e, hits });
+}
+
+console.log(`\n${all.length} listings · ${found.size} with something to look at\n`);
+
+const tally = {};
+for (const { hits } of found.values()) for (const h of hits) tally[h] = (tally[h] ?? 0) + 1;
+for (const [name, n] of Object.entries(tally).sort((a, b) => b[1] - a[1])) {
+  const why = checks.find(([k]) => k === name)?.[2] ?? '';
+  console.log(`  ${String(n).padStart(3)}  ${name.padEnd(30)} ${why}`);
+}
+console.log();
+
+for (const { e, hits } of [...found.values()].sort((a, b) => a.e.id.localeCompare(b.e.id))) {
+  console.log(`[${hits.join(', ')}]  ${e.title.trim().slice(0, 52)}  (${e.from})`);
+  for (const s of schedulesOf(e)) {
+    const span = startOf(s) && endOf(s) && startOf(s) !== endOf(s) ? `${startOf(s)} → ${endOf(s)}` : (startOf(s) ?? '?');
+    console.log(`     ${String(s.kind).padEnd(7)} ${span}${s.time ? `  ${s.time}` : '  (no time)'}`);
+  }
+  console.log(`     source ${e.source ?? '(none)'}`);
+}
+
+/* Listings that say so themselves. The standard on this board is that only
+   what is confirmed gets published, and once in a while a listing is kept
+   anyway because the event is plainly on and the only soft part is a date at
+   the far end of it. That is a decision someone took, not an oversight, and
+   the difference between the two is whether it comes back round. An entry
+   carrying `unconfirmed` is printed here every run until the field goes. */
+const declared = all.filter((e) => e.unconfirmed);
+if (declared.length) {
+  console.log(`\n${declared.length} listing${declared.length === 1 ? '' : 's'} carrying something not confirmed:\n`);
+  for (const e of declared) {
+    /* How long there is to settle it. A declared guess two months out is a
+       note to self; the same guess next week is something to go and check,
+       because whatever posts from this board will post it. */
+    const next = schedulesOf(e)
+      .map((sc) => endOf(sc))
+      .filter((d) => d && d >= today)
+      .sort()[0];
+    const countdown = next ? `${days(today, next)} days` : 'no date ahead';
+    console.log(`  ${e.title.trim().slice(0, 46)}   (${countdown})`);
+    console.log(`     ${e.unconfirmed}`);
+    console.log(`     last read ${e.checked ?? '(never)'} · ${e.source}`);
+  }
+}
+
+const staleScraped = all.filter((e) => e.from !== 'hand'
+  && schedulesOf(e).every((s) => { const x = endOf(s); return x && x < today; })).length;
+if (staleScraped) {
+  console.log(`\n${staleScraped} polled listing${staleScraped === 1 ? ' is' : 's are'} out of date. `
+    + 'That clears on the next poll, which rewrites scraped.js whole.');
+}
+
+if (found.size) {
+  console.log('\nA repeating schedule is a claim about every date it generates,'
+    + '\nand the pipeline will post every one of them. Confirm it against the'
+    + '\npage the organiser writes, not a page about them.');
+}

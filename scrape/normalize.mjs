@@ -9,6 +9,57 @@ const slug = (s) => s.toLowerCase()
   .replace(/^-|-$/g, '')
   .slice(0, 48);
 
+/* Entities arrive in every field, not only the prose, and this was only ever
+   applied to the prose. Bad Dog's titles come through as "Narrative Process
+   &amp; Sweet Sweet Friends", so the entity reached the card, the slug and
+   the event page's URL, while the description beside it read correctly. One
+   decoder, used by every field that reaches a card.
+
+   The named list alone was not enough. WordPress writes the numeric forms —
+   Grossman's Tavern lists "The Swingin&#8217; Blackjacks" and "Sat &#038;
+   Sun", and its zero-padded &#039; does not match a rule looking for &#39;.
+   So numerics are decoded by value rather than enumerated.
+
+   Decoding &lt; and &gt; here is safe, and worth saying why: nothing renders
+   these as markup. app.js puts a title on the page with textContent, and
+   build-seo escapes every field through esc() on its way into HTML. A title
+   is data all the way to the edge; this only stops the entity being printed
+   at a reader. */
+const NAMED = {
+  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'",
+  lsquo: '\u2018', rsquo: '\u2019', ldquo: '\u201C', rdquo: '\u201D',
+  ndash: '\u2013', mdash: '\u2014', hellip: '\u2026',
+  laquo: '\u00AB', raquo: '\u00BB', deg: '\u00B0',
+};
+
+/* A codepoint that is not printable is worse than the entity that named it,
+   so anything in the control ranges is left exactly as it arrived. */
+const codepoint = (n, original) => {
+  if (!Number.isInteger(n) || n < 32 || (n >= 127 && n < 160) || n > 0x10ffff) return original;
+  try { return String.fromCodePoint(n); } catch { return original; }
+};
+
+const decodeEntities = (s) => String(s)
+  /* Some feeds escape their newlines twice, so the text arrives carrying a
+     literal backslash-n rather than a line break. Collapsing whitespace
+     cannot see those. */
+  .replace(/\\[nrt]/g, ' ')
+  /* And some arrive with their entities half-eaten — the library's feed
+     says "PowerPointnbsp;classes.nbsp;", an &nbsp; that lost both ends
+     somewhere upstream. Left alone it reads as a typo in the middle of a
+     sentence on the card. */
+  .replace(/&?nbsp;?/g, ' ')
+  /* Ampersand first, so a double-encoded "&amp;#039;" gets down to an
+     apostrophe rather than stopping half way. */
+  .replace(/&amp;/g, '&')
+  .replace(/&#(\d+);/g, (m, n) => codepoint(Number(n), m))
+  .replace(/&#x([0-9a-f]+);/gi, (m, n) => codepoint(parseInt(n, 16), m))
+  .replace(/&([a-z]+);/gi, (m, name) => NAMED[name.toLowerCase()] ?? m);
+
+/* A single-line field: decoded, and with the whitespace an entity may have
+   just turned into a space collapsed back down. */
+const clean = (s) => decodeEntities(s ?? '').replace(/\s+/g, ' ').trim();
+
 const ISO = /^\d{4}-\d{2}-\d{2}$/;
 
 /* The site's own promise is "free, cheap, or at least worth the fare", and
@@ -20,6 +71,19 @@ const ISO = /^\d{4}-\d{2}-\d{2}$/;
    should not be quietly adding things the calendar would not have chosen.
    Above this, a listing is reported as dropped rather than published. */
 const CEILING = 35;
+
+/* Counting a run in progress as current is right, and it let in something
+   that is not an event: the Bentway's "Waterfront ReConnect" pieces run from
+   December 2023 to March 2027, so they would answer "what should we do
+   today" every day for three more years and crowd out the things that only
+   happen once.
+
+   The line has to go somewhere, and the hand-written listings say where. The
+   longest run anyone has chosen to put on this board by hand is 295 days —
+   an exhibition — so a year and a bit is comfortably above every editorial
+   decision already made and comfortably below a permanent installation.
+   Above this a listing is reported as dropped, not published. */
+const LONGEST_RUN_DAYS = 400;
 
 /* The same reading as priceOf in price.js: a line starting "Free", or
    pay-what-you-can, is free whatever else it mentions, and otherwise the
@@ -77,6 +141,33 @@ const asDate = (v) => {
   return ISO.test(d) ? d : null;
 };
 
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july',
+  'august', 'september', 'october', 'november', 'december'];
+
+/* normalize itself only ever accepts ISO, and that strictness is the point:
+   a date it cannot read is a listing it drops rather than guesses at. But a
+   JSON API is not obliged to send ISO — the Bentway's ACF fields say
+   "September 19, 2026" — so an adapter needs somewhere to turn a written
+   date into one this file will take. Written dates only; anything ambiguous
+   between day-first and month-first is refused rather than guessed. */
+export function asIsoDate(v) {
+  if (!v) return null;
+  const s = String(v).trim();
+  if (ISO.test(s.slice(0, 10))) return s.slice(0, 10);
+
+  const m = /^([A-Za-z]{3,9})\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(\d{4})$/.exec(s);
+  if (!m) return null;
+  const month = MONTHS.findIndex((name) => name.startsWith(m[1].toLowerCase()));
+  if (month < 0) return null;
+  const day = Number(m[2]);
+  if (day < 1 || day > 31) return null;
+  const iso = `${m[3]}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+  /* A date that does not exist — February 31 — round-trips to something
+     else through Date, so check rather than trust it. */
+  const back = new Date(`${iso}T00:00:00Z`);
+  return Number.isNaN(back.getTime()) || back.toISOString().slice(0, 10) !== iso ? null : iso;
+}
+
 /* A page title is often "The Audition — Bad Dog Theatre Company - Toronto's
    Best Improv": the event, then the site's name bolted on. Strip the tail
    only when it actually names the source, so a title that legitimately
@@ -94,18 +185,31 @@ export function stripSiteSuffix(title, sourceName) {
 }
 
 export function normalize(raw, source, { today, checked }) {
-  const title = stripSiteSuffix((raw.title ?? '').trim(), source.name);
+  const title = stripSiteSuffix(clean(raw.title), source.name);
   const start = asDate(raw.startDate);
   const end = asDate(raw.endDate);
-  const venue = (raw.venue ?? source.defaultVenue ?? '').trim();
-  let address = dedupeAddress(venue, (raw.address ?? source.defaultAddress ?? '').trim());
+  const venue = clean(raw.venue ?? source.defaultVenue);
+  let address = dedupeAddress(venue, clean(raw.address ?? source.defaultAddress));
 
   const reject = (why) => ({ ok: false, why, title: title || '(untitled)' });
 
   if (!title) return reject('no title');
   if (source.exclude && source.exclude.test(title)) return reject('excluded by this source’s filter');
   if (!start) return reject('no usable start date');
-  if (start < today) return reject(`already past (${start})`);
+  /* A run that began before today and has not finished is on today, which
+     is the question this calendar answers. Comparing the start alone threw
+     away every exhibition and every festival already under way: Public Pier
+     runs September 18th to October 3rd and was refused on the 19th for
+     having started on the 18th. What makes something past is its last day,
+     not its first.
+
+     An end before the start is nonsense rather than a long run, so it does
+     not extend anything; the gate further down rejects that outright. */
+  const lastDay = end && end >= start ? end : start;
+  if (lastDay < today) return reject(`already past (${lastDay})`);
+
+  const runDays = Math.round((Date.parse(`${lastDay}T00:00:00Z`) - Date.parse(`${start}T00:00:00Z`)) / 86400000);
+  if (runDays > LONGEST_RUN_DAYS) return reject(`runs ${runDays} days — a fixture, not an event`);
   if (!venue) return reject('no venue');
   if (PLACEHOLDER.test(venue)) return reject(`placeholder venue (${venue})`);
   if (CITY_ONLY.test(venue)) return reject(`venue is just the city (${venue})`);
@@ -156,6 +260,77 @@ export function normalize(raw, source, { today, checked }) {
   };
 }
 
+/* Two listings that the dedupe deliberately kept apart can still arrive with
+   the same id, because the key it collapses on carries the venue and the id
+   does not — the id is source, title and date. The Bentway's "Public Trust"
+   arrives three times on one day: the umbrella listing, the library's day of
+   it, and the after-school strand, at three addresses. Three listings by the
+   key, one id between them.
+
+   An id is not decoration. build-seo writes each event to /event/<id>/ and
+   app.js dedupes the board on it, so two of those three were overwritten at
+   build time and dropped at render time. Nobody saw them.
+
+   Where an id is shared, the venue that already told the listings apart goes
+   into it. An id that collides with nothing is left exactly as it was, so no
+   event page that has already been published moves. Mutates in place and
+   returns what it changed, for the run's report. */
+export function disambiguateIds(events) {
+  const byId = new Map();
+  for (const e of events) {
+    if (!byId.has(e.id)) byId.set(e.id, []);
+    byId.get(e.id).push(e);
+  }
+
+  const shared = [...byId.keys()].filter((id) => byId.get(id).length > 1);
+  const taken = new Set([...byId.keys()].filter((id) => byId.get(id).length === 1));
+  let changed = 0;
+
+  for (const id of shared) {
+    for (const e of byId.get(id)) {
+      /* Venue first, and a counter only if that still is not enough: slug()
+         truncates at 48 characters, so two long venue names sharing a prefix
+         can land on the same suffix. */
+      const base = `${id}-${slug(e.venue)}`;
+      let next = base;
+      for (let n = 2; taken.has(next); n += 1) next = `${base}-${n}`;
+      taken.add(next);
+      e.id = next;
+      changed += 1;
+    }
+  }
+
+  return { shared, changed };
+}
+
+/* The last gate, and the only one that looks beyond a single run.
+
+   For five days the extractor answered 400 to every page it was handed, and
+   every one of those was caught per-page and carried past. The run exited 0,
+   opened its pull request, and the four sources that need the model were
+   simply absent from it — a poll finding 6 events where the one before it
+   found 32, reported as a success three times running. Only the fact that
+   nobody merged those pull requests kept the board intact.
+
+   Zero events was already guarded, and zero events is not what this looks
+   like: whatever still reads for free comes through and carries the run. So
+   the comparison that matters is per source and against the last run, rather
+   than against nothing. A source that was producing and has stopped is either
+   broken or finished for the season, and both want a person to look.
+
+   `before` and `now` are id -> count. Only sources still being polled are
+   considered: parking one in sources.mjs is a decision already taken and
+   should not fail the next run. `allowed` is the override for a source that
+   really has gone quiet. */
+export function silentSources(before, now, enabled, allowed = new Set()) {
+  const out = [];
+  for (const id of enabled) {
+    const had = before.get(id) ?? 0;
+    if (had > 0 && !(now.get(id) > 0) && !allowed.has(id)) out.push({ id, had });
+  }
+  return out;
+}
+
 /** Last line of defence before anything is written out. */
 const tidyPrice = (s) => s.trim().replace(/(\$\d+)\.00\b/g, '$1');
 
@@ -178,19 +353,7 @@ function dedupeAddress(venue, address) {
    and a wall of marketing copy next to them looks like a different site. Keep
    whole sentences, and only as many as fit. */
 function trimDescription(text, limit = 220) {
-  let s = String(text)
-    /* Some feeds escape their newlines twice, so the text arrives carrying a
-       literal backslash-n rather than a line break. Collapsing whitespace
-       cannot see those. */
-    .replace(/\\[nrt]/g, ' ')
-    /* And some arrive with their entities half-eaten — the library's feed
-       says "PowerPointnbsp;classes.nbsp;", an &nbsp; that lost both ends
-       somewhere upstream. Left alone it reads as a typo in the middle of a
-       sentence on the card. */
-    .replace(/&?nbsp;?/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&#39;|&rsquo;/g, "'")
-    .replace(/&quot;|&ldquo;|&rdquo;/g, '"')
+  let s = decodeEntities(text)
     .replace(/^\s*\[[^\]]*\]\s*/, '')          /* a leading "[Note: ...]" aside */
     .replace(/\s*\(https?:\/\/[^)]+\)/g, '')     /* inline link parentheses */
     .replace(/\s+/g, ' ')

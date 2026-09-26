@@ -7,8 +7,10 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
-import { normalize, validate, stripSiteSuffix } from './normalize.mjs';
+import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
+import { allowedBy, PRODUCT_TOKEN } from './robots.mjs';
+import { fromTribe, priceFrom, splitPlace } from './api.mjs';
 import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -18,9 +20,27 @@ const realSrc = await readFile(path.join(here, '..', 'data.js'), 'utf8');
 const priceSrc = await readFile(path.join(here, '..', 'price.js'), 'utf8');
 
 let failures = 0;
+const pass = (name) => console.log('  ok   ' + name);
+const fail = (name, err) => { failures++; console.log('  FAIL ' + name + '\n       ' + err.message); };
+
+/* An async fn handed to this returns a promise rather than throwing, so a
+   failed assertion inside one used to sail past the catch and print "ok".
+   Fifteen robots tests passed that way, including one asserting that false
+   equalled the string "DELIBERATELY WRONG". Refuse the promise instead of
+   swallowing it; checkAsync is the one that awaits. */
 const check = (name, fn) => {
-  try { fn(); console.log('  ok   ' + name); }
-  catch (err) { failures++; console.log('  FAIL ' + name + '\n       ' + err.message); }
+  try {
+    const out = fn();
+    if (out && typeof out.then === 'function') {
+      throw new Error('async check passed to check() — use checkAsync()');
+    }
+    pass(name);
+  } catch (err) { fail(name, err); }
+};
+
+const checkAsync = async (name, fn) => {
+  try { await fn(); pass(name); }
+  catch (err) { fail(name, err); }
 };
 
 const index = await fixture('wygo.html');
@@ -496,6 +516,351 @@ console.log('\nListing the same thing twice');
     assert.equal(
       key(at('The Audition', '2026-09-11', 'Comedy Bar Bloor')),
       key(at('the  audition!', '2026-09-11', 'COMEDY BAR — BLOOR'))));
+}
+
+console.log('\nEntities outside the description');
+{
+  const src = { id: 'baddog', name: 'Bad Dog Theatre', category: 'comedy', art: 'art-neon',
+                defaultVenue: null, defaultAddress: null };
+  const read = (over) => normalize({
+    title: 'Narrative Process &amp; Sweet Sweet Friends',
+    startDate: '2026-09-23',
+    venue: 'Sweet Action Theatre',
+    address: '180 Shaw Street, Toronto, ON, M6J 2W5',
+    ...over,
+  }, src, { today: '2026-09-08', checked: '2026-09-08' });
+
+  check('an ampersand in a title is decoded, not printed as an entity', () => {
+    const r = read({});
+    assert.ok(r.ok, r.why);
+    assert.equal(r.event.title, 'Narrative Process & Sweet Sweet Friends');
+  });
+
+  check('and it does not ride into the id either', () => {
+    const r = read({});
+    assert.ok(!r.event.id.includes('amp'), r.event.id);
+  });
+
+  check('a venue carrying one is decoded too', () => {
+    const r = read({ venue: 'Sweet &amp; Sour Theatre' });
+    assert.ok(r.ok, r.why);
+    assert.equal(r.event.venue, 'Sweet & Sour Theatre');
+  });
+
+  /* Every one of these was taken off a real listing page. */
+  check('WordPress numeric entities decode, zero-padded or not', () => {
+    assert.equal(read({ title: 'The Swingin&#8217; Blackjacks' }).event.title, 'The Swingin\u2019 Blackjacks');
+    assert.equal(read({ title: 'Hold &#038; Release' }).event.title, 'Hold & Release');
+    assert.equal(read({ title: 'Frieda&#039;s Longshots' }).event.title, "Frieda's Longshots");
+    assert.equal(read({ title: 'Sat &#8211; Sun' }).event.title, 'Sat \u2013 Sun');
+  });
+
+  check('a double-encoded entity gets all the way down', () => {
+    assert.equal(read({ title: 'Frieda&amp;#039;s Longshots' }).event.title, "Frieda's Longshots");
+  });
+
+  check('an entity that names nothing is left alone rather than mangled', () => {
+    assert.equal(read({ title: 'Rock &widget; Roll' }).event.title, 'Rock &widget; Roll');
+  });
+
+  check('a control codepoint is refused, not printed', () => {
+    assert.equal(read({ title: 'Jazz &#7; Night' }).event.title, 'Jazz &#7; Night');
+  });
+
+  check('a half-eaten nbsp does not weld two words together', () => {
+    const r = read({ title: 'Sketchnbsp;Party' });
+    assert.ok(r.ok, r.why);
+    assert.equal(r.event.title, 'Sketch Party');
+  });
+}
+
+console.log('\nOne id per listing');
+{
+  const at = (venue) => ({ id: 'bentway-public-trust-2026-09-15', title: 'Public Trust', venue });
+
+  check('listings the dedupe kept apart do not share an id', () => {
+    const events = [
+      at('The Bentway'),
+      at('Toronto Public Library, Fort York branch'),
+      at('Harbourfront Centre'),
+    ];
+    disambiguateIds(events);
+    assert.equal(new Set(events.map((e) => e.id)).size, 3);
+  });
+
+  check('the venue is what tells them apart', () => {
+    const events = [at('The Bentway'), at('Harbourfront Centre')];
+    disambiguateIds(events);
+    assert.equal(events[0].id, 'bentway-public-trust-2026-09-15-the-bentway');
+    assert.equal(events[1].id, 'bentway-public-trust-2026-09-15-harbourfront-centre');
+  });
+
+  check('an id that collides with nothing is left where it was', () => {
+    const events = [at('The Bentway'), { id: 'bentway-roller-skate-lessons-2026-09-11', title: 'Roller Skate Lessons', venue: 'The Bentway' }];
+    disambiguateIds(events);
+    assert.equal(events[0].id, 'bentway-public-trust-2026-09-15');
+    assert.equal(events[1].id, 'bentway-roller-skate-lessons-2026-09-11');
+  });
+
+  check('two venues that slug the same still get an id each', () => {
+    const long = 'Toronto Public Library Fort York Branch Community Room ';
+    const events = [at(long + 'One'), at(long + 'Two')];
+    disambiguateIds(events);
+    assert.equal(new Set(events.map((e) => e.id)).size, 2);
+  });
+
+  check('it reports which ids were shared', () => {
+    const events = [at('The Bentway'), at('Harbourfront Centre')];
+    const out = disambiguateIds(events);
+    assert.deepEqual(out.shared, ['bentway-public-trust-2026-09-15']);
+    assert.equal(out.changed, 2);
+  });
+}
+
+console.log('\nA source that stopped answering');
+{
+  const counts = (o) => new Map(Object.entries(o));
+  const enabled = ['wygo', 'luma', 'bentway', 'evergreen', 'tpl', 'comedybar', 'baddog'];
+  const ids = (list) => list.map((x) => x.id).sort();
+
+  check('the poll that hid for five days would not have been written', () => {
+    /* 09-11 against what 09-13 actually came back with */
+    const before = counts({ baddog: 8, bentway: 5, comedybar: 6, evergreen: 7, luma: 3, tpl: 3 });
+    const now = counts({ baddog: 2, luma: 3, tpl: 1 });
+    assert.deepEqual(ids(silentSources(before, now, enabled)),
+      ['bentway', 'comedybar', 'evergreen']);
+  });
+
+  check('a steady run passes', () => {
+    const before = counts({ baddog: 8, bentway: 5, tpl: 3 });
+    const now = counts({ baddog: 7, bentway: 6, tpl: 3 });
+    assert.deepEqual(silentSources(before, now, enabled), []);
+  });
+
+  check('a source that found nothing last time either is not the alarm', () => {
+    const before = counts({ baddog: 8 });
+    const now = counts({ baddog: 8 });
+    assert.deepEqual(silentSources(before, now, enabled), []);
+  });
+
+  check('a source parked since the last run does not fail the next one', () => {
+    const before = counts({ baddog: 8, blogto: 4 });
+    const now = counts({ baddog: 8 });
+    assert.deepEqual(silentSources(before, now, enabled), []);
+  });
+
+  check('naming a source lets a genuinely quiet one through', () => {
+    const before = counts({ baddog: 8, bentway: 5 });
+    const now = counts({ baddog: 8 });
+    assert.deepEqual(silentSources(before, now, enabled, new Set(['bentway'])), []);
+  });
+
+  check('it says how many the source had before', () => {
+    const before = counts({ bentway: 5 });
+    const now = counts({});
+    assert.deepEqual(silentSources(before, now, enabled), [{ id: 'bentway', had: 5 }]);
+  });
+}
+
+console.log('\nRules robots.txt writes, and this used to wave through');
+{
+  /* allowedBy caches per origin, so each case needs a host of its own. */
+  let n = 0;
+  const against = (robots) => {
+    const host = `https://r${n += 1}.test`;
+    return async (u) => {
+      const r = await allowedBy(async () => robots, host + u);
+      return r.allowed;
+    };
+  };
+
+  /* Bad Dog's rule, which sources.mjs carries a comment about because the
+     code could not enforce it. The Piston and the Rex publish it too. */
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /*?format=json-pretty\n');
+    await checkAsync('a query-string rule is enforced, not ignored', async () =>
+      assert.equal(await ask('/shows/thing?format=json-pretty'), false));
+    await checkAsync('and the same page without the query is still fine', async () =>
+      assert.equal(await ask('/shows/thing'), true));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /en/events?*\n');
+    await checkAsync('Culture Days: the filtered listing is refused', async () =>
+      assert.equal(await ask('/en/events?city=toronto'), false));
+    await checkAsync('Culture Days: a detail page is allowed', async () =>
+      assert.equal(await ask('/en/events/cf5038fa-3b93-4e03-91d8-d90f52c492b9'), true));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /*.pdf$\n');
+    await checkAsync('a wildcard with an end anchor matches', async () =>
+      assert.equal(await ask('/reports/annual.pdf'), false));
+    await checkAsync('and does not match past the anchor', async () =>
+      assert.equal(await ask('/reports/annual.pdf.html'), true));
+  })();
+
+  /* The arrangement on half the WordPress sites this calendar reads. */
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /wp-admin/\nAllow: /wp-admin/admin-ajax.php\n');
+    await checkAsync('Allow beats a shorter Disallow', async () =>
+      assert.equal(await ask('/wp-admin/admin-ajax.php'), true));
+    await checkAsync('the rest of the directory stays refused', async () =>
+      assert.equal(await ask('/wp-admin/options.php'), false));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow:\n');
+    await checkAsync('an empty Disallow is permission, not a rule matching everything', async () =>
+      assert.equal(await ask('/anything'), true));
+  })();
+
+  /* Culture Days again: two Disallow: / groups that are not ours. */
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /en/events?*\n\nUser-agent: GPTBot\nDisallow: /\n');
+    await checkAsync('another crawler being shut out is not our rule', async () =>
+      assert.equal(await ask('/en/events/abc'), true));
+  })();
+
+  await (async () => {
+    const ask = against(`User-agent: *\nDisallow:\n\nUser-agent: ${PRODUCT_TOKEN}\nDisallow: /\n`);
+    await checkAsync('but a group naming this crawler outranks the catch-all', async () =>
+      assert.equal(await ask('/anything'), false));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: A\nUser-agent: B\nDisallow: /x/\n\nUser-agent: *\nDisallow: /y/\n');
+    await checkAsync('consecutive user-agent lines share the group that follows', async () =>
+      assert.equal(await ask('/x/thing'), true));
+    await checkAsync('and the catch-all group is still read', async () =>
+      assert.equal(await ask('/y/thing'), false));
+  })();
+
+  await (async () => {
+    const ask = against('User-agent: *\nDisallow: /wp-admin/\n');
+    await checkAsync('a plain prefix still works exactly as before', async () =>
+      assert.equal(await ask('/wp-admin/x'), false));
+    await checkAsync('and an unrelated path is untouched', async () =>
+      assert.equal(await ask('/ok/page'), true));
+  })();
+}
+
+console.log('\nA run that has started and has not finished');
+{
+  const src = { id: 'bentway', name: 'The Bentway', category: 'architecture', art: 'art-skates',
+                defaultVenue: 'The Bentway', defaultAddress: '250 Fort York Blvd, Toronto, ON M5V 3K9' };
+  const run = (startDate, endDate, today = '2026-09-19') => normalize({
+    title: 'Public Pier', startDate, endDate,
+    venue: 'Marina Quay West', address: '539 Queens Quay West, Toronto, ON',
+  }, src, { today, checked: today });
+
+  check('yesterday to next month is on today', () => {
+    const r = run('2026-09-18', '2026-10-03');
+    assert.ok(r.ok, r.why);
+    assert.deepEqual(r.event.schedule, { kind: 'range', start: '2026-09-18', end: '2026-10-03' });
+  });
+
+  check('a run that ends today is still today', () =>
+    assert.ok(run('2026-09-01', '2026-09-19').ok));
+
+  check('a run that ended yesterday is past', () =>
+    assert.equal(run('2026-09-01', '2026-09-18').ok, false));
+
+  check('a single past day is still past', () =>
+    assert.equal(run('2026-09-18', null).ok, false));
+
+  check('a single future day is untouched', () =>
+    assert.ok(run('2026-09-25', null).ok));
+
+  /* The Bentway's Waterfront ReConnect pieces: Dec 2023 to Mar 2027. */
+  check('a three-year installation is a fixture, not an event', () => {
+    const r = run('2023-12-01', '2027-03-31');
+    assert.equal(r.ok, false);
+    assert.match(r.why, /fixture/);
+  });
+
+  check('the longest run anyone has published by hand still fits', () =>
+    assert.ok(run('2026-09-08', '2027-06-30').ok));
+
+  check('an end before the start is refused rather than read as a long run', () =>
+    assert.equal(run('2026-09-19', '2026-09-01').ok, false));
+}
+
+console.log('\nReading The Events Calendar');
+{
+  const rec = (over) => fromTribe({
+    status: 'publish', title: 'A Show', start_date: '2026-09-19 21:30:00',
+    end_date: '2026-09-19 23:30:00', cost: '$20', url: 'https://x.test/e/1',
+    venue: { venue: 'Revival Event Venue', address: '783 College Street', city: 'Toronto' },
+    ...over,
+  });
+
+  /* Renaissance runs 21:30 to 02:30 — one night, not a two-day festival. */
+  check('a night that ends after midnight is still one night', () => {
+    const r = rec({ end_date: '2026-09-20 02:30:00' });
+    assert.equal(r.startDate, '2026-09-19');
+    assert.equal(r.endDate, null);
+    assert.equal(r.time, '9:30pm – 2:30am');
+  });
+
+  check('but a genuine two-day run keeps its end', () =>
+    assert.equal(rec({ end_date: '2026-09-20 18:00:00' }).endDate, '2026-09-20'));
+
+  check('and a long festival keeps its end too', () =>
+    assert.equal(rec({ end_date: '2026-09-27 18:00:00' }).endDate, '2026-09-27'));
+
+  check('a venue with an address is used', () => {
+    const r = rec({});
+    assert.equal(r.venue, 'Revival Event Venue');
+    assert.equal(r.address, '783 College Street, Toronto');
+  });
+
+  /* Grossman's sends this on every record; the Emmet Ray names a room. */
+  check('an empty venue object leaves the source default to stand', () => {
+    const r = rec({ venue: {} });
+    assert.equal(r.venue, null);
+    assert.equal(r.address, null);
+  });
+
+  check('a venue naming a room but no street also falls back', () =>
+    assert.equal(rec({ venue: { venue: 'Back Viewing Room' } }).venue, null));
+
+  check('an empty cost is not read as free', () =>
+    assert.equal(rec({ cost: '' }).entry, null));
+
+  check('a draft is not published', () =>
+    assert.equal(rec({ status: 'draft' }), null));
+
+  check('an event hidden from its own listings is not republished here', () =>
+    assert.equal(rec({ hide_from_listings: true }), null));
+
+  check('an all-day event carries no clock time', () =>
+    assert.equal(rec({ all_day: true }).time, null));
+
+  check('a record with no usable start is refused', () =>
+    assert.equal(rec({ start_date: '' }), null));
+}
+
+console.log('\nReading a price and a place out of a feed');
+{
+  check('free wins whatever else the line says', () =>
+    assert.equal(priceFrom('<p>Free, donations welcome ($10 suggested)</p>'), 'Free'));
+  check('pay-what-you-can is free', () =>
+    assert.equal(priceFrom('PWYC at the door'), 'Free'));
+  check('otherwise the first figure is the door price', () =>
+    assert.equal(priceFrom('<p><a href="#">$25</a></p>'), '$25'));
+  check('and no figure at all is not a price', () =>
+    assert.equal(priceFrom('<p>Tickets at the bar</p>'), null));
+
+  check('a named venue splits off the front of the address', () =>
+    assert.deepEqual(splitPlace('The Bentway Skate Trail, 250 Fort York Boulevard, Toronto, ON, Canada'),
+      { venue: 'The Bentway Skate Trail', address: '250 Fort York Boulevard, Toronto, ON, Canada' }));
+  check('a bare street line has no venue to split off', () =>
+    assert.deepEqual(splitPlace('250 Fort York Blvd, Toronto, ON'),
+      { venue: null, address: '250 Fort York Blvd, Toronto, ON' }));
+  check('a Plus Code is a grid reference, not a place', () =>
+    assert.equal(splitPlace('JJQ2+373 Toronto, Ontario, Canada'), null));
+  check('nothing at all is nothing', () => assert.equal(splitPlace(''), null));
 }
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
