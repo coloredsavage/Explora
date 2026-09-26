@@ -32,6 +32,25 @@
 import { asIsoDate } from './normalize.mjs';
 import { stripTags, priceFrom, splitPlace, timeRange, fromTribe } from './api.mjs';
 
+/* How many listings to keep from any one source.
+ *
+ * The board answers "what should we do today" in widening windows — today,
+ * this week, this month — so a month is as far out as a listing is much use,
+ * and for a venue with something on most nights a month is about thirty
+ * listings. That is where this number comes from rather than from taste.
+ *
+ * It is also free, which is the part worth knowing. The cap is applied in
+ * run.mjs after harvest() has already read every page, so a source capped at
+ * eight has been paid for in full and then had the rest thrown away —
+ * Grossman's returns seventy-seven nights and was keeping twenty-five.
+ * Raising it recovers events already extracted and costs nothing.
+ *
+ * What does cost money is maxFollow, which decides how many pages get read
+ * in the first place, and MODEL_CALL_BUDGET in run.mjs, which stops the run
+ * spending past a point. Those are the two to think about before widening
+ * anything; this one is not. */
+const A_MONTH_OF_LISTINGS = 30;
+
 export const SOURCES = [
   {
     id: 'wygo',
@@ -47,6 +66,7 @@ export const SOURCES = [
     /* Follow links that look like individual event pages on the same host. */
     followLinks: /^https:\/\/wygo\.world\/(?!o\/)[a-z0-9-]+$/i,
     maxFollow: 12,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'luma',
@@ -66,7 +86,7 @@ export const SOURCES = [
     /* Event slugs are short and live at the root; the city page is not one. */
     followLinks: /^https:\/\/lu\.ma\/(?!toronto$|discover|signin|create)[a-z0-9-]{4,}$/i,
     maxFollow: 20,
-    maxEvents: 12,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'eventbrite',
@@ -83,7 +103,7 @@ export const SOURCES = [
     defaultAddress: null,
     followLinks: /^https:\/\/www\.eventbrite\.ca\/e\/[a-z0-9-]+-tickets-\d+/i,
     maxFollow: 20,
-    maxEvents: 12,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
 
   /* ------------------------------------------------------------------------
@@ -110,7 +130,7 @@ export const SOURCES = [
     defaultAddress: '235 Queens Quay W, Toronto, ON M5J 2G8',
     followLinks: /^https:\/\/harbourfrontcentre\.com\/(events?|whats-on)\/[a-z0-9-]+\/?$/i,
     maxFollow: 20,
-    maxEvents: 12,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'bentway',
@@ -180,7 +200,7 @@ export const SOURCES = [
     /* One cap for both paths, and above the count either can return. It was
        10, which silently discarded the eleventh-soonest event and everything
        after it. */
-    maxEvents: 40,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'evergreen',
@@ -203,7 +223,7 @@ export const SOURCES = [
     defaultAddress: '550 Bayview Ave, Toronto, ON M4W 3X8',
     followLinks: /^https:\/\/www\.evergreen\.ca\/evergreen-brick-work\/(events|activities)\/[a-z0-9-]+\/?$/i,
     maxFollow: 20,
-    maxEvents: 10,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'tpl',
@@ -224,7 +244,7 @@ export const SOURCES = [
     exclude: /\b(microsoft|ms word|powerpoint|excel|computer (skills|basics|class|help|training)|digital literacy|tech (help|support)|drop-in tech|job (search|club|help)|r[ée]sum[ée]|career|employment|interview skills|tax (clinic|help)|income tax|financial literacy|legal (advice|clinic)|citizenship|newcomer|settlement services|esl\b|english (conversation|practice|class)|literacy (circle|program)|homework (club|help)|tutoring|book a librarian|library (tour|orientation)|blood pressure|flu shot|vaccin|wellness recovery|\bwrap\b|support group|peer support|mental health|coping|caregiver|bereavement|addiction|harm reduction)/i,
     followLinks: /^https:\/\/tpl\.bibliocommons\.com\/events\/[a-f0-9]{6,}/i,
     maxFollow: 20,
-    maxEvents: 12,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'comedybar',
@@ -247,7 +267,7 @@ export const SOURCES = [
     defaultAddress: null,
     followLinks: /^https:\/\/comedybar\.ca\/shows\/[a-z0-9-]+$/i,
     maxFollow: 12,
-    maxEvents: 8,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'baddog',
@@ -268,7 +288,7 @@ export const SOURCES = [
     defaultAddress: null,
     followLinks: /^https:\/\/baddogtheatre\.com\/whats-on\/\d{4}\/\d{1,2}\/\d{1,2}\/[a-z0-9-]+$/i,
     maxFollow: 10,
-    maxEvents: 8,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   /* ------------------------------------------------------------------------
      Music. The category had nothing in it and the calendar has had `music`
@@ -298,7 +318,7 @@ export const SOURCES = [
       maxPages: 2,
       map: fromTribe,
     },
-    maxEvents: 25,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'emmetray',
@@ -319,7 +339,7 @@ export const SOURCES = [
       maxPages: 2,
       map: fromTribe,
     },
-    maxEvents: 25,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'grossmans',
@@ -343,7 +363,7 @@ export const SOURCES = [
        in here: what the room usually does is not what tonight costs, and the
        recheck asks the page rather than assuming. These arrive under "price
        not listed" until it does. */
-    maxEvents: 25,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'paradise',
@@ -368,7 +388,7 @@ export const SOURCES = [
     defaultAddress: '1006 Bloor St W, Toronto, ON M6H 1M2',
     followLinks: /^https:\/\/paradiseonbloor\.com\/event\/[a-z0-9-]+\/?$/i,
     maxFollow: 12,
-    maxEvents: 10,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'akimbo',
@@ -384,7 +404,7 @@ export const SOURCES = [
     art: 'art-sculpture',
     followLinks: /^https:\/\/akimbo\.ca\/listings\/[a-z0-9-]+\/?$/i,
     maxFollow: 20,
-    maxEvents: 12,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
   {
     id: 'blogto',
@@ -397,7 +417,7 @@ export const SOURCES = [
     art: 'art-tent',
     followLinks: /^https:\/\/www\.blogto\.com\/events\/[a-z0-9-]+\/?$/i,
     maxFollow: 20,
-    maxEvents: 10,
+    maxEvents: A_MONTH_OF_LISTINGS,
   },
 ];
 

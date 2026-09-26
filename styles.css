@@ -636,6 +636,40 @@ img.card__art { border-radius: 8px; }
 }
 .link:hover { border-bottom-color: var(--ink); }
 
+/* How a listing got here, when it was not simply found. Deliberately quiet —
+   it is a disclosure, not a badge of honour, and it should not compete with
+   the title it sits under. Same ink as the soft text, a hairline border
+   rather than a fill, so it reads as a note and not as a sticker. */
+.card__tag {
+  display: inline-block;
+  margin: 2px 0 0;
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+
+.modal__note {
+  margin: 16px 0 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.modal__note-tag {
+  display: inline-block;
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+
 .modal__caveat {
   margin: 24px 0 0;
   padding: 12px 14px;

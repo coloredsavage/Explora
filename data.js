@@ -529,6 +529,12 @@ const EVENTS = [
     url: 'https://www.eventbrite.com/e/the-reheat-podcast-live-tickets-1997921693568',
     source: 'https://www.eventbrite.com/e/the-reheat-podcast-live-tickets-1997921693568',
     checked: '2026-09-26',
+    /* One of the hosts sent this in. Nothing was paid for it, so it is not
+       sponsored and does not say so — `submitted` is the honest word, and the
+       modal spells out what it means rather than leaving a reader to guess at
+       a one-word pill. When something here is genuinely paid for, the value
+       becomes 'sponsored' and the sentence changes with it. */
+    partner: 'submitted',
     description: 'A pop-culture podcast records its fifth-anniversary episode in front of a room, with games and a book club announcement. Book Bar does coffee, cake and cocktails and is new to Mirvish Village.',
     schedule: { kind: 'day', date: '2026-09-30', time: '7–9pm', hour: 19 },
   },

@@ -280,6 +280,34 @@
     return sameDay(occ.start, occ.end) ? 0 : 1;
   }
 
+  /* How a listing came to be here, when that is not simply "we found it".
+     One field rather than a boolean, because these are three different claims
+     to a reader and only one of them is about money: `submitted` is an
+     organiser who asked and got nothing for it, `sponsored` is paid, and
+     `affiliate` is us earning from the link. Calling an unpaid ask sponsored
+     would be the same sort of untruth this board spends its time avoiding.
+
+     Only `submitted` is in use. The other two are here so that adding them
+     later is a data change and not a rewrite. */
+  var PARTNER = {
+    submitted: {
+      pill: 'Submitted',
+      note: 'The organiser sent us this one. It was checked and listed on the '
+        + 'same terms as everything else here, and no money changed hands.'
+    },
+    sponsored: {
+      pill: 'Sponsored',
+      note: 'Paid placement. It still had to clear the same bar as everything '
+        + 'else here — payment buys a place on the board, not an exception to it.'
+    },
+    affiliate: {
+      pill: 'Affiliate',
+      note: 'We may earn something if you buy through this link.'
+    }
+  };
+
+  function partnerOf(ev) { return (ev && ev.partner && PARTNER[ev.partner]) || null; }
+
   function cardFor(occ, win) {
     var ev = occ.event;
     var btn = el('button', 'card card--' + ev.category);
@@ -294,6 +322,9 @@
     btn.dataset.price = priceOf(ev);
 
     btn.appendChild(el('h3', 'card__title', ev.title));
+
+    var how = partnerOf(ev);
+    if (how) btn.appendChild(el('span', 'card__tag', how.pill));
 
     /* the visible dates are clipped to this column's window */
     var from = max(occ.start, win.from);
@@ -478,6 +509,15 @@
     var caveat = document.getElementById('modal-caveat');
     caveat.textContent = ev.unconfirmed || '';
     caveat.hidden = !ev.unconfirmed;
+
+    /* Said in full here rather than left to a one-word pill. A pill is a
+       flag; this is the sentence that makes it honest. */
+    var how2 = partnerOf(ev);
+    var note = document.getElementById('modal-note');
+    var noteTag = document.getElementById('modal-note-tag');
+    noteTag.textContent = how2 ? how2.pill : '';
+    note.lastChild.textContent = how2 ? ' ' + how2.note : '';
+    note.hidden = !how2;
 
     lastFocus = document.activeElement;
     scrim.hidden = false;
