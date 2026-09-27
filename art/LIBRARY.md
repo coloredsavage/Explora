@@ -7,6 +7,11 @@ poll of every enabled source, plus the 84 currently on the board. Drawing
 rules are in [SPEC.md](SPEC.md); which symbol a polled listing gets is decided
 by [`scrape/art-match.mjs`](../scrape/art-match.mjs).
 
+> The additions below were built, as 3D renders rather than SVG symbols.
+> What exists, how it is generated and what went wrong on the way is in
+> [RENDERS.md](RENDERS.md). This file is still the evidence for *how many* of
+> each are needed; it has not been re-counted since.
+
 ## The finding that sizes everything
 
 Run the matcher over 190 real titles and only **ten symbols** get used, with

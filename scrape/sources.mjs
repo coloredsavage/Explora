@@ -58,7 +58,7 @@ export const SOURCES = [
     url: 'https://wygo.world/o/wygo',
     enabled: true,
     category: 'dropin',
-    art: 'art-star',
+    art: 'art-lights',
     /* Wygo runs one-off happenings across the city, so there is no single
        venue to fall back on; anything without a location is dropped. */
     defaultVenue: null,
@@ -77,7 +77,7 @@ export const SOURCES = [
        under its own category keeps it out of the way of the rest of the
        calendar and one click from hidden. */
     category: 'social',
-    art: 'art-mic',
+    art: 'art-lectern',
     /* Skim off the most obvious of it. Deliberately narrow: a book launch or
        a talk is worth keeping even when a software company is hosting. */
     exclude: /\b(networking|mixer|housewarming|happy hour|demo day|pitch (night|competition)|founders?|startups?|coworking|mastermind|fintech|saas|b2b|career fair|job fair|hiring|recruit|ama|office hours|speed dating)\b/i,
@@ -98,7 +98,7 @@ export const SOURCES = [
        route if this source is worth having. */
     enabled: false,
     category: 'dropin',
-    art: 'art-tent',
+    art: 'art-market',
     defaultVenue: null,
     defaultAddress: null,
     followLinks: /^https:\/\/www\.eventbrite\.ca\/e\/[a-z0-9-]+-tickets-\d+/i,
@@ -218,7 +218,7 @@ export const SOURCES = [
        undated items; normalize.mjs already drops both. */
     enabled: true,
     category: 'dropin',
-    art: 'art-ravine',
+    art: 'art-outdoors',
     defaultVenue: 'Evergreen Brick Works',
     defaultAddress: '550 Bayview Ave, Toronto, ON M4W 3X8',
     followLinks: /^https:\/\/www\.evergreen\.ca\/evergreen-brick-work\/(events|activities)\/[a-z0-9-]+\/?$/i,
@@ -258,7 +258,7 @@ export const SOURCES = [
        source. robots.txt 404s, so nothing is disallowed. */
     enabled: true,
     category: 'comedy',
-    art: 'art-neon',
+    art: 'art-comedy',
     /* Two rooms, Bloor and Danforth, and the show pages name which. No
        default address: guessing between them would put people outside the
        wrong building, and normalize drops an event with no address, which is
@@ -280,7 +280,7 @@ export const SOURCES = [
        even though it answers. */
     enabled: true,
     category: 'comedy',
-    art: 'art-neon',
+    art: 'art-comedy',
     /* Bad Dog's own room is on Spadina, but it also stages shows at partner
        venues, so the address has to come from the page rather than a default
        that would quietly send people to the wrong one. */
@@ -308,7 +308,7 @@ export const SOURCES = [
     url: 'https://www.revivaleventvenue.ca/events/',
     enabled: true,
     category: 'music',
-    art: 'art-records',
+    art: 'art-music',
     /* Its venue object carries a full address, so these stand unused unless
        a listing arrives without one. */
     defaultVenue: 'Revival Event Venue',
@@ -328,7 +328,7 @@ export const SOURCES = [
        city's music this calendar is actually for. */
     enabled: true,
     category: 'music',
-    art: 'art-records',
+    art: 'art-music',
     /* Its listings name the room — "Back Viewing Room" — and no street, so
        the address has to come from here. 924 College Street is what its own
        contact page states; nothing else on the site gives one. */
@@ -347,7 +347,7 @@ export const SOURCES = [
     url: 'https://grossmanstavern.com/events/',
     enabled: true,
     category: 'music',
-    art: 'art-records',
+    art: 'art-music',
     /* 377 Spadina, not 379 — its own site says so twice and a guess would
        have put the door two buildings along. The feed sends an empty venue
        object on every record, so this is the only address there is. */
@@ -383,7 +383,7 @@ export const SOURCES = [
        behind it is not. */
     enabled: false,
     category: 'film',
-    art: 'art-filmreel',
+    art: 'art-film',
     defaultVenue: 'Paradise Theatre',
     defaultAddress: '1006 Bloor St W, Toronto, ON M6H 1M2',
     followLinks: /^https:\/\/paradiseonbloor\.com\/event\/[a-z0-9-]+\/?$/i,
@@ -414,7 +414,7 @@ export const SOURCES = [
        whatever robots.txt says. Park it. */
     enabled: false,
     category: 'festival',
-    art: 'art-tent',
+    art: 'art-market',
     followLinks: /^https:\/\/www\.blogto\.com\/events\/[a-z0-9-]+\/?$/i,
     maxFollow: 20,
     maxEvents: A_MONTH_OF_LISTINGS,

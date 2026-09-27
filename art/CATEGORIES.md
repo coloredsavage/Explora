@@ -83,22 +83,38 @@ of the venue. A vague drawing is a smaller error than a confident wrong one.
 
 ## Where the new renders go
 
-Sixteen were generated and none are wired in. They exist to break up the two
-families that carry most of the board — `art-records` at 130 of 190 listings
-and `art-neon` at 30.
+Thirty-seven renders now exist, covering every category and every family that
+carries volume. How they are made, and the four things that had to be learned
+the hard way, are in [RENDERS.md](RENDERS.md).
 
-| family | drawings | covering |
+Each of the fifteen categories has one, including `outdoors` and `food`, which
+had artwork before they had listings — a canoe and a board of bread and cheese,
+waiting on a source that feeds them.
+
+The families that carry the board:
+
+| family | listings | drawings |
 |---|---|---|
-| jazz | `art-sax` `art-bass` `art-trumpet` `art-piano` `art-drums` | quartets, quintets, trios, bebop, swing — 59 listings |
-| jam | `art-jam-stool` `art-jam-guitars` `art-jam-drum` | jams, open sessions, open mics — 26 |
-| comedy | `art-improv` `art-standup` | plus the existing `art-neon` — 30 |
-| blues | `art-blues` | blues, roots, rockabilly — 8 |
-| folk | `art-folk` | folk, songwriter, acoustic — 6 |
-| DJ | `art-decks` | DJ and dance nights — 6 |
-| kids | `art-kids` | family programming — 9 |
-| outdoors | `art-boardwalk` | joins `art-ravine` so the category has two — 10 |
-| civic | `art-civic` | participatory and civic work like Public Trust — 2 |
+| jazz | 59 | `jazz-sax` `jazz-bass` `jazz-trumpet` `jazz-piano` `jazz-drums` |
+| comedy | 30 | `improv`, plus the category's microphone |
+| jam | 26 | `jam-stool` `jam-guitars` `jam-drum` |
+| outdoors | 10 | `boardwalk`, plus the category's canoe |
+| kids | 9 | `kids` |
+| blues | 8 | `blues` |
+| folk | 6 | `folk` |
+| DJ | 6 | `decks` |
+| civic | 2 | `civic` |
 
-Still unserved by any drawing, new or old: `food` and `stage` have category
-defaults but no family rule, so nothing routes to them by title. Neither has
-volume yet, which is why they are not drawn.
+And the families that were falling through to a category default: `skates`,
+`camera`, `bicycle`, `pottery`, `lectern`, `sculpture`.
+
+`food` and `stage` still have no family rule, so nothing routes to them by
+title — only by category. Both now have a drawing, so adding a rule is the only
+thing left, and neither has the volume to justify one yet.
+
+`streetcar` has a drawing and no route to it at all. It is an orphan, kept only
+for a hand-picked listing.
+
+These are what the board draws. The jazz, jam, blues, folk and DJ drawings are
+assigned by title at poll time, so they appear as the poller returns music
+listings rather than being set by hand in `data.js`.

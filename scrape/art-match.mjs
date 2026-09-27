@@ -35,30 +35,51 @@ export const RULES = [
   [/\bflea\b|swap meet|car boot/i, 'art-flea'],
 
   [/\bphoto|camera|portrait|darkroom/i, 'art-camera'],
-  [/film|screening|cinema|movie|documentary|matinee/i, 'art-filmreel'],
+  [/film|screening|cinema|movie|documentary|matinee/i, 'art-film'],
 
   /* Books before talks: an author event is a book event first, and "Randy
      Boyagoda: Lords of Serendipity" carries neither word. */
   [/book club|\bauthor\b|reading|novel|memoir|poet|literar|library/i, 'art-books'],
-  [/artist talk|\btalk\b|lecture|panel|in conversation|keynote|q&a/i, 'art-mic'],
+  [/artist talk|\btalk\b|lecture|panel|in conversation|keynote|q&a/i, 'art-lectern'],
 
   [/exhibit|installation|gallery|mural|sculpture|vernissage|public art/i, 'art-sculpture'],
-  [/improv|stand.?up|comedy|open mic|sketch|showcase|audition/i, 'art-neon'],
-  [/jazz|\bband\b|concert|choir|opera|\bdj\b|vinyl|record|karaoke/i, 'art-records'],
+  [/improv|stand.?up|comedy|open mic|sketch|showcase|audition/i, 'art-comedy'],
+
+  /* Music, specific before general. One crate of records landed on a hundred
+     and thirty of the last hundred and ninety listings, and fifty-nine of
+     those were jazz — so the genres that carry real volume get their own
+     drawings and everything else still falls through to the amplifier.
+
+     Jam first: "Tuesday Night Jazz Jam" is more usefully a jam than a jazz
+     quartet, because the format is what a reader is deciding about. */
+  [/\bjam\b|jam session|open session/i, 'art-jam'],
+  [/jazz|quartet|quintet|\btrio\b|bebop|\bswing\b|straight ahead/i, 'art-jazz'],
+  [/blues|rockabilly|\broots\b/i, 'art-blues'],
+  [/\bfolk\b|songwriter|acoustic|bluegrass/i, 'art-folk'],
+  [/\bdj\b|\bdisco\b|dance party|dance night|house night/i, 'art-decks'],
+  [/\bband\b|concert|choir|opera|vinyl|record|karaoke|\bgig\b/i, 'art-music'],
 
   /* No bare `make`: it caught "make promises to themselves" in the Bentway's
      Public Trust and turned a democracy project into a pot. */
-  [/clay|pottery|ceramic|craft|knit|sew|weav|workshop/i, 'art-vase'],
+  [/clay|pottery|ceramic|craft|knit|sew|weav|workshop/i, 'art-pottery'],
   [/\bbike|cycl|velo/i, 'art-bicycle'],
   [/architect|design.?walk|building|heritage|site tour|walking tour/i, 'art-architecture'],
   [/museum/i, 'art-museum'],
   [/festival|parade|\bfair\b|street party|block party/i, 'art-festival'],
-  [/food|bake|bread|cook|tasting|supper|brunch|dinner/i, 'art-bread'],
+  [/food|bake|bread|cook|tasting|supper|brunch|dinner/i, 'art-food'],
+
+  /* Family programming. After comedy, so a "Family Comedy Matinee" stays
+     comedy, and after food, so a kids' baking session stays a loaf. */
+  [/\bkids\b|children|toddler|storytime|all ages|family day/i, 'art-kids'],
+
+  /* Civic and participatory work — the Bentway's Public Trust is the whole of
+     this today, which is why the words are its words and not a general rule. */
+  [/democracy|civic|public trust|town hall|participatory/i, 'art-civic'],
 
   /* Outdoors last of the specific rules: "walk" and "wander" appear inside
      plenty of titles that are really something else, so everything that could
      claim them has had its turn by here. */
-  [/forest|ravine|nature|bird|garden|wander|hike|trail|park\b|walk\b/i, 'art-ravine'],
+  [/forest|ravine|nature|bird|garden|wander|hike|trail|park\b|walk\b/i, 'art-outdoors'],
 ];
 
 /* A family is one idea with more than one drawing of it.
@@ -76,10 +97,18 @@ export const RULES = [
  * A family with one member is the normal case and costs nothing. Adding a
  * drawing later is a string in this table and nothing else. */
 export const FAMILIES = {
-  'art-records': ['art-records'],
-  'art-neon':    ['art-neon'],
-  'art-ravine':  ['art-ravine'],
-  'art-market':  ['art-market'],
+  /* A family key is not always a file. 'art-jazz' and 'art-jam' exist only to
+     be expanded — nothing draws them — while 'art-comedy' and 'art-outdoors'
+     are real files that also head a family. Either way pick() returns a member,
+     and a key with one member returns itself, so a family costs nothing until
+     there is a second drawing to put in it. */
+  'art-jazz':     ['art-jazz-sax', 'art-jazz-bass', 'art-jazz-trumpet',
+                   'art-jazz-piano', 'art-jazz-drums'],
+  'art-jam':      ['art-jam-stool', 'art-jam-guitars', 'art-jam-drum'],
+  'art-comedy':   ['art-comedy', 'art-improv'],
+  'art-outdoors': ['art-outdoors', 'art-boardwalk'],
+  'art-music':    ['art-music'],
+  'art-market':   ['art-market'],
 };
 
 /* Which drawing a listing gets, out of its family.

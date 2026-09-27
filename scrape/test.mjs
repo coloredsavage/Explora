@@ -9,7 +9,7 @@ import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
-import { matchArt } from './art-match.mjs';
+import { matchArt, FAMILIES } from './art-match.mjs';
 import { allowedBy, PRODUCT_TOKEN } from './robots.mjs';
 import { fromTribe, priceFrom, splitPlace } from './api.mjs';
 import { bestMatch, acceptable, patchEntry, loadSite, restingIds, DURABLE_REFUSAL } from './recheck.mjs';
@@ -231,13 +231,13 @@ const sample = [
   "    title: 'A thing',",
   "    category: 'art',",
   "    entry: 'Ticketed',",
-  "    art: 'art-star',",
+  "    art: 'art-lights',",
   '  },',
   '  {',
   "    id: 'has-none',",
   "    title: 'Another thing',",
   "    category: 'dropin',",
-  "    art: 'art-star',",
+  "    art: 'art-lights',",
   '  },',
   '];',
   '',
@@ -249,11 +249,11 @@ check('replaces a price that is already there', () => {
 });
 check('leaves the other listing alone', () => {
   const out = patchEntry(sample, 'has-one', '$25');
-  assert.match(out, /id: 'has-none',\n    title: 'Another thing',\n    category: 'dropin',\n    art: 'art-star',\n  },/);
+  assert.match(out, /id: 'has-none',\n    title: 'Another thing',\n    category: 'dropin',\n    art: 'art-lights',\n  },/);
 });
 check('inserts a missing price after category', () => {
   const out = patchEntry(sample, 'has-none', 'Free');
-  assert.match(out, /category: 'dropin',\n    entry: 'Free',\n    art: 'art-star',/);
+  assert.match(out, /category: 'dropin',\n    entry: 'Free',\n    art: 'art-lights',/);
 });
 check('escapes a quote rather than breaking the file', () => {
   const out = patchEntry(sample, 'has-none', "$10 at the door, $8 if you're a member");
@@ -355,7 +355,7 @@ console.log('\nFit to print as it stands');
 
 console.log('\nA title with the site bolted on');
 {
-  const src = { id: 'baddog', name: 'Bad Dog Theatre', category: 'comedy', art: 'art-neon',
+  const src = { id: 'baddog', name: 'Bad Dog Theatre', category: 'comedy', art: 'art-comedy',
                 url: 'https://baddogtheatre.com/whats-on' };
   const base = { startDate: '2026-09-11', venue: 'Comedy Bar Bloor',
                  address: '945 Bloor St W, Toronto, ON', description: 'x'.repeat(60) };
@@ -389,7 +389,7 @@ console.log('\nWhat a library runs that is not a day out');
 
 console.log('\nPast what the calendar is for');
 {
-  const src = { id: 'luma', name: 'Luma', category: 'social', art: 'art-mic', url: 'x', defaultAddress: null };
+  const src = { id: 'luma', name: 'Luma', category: 'social', art: 'art-lectern', url: 'x', defaultAddress: null };
   const when = { today: '2026-09-11', checked: '2026-09-11' };
   const ok = (entry) => normalize({ title: 'A thing', startDate: '2026-09-20', venue: 'A Hall',
     address: '1 King St W, Toronto, ON', description: 'x'.repeat(60), entry }, src, when).ok;
@@ -423,7 +423,7 @@ console.log('\nAnnouncements that nothing is on');
 
 console.log('\nAn ellipsis that means something');
 {
-  const src = { id: 'x', name: 'X', category: 'dropin', art: 'art-tools', url: 'x', defaultAddress: null };
+  const src = { id: 'x', name: 'X', category: 'dropin', art: 'art-dropin', url: 'x', defaultAddress: null };
   const when = { today: '2026-09-11', checked: '2026-09-11' };
   const desc = (d) => normalize({ title: 'T', startDate: '2026-09-20', venue: 'V',
     address: '1 King St W, Toronto, ON', description: d }, src, when).event.description;
@@ -475,7 +475,7 @@ console.log('\nAn address with the city left off');
   const bentway = { id: 'bentway', name: 'The Bentway', category: 'architecture', art: 'art-skates',
                     url: 'https://thebentway.ca/whats-on',
                     defaultAddress: '250 Fort York Blvd, Toronto, ON M5V 3K9' };
-  const wygo = { id: 'wygo', name: 'Wygo', category: 'dropin', art: 'art-star',
+  const wygo = { id: 'wygo', name: 'Wygo', category: 'dropin', art: 'art-lights',
                  url: 'https://wygo.world/o/wygo', defaultAddress: null };
   const run = (src, venue, address) => normalize({ ...base, venue, address }, src, when);
 
@@ -521,7 +521,7 @@ console.log('\nListing the same thing twice');
 
 console.log('\nEntities outside the description');
 {
-  const src = { id: 'baddog', name: 'Bad Dog Theatre', category: 'comedy', art: 'art-neon',
+  const src = { id: 'baddog', name: 'Bad Dog Theatre', category: 'comedy', art: 'art-comedy',
                 defaultVenue: null, defaultAddress: null };
   const read = (over) => normalize({
     title: 'Narrative Process &amp; Sweet Sweet Friends',
@@ -884,7 +884,7 @@ console.log('\nPicking an illustration per listing');
 
   /* Every one of these is a title the poller has actually returned. */
   check('an artist talk is not a roller skate', () =>
-    assert.equal(m('Artist Talk with Paul Ramírez Jonas'), 'art-mic'));
+    assert.equal(m('Artist Talk with Paul Ramírez Jonas'), 'art-lectern'));
   check('a farmers market is not a ravine', () =>
     assert.equal(m('Saturday Farmers Market'), 'art-market'));
   check('an artisan and vintage market is still a market', () =>
@@ -904,11 +904,25 @@ console.log('\nPicking an illustration per listing');
       'A monthly walk-and-talk for the design community.'), 'art-architecture'));
   check('"make promises" in the prose does not make a civic project a pot', () =>
     assert.notEqual(m('Public Trust',
-      'Torontonians are invited into a non-partisan space to make promises.'), 'art-vase'));
+      'Torontonians are invited into a non-partisan space to make promises.'), 'art-pottery'));
 
   /* But the description is still read when the title is only a name. */
+  /* Comedy now has two drawings, so the answer is a member of the family
+     rather than one fixed id. Which member is the hash's business. */
   check('a title that says nothing falls through to its page', () =>
-    assert.equal(m('Sweet Sweet Friends', 'An improv show at Bad Dog Theatre.'), 'art-neon'));
+    assert.ok(FAMILIES['art-comedy'].includes(
+      m('Sweet Sweet Friends', 'An improv show at Bad Dog Theatre.'))));
+
+  /* The whole point of the five jazz drawings: one crate of records used to
+     land on a hundred and thirty of a hundred and ninety listings. */
+  check('a jazz quartet draws an instrument, not a record crate', () =>
+    assert.ok(FAMILIES['art-jazz'].includes(m('The Andrew Scott Quartet'))));
+  check('five jazz titles do not all draw the same thing', () =>
+    assert.ok(new Set(['The Andrew Scott Quartet', 'Mike Murley Trio',
+      'Bebop Night', 'Straight Ahead Jazz', 'The Sunday Swing Session']
+      .map((t) => m(t))).size >= 3));
+  check('a jam is a jam before it is jazz', () =>
+    assert.ok(FAMILIES['art-jam'].includes(m('Tuesday Night Jazz Jam'))));
 
   check('and nothing at all keeps the source default', () =>
     assert.equal(m('Step6ix Sunday Social Run', 'A social run.'), null));

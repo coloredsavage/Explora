@@ -1,7 +1,14 @@
 # The illustration system
 
-Thirty-four SVG symbols live inline in `index.html`, one `<symbol>` each, and
-every card on the board draws one of them. There was no written spec, which is
+> **Retired.** The thirty-four inline SVG symbols this describes were replaced
+> by rendered images — see [RENDERS.md](RENDERS.md). This is kept because the
+> rules below were derived by measuring the drawings that worked, and they are
+> what the renders were judged against: draw the subject rather than the
+> category, put detail in proportion to the subject, never two co-equal
+> objects. The geometry sections are history.
+
+Thirty-four SVG symbols lived inline in `index.html`, one `<symbol>` each, and
+every card on the board drew one of them. There was no written spec, which is
 how a speedometer ended up standing in for neon on fourteen listings.
 
 This is not a new style. It is the rules the best of the existing drawings
@@ -141,6 +148,16 @@ thing.
 Draw the object someone would actually see: a brick-lit club sign, a boot with a
 blade. If a stranger cannot name it in a second with the label covered, it has
 failed, however well it is drawn.
+
+### 8. Two objects, only when one is subordinate
+
+A drawing with two things in it works when there is a clear main object and
+something smaller resting on or against it — a painting with its palette, a
+basket with its blanket, a suitcase stack with its camera. It fails when the two
+sit side by side at equal weight: a microphone beside a bar stool came out the
+same height as the stool, and a vase beside a bowl read as two unrelated pots.
+
+Not "never two objects" — never two co-equal ones. When in doubt, one object.
 
 ## What this method can and cannot draw
 
