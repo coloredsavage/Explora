@@ -96,10 +96,32 @@ export const SOURCES = [
     id: 'eventbrite',
     name: 'Eventbrite',
     url: 'https://www.eventbrite.ca/d/canada--toronto/free--events/',
-    /* Parked: the search page answers HTTP 405 to a headless browser and
-       yields no links, so it refuses automated access regardless of what
-       robots.txt allows. Eventbrite has an API — that is the sanctioned
-       route if this source is worth having. */
+    /* Parked, and not for the reason first recorded here.
+
+       That note said the search page answered 405 to a headless browser. It
+       no longer does: checked 2026-09-27, it returns 200 to this bot, carries
+       21 event links, and every event page has complete JSON-LD — name,
+       dates, venue, street address, AggregateOffer.lowPrice and
+       eventAttendanceMode. robots.txt does not disallow /d/ or /e/ either. On
+       the evidence it would work today, on the fast path, for no model calls.
+
+       It stays off because Eventbrite's Terms of Service say a user has no
+       right to scrape, crawl or use automated means to extract data from the
+       site. robots.txt permits what the contract forbids, and the contract is
+       the one that counts — the same standard that parks ra.co, Songkick and
+       Bandsintown below. Do not enable this by observing that the block is
+       gone; the block was never the reason.
+
+       The API is not a way round it. Public event search (/v3/events/search/)
+       was withdrawn in December 2019 and refused from February 2020. What
+       remains — by id, by venue, by organization — reaches only organisations
+       you already control, so it cannot discover anyone else's events.
+
+       The route that works is the one this file already takes everywhere
+       else: read the venue, not the ticket vendor. Eventbrite is usually the
+       checkout page and the announcement is on the organiser's own site.
+       Where an organiser has no site, they can send it in — see the
+       `submitted` partner tag in data.js. */
     enabled: false,
     category: 'dropin',
     art: 'art-market',
