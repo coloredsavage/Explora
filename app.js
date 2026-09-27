@@ -352,16 +352,27 @@
     return wrap;
   }
 
+  /* The illustration for a listing: its own `art` if it has one, otherwise
+     whatever its category falls back to.
+
+     These were inline <symbol>s in index.html and are now rendered images in
+     illustrations/. The file name is the id, so nothing else had to learn a
+     new vocabulary — data.js, sources.mjs and the matcher all still pass
+     around 'art-market'.
+
+     Every file is cut out to the same 13:10 frame with the object scaled to a
+     common fraction of it, so `object-fit: contain` is all the sizing there
+     is. Lazy, because a long board holds far more cards than are ever on
+     screen. */
   function symbolFor(event) {
     var id = event.art || CATEGORIES[event.category].art;
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('viewBox', '0 0 260 200');
-    svg.setAttribute('role', 'img');
-    svg.setAttribute('aria-label', event.title);
-    var use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-    use.setAttribute('href', '#' + id);
-    svg.appendChild(use);
-    return svg;
+    var img = document.createElement('img');
+    img.src = 'illustrations/' + id + '.webp';
+    img.alt = event.title;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+    img.dataset.art = id;
+    return img;
   }
 
   /* A run you can drop in on across many days, rather than something with a

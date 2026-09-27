@@ -58,7 +58,7 @@ export const SOURCES = [
     url: 'https://wygo.world/o/wygo',
     enabled: true,
     category: 'dropin',
-    art: 'art-star',
+    art: 'art-lights',
     /* Wygo runs one-off happenings across the city, so there is no single
        venue to fall back on; anything without a location is dropped. */
     defaultVenue: null,
@@ -71,20 +71,24 @@ export const SOURCES = [
   {
     id: 'luma',
     name: 'Luma',
-    url: 'https://lu.ma/toronto',
+    /* luma.com, not lu.ma. The short domain 301s to the long one and every
+       event link on the page is now luma.com/<slug>, so the follow pattern
+       below matched nothing and this source quietly returned zero for weeks.
+       Both hosts are accepted in case the redirect is ever reversed. */
+    url: 'https://luma.com/toronto',
     enabled: true,
     /* Luma's Toronto feed is mostly startup and tech networking. Filing it
        under its own category keeps it out of the way of the rest of the
        calendar and one click from hidden. */
     category: 'social',
-    art: 'art-mic',
+    art: 'art-lectern',
     /* Skim off the most obvious of it. Deliberately narrow: a book launch or
        a talk is worth keeping even when a software company is hosting. */
     exclude: /\b(networking|mixer|housewarming|happy hour|demo day|pitch (night|competition)|founders?|startups?|coworking|mastermind|fintech|saas|b2b|career fair|job fair|hiring|recruit|ama|office hours|speed dating)\b/i,
     defaultVenue: null,
     defaultAddress: null,
     /* Event slugs are short and live at the root; the city page is not one. */
-    followLinks: /^https:\/\/lu\.ma\/(?!toronto$|discover|signin|create)[a-z0-9-]{4,}$/i,
+    followLinks: /^https:\/\/(?:lu\.ma|luma\.com)\/(?!toronto$|discover|signin|create|user|pricing|help)[a-z0-9-]{4,}$/i,
     maxFollow: 20,
     maxEvents: A_MONTH_OF_LISTINGS,
   },
@@ -92,13 +96,35 @@ export const SOURCES = [
     id: 'eventbrite',
     name: 'Eventbrite',
     url: 'https://www.eventbrite.ca/d/canada--toronto/free--events/',
-    /* Parked: the search page answers HTTP 405 to a headless browser and
-       yields no links, so it refuses automated access regardless of what
-       robots.txt allows. Eventbrite has an API — that is the sanctioned
-       route if this source is worth having. */
+    /* Parked, and not for the reason first recorded here.
+
+       That note said the search page answered 405 to a headless browser. It
+       no longer does: checked 2026-09-27, it returns 200 to this bot, carries
+       21 event links, and every event page has complete JSON-LD — name,
+       dates, venue, street address, AggregateOffer.lowPrice and
+       eventAttendanceMode. robots.txt does not disallow /d/ or /e/ either. On
+       the evidence it would work today, on the fast path, for no model calls.
+
+       It stays off because Eventbrite's Terms of Service say a user has no
+       right to scrape, crawl or use automated means to extract data from the
+       site. robots.txt permits what the contract forbids, and the contract is
+       the one that counts — the same standard that parks ra.co, Songkick and
+       Bandsintown below. Do not enable this by observing that the block is
+       gone; the block was never the reason.
+
+       The API is not a way round it. Public event search (/v3/events/search/)
+       was withdrawn in December 2019 and refused from February 2020. What
+       remains — by id, by venue, by organization — reaches only organisations
+       you already control, so it cannot discover anyone else's events.
+
+       The route that works is the one this file already takes everywhere
+       else: read the venue, not the ticket vendor. Eventbrite is usually the
+       checkout page and the announcement is on the organiser's own site.
+       Where an organiser has no site, they can send it in — see the
+       `submitted` partner tag in data.js. */
     enabled: false,
     category: 'dropin',
-    art: 'art-tent',
+    art: 'art-market',
     defaultVenue: null,
     defaultAddress: null,
     followLinks: /^https:\/\/www\.eventbrite\.ca\/e\/[a-z0-9-]+-tickets-\d+/i,
@@ -218,7 +244,7 @@ export const SOURCES = [
        undated items; normalize.mjs already drops both. */
     enabled: true,
     category: 'dropin',
-    art: 'art-ravine',
+    art: 'art-outdoors',
     defaultVenue: 'Evergreen Brick Works',
     defaultAddress: '550 Bayview Ave, Toronto, ON M4W 3X8',
     followLinks: /^https:\/\/www\.evergreen\.ca\/evergreen-brick-work\/(events|activities)\/[a-z0-9-]+\/?$/i,
@@ -258,7 +284,7 @@ export const SOURCES = [
        source. robots.txt 404s, so nothing is disallowed. */
     enabled: true,
     category: 'comedy',
-    art: 'art-neon',
+    art: 'art-comedy',
     /* Two rooms, Bloor and Danforth, and the show pages name which. No
        default address: guessing between them would put people outside the
        wrong building, and normalize drops an event with no address, which is
@@ -280,7 +306,7 @@ export const SOURCES = [
        even though it answers. */
     enabled: true,
     category: 'comedy',
-    art: 'art-neon',
+    art: 'art-comedy',
     /* Bad Dog's own room is on Spadina, but it also stages shows at partner
        venues, so the address has to come from the page rather than a default
        that would quietly send people to the wrong one. */
@@ -308,7 +334,7 @@ export const SOURCES = [
     url: 'https://www.revivaleventvenue.ca/events/',
     enabled: true,
     category: 'music',
-    art: 'art-records',
+    art: 'art-music',
     /* Its venue object carries a full address, so these stand unused unless
        a listing arrives without one. */
     defaultVenue: 'Revival Event Venue',
@@ -328,7 +354,7 @@ export const SOURCES = [
        city's music this calendar is actually for. */
     enabled: true,
     category: 'music',
-    art: 'art-records',
+    art: 'art-music',
     /* Its listings name the room — "Back Viewing Room" — and no street, so
        the address has to come from here. 924 College Street is what its own
        contact page states; nothing else on the site gives one. */
@@ -347,7 +373,7 @@ export const SOURCES = [
     url: 'https://grossmanstavern.com/events/',
     enabled: true,
     category: 'music',
-    art: 'art-records',
+    art: 'art-music',
     /* 377 Spadina, not 379 — its own site says so twice and a guess would
        have put the door two buildings along. The feed sends an empty venue
        object on every record, so this is the only address there is. */
@@ -383,7 +409,7 @@ export const SOURCES = [
        behind it is not. */
     enabled: false,
     category: 'film',
-    art: 'art-filmreel',
+    art: 'art-film',
     defaultVenue: 'Paradise Theatre',
     defaultAddress: '1006 Bloor St W, Toronto, ON M6H 1M2',
     followLinks: /^https:\/\/paradiseonbloor\.com\/event\/[a-z0-9-]+\/?$/i,
@@ -414,7 +440,7 @@ export const SOURCES = [
        whatever robots.txt says. Park it. */
     enabled: false,
     category: 'festival',
-    art: 'art-tent',
+    art: 'art-market',
     followLinks: /^https:\/\/www\.blogto\.com\/events\/[a-z0-9-]+\/?$/i,
     maxFollow: 20,
     maxEvents: A_MONTH_OF_LISTINGS,

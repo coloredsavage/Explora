@@ -1,3 +1,5 @@
+import { matchArt, variantOf } from './art-match.mjs';
+
 /* Raw extraction -> the shape data.js speaks, or nothing at all.
  *
  * Everything here is a gate. An entry that cannot be described honestly —
@@ -195,6 +197,9 @@ export function normalize(raw, source, { today, checked }) {
 
   if (!title) return reject('no title');
   if (source.exclude && source.exclude.test(title)) return reject('excluded by this source’s filter');
+  if (FOR_CHILDREN.test(title) || FOR_CHILDREN.test(String(raw.description ?? ''))) {
+    return reject('programming for children');
+  }
   if (!start) return reject('no usable start date');
   /* A run that began before today and has not finished is on today, which
      is the question this calendar answers. Comparing the start alone threw
@@ -244,7 +249,10 @@ export function normalize(raw, source, { today, checked }) {
       id: `${source.id}-${slug(title)}-${start}`,
       title,
       category: source.category,
-      art: source.art,
+      /* The source's symbol is the fallback, not the answer. Stamping one
+         per source is how every Bentway event became a roller skate,
+         including an artist talk; see art-match.mjs. */
+      art: matchArt(raw) ?? variantOf(source.art, title),
       ...(raw.entry ? { entry: tidyPrice(raw.entry) } : {}),
       venue,
       address,
@@ -275,6 +283,89 @@ export function normalize(raw, source, { today, checked }) {
    into it. An id that collides with nothing is left exactly as it was, so no
    event page that has already been published moves. Mutates in place and
    returns what it changed, for the run's report. */
+/* One event, published by one source across several of its own pages.
+
+   The Bentway put Public Trust on five: the project page, the library page, an
+   after-school page, the index, and a dated one. Title-and-date-and-venue told
+   them apart — correctly, by its own rule, because two things sharing a name on
+   one day at different addresses are usually two things. Here they were one,
+   and the board showed the same name twice on the same day.
+
+   Two ways a listing can be a lesser copy of another:
+
+   Containment. A shorter title that is the start of a longer one, at a venue
+   the other already names — "Public Trust" against "Public Trust — Toronto
+   Public Library, Fort York branch", whose venue list contains the first's.
+   Two genuinely different events at two venues never satisfy this: neither
+   venue contains the other.
+
+   Depth. A listing whose url sits at the top of the site never reached an
+   event page of its own; it is the index's one-line version. The Bentway's
+   index gave the Paul Ramírez Jonas talk the venue "The Bentway" and no time,
+   while its own page gave the library branch and 6–7:30pm, and neither venue
+   string contains the other — so containment alone kept two copies of one
+   talk. Identical title, identical schedule, same source, one of them an index
+   line: the same event, described worse. Two real events sharing a name on one
+   day would each have their own page, so this cannot merge them.
+
+   Not `source` for that test: a listing's `source` is the page it was read
+   from, which for a followed event page is its own url, so comparing the two
+   calls everything an index line.
+
+   Same source only. Two sources carrying one event is a different problem,
+   left alone, because their titles and venues are written by different people
+   and containment means less across them. */
+export function collapseSubsumed(events, prefer) {
+  const norm = (x) => String(x ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  const dateOf = (e) => e.schedule?.date ?? e.schedule?.start ?? '';
+  const covers = (a, b) => {
+    const [x, y] = [norm(a), norm(b)];
+    return x === y || x.includes(y) || y.includes(x);
+  };
+  const depth = (e) => (e.url ? e.url.replace(/\/$/, '').split('/').length : 0);
+  const shallow = (e) => depth(e) <= 4;
+
+  /* The whole schedule, not just its first day. Grouping on the start alone
+     folded a three-week installation into a one-day event at a library that
+     opened on the same date, and took the installation's own page with it. */
+  const groups = new Map();
+  for (const e of events) {
+    const s = e.schedule ?? {};
+    const k = `${e.scrapedFrom}|${s.kind}|${dateOf(e)}|${s.end ?? ''}`;
+    if (!groups.has(k)) groups.set(k, []);
+    groups.get(k).push(e);
+  }
+
+  const dropped = [];
+  for (const group of groups.values()) {
+    if (group.length < 2) continue;
+    /* Longest title first, so a shorter one is always tested against a title
+       that could contain it; deepest url first among equals, so the fuller
+       copy is the one the others fold into. */
+    const order = [...group].sort((a, b) =>
+      String(b.title).length - String(a.title).length || depth(b) - depth(a));
+    const kept = [];
+    for (const e of order) {
+      const host = kept.find((k) => (
+        (norm(k.title).startsWith(norm(e.title)) && covers(k.venue, e.venue))
+        || (norm(k.title) === norm(e.title) && shallow(e) && !shallow(k))
+      ));
+      if (!host) { kept.push(e); continue; }
+      const winner = prefer ? prefer(host, e) : host;
+      if (winner !== host) Object.assign(host, winner);
+      dropped.push(e);
+    }
+  }
+
+  if (dropped.length) {
+    const gone = new Set(dropped);
+    const left = events.filter((e) => !gone.has(e));
+    events.length = 0;
+    events.push(...left);
+  }
+  return { dropped: dropped.length };
+}
+
 export function disambiguateIds(events) {
   const byId = new Map();
   for (const e of events) {
@@ -390,6 +481,31 @@ function trimDescription(text, limit = 220) {
   if (!cutMidSentence && /[.!?]$/.test(out)) return out;
   return out.replace(/[\s.,;:]+$/, '') + '…';
 }
+
+/* This is not a children's calendar, and aggregating one by accident is worse
+   than not having the listings: a parent cannot rely on four kids' events
+   scattered among eighty, and everyone else has to read past them.
+
+   Phrases rather than keywords, because the words are ambiguous and the
+   phrases are not. A rule matching a bare \bkids\b drops Kids in the Hall,
+   who are a comedy act Comedy Bar could plausibly book; "Family Day" is a
+   public holiday that adults attend. What is unambiguous is an audience being
+   named — "a program for young kids", "children's portraits", an age range in
+   years. The description is read as well as the title, because "Little
+   Discoveries" says nothing on its own and its page says young kids.
+
+   Deliberately not excluded: "family". A family nature walk is a walk, and
+   the Evergreen one is on the board for adults who want an easy hour. */
+const FOR_CHILDREN = new RegExp([
+  "\\bfor (?:young |little )?(?:kids|children|toddlers|babies)\\b",
+  "\\b(?:young |little )?(?:kids|child|children)(?:'s|s')? (?:program|programme|class|workshop|session|hour|club|craft|story|portrait|photo|camp)",
+  "\\bchildren's\\b",
+  "\\btoddlers?\\b",
+  "\\bpre-?school",
+  "\\bstory ?time\\b",
+  "\\bages? \\d+\\s*(?:[–—-]|to)\\s*\\d+\\b",
+  "\\bunder \\d+s?\\b",
+].join('|'), 'i');
 
 export function validate(event) {
   const problems = [];
