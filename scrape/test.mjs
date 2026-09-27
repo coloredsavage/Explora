@@ -2,6 +2,7 @@
 /* Offline checks over the fixtures. No network, no API key, no browser. */
 
 import { readFile } from 'node:fs/promises';
+import { readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
@@ -1016,6 +1017,39 @@ console.log('\nReading a price and a place out of a feed');
   check('a Plus Code is a grid reference, not a place', () =>
     assert.equal(splitPlace('JJQ2+373 Toronto, Ontario, Canada'), null));
   check('nothing at all is nothing', () => assert.equal(splitPlace(''), null));
+}
+
+console.log('\nThe page and the poller agree on what a family is');
+{
+  /* app.js needs the families too, to keep one drawing off two touching
+     cards, and it cannot import an ES module the poller owns. So data.js
+     carries a copy and this is what stops the two drifting. */
+  const ctx = vm.createContext({});
+  vm.runInContext(readFileSync(new URL('../price.js', import.meta.url), 'utf8'), ctx);
+  vm.runInContext(readFileSync(new URL('../data.js', import.meta.url), 'utf8'), ctx);
+  const onThePage = vm.runInContext('ART_FAMILIES', ctx);
+
+  const inThePoller = Object.values(FAMILIES).filter((g) => g.length > 1);
+  /* Copied out of the vm's realm before comparing: arrays made in there have
+     a different Array prototype and deep-equal refuses them on that alone. */
+  const norm = (groups) => Array.from(groups, (g) => Array.from(g).join(',')).sort();
+
+  check('every family with more than one drawing is in both', () =>
+    assert.deepEqual(norm(onThePage), norm(inThePoller)));
+
+  check('a drawing never sits in two families', () => {
+    const seen = new Set();
+    for (const g of onThePage) for (const id of g) {
+      assert.ok(!seen.has(id), `${id} is in two families`);
+      seen.add(id);
+    }
+  });
+
+  check('every drawing in a family has a file', () => {
+    const files = new Set(readdirSync(new URL('../illustrations', import.meta.url))
+      .map((f) => f.replace(/\.webp$/, '')));
+    for (const g of onThePage) for (const id of g) assert.ok(files.has(id), `${id} has no image`);
+  });
 }
 
 console.log('\nPicking an illustration per listing');
