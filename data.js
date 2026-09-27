@@ -592,7 +592,7 @@ const EVENTS = [
     source: 'https://www.toronto.ca/explore-enjoy/history-art-culture/museums/spadina-museum/',
     checked: CHECKED,
     description: 'The house can only be seen on the tour, and the tour is free. Hourly from 11:15am, last one at 4. The grounds are yours either way.',
-    schedule: { kind: 'weekly', weekday: [6, 0], from: '2026-01-01', to: '2026-12-31', time: 'hourly, 11:15am–4pm', hour: 11 },
+    schedule: { kind: 'weekly', weekday: [6, 0], from: '2026-01-01', to: '2026-12-31', time: '11:15am–4pm', hour: 11 },
   },
   {
     id: 'fort-york',
