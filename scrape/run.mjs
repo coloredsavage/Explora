@@ -11,7 +11,7 @@
 import { readFile, writeFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { enabledSources } from './sources.mjs';
+import { enabledSources, allSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources } from './normalize.mjs';
 import { allowedBy, USER_AGENT } from './robots.mjs';
@@ -253,6 +253,12 @@ async function offlinePages(source) {
   })));
 }
 
+/* How many distinct events a page's JSON-LD describes. Used only to decide
+   whether the server's HTML is worth reading alongside the rendered one. */
+function countJsonLdEvents(html) {
+  try { return fromJsonLd(html).length; } catch { return 0; }
+}
+
 async function livePages(source, browser) {
   const ctx = await browser.newContext({ userAgent: UA });
   const page = await ctx.newPage();
@@ -269,6 +275,26 @@ async function livePages(source, browser) {
     if (!res || !res.ok()) { report.errors.push(`${url} — HTTP ${res ? res.status() : 'no response'}`); return null; }
     const html = await page.content();
     pages.push({ url, html });
+
+    /* The server's own HTML as well, where it says more than the rendered page.
+
+       Luma's city page ships a JSON-LD ItemList of twenty events — every one
+       with a date, a place and an offer — and then hydrates over it, leaving
+       three in the DOM and six after a scroll. Reading the rendered page alone
+       found three events on a page advertising twenty, and no amount of
+       scrolling or raising maxFollow changed that, because the links were
+       never the problem.
+
+       Only when the raw body carries more structured events than the rendered
+       one, so a page that hydrates harmlessly is not read twice, and a page
+       with no JSON-LD never reaches the model twice. */
+    try {
+      const raw = await res.text();
+      if (raw && countJsonLdEvents(raw) > countJsonLdEvents(html)) {
+        pages.push({ url, html: raw });
+      }
+    } catch { /* some responses cannot be re-read; the rendered page stands */ }
+
     return html;
   };
 
@@ -368,7 +394,11 @@ async function main() {
   /* The rule above keeps two things with one name at two addresses apart, on
      purpose. One project published across several of a source's own pages
      looks exactly like that and is not; see collapseSubsumed. */
-  const subsumed = collapseSubsumed(events, better);
+  /* Which urls are listing pages rather than events: exactly the ones this
+     repo configured as sources. */
+  const indexes = new Set(allSources().map((x) => String(x.url ?? '').replace(/\/$/, '')));
+  const isIndexUrl = (u) => indexes.has(String(u ?? '').replace(/\/$/, ''));
+  const subsumed = collapseSubsumed(events, better, isIndexUrl);
   if (subsumed.dropped) {
     report.skipped.push(`${subsumed.dropped} listing${subsumed.dropped === 1 ? '' : 's'} folded into a fuller copy of the same event`);
   }
