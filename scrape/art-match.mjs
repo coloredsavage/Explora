@@ -55,12 +55,20 @@ export const RULES = [
 
      Jam first: "Tuesday Night Jazz Jam" is more usefully a jam than a jazz
      quartet, because the format is what a reader is deciding about. */
+  /* Classical before the rest of music: Tafelmusik's "Voices of the Violin"
+     is a baroque orchestra and an amplifier is the wrong object for it. */
+  [/classical|baroque|orchestra|symphon|chamber music|\bviolin\b|\bcello\b|string quartet|recital|philharmonic/i, 'art-violin'],
+
   [/\bjam\b|jam session|open session/i, 'art-jam'],
   [/jazz|quartet|quintet|\btrio\b|bebop|\bswing\b|straight ahead/i, 'art-jazz'],
   [/blues|rockabilly|\broots\b/i, 'art-blues'],
   [/\bfolk\b|songwriter|acoustic|bluegrass/i, 'art-folk'],
-  [/\bdj\b|\bdisco\b|dance party|dance night|house night/i, 'art-decks'],
-  [/\bband\b|concert|choir|opera|vinyl|record|karaoke|\bgig\b/i, 'art-music'],
+  /* Dance nights name the music, not the format. Revival's listings —
+     "Afrobeats & Friends | Amapiano | R&B | Dancehall", "Destination
+     Dancefloor" — matched none of dj, disco, dance party or dance night, and
+     six of them fell through to a default. */
+  [/\bdj\b|\bdisco\b|dance ?(party|night|floor)|afrobeat|amapiano|dancehall|soca|reggaeton|\br&b\b|salsa|bachata|\bhouse (night|music)\b/i, 'art-decks'],
+  [/\bband\b|concert|choir|opera|vinyl|record|karaoke|\bgig\b|\bsoul\b|\bfunk\b|\brock\b|\bvocals?\b|\bvox\b|\bgroove\b|singer|\bset\b/i, 'art-music'],
 
   /* No bare `make`: it caught "make promises to themselves" in the Bentway's
      Public Trust and turned a democracy project into a pot. */
@@ -70,8 +78,13 @@ export const RULES = [
      Luma's "Drink & Draw Toronto #105" had nothing to match on and fell
      through to a word in its own prose, arriving as a camera. */
   [/\bdraw(ing|ings)?\b|life drawing|sketching|paint(ing)? night|urban sketch/i, 'art-dropin'],
+  /* Running had no rule of any kind, so Luma's "A Lowkey 5k Run To the
+     Floating Convenience Store" matched nothing and fell back to that
+     source's default — a lectern, for a 5k. */
+  [/\b\d+ ?k\b|marathon|\brun club\b|\brunning\b|\bjog|\bpace ?group\b|park ?run|shakeout/i, 'art-run'],
+
   [/\bbike|cycl|velo/i, 'art-bicycle'],
-  [/architect|design.?walk|building|heritage|site tour|walking tour/i, 'art-architecture'],
+  [/architect|design.?walk|building|heritage|site tour|walking tour|bus tour|guided tour/i, 'art-architecture'],
   [/museum/i, 'art-museum'],
   [/festival|parade|\bfair\b|street party|block party/i, 'art-festival'],
   [/food|bake|bread|cook|tasting|supper|brunch|dinner/i, 'art-food'],

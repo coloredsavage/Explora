@@ -224,7 +224,12 @@ export const SOURCES = [
     },
     enabled: true,
     category: 'architecture',
-    art: 'art-skates',
+    /* The skate trail is one thing the Bentway does for part of the year, and
+       it was standing in for everything else the rest of the time: an artist
+       talk, a democracy project and Public Pier all arrived as roller skates.
+       The place is under an expressway and files under architecture, which is
+       what a listing of theirs is when its title says nothing. */
+    art: 'art-architecture',
     defaultVenue: 'The Bentway',
     defaultAddress: '250 Fort York Blvd, Toronto, ON M5V 3K9',
     /* The fallback, and the reason it is only a fallback. /whats-on/ is the
@@ -259,6 +264,13 @@ export const SOURCES = [
        undated items; normalize.mjs already drops both. */
     enabled: true,
     category: 'dropin',
+    /* Evergreen's standing programmes for small children. The general rule in
+       normalize reads the description, and these arrive with "Listed by
+       Evergreen Brick Works" when the page has no prose of its own, so there
+       is nothing for it to read — the titles say nothing either. Named here
+       because a source's own filter is the place for what only that source
+       knows. */
+    exclude: /little discoveries|mighty minis|nature nuts|tot |toddler/i,
     art: 'art-outdoors',
     defaultVenue: 'Evergreen Brick Works',
     defaultAddress: '550 Bayview Ave, Toronto, ON M4W 3X8',
