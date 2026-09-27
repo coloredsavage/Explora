@@ -467,6 +467,36 @@ export function silentSources(before, now, enabled, allowed = new Set()) {
   return out;
 }
 
+/* A source that is still answering but has lost most of what it had.
+
+   silentSources only fires on nothing at all, and nothing at all is the easy
+   case. Both times Luma broke it kept answering: the domain moved and three
+   followable links survived, then the ItemList went unread and three of twenty
+   events came through. A source returning three looks like a working source,
+   and the poll reported success both times.
+
+   This does not stop the run. A venue's calendar does empty out between
+   seasons and halting a poll of two hundred listings over it is how a guard
+   gets routinely overridden — the reason the silent check carries a baseline
+   at all. It is loud in the log instead, where the person merging the pull
+   request will see it.
+
+   Two thirds gone, from a source big enough for that to mean something. */
+const A_COLLAPSE = 0.34;
+const WORTH_WATCHING = 6;
+
+export function shrunkSources(before, now, enabled, allowed = new Set()) {
+  const out = [];
+  for (const id of enabled) {
+    if (allowed.has(id)) continue;
+    const had = before.get(id) ?? 0;
+    const has = now.get(id) ?? 0;
+    if (had < WORTH_WATCHING || has === 0) continue;     /* zero is the other check */
+    if (has <= Math.floor(had * A_COLLAPSE)) out.push({ id, had, has });
+  }
+  return out;
+}
+
 /** Last line of defence before anything is written out. */
 const tidyPrice = (s) => s.trim().replace(/(\$\d+)\.00\b/g, '$1');
 

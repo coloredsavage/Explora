@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
+import { shrunkSources } from './normalize.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { matchArt, FAMILIES } from './art-match.mjs';
@@ -787,6 +788,32 @@ console.log('\nOne event a source published on several of its own pages');
     collapseSubsumed(events, better);
     assert.equal(events.length, 2);
   });
+}
+
+console.log('\nA source still answering with most of it gone');
+{
+  const enabled = ['luma', 'grossmans', 'tpl'];
+  const run = (before, now, allowed) =>
+    shrunkSources(new Map(Object.entries(before)), new Map(Object.entries(now)), enabled, allowed);
+
+  /* The shape of both Luma breakages: it kept answering, with almost nothing. */
+  check('twenty down to three is reported', () =>
+    assert.equal(run({ luma: 20 }, { luma: 3 }).length, 1));
+  check('a steady source is not', () =>
+    assert.equal(run({ grossmans: 68 }, { grossmans: 61 }).length, 0));
+  check('growth is not', () =>
+    assert.equal(run({ luma: 4 }, { luma: 16 }).length, 0));
+
+  /* Zero is silentSources' job, and it stops the run rather than logging. */
+  check('nothing at all is left to the other check', () =>
+    assert.equal(run({ luma: 20 }, { luma: 0 }).length, 0));
+
+  /* Small sources swing on one listing and would cry wolf every week. */
+  check('a source too small to read anything into is ignored', () =>
+    assert.equal(run({ tpl: 4 }, { tpl: 1 }).length, 0));
+
+  check('a named source is allowed to shrink', () =>
+    assert.equal(run({ luma: 20 }, { luma: 2 }, new Set(['luma'])).length, 0));
 }
 
 console.log('\nA source that stopped answering');
