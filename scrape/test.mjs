@@ -648,6 +648,36 @@ console.log('\nA source that only says the city until you RSVP');
     assert.equal(read(plain, { venue: null, address: null }).ok, false));
 }
 
+console.log('\nA listing page that marks its whole calendar up as one ItemList');
+{
+  const page = (body) => `<script type="application/ld+json">${JSON.stringify(body)}</script>`;
+  const event = (name, url) => ({ '@type': 'Event', name, url, startDate: '2026-09-27T10:00:00-04:00',
+    location: { '@type': 'Place', name: 'A Hall', address: { addressLocality: 'Toronto' } } });
+
+  /* Luma's city page is twenty events inside one ItemList. Reading only the
+     top level found none of them, and the source limped on whichever links
+     happened to be in the rendered DOM — three, on a page describing twenty. */
+  check('an ItemList of events is read as its events', () => {
+    const html = page({ '@type': 'ItemList', itemListElement: [
+      { '@type': 'ListItem', position: 1, item: event('One', 'https://x.ca/1') },
+      { '@type': 'ListItem', position: 2, item: event('Two', 'https://x.ca/2') },
+    ] });
+    const got = fromJsonLd(html);
+    assert.equal(got.length, 2);
+    assert.equal(got[1].url, 'https://x.ca/2');
+  });
+
+  check('a plain event page is untouched', () =>
+    assert.equal(fromJsonLd(page(event('Alone', 'https://x.ca/a'))).length, 1));
+
+  check('a @graph of events still works', () =>
+    assert.equal(fromJsonLd(page({ '@graph': [event('A', 'https://x.ca/a'), event('B', 'https://x.ca/b')] })).length, 2));
+
+  check('a list that inlines its events rather than nesting them is read too', () =>
+    assert.equal(fromJsonLd(page({ '@type': 'ItemList',
+      itemListElement: [event('A', 'https://x.ca/a'), event('B', 'https://x.ca/b')] })).length, 2));
+}
+
 console.log('\nProgramming for children, which this calendar does not carry');
 {
   const src = { id: 'x', name: 'X', category: 'dropin', art: 'art-dropin', url: 'x',
