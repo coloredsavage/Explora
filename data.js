@@ -25,6 +25,25 @@ const CATEGORIES = {
   food:         { label: 'Food & drink',      art: 'art-food'         },
 };
 
+/* Drawings that are of the same idea, so the board can avoid showing one of
+   them twice in a row.
+
+   The poller already spreads a family across its members by hashing each
+   title, which keeps a weekly residency on the same drawing week after week —
+   but a hash knows nothing about what ends up next to what. Two Rex listings
+   on one night hashed to the double bass and sat stacked, which reads as a
+   mistake however well each card is right on its own.
+
+   Order matters only in that the next member is taken from it. Kept in step
+   with FAMILIES in scrape/art-match.mjs by a test, so the two cannot drift. */
+const ART_FAMILIES = [
+  ['art-jazz-sax', 'art-jazz-bass', 'art-jazz-trumpet', 'art-jazz-piano', 'art-jazz-drums'],
+  ['art-jam-stool', 'art-jam-guitars', 'art-jam-drum'],
+  ['art-comedy', 'art-improv'],
+  ['art-music', 'art-blues', 'art-folk'],
+  ['art-outdoors', 'art-boardwalk', 'art-bench', 'art-trailsign', 'art-boots', 'art-birdhouse'],
+];
+
 /* Price buckets for the filter. These are derived from each listing's `entry`
    text rather than stored beside it, so there is one source of truth: the
    line the card actually shows. Scraped listings get bucketed for free — the

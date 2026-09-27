@@ -243,9 +243,17 @@
     return n;
   }
 
-  /* a generated image if the event has one, else the drawn SVG object */
-  function artFor(event) {
-    if (event.image) {
+  /* An organiser's own poster where they sent us one, otherwise the drawing.
+
+     Only where they sent it. A polled listing often carries an `image` from
+     its page's structured data — build-seo.mjs puts it in the Event markup
+     Search Console asks for — and showing that on the board meant four cards
+     hotlinking Squarespace, Luma's CDN and Unsplash, and the board losing its
+     own set on whichever listings happened to mark one up. A poster is a
+     thing an organiser gave us for this listing, which is what `partner`
+     records. */
+  function artFor(event, avoid) {
+    if (event.image && partnerOf(event)) {
       var img = document.createElement('img');
       img.src = event.image;
       img.alt = event.title;
@@ -253,13 +261,13 @@
       img.decoding = 'async';
       /* if the file is missing, fall back to the symbol rather than a broken icon */
       img.addEventListener('error', function () {
-        var svg = symbolFor(event);
+        var svg = symbolFor(event, avoid);
         svg.setAttribute('class', img.getAttribute('class') || '');
         if (img.parentNode) img.parentNode.replaceChild(svg, img);
       });
       return img;
     }
-    return symbolFor(event);
+    return symbolFor(event, avoid);
   }
 
   /* The same shape as the close and filter icons: 24-grid, currentColor,
@@ -364,8 +372,25 @@
      common fraction of it, so `object-fit: contain` is all the sizing there
      is. Lazy, because a long board holds far more cards than are ever on
      screen. */
-  function symbolFor(event) {
+  /* Every drawing to the others of its idea, built once from ART_FAMILIES. */
+  var SIBLINGS = (function () {
+    var m = {};
+    (typeof ART_FAMILIES === 'undefined' ? [] : ART_FAMILIES).forEach(function (group) {
+      group.forEach(function (id) { m[id] = group; });
+    });
+    return m;
+  }());
+
+  function symbolFor(event, avoid) {
     var id = event.art || CATEGORIES[event.category].art;
+    /* Not the same drawing twice running. The poller spread the family by
+       hashing the title, which is stable across polls and knows nothing about
+       what lands next to what — two Rex listings on one night both drew the
+       double bass and sat stacked. */
+    if (avoid && id === avoid && SIBLINGS[id] && SIBLINGS[id].length > 1) {
+      var group = SIBLINGS[id];
+      id = group[(group.indexOf(id) + 1) % group.length];
+    }
     var img = document.createElement('img');
     img.src = 'illustrations/' + id + '.webp';
     img.alt = event.title;
@@ -409,7 +434,7 @@
     return h;
   }
 
-  function cardFor(occ, win) {
+  function cardFor(occ, win, avoid) {
     var ev = occ.event;
     var btn = el('button', 'card card--' + ev.category);
     btn.type = 'button';
@@ -446,8 +471,10 @@
 
     if (!seenArt[ev.id]) {
       seenArt[ev.id] = true;
-      var node = artFor(ev);
+      var node = artFor(ev, avoid);
       node.setAttribute('class', 'card__art');
+      /* What this card settled on, so the next one in the column can avoid it. */
+      if (node.dataset && node.dataset.art) btn.dataset.art = node.dataset.art;
       btn.appendChild(node);
     }
 
@@ -536,7 +563,14 @@
       if (!list.length) {
         body.appendChild(el('p', 'col__empty', 'Nothing here.'));
       } else {
-        list.forEach(function (o) { body.appendChild(cardFor(o, win)); });
+        /* Walk the column in order so each card knows what the one above it
+           drew. A repeat two cards apart is fine; touching is not. */
+        var above = null;
+        list.forEach(function (o) {
+          var card = cardFor(o, win, above);
+          if (card.dataset.art) above = card.dataset.art;
+          body.appendChild(card);
+        });
       }
 
       col.appendChild(body);
@@ -596,7 +630,7 @@
        cannot: who is actually playing. */
     var art = document.getElementById('modal-art');
     art.textContent = '';
-    if (ev.image) {
+    if (ev.image && partnerOf(ev)) {
       var poster = document.createElement('img');
       poster.className = 'modal__poster';
       poster.src = ev.image;

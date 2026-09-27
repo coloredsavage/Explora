@@ -121,7 +121,11 @@ export const FAMILIES = {
      current volume, which is where a repeat stops being noticeable. */
   'art-outdoors': ['art-outdoors', 'art-boardwalk', 'art-bench',
                    'art-trailsign', 'art-boots', 'art-birdhouse'],
-  'art-music':    ['art-music'],
+  /* Generic live music — a band, a concert, a gig — is the biggest family
+     after jazz and was drawing one amplifier on forty-four listings. An
+     electric and an acoustic guitar are as honestly a gig as an amp is. Not
+     the turntables: a DJ night is its own rule and its own thing. */
+  'art-music':    ['art-music', 'art-blues', 'art-folk'],
   'art-market':   ['art-market'],
 };
 
