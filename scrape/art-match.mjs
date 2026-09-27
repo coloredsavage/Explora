@@ -43,7 +43,10 @@ export const RULES = [
   [/artist talk|\btalk\b|lecture|panel|in conversation|keynote|q&a/i, 'art-lectern'],
 
   [/exhibit|installation|gallery|mural|sculpture|vernissage|public art/i, 'art-sculpture'],
-  [/improv|stand.?up|comedy|open mic|sketch|showcase|audition/i, 'art-comedy'],
+  /* "sketch" only where it means the comedy form: urban sketching is people
+     drawing buildings. A bare "Sketch Night" at Bad Dog still lands on comedy
+     through that source's own default. */
+  [/improv|stand.?up|comedy|open mic|sketch (comedy|show|night|troupe)|showcase|audition/i, 'art-comedy'],
 
   /* Music, specific before general. One crate of records landed on a hundred
      and thirty of the last hundred and ninety listings, and fifty-nine of
@@ -62,6 +65,11 @@ export const RULES = [
   /* No bare `make`: it caught "make promises to themselves" in the Bentway's
      Public Trust and turned a democracy project into a pot. */
   [/clay|pottery|ceramic|craft|knit|sew|weav|workshop/i, 'art-pottery'],
+
+  /* Drawing and painting, after comedy so "sketch comedy" is still comedy.
+     Luma's "Drink & Draw Toronto #105" had nothing to match on and fell
+     through to a word in its own prose, arriving as a camera. */
+  [/\bdraw(ing|ings)?\b|life drawing|sketching|paint(ing)? night|urban sketch/i, 'art-dropin'],
   [/\bbike|cycl|velo/i, 'art-bicycle'],
   [/architect|design.?walk|building|heritage|site tour|walking tour/i, 'art-architecture'],
   [/museum/i, 'art-museum'],
