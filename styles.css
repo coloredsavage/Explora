@@ -245,6 +245,20 @@ svg.about__art { width: 340px; height: auto; }
    that "me." sat alone on a 48px line under a 508px paragraph. */
 .about p { text-wrap: pretty; }
 
+/* The same thing everywhere it shows, which is mostly the cards: a title on a
+   216px card wraps more often than not, and "… Convenience / Store" reads as
+   a mistake. text-wrap: pretty is not in every browser yet, so noOrphan() in
+   app.js ties the last two words with a non-breaking space as well; a browser
+   that supports this picks better wrap points for the whole block, one that
+   does not still keeps the last word company.
+
+   break-word so a single word longer than the card — a hyphenless venue name,
+   a hashtag — wraps inside itself rather than pushing the card wide. */
+.card__title,
+.card__when,
+#modal-title,
+#modal-desc { text-wrap: pretty; overflow-wrap: break-word; }
+
 .about p {
   margin: 0 0 22px;
   font-size: 15px;

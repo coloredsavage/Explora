@@ -236,6 +236,28 @@
   var statusEl = document.getElementById('status');
   var seenArt;                                  /* one illustration per event */
 
+  /* Tie the last two words together so neither is left alone on a line.
+
+     A heading that wraps to "… Convenience\nStore" reads as a mistake, and on
+     a narrow card most titles wrap. A non-breaking space is the fix rather
+     than CSS because text-wrap: pretty is not in every browser yet, and this
+     one works everywhere and costs a character.
+
+     Only where there is something to protect. Two words tied together on a
+     two-word title is the whole title on one line, which can overflow a card
+     instead of wrapping; below four words it is left alone. Long single words
+     are handled by overflow-wrap in the stylesheet, not here. */
+  function noOrphan(text) {
+    var t = String(text == null ? '' : text).trim();
+    var words = t.split(/\s+/);
+    if (words.length < 4) return t;
+    var last = words.pop();
+    /* A very long last word glued to the one before it is wider than the box
+       it has to fit; leave those to wrap normally. */
+    if (last.length > 14) return t;
+    return words.join(' ') + '\u00a0' + last;
+  }
+
   function el(tag, cls, text) {
     var n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -423,7 +445,7 @@
      it qualifies, and wraps with it rather than drifting onto a line of its
      own. */
   function titleWith(tag, cls, ev) {
-    var h = el(tag, cls, ev.title);
+    var h = el(tag, cls, noOrphan(ev.title));
     var how = partnerOf(ev);
     if (how) {
       var pill = el('span', 'tag');
@@ -612,7 +634,7 @@
     /* textContent would wipe the pill, so the heading is rebuilt rather than
        assigned into. */
     var mTitle = document.getElementById('modal-title');
-    mTitle.textContent = ev.title;
+    mTitle.textContent = noOrphan(ev.title);
     var mHow = partnerOf(ev);
     if (mHow) {
       var mPill = el('span', 'tag');
@@ -650,7 +672,7 @@
       art.appendChild(artEl);
     }
 
-    document.getElementById('modal-desc').textContent = ev.description;
+    document.getElementById('modal-desc').textContent = noOrphan(ev.description);
 
     var link = document.getElementById('modal-link');
     link.href = ev.url;
