@@ -87,9 +87,18 @@ export const SOURCES = [
     exclude: /\b(networking|mixer|housewarming|happy hour|demo day|pitch (night|competition)|founders?|startups?|coworking|mastermind|fintech|saas|b2b|career fair|job fair|hiring|recruit|ama|office hours|speed dating)\b/i,
     defaultVenue: null,
     defaultAddress: null,
+    /* Luma organisers routinely publish only the city and send the room to
+       people who RSVP. Dropping those lost the 5k run and the place-based art
+       walk, which are exactly the listings this calendar wants. */
+    placeOnRsvp: true,
     /* Event slugs are short and live at the root; the city page is not one. */
     followLinks: /^https:\/\/(?:lu\.ma|luma\.com)\/(?!toronto$|discover|signin|create|user|pricing|help)[a-z0-9-]{4,}$/i,
-    maxFollow: 20,
+    /* The city page carries 34 event links and this was 20, so a third of the
+       week was never read — the first poll after the domain fix returned two
+       listings where twelve were on the page. Following one costs a fetch and
+       nothing else, because Luma's event pages carry JSON-LD and never reach
+       the model. */
+    maxFollow: 40,
     maxEvents: A_MONTH_OF_LISTINGS,
   },
   {

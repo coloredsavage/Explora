@@ -618,6 +618,35 @@ console.log('\nOne id per listing');
   });
 }
 
+console.log('\nA source that only says the city until you RSVP');
+{
+  const when = { today: '2026-09-11', checked: '2026-09-11' };
+  const base = { startDate: '2026-09-20', description: 'x'.repeat(60), entry: 'Free' };
+  const rsvp  = { id: 'luma', name: 'Luma', category: 'social', art: 'art-social', url: 'x',
+                  defaultVenue: null, defaultAddress: null, placeOnRsvp: true };
+  const plain = { ...rsvp, id: 'other', placeOnRsvp: false };
+  const read = (src, over) => normalize({ ...base, title: 'A Thing', ...over }, src, when);
+
+  check('a city-only venue is published as the city, not dropped', () => {
+    const r = read(rsvp, { venue: 'Toronto, ON', address: 'Toronto, ON' });
+    assert.equal(r.ok, true);
+    assert.match(r.event.venue, /RSVP/);
+  });
+  check('no place at all is still published for such a source', () =>
+    assert.equal(read(rsvp, { venue: null, address: null }).ok, true));
+  check('a real venue is left exactly as it is', () =>
+    assert.equal(read(rsvp, { venue: 'Creeds Coffee Bar',
+      address: 'Creeds Coffee Bar, Toronto, Ontario' }).event.venue, 'Creeds Coffee Bar'));
+
+  /* The opt-in is the whole safety of this: everywhere else a missing venue
+     is a page the extractor failed to read, and publishing "Toronto" would
+     invent a fact rather than report one. */
+  check('a source that has not opted in still drops a city-only venue', () =>
+    assert.equal(read(plain, { venue: 'Toronto, ON', address: 'Toronto, ON' }).ok, false));
+  check('a source that has not opted in still drops a missing venue', () =>
+    assert.equal(read(plain, { venue: null, address: null }).ok, false));
+}
+
 console.log('\nProgramming for children, which this calendar does not carry');
 {
   const src = { id: 'x', name: 'X', category: 'dropin', art: 'art-dropin', url: 'x',
