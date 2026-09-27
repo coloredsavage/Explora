@@ -4,6 +4,25 @@
  * first and the language model is only paid for what it cannot answer. */
 
 /** Every JSON-LD blob on the page, flattened out of @graph wrappers. */
+/* A node, or the things inside it if it is a list of them.
+
+   Luma's city page marks up its whole calendar as one ItemList — twenty
+   ListItems, each with the event under `item`, every one carrying a date, a
+   place and an offer. Reading only the top level found nothing at all on a
+   page that described twenty events, and the source limped along on the three
+   links that happened to be in the rendered DOM. An ItemList is the ordinary
+   way to mark up a listing page, so this is not a Luma special case.
+
+   One level. A list of lists is not something any source here does, and
+   recursing without a bound is how a self-referencing @graph hangs the run. */
+function unwrap(node) {
+  if (!node || typeof node !== 'object') return [];
+  const list = node.itemListElement;
+  if (!Array.isArray(list)) return [node];
+  return list.map((li) => (li && typeof li === 'object' && li.item ? li.item : li))
+    .filter((x) => x && typeof x === 'object');
+}
+
 export function jsonLdBlocks(html) {
   const out = [];
   const re = /<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
@@ -16,8 +35,9 @@ export function jsonLdBlocks(html) {
       continue;                       /* a broken blob is not a broken page */
     }
     for (const node of [].concat(parsed)) {
-      if (node && Array.isArray(node['@graph'])) out.push(...node['@graph']);
-      else if (node) out.push(node);
+      if (!node) continue;
+      if (Array.isArray(node['@graph'])) out.push(...node['@graph'].flatMap(unwrap));
+      else out.push(...unwrap(node));
     }
   }
   return out;
