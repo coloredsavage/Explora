@@ -15,3 +15,9 @@ scrape/discovery/
 
 # Written by scripts/art-sheet.mjs for reviewing the illustration set.
 /_art-sheet.html
+
+# Scratch previews written while working on the illustrations — the generated
+# renders live in the scratchpad until they are actually wired in.
+/_art-*.png
+/_sax*.png
+/_style-compare.html
