@@ -182,140 +182,340 @@ const SCRAPED = [
     "via": "api"
   },
   {
-    "id": "comedybar-all-out-comedy-2026-10-16",
-    "title": "ALL OUT COMEDY",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25",
-    "venue": "Comedy Bar Bloor",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/all-out-comedy",
-    "source": "https://comedybar.ca/shows/all-out-comedy",
-    "checked": "2026-09-27",
-    "description": "Hosted by Justin Subryan, a night of Toronto comedians performing stand-up comedy.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-16",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-all-out-comedy-2026-11-20",
-    "title": "ALL OUT COMEDY",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25",
-    "venue": "Comedy Bar Bloor",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/all-out-comedy",
-    "source": "https://comedybar.ca/shows/all-out-comedy",
-    "checked": "2026-09-27",
-    "description": "Hosted by Justin Subryan, a night of Toronto comedians performing stand-up comedy.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-20",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-ghost-orgy-2026-10-24",
-    "title": "Ghost Orgy",
+    "id": "comedybar-gay-sh-t-2026-10-21",
+    "title": "GAY SH!T",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$25",
+    "entry": "$15 (early bird) or $18 (general admission)",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/ghost-orgy",
-    "source": "https://comedybar.ca/shows/ghost-orgy",
+    "url": "https://comedybar.ca/shows/gay-sht",
+    "source": "https://comedybar.ca/shows/gay-sht",
     "checked": "2026-09-27",
-    "description": "A monthly dark and dirty stand-up comedy showcase featuring a different lineup of comedians.",
+    "description": "NSFW comedy featuring rotating lineups of LGBTQIA+ comedians with dirty jokes, raunchy humour, and sharp hot takes.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-24",
-      "time": "10:00 PM"
+      "date": "2026-10-21",
+      "time": "8:00pm"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-ghost-orgy-2026-11-28",
-    "title": "Ghost Orgy",
+    "id": "comedybar-gay-sh-t-2026-11-18",
+    "title": "GAY SH!T",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$25",
+    "entry": "$15 (early bird) or $18 (general admission)",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/ghost-orgy",
-    "source": "https://comedybar.ca/shows/ghost-orgy",
+    "url": "https://comedybar.ca/shows/gay-sht",
+    "source": "https://comedybar.ca/shows/gay-sht",
     "checked": "2026-09-27",
-    "description": "A monthly dark and dirty stand-up comedy showcase featuring a different lineup of comedians.",
+    "description": "NSFW comedy featuring rotating lineups of LGBTQIA+ comedians with dirty jokes, raunchy humour, and sharp hot takes.",
     "schedule": {
       "kind": "day",
-      "date": "2026-11-28",
-      "time": "10:00 PM"
+      "date": "2026-11-18",
+      "time": "8:00pm"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-ghost-orgy-2026-12-26",
-    "title": "Ghost Orgy",
+    "id": "comedybar-gay-sh-t-2026-12-16",
+    "title": "GAY SH!T",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$25",
+    "entry": "$15 (early bird) or $18 (general admission)",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/ghost-orgy",
-    "source": "https://comedybar.ca/shows/ghost-orgy",
+    "url": "https://comedybar.ca/shows/gay-sht",
+    "source": "https://comedybar.ca/shows/gay-sht",
     "checked": "2026-09-27",
-    "description": "A monthly dark and dirty stand-up comedy showcase featuring a different lineup of comedians.",
+    "description": "NSFW comedy featuring rotating lineups of LGBTQIA+ comedians with dirty jokes, raunchy humour, and sharp hot takes.",
     "schedule": {
       "kind": "day",
-      "date": "2026-12-26",
-      "time": "10:00 PM"
+      "date": "2026-12-16",
+      "time": "8:00pm"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-jon-dore-2026-11-30",
-    "title": "Jon Dore",
+    "id": "comedybar-i-don-t-like-mondays-comedy-show-2026-10-26",
+    "title": "I DON'T LIKE MONDAYS Comedy Show",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$30",
+    "art": "art-comedy",
+    "entry": "$15",
     "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/jon-dore",
-    "source": "https://comedybar.ca/shows/jon-dore",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/i-dont-like-mondays-comedy-show",
+    "source": "https://comedybar.ca/shows/i-dont-like-mondays-comedy-show",
     "checked": "2026-09-27",
-    "description": "Stand-up comedy performance by Jon Dore, a Juno Award-winning comedian known for his work on television shows including Amazon's The Lake and CBC's Small Achievable Goals.",
+    "description": "Toronto's veteran comedians perform alongside first-time comics, hosted by Raphael Loucadellis.",
     "schedule": {
       "kind": "day",
-      "date": "2026-11-30",
+      "date": "2026-10-26",
+      "time": "8:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-10-07",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-07",
       "time": "8:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-nate-varrone-2026-12-01",
-    "title": "Nate Varrone",
+    "id": "comedybar-nice-time-2026-10-14",
+    "title": "Nice Time",
     "category": "comedy",
-    "art": "art-film",
-    "entry": "$30.75",
+    "art": "art-comedy",
+    "entry": "$10",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/nate-varrone",
-    "source": "https://comedybar.ca/shows/nate-varrone",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
     "checked": "2026-09-27",
-    "description": "Stand-up comedian and filmmaker performing live.",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
     "schedule": {
       "kind": "day",
-      "date": "2026-12-01",
+      "date": "2026-10-14",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-10-21",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-21",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-10-28",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-28",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-11-04",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-04",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-11-11",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-11",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-11-18",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-18",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-12-02",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-02",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-12-09",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-09",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-12-16",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-16",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-12-23",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-23",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nice-time-2026-12-30",
+    "title": "Nice Time",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/nice-time",
+    "source": "https://comedybar.ca/shows/nice-time",
+    "checked": "2026-09-27",
+    "description": "Toronto's best comedians improvise a brand new hour long show every week, featuring Dan Beirne and Nicole Passmore with rotating guest improvisers and live music from Jordan Armstrong.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-30",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-party-hard-hard-party-2026-09-28",
+    "title": "PARTY HARD HARD PARTY",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$20",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/party-hard-hard-party-jfl",
+    "source": "https://comedybar.ca/shows/party-hard-hard-party-jfl",
+    "checked": "2026-09-27",
+    "description": "An improv duo parade featuring seven-minute scenes from Toronto's best improvisers, performing improvisation with no tricks or distractions.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-28",
       "time": "8:00 PM"
     },
     "scrapedFrom": "comedybar",
@@ -332,591 +532,51 @@ const SCRAPED = [
     "url": "https://comedybar.ca/shows/ryan-dillon-special-taping",
     "source": "https://comedybar.ca/shows/ryan-dillon-special-taping",
     "checked": "2026-09-27",
-    "description": "A special taping of stand-up comedy from Ryan Dillon, a Newfoundland-born comedian known for his clever, charming self-deprecating wit and a regular on the Toronto stand-up scene.",
+    "description": "A special taping of stand-up comedy by Ryan Dillon, a Newfoundland-born comedian known for his clever, charming self-deprecating wit and appearances on Just For Laughs and other major platforms.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-27",
-      "time": "09:00 PM"
+      "time": "9:00pm"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-studio-sundays-2026-09-27",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-27",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-10-04",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-04",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-10-11",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-11",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-10-18",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-18",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-10-25",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-25",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-11-01",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-01",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-11-08",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-08",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-11-15",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-15",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-11-22",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-22",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-11-29",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-29",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-12-06",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-06",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-12-13",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-13",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-12-20",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-20",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-studio-sundays-2026-12-27",
-    "title": "Studio Sundays",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$13",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/studio-sundays",
-    "source": "https://comedybar.ca/shows/studio-sundays",
-    "checked": "2026-09-27",
-    "description": "Four improv comedy shows in one night: short-form games, duos performing competitive improv, musical comedy, and an audience jam session where you can jump on stage (sign up by 7:30pm).",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-27",
-      "time": "7:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-that-s-gay-comedy-2026-09-27",
-    "title": "That's Gay! Comedy",
+    "id": "comedybar-the-pro-show-2026-10-01",
+    "title": "The Pro Show",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$29.75",
-    "venue": "Comedy Bar Bloor",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/thats-gay-comedy",
-    "source": "https://comedybar.ca/shows/thats-gay-comedy",
-    "checked": "2026-09-27",
-    "description": "A queer comedy show hosted by Erin Purghart featuring Toronto's funniest gay comedians.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-27",
-      "time": "8:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-10-09",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
+    "entry": "$20 online, $25 at the door",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
+    "url": "https://comedybar.ca/shows/the-pro-show-jfl",
+    "source": "https://comedybar.ca/shows/the-pro-show-jfl",
     "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
+    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by MC Jeff Paul alongside rotating featured performers.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-09",
-      "time": "7:00 PM"
+      "date": "2026-10-01",
+      "time": "8:00pm"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-the-headliner-2026-10-16",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-16",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-10-23",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-23",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-10-30",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-30",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-11-06",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-06",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-11-13",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-13",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-11-20",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-20",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-11-27",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-27",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-12-04",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-04",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-12-11",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-11",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-headliner-2026-12-18",
-    "title": "THE HEADLINER",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$22",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-headliner",
-    "source": "https://comedybar.ca/shows/the-headliner",
-    "checked": "2026-09-27",
-    "description": "One of Canada's best comedians performs an extended set, hosted by award-winning stand-up Adam Christie.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-18",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-tuesday-night-improv-show-2026-10-20",
-    "title": "The Tuesday Night Improv Show",
+    "id": "comedybar-the-toronto-comedy-showcase-singles-night-2026-10-08",
+    "title": "The Toronto Comedy Showcase - Singles Night",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$10 online, $15 at the door",
+    "entry": "$20",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-tuesday-night-improv-show",
-    "source": "https://comedybar.ca/shows/the-tuesday-night-improv-show",
+    "url": "https://comedybar.ca/shows/the-toronto-comedy-showcase-singles-night",
+    "source": "https://comedybar.ca/shows/the-toronto-comedy-showcase-singles-night",
     "checked": "2026-09-27",
-    "description": "Rat Race performs an improv show mixing character, narrative, and absurdist humor.",
+    "description": "Comedians share hilarious and relatable stories about love, relationships, and dating in Toronto, with sharp observations, dating app disasters, and crowd work. A singles mix and mingle starts at 7pm before the 8pm show.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-20",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-tuesday-night-improv-show-2026-11-17",
-    "title": "The Tuesday Night Improv Show",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$10 online, $15 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-tuesday-night-improv-show",
-    "source": "https://comedybar.ca/shows/the-tuesday-night-improv-show",
-    "checked": "2026-09-27",
-    "description": "Rat Race performs an improv show mixing character, narrative, and absurdist humor.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-17",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-tuesday-night-improv-show-2026-12-15",
-    "title": "The Tuesday Night Improv Show",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$10 online, $15 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-tuesday-night-improv-show",
-    "source": "https://comedybar.ca/shows/the-tuesday-night-improv-show",
-    "checked": "2026-09-27",
-    "description": "Rat Race performs an improv show mixing character, narrative, and absurdist humor.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-15",
-      "time": "8:00 PM"
+      "date": "2026-10-08",
+      "time": "7pm"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
@@ -2157,41 +1817,41 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "evergreen-family-wander-2026-09-27",
-    "title": "Family Wander",
+    "id": "evergreen-family-wanders-2026-09-27",
+    "title": "Family Wanders",
     "category": "dropin",
-    "art": "art-outdoors",
+    "art": "art-birdhouse",
     "entry": "$20 suggested donation per family",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-09-27",
-    "description": "A guided walk through the nature at Evergreen Brick Works where families explore the valley and observe the changing seasons.",
+    "description": "Guided walks that explore nature at Evergreen Brick Works, where families observe the changing seasons in the Valley.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-27",
-      "time": "10:00 am – 11:00 am"
+      "time": "10:00am – 11:00am"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
   },
   {
-    "id": "evergreen-family-wander-2026-11-15",
-    "title": "Family Wander",
+    "id": "evergreen-family-wanders-2026-11-15",
+    "title": "Family Wanders",
     "category": "dropin",
-    "art": "art-outdoors",
+    "art": "art-birdhouse",
     "entry": "$20 suggested donation per family",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-09-27",
-    "description": "A guided walk through the nature at Evergreen Brick Works where families explore the valley and observe the changing seasons.",
+    "description": "Guided walks that explore nature at Evergreen Brick Works, where families observe the changing seasons in the Valley.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-15",
-      "time": "10:00 am – 11:00 am"
+      "time": "10:00am – 11:00am"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -2206,11 +1866,49 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "checked": "2026-09-27",
-    "description": "Browse over 40 local artists and makers selling handmade jewelry, art, candles, skincare and more, alongside curated vintage and antique vendors. Food vendors and drinks are available.",
+    "description": "Local artists, makers, and vintage vendors sell handmade, artisan, and curated antique goods alongside food vendors and drinks from the Sipping Container.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-27",
       "time": "10am-3pm"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-site-tours-history-tour-2026-10-04",
+    "title": "Site Tours - History Tour",
+    "category": "dropin",
+    "art": "art-architecture",
+    "entry": "Free",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "checked": "2026-09-27",
+    "description": "An hour-long tour through the industrial site and historic buildings, exploring geological history, mechanical artifacts, and how Evergreen reclaimed the Brick Works into an environmental community centre.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-04"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-site-tours-nature-tour-2026-10-04",
+    "title": "Site Tours - Nature Tour",
+    "category": "dropin",
+    "art": "art-architecture",
+    "entry": "Free",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "checked": "2026-09-27",
+    "description": "An hour-long outdoor tour showcasing the transformation of the industrial site into gardens and park, including sustainable agricultural practices and natural areas.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-04"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -2225,7 +1923,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "checked": "2026-09-27",
-    "description": "A musical performance by Tafelmusik featuring violin.",
+    "description": "Listed by Evergreen Brick Works.",
     "schedule": {
       "kind": "range",
       "start": "2026-10-02",
@@ -2244,7 +1942,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "checked": "2026-09-27",
-    "description": "A sauna festival event at the Brick Works.",
+    "description": "Listed by Evergreen Brick Works.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-03",
@@ -3567,27 +3265,6 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
-    "id": "luma-build-canada-toronto-presents-ideas-for-a-bolder-2026-10-14",
-    "title": "Build Canada | Toronto presents: Ideas for a Bolder City",
-    "category": "social",
-    "art": "art-civic",
-    "entry": "Free",
-    "venue": "Toronto — address on RSVP",
-    "address": "tario",
-    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/8p/b0690e23-d982-4df4-b820-0a8bb66a4842.png",
-    "url": "https://luma.com/wu91eovv",
-    "source": "https://luma.com/wu91eovv",
-    "checked": "2026-09-27",
-    "description": "How could we build a Better Toronto? On October 26th, every Torontonian will have the opportunity to express who they believe has the platform for a bolder city in the Toronto municipal election.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-14",
-      "time": "7pm – 9pm"
-    },
-    "scrapedFrom": "luma",
-    "via": "json-ld"
-  },
-  {
     "id": "luma-builders-brews-toronto-2026-09-29",
     "title": "Builders & Brews Toronto",
     "category": "social",
@@ -3630,22 +3307,22 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
-    "id": "luma-cutting-the-fashion-body-why-the-fashion-image-i-2026-10-13",
-    "title": "Cutting The Fashion Body: Why The Fashion Image Is No Longer Still by Nathalie Khan",
+    "id": "luma-chess-in-the-park-at-clarence-square-2026-10-03",
+    "title": "Chess in the Park at Clarence Square",
     "category": "social",
-    "art": "art-film",
+    "art": "art-boardwalk",
     "entry": "Free",
-    "venue": "Beyond Space",
+    "venue": "Clarence Square",
     "address": "Toronto, Ontario",
-    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/1t/c69deed9-2403-4f73-8565-4c1d4800e329.png",
-    "url": "https://luma.com/tf6s6ycw",
-    "source": "https://luma.com/tf6s6ycw",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/2a/457a3a84-55eb-468d-a842-92fb5c2e404f.png",
+    "url": "https://luma.com/7prh095r",
+    "source": "https://luma.com/7prh095r",
     "checked": "2026-09-27",
-    "description": "An extra October meeting, bringing Fashion Book Club to the east end!",
+    "description": "This one is our Community Give Back Day with Toronto Downtown West BIA, and the last Chess in the Park of the season. Bring warm clothing to donate. We will be at The Deck in Clarence Square from 11am to 4pm.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-13",
-      "time": "7pm – 9pm"
+      "date": "2026-10-03",
+      "time": "11am – 4pm"
     },
     "scrapedFrom": "luma",
     "via": "json-ld"
@@ -3814,6 +3491,48 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-09-27",
       "time": "10am – 12:30pm"
+    },
+    "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
+    "id": "luma-social-reading-night-28-2026-09-29",
+    "title": "Social Reading Night #28",
+    "category": "social",
+    "art": "art-books",
+    "entry": "Free",
+    "venue": "Wildhearts Cafe",
+    "address": "Toronto, Ontario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/o5/1b21b54c-3698-4198-b88b-daa86ebd4866.png",
+    "url": "https://luma.com/lzjh38o3",
+    "source": "https://luma.com/lzjh38o3",
+    "checked": "2026-09-27",
+    "description": "Concept: We've noticed that people want to read more books, be social, and get out of the house. Make time and join Quiet Smile at Wildhearts Cafe for a 'Quiet Offline Reading Party'. Leave your phone out of reach.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-29",
+      "time": "6pm – 9pm"
+    },
+    "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
+    "id": "luma-stay-an-immersive-listening-alex-lustig-ambient--2026-10-04",
+    "title": "STAY: An Immersive Listening - Alex Lustig Ambient Hours Set",
+    "category": "social",
+    "art": "art-music",
+    "entry": "$19",
+    "venue": "Ratelier",
+    "address": "Toronto, Ontario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/48/fe29f538-334d-4e23-96e6-2a9678cfada3.jpg",
+    "url": "https://luma.com/i9svozpy",
+    "source": "https://luma.com/i9svozpy",
+    "checked": "2026-09-27",
+    "description": "STAY: An Immersive Listening Night with Alex Lustig playing Ambient Hours Set An evening designed around slowing down, listening, and simply staying.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-04",
+      "time": "6pm – 10pm"
     },
     "scrapedFrom": "luma",
     "via": "json-ld"
