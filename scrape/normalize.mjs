@@ -215,6 +215,20 @@ export function normalize(raw, source, { today, checked }) {
 
   const runDays = Math.round((Date.parse(`${lastDay}T00:00:00Z`) - Date.parse(`${start}T00:00:00Z`)) / 86400000);
   if (runDays > LONGEST_RUN_DAYS) return reject(`runs ${runDays} days — a fixture, not an event`);
+
+  /* A source that needs gates of its own — Eventbrite, which lists every
+     conference in the GTA and prices one event in several tiers — can hand
+     one in as `vet`. It answers { reject } or what to publish in place of
+     the defaults below: the price it read, the category and drawing it
+     chose, a cleaner address. Every gate after this still applies to what it
+     returns, the $35 ceiling included. Sources without one are untouched. */
+  let filed = null;
+  if (typeof source.vet === 'function') {
+    filed = source.vet({ ...raw, title, venue, address }) ?? {};
+    if (filed.reject) return reject(filed.reject);
+    if (filed.address) address = dedupeAddress(venue, clean(filed.address));
+  }
+  const entry = filed ? filed.entry : raw.entry;
   /* Some sources withhold the address until you have a ticket. On Luma an
      organiser routinely publishes only "Toronto, ON" and sends the room to
      people who RSVP, so the listing is not half-known — the city is the whole
@@ -237,7 +251,7 @@ export function normalize(raw, source, { today, checked }) {
   if (NOT_A_PLACE.test(`${address} ${venue}`)) return reject(`not somewhere you can go (${venue})`);
   if (NOT_AN_EVENT.test(title) && !IS_AN_EVENT_ANYWAY.test(title)) return reject('an announcement that nothing is on');
 
-  const dear = tooDear(raw.entry);
+  const dear = tooDear(entry);
   if (dear) return reject(`$${dear} is past what this calendar is for`);
   /* A page often gives a bare street address — "250 Fort York Blvd" — and the
      gate below reads the missing city as a missing Toronto. When the source
@@ -262,12 +276,13 @@ export function normalize(raw, source, { today, checked }) {
     event: {
       id: `${source.id}-${slug(title)}-${start}`,
       title,
-      category: source.category,
+      category: filed?.category ?? source.category,
       /* The source's symbol is the fallback, not the answer. Stamping one
          per source is how every Bentway event became a roller skate,
-         including an artist talk; see art-match.mjs. */
-      art: matchArt(raw) ?? variantOf(source.art, title),
-      ...(raw.entry ? { entry: tidyPrice(raw.entry) } : {}),
+         including an artist talk; see art-match.mjs. A source that vets its
+         own events has already chosen, from its own rules. */
+      art: filed?.art ?? matchArt(raw) ?? variantOf(source.art, title),
+      ...(entry ? { entry: tidyPrice(entry) } : {}),
       venue,
       address,
       ...(raw.image ? { image: raw.image } : {}),

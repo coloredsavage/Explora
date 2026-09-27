@@ -74,6 +74,17 @@ export function fromJsonLd(html) {
        not an image of that night. */
     image: imageOf(e.image),
     via: 'json-ld',
+    /* Carried for sources that need more than the card does, and ignored by
+       normalize otherwise. Eventbrite's pages say what kind of event it is
+       (BusinessEvent, EducationEvent…), whether it happens anywhere, which
+       city it is in and every tier of ticket; offerText above keeps only the
+       first price, which is enough for a venue and not for a ticket vendor
+       where one event can have a free tier and a $600 one. */
+    types: [].concat(e['@type'] ?? []).filter((t) => typeof t === 'string'),
+    attendanceMode: text(e.eventAttendanceMode),
+    locality: typeof e.location?.address === 'object' ? text(e.location.address.addressLocality) : null,
+    streetAddress: typeof e.location?.address === 'object' ? text(e.location.address.streetAddress) : null,
+    offers: e.offers ?? null,
   }));
 }
 

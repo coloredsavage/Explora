@@ -31,6 +31,8 @@
 
 import { asIsoDate } from './normalize.mjs';
 import { stripTags, priceFrom, splitPlace, timeRange, fromTribe } from './api.mjs';
+import { NETWORKING } from './filters.mjs';
+import { vetEventbrite, skipBeforeFollow, settlePageNodes } from './eventbrite.mjs';
 
 /* How many listings to keep from any one source.
  *
@@ -90,7 +92,7 @@ export const SOURCES = [
     art: 'art-lectern',
     /* Skim off the most obvious of it. Deliberately narrow: a book launch or
        a talk is worth keeping even when a software company is hosting. */
-    exclude: /\b(networking|mixer|housewarming|happy hour|demo day|pitch (night|competition)|founders?|startups?|coworking|mastermind|fintech|saas|b2b|career fair|job fair|hiring|recruit|ama|office hours|speed dating)\b/i,
+    exclude: NETWORKING,
     defaultVenue: null,
     defaultAddress: null,
     /* Luma organisers routinely publish only the city and send the room to
@@ -110,40 +112,60 @@ export const SOURCES = [
   {
     id: 'eventbrite',
     name: 'Eventbrite',
-    url: 'https://www.eventbrite.ca/d/canada--toronto/free--events/',
-    /* Parked, and not for the reason first recorded here.
+    url: 'https://www.eventbrite.ca/d/canada--toronto/all-events/',
+    /* EVENTBRITE'S TERMS OF SERVICE PROHIBIT AUTOMATED EXTRACTION. They say a
+       user has no right to scrape, crawl or use automated means to extract
+       data from the site, whatever robots.txt allows. The owner of this repo
+       knowingly enabled this source anyway on 2026-09-27, accepting the risk
+       that Eventbrite blocks it or objects to it. That is the owner's call,
+       recorded here so nobody mistakes it for an oversight — and it is the
+       opposite of the standard that keeps ra.co, Songkick and Bandsintown
+       parked below.
 
-       That note said the search page answered 405 to a headless browser. It
-       no longer does: checked 2026-09-27, it returns 200 to this bot, carries
-       21 event links, and every event page has complete JSON-LD — name,
-       dates, venue, street address, AggregateOffer.lowPrice and
-       eventAttendanceMode. robots.txt does not disallow /d/ or /e/ either. On
-       the evidence it would work today, on the fast path, for no model calls.
+       The API is not a way round it: public event search was withdrawn in
+       2019, and what remains only reaches organisations you control.
 
-       It stays off because Eventbrite's Terms of Service say a user has no
-       right to scrape, crawl or use automated means to extract data from the
-       site. robots.txt permits what the contract forbids, and the contract is
-       the one that counts — the same standard that parks ra.co, Songkick and
-       Bandsintown below. Do not enable this by observing that the block is
-       gone; the block was never the reason.
-
-       The API is not a way round it. Public event search (/v3/events/search/)
-       was withdrawn in December 2019 and refused from February 2020. What
-       remains — by id, by venue, by organization — reaches only organisations
-       you already control, so it cannot discover anyone else's events.
-
-       The route that works is the one this file already takes everywhere
-       else: read the venue, not the ticket vendor. Eventbrite is usually the
-       checkout page and the announcement is on the organiser's own site.
-       Where an organiser has no site, they can send it in — see the
-       `submitted` partner tag in data.js. */
-    enabled: false,
+       How it is read. The city page's ItemList names about twenty events and
+       carries no prices, so it is used only as a list of links: nothing on it
+       is published (listingOnly). Each event page is followed and its own
+       JSON-LD decides everything — the AggregateOffer for the price, @type
+       for BusinessEvent, eventAttendanceMode for online-only, addressLocality
+       for the city. all-events rather than free--events because the $35
+       ceiling in normalize.mjs does the price cut, and a $12 party is exactly
+       what this board is for. See vetEventbrite in eventbrite.mjs for the
+       gates, and why an event without a readable price is dropped rather than
+       left "Price not listed". */
+    enabled: true,
+    listingOnly: true,
+    /* The price has to come from the page's offers, which is structured data
+       or nothing. A model reading prose would guess, so it is never asked. */
+    noModel: true,
+    /* Eventbrite blocking the poller is the expected way this source fails,
+       and when it does the rest of the board should still update. Its own
+       listings drop out of scraped.js with it; nobody else's do. */
+    mayGoQuiet: true,
+    vet: vetEventbrite,
+    /* From the listing alone: an event data.js already carries by hand, or
+       one whose title rules it out, is reported and never fetched. */
+    skipBeforeFollow,
+    /* One event page can carry a dated node and its series node; the dated
+       one is the listing. */
+    pageNodes: settlePageNodes,
+    /* Only used if vet ever returned nothing; vetEventbrite always files an
+       event itself. */
     category: 'dropin',
-    art: 'art-market',
+    art: 'art-dropin',
     defaultVenue: null,
     defaultAddress: null,
-    followLinks: /^https:\/\/www\.eventbrite\.ca\/e\/[a-z0-9-]+-tickets-\d+/i,
-    maxFollow: 20,
+    /* No `exclude` here: vetEventbrite applies the same NETWORKING list as
+       Luma plus the conference-and-summit end of it, and says which rule
+       dropped each event. */
+    /* Both hosts: the city page links to .ca and .com event pages alike.
+       -registration- as well as -tickets-, which is how free RSVPs are named. */
+    followLinks: /^https:\/\/www\.eventbrite\.(ca|com)\/e\/[a-z0-9-]+-(tickets|registration)-\d+/i,
+    /* The city page names about twenty; anything past the cap is reported as
+       dropped, not silently lost. */
+    maxFollow: 40,
     maxEvents: A_MONTH_OF_LISTINGS,
   },
 
