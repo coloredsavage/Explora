@@ -33,18 +33,42 @@ const UA = USER_AGENT;
    it says in the report that it stopped asking. */
 const MODEL_CALL_BUDGET = Number(process.env.MODEL_CALL_BUDGET || 40);
 let modelCalls = 0;
-const today = new Date().toISOString().slice(0, 10);
 
-export const report = { kept: [], dropped: [], skipped: [], errors: [], coverage: [] };
+/* Today, read from the clock when a poll asks rather than once at import.
+   Everything that decides "already past" takes it as a parameter, so the
+   suite can pin the date and a fixture dated October does not start failing
+   in October. Only main() and the dry run read the real clock. */
+export const todayIso = () => new Date().toISOString().slice(0, 10);
 
-/* The pause between event pages. Only the suite shortens it, to replay a
-   listing through livePages against a fake browser without waiting 30s. */
-const FOLLOW_DELAY_MS = Number(process.env.FOLLOW_DELAY_MS ?? 1500);
+export const report = { kept: [], dropped: [], skipped: [], errors: [], coverage: [], followFailures: {} };
+
+/* The pause between event pages: 1.5s, and never under a second in a real
+   poll whatever the environment says. A value that is not a number is
+   ignored rather than read as zero. Only the suite (EXPLORA_TEST=1) may go
+   lower, to replay a listing through livePages against a fake browser
+   without waiting 30s. */
+const DEFAULT_FOLLOW_DELAY_MS = 1500;
+export const MIN_FOLLOW_DELAY_MS = 1000;
+export function followDelayMs(env = process.env) {
+  const raw = env.FOLLOW_DELAY_MS;
+  const n = raw == null || String(raw).trim() === '' ? NaN : Number(raw);
+  const asked = Number.isFinite(n) && n >= 0 ? n : DEFAULT_FOLLOW_DELAY_MS;
+  return env.EXPLORA_TEST === '1' ? asked : Math.max(asked, MIN_FOLLOW_DELAY_MS);
+}
+const FOLLOW_DELAY_MS = followDelayMs();
+
+/* Following an event page can fail — a timeout, a 403, a 404. One failure is
+   that page lost. Three in a row is the site refusing or falling over, and
+   the rest of the source's links are left alone rather than hammered. And a
+   source that could not read more than a third of what it set out to read
+   is not published as though it had: see followVerdict. */
+export const FOLLOW_BREAKER = 3;
+export const FAILED_SHARE = 1 / 3;
 const startOf = (e) => (e.schedule.kind === 'day' ? e.schedule.date : e.schedule.start);
 
 /* ------------------------------------------------------------- the sources */
 
-export async function harvest(source, pages) {
+export async function harvest(source, pages, { today = todayIso() } = {}) {
   const out = [];
   for (const { url, html, isIndex } of pages) {
     /* A listing-only source's index page is a list of links and nothing
@@ -57,6 +81,14 @@ export async function harvest(source, pages) {
        this event — so the model gets it as well as the body, and it is the
        last resort if nothing writes a description at all. */
     let raws = fromJsonLd(html);
+
+    /* A source can say which of one page's nodes are the listing — on an
+       Eventbrite page, the dated node and not the series beside it. */
+    if (source.pageNodes && raws.length > 1) {
+      const settled = source.pageNodes(raws);
+      for (const d of settled.dropped) report.dropped.push(`${source.id}: ${d.title} — ${d.why}`);
+      raws = settled.keep;
+    }
 
     /* A page's meta description belongs to the page. On an event page that is
        the event, and it has been the last resort for prose since the start. On
@@ -155,6 +187,33 @@ export async function harvest(source, pages) {
       report.kept.push(`${source.id}: ${result.event.title} (${result.event.via})`);
     }
   }
+
+  /* The same question across pages: one title at one venue published as a
+     range and as a day inside it is a series and its dated occurrence, read
+     from two event pages. The day is the listing. */
+  if (source.pageNodes && out.length > 1) {
+    const norm = (x) => String(x ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+    const groups = new Map();
+    for (const e of out) {
+      const k = `${norm(e.title)}|${norm(e.venue)}`;
+      if (!groups.has(k)) groups.set(k, []);
+      groups.get(k).push(e);
+    }
+    const gone = new Set();
+    for (const group of groups.values()) {
+      if (group.length < 2) continue;
+      const nodes = group.map((e) => ({ title: e.title, event: e,
+        startDate: e.schedule.date ?? e.schedule.start, endDate: e.schedule.end ?? e.schedule.date }));
+      for (const d of source.pageNodes(nodes).dropped) {
+        gone.add(d.node.event);
+        const line = `${source.id}: ${d.node.event.title} (${d.node.event.via})`;
+        const at = report.kept.lastIndexOf(line);
+        if (at >= 0) report.kept.splice(at, 1);
+        report.dropped.push(`${source.id}: ${d.title} — ${d.why}, on another event page`);
+      }
+    }
+    if (gone.size) return out.filter((e) => !gone.has(e));
+  }
   return out;
 }
 
@@ -163,7 +222,7 @@ export async function harvest(source, pages) {
    needs the array out of it. A file that is missing, truncated or not yet in
    this shape returns null, which the caller reads as "nothing to compare
    against" rather than as a source having gone quiet. */
-async function previousCounts() {
+export async function previousListings() {
   let text;
   try { text = await readFile(path.join(root, 'scraped.js'), 'utf8'); }
   catch { return null; }
@@ -173,10 +232,38 @@ async function previousCounts() {
   let prev;
   try { prev = JSON.parse(text.slice(open, close + 1)); }
   catch { return null; }
-  if (!Array.isArray(prev)) return null;
+  return Array.isArray(prev) ? prev : null;
+}
+
+const countBySource = (events) => {
   const counts = new Map();
-  for (const e of prev) counts.set(e.scrapedFrom, (counts.get(e.scrapedFrom) ?? 0) + 1);
+  for (const e of events) counts.set(e.scrapedFrom, (counts.get(e.scrapedFrom) ?? 0) + 1);
   return counts;
+};
+
+/* A failed source keeps what it had: its listings from the last scraped.js,
+   less any that have since finished. */
+export function carryForward(previous, sourceId, today = todayIso()) {
+  if (!Array.isArray(previous)) return [];
+  const lastDay = (e) => e.schedule?.end ?? e.schedule?.date ?? e.schedule?.start ?? '';
+  return previous.filter((e) => e && e.scrapedFrom === sourceId && lastDay(e) >= today);
+}
+
+/* Whether a source read enough of what it set out to read to be published.
+   A page not read is a failed follow (an error, a refused or missing page, a
+   robots.txt refusal) or one the breaker left alone; more than a third of the
+   follows unread and the source counts as failed. */
+export function followVerdict(pages) {
+  const planned = pages?.followed ?? 0;
+  const failed = pages?.followFailures ?? 0;
+  const abandoned = pages?.followAbandoned ?? 0;
+  const unread = failed + abandoned;
+  if (!planned || unread / planned <= FAILED_SHARE) return { failed: false, planned, unread };
+  return {
+    failed: true, planned, unread,
+    why: `${unread} of ${planned} event pages unread (${failed} failed`
+      + `${abandoned ? `, ${abandoned} left after ${FOLLOW_BREAKER} failures in a row` : ''}), more than a third`,
+  };
 }
 
 /* ------------------------------------------------------------ json sources */
@@ -236,7 +323,7 @@ async function apiRecords(source) {
   return out;
 }
 
-async function harvestApi(source, records) {
+async function harvestApi(source, records, { today = todayIso() } = {}) {
   const out = [];
   for (const rec of records) {
     let raw;
@@ -368,24 +455,118 @@ export async function livePages(source, browser) {
         else if (!followed.has(eventKey(u))) report.dropped.push(`${source.id}: ${name} — past the follow cap of ${source.maxFollow}`);
       }
     }
-    for (const link of take) {
+    pages.followFailures = 0;
+    pages.followAbandoned = 0;
+    let inARow = 0;
+    for (let i = 0; i < take.length; i += 1) {
+      const link = take[i];
+      /* The breaker: three failures in a row and the rest are left unread,
+         each accounted for, rather than fetched into a site that is refusing. */
+      if (inARow >= FOLLOW_BREAKER) {
+        const rest = take.slice(i);
+        pages.followAbandoned = rest.length;
+        report.errors.push(`${source.id} — stopped following after ${FOLLOW_BREAKER} failed event pages in a row; ${rest.length} left unread`);
+        if (source.listingOnly) {
+          for (const u of rest) {
+            const named = listed.find((e) => e.url && eventKey(bare(String(e.url).trim())) === eventKey(u));
+            report.dropped.push(`${source.id}: ${named?.title ?? u} — not fetched: stopped after ${FOLLOW_BREAKER} failed event pages in a row`);
+          }
+        }
+        break;
+      }
       await new Promise((r) => setTimeout(r, FOLLOW_DELAY_MS));   /* one page every 1.5s */
       /* One page timing out is that page lost, not the whole source. It
-         used to throw out of here and take every page already read with it. */
+         used to throw out of here and take every page already read with it;
+         now it is counted, and the count decides whether the source's result
+         can be trusted (followVerdict). */
       const before = pages.length;
       try { await visit(link); }
       catch (err) { report.errors.push(`${link} — ${err.message.split('\n')[0]}`); }
-      if (source.listingOnly && pages.length === before) {
-        const named = listed.find((e) => e.url && eventKey(bare(String(e.url).trim())) === eventKey(link));
-        report.dropped.push(`${source.id}: ${named?.title ?? link} — event page could not be read (see errors and skipped)`);
-      }
+      if (pages.length === before) {
+        pages.followFailures += 1;
+        inARow += 1;
+        if (source.listingOnly) {
+          const named = listed.find((e) => e.url && eventKey(bare(String(e.url).trim())) === eventKey(link));
+          report.dropped.push(`${source.id}: ${named?.title ?? link} — event page could not be read (see errors and skipped)`);
+        }
+      } else inARow = 0;
     }
+    report.followFailures[source.id] = pages.followFailures;
   }
   await ctx.close();
   return pages;
 }
 
 /* ------------------------------------------------------------------- main */
+
+/* One source, start to finish: read it, harvest it, and decide whether the
+   result can be published. Exported so the suite can run a source against a
+   fake browser exactly as a poll does. `previous` is the last scraped.js's
+   listings, for a source that fails. */
+export async function pollSource(source, { browser = null, offline = false, previous = null, today = todayIso() } = {}) {
+  let found;
+  /* Declared out here because the coverage line below reads it, and an
+     api source never sets it. Leaving it inside the else made every source
+     throw a ReferenceError before events.push, so seven of them returned
+     nothing and the silent-source guard stopped the run — which is the
+     guard working, on a fault of mine. */
+  let pages = null;
+  let carried = false;
+  if (source.api) {
+    const records = offline ? await offlineRecords(source) : await apiRecords(source);
+    if (records.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
+    found = await harvestApi(source, records, { today });
+  } else {
+    pages = offline ? await offlinePages(source) : await livePages(source, browser);
+    if (pages.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
+    /* Too many event pages unread and what was read is a partial set that
+       would silently replace a whole one. The source is treated as failed
+       and keeps its listings from the last run — what a failed source has
+       always done — instead of publishing the part it managed. */
+    const verdict = followVerdict(pages);
+    if (verdict.failed) {
+      found = carryForward(previous, source.id, today);
+      carried = true;
+      report.errors.push(`${source.id} — failed: ${verdict.why}. Kept its ${found.length} listing${found.length === 1 ? '' : 's'} from the last run instead of a partial set`);
+    } else {
+      found = await harvest(source, pages, { today });
+    }
+  }
+  if (!carried && source.maxEvents && found.length > source.maxEvents) {
+    /* soonest first, so a cap keeps what is most use */
+    found.sort((a, b) => startOf(a).localeCompare(startOf(b)));
+    report.skipped.push(`${source.id} — capped at ${source.maxEvents} of ${found.length} events`);
+    found = found.slice(0, source.maxEvents);
+  }
+  /* What the source offered against what came back. A source that answers
+     with a page full of links and yields a handful of listings has usually
+     broken in a way nothing else here reports: Luma sat at three of
+     thirty-four for weeks and every run said success. */
+  if (pages && pages.offered != null) {
+    const failed = pages.followFailures ?? 0;
+    report.coverage.push(
+      `${source.id} — ${pages.offered} link${pages.offered === 1 ? '' : 's'} on the page, `
+      + `${pages.followed} to read, ${failed} failed`
+      + `${pages.followAbandoned ? `, ${pages.followAbandoned} left by the breaker` : ''}, `
+      + `${found.length} ${carried ? 'carried over from the last run' : 'kept'}`);
+  }
+  return found;
+}
+
+/* The silent- and shrunk-source checks, with the exemptions applied. A
+   source that says it may go quiet — Eventbrite, which can block the poller
+   at any time — does not stop the run by doing so. Only its own listings are
+   lost; every other source's still come from this poll. */
+export function quietSources(before, events, sources, allowSilent = '') {
+  const now = countBySource(events);
+  const allowed = new Set(String(allowSilent || '').split(',').map((x) => x.trim()).filter(Boolean));
+  for (const s of sources) if (s.mayGoQuiet) allowed.add(s.id);
+  const ids = sources.map((x) => x.id);
+  return {
+    silent: silentSources(before, now, ids, allowed),
+    shrunk: shrunkSources(before, now, ids, allowed),
+  };
+}
 
 async function main() {
   let browser = null;
@@ -394,41 +575,12 @@ async function main() {
     browser = await chromium.launch();
   }
 
+  const today = todayIso();
+  const previous = OFFLINE ? null : await previousListings();
   const events = [];
   for (const source of enabledSources()) {
     try {
-      let found;
-      /* Declared out here because the coverage line below reads it, and an
-         api source never sets it. Leaving it inside the else made every source
-         throw a ReferenceError before events.push, so seven of them returned
-         nothing and the silent-source guard stopped the run — which is the
-         guard working, on a fault of mine. */
-      let pages = null;
-      if (source.api) {
-        const records = OFFLINE ? await offlineRecords(source) : await apiRecords(source);
-        if (records.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
-        found = await harvestApi(source, records);
-      } else {
-        pages = OFFLINE ? await offlinePages(source) : await livePages(source, browser);
-        if (pages.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
-        found = await harvest(source, pages);
-      }
-      if (source.maxEvents && found.length > source.maxEvents) {
-        /* soonest first, so a cap keeps what is most use */
-        found.sort((a, b) => startOf(a).localeCompare(startOf(b)));
-        report.skipped.push(`${source.id} — capped at ${source.maxEvents} of ${found.length} events`);
-        found = found.slice(0, source.maxEvents);
-      }
-      /* What the source offered against what came back. A source that answers
-         with a page full of links and yields a handful of listings has usually
-         broken in a way nothing else here reports: Luma sat at three of
-         thirty-four for weeks and every run said success. */
-      if (pages && pages.offered != null) {
-        report.coverage.push(
-          `${source.id} — ${pages.offered} link${pages.offered === 1 ? '' : 's'} on the page, `
-          + `${pages.followed} read, ${found.length} kept`);
-      }
-      events.push(...found);
+      events.push(...await pollSource(source, { browser, offline: OFFLINE, previous, today }));
     } catch (err) {
       report.errors.push(`${source.id} — ${err.message}`);
     }
@@ -514,7 +666,8 @@ async function main() {
 const SCRAPED = [\n${body}\n];\n`;
 
   console.log(`\nkept ${report.kept.length}   dropped ${report.dropped.length}   skipped ${report.skipped.length}   errors ${report.errors.length}   model calls ${modelCalls}/${MODEL_CALL_BUDGET}`);
-  for (const [label, list] of [['coverage', report.coverage], ['kept', report.kept], ['dropped', report.dropped], ['skipped', report.skipped], ['errors', report.errors]]) {
+  const followLines = Object.entries(report.followFailures).map(([id, n]) => `${id} — ${n} failed follow${n === 1 ? '' : 's'}`);
+  for (const [label, list] of [['coverage', report.coverage], ['failed follows', followLines], ['kept', report.kept], ['dropped', report.dropped], ['skipped', report.skipped], ['errors', report.errors]]) {
     if (list.length) console.log(`\n${label}:\n  ` + list.join('\n  '));
   }
 
@@ -524,20 +677,8 @@ const SCRAPED = [\n${body}\n];\n`;
        ALLOW_SILENT_SOURCES=bentway,evergreen node scrape/run.mjs */
   let silent = [];
   let shrunk = [];
-  if (!OFFLINE) {
-    const before = await previousCounts();
-    if (before) {
-      const now = new Map();
-      for (const e of events) now.set(e.scrapedFrom, (now.get(e.scrapedFrom) ?? 0) + 1);
-      const allowed = new Set((process.env.ALLOW_SILENT_SOURCES || '')
-        .split(',').map((x) => x.trim()).filter(Boolean));
-      /* A source that says it may go quiet — Eventbrite, which can block the
-         poller at any time — does not stop the run by doing so. Only its own
-         listings are lost; every other source's still come from this poll. */
-      for (const s of enabledSources()) if (s.mayGoQuiet) allowed.add(s.id);
-      silent = silentSources(before, now, enabledSources().map((x) => x.id), allowed);
-      shrunk = shrunkSources(before, now, enabledSources().map((x) => x.id), allowed);
-    }
+  if (!OFFLINE && previous) {
+    ({ silent, shrunk } = quietSources(countBySource(previous), events, enabledSources(), process.env.ALLOW_SILENT_SOURCES));
   }
 
   /* Loud, and not fatal. See shrunkSources. */

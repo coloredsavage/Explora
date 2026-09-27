@@ -38,7 +38,7 @@ async function main() {
   const dir = reportDir(outAt >= 0 ? args[outAt + 1] : null);
 
   const { SOURCES } = await import('./sources.mjs');
-  const { harvest, livePages, offlinePages, report } = await import('./run.mjs');
+  const { harvest, livePages, offlinePages, report, followVerdict } = await import('./run.mjs');
   const source = SOURCES.find((s) => s.id === 'eventbrite');
 
   let browser = null;
@@ -54,6 +54,10 @@ async function main() {
   } finally {
     if (browser) await browser.close();
   }
+  /* What a poll would decide about the source as a whole: more than a third
+     of its event pages unread and it keeps last run's listings instead. The
+     dry run still harvests what it read, so the lists below can be checked. */
+  const verdict = followVerdict(pages);
   const kept = await harvest(source, pages);
 
   const mine = (list) => list.filter((x) => x.startsWith(`${source.id}:`))
@@ -66,6 +70,10 @@ async function main() {
     listedOnIndex: pages.listed ?? null,
     linksOffered: pages.offered ?? null,
     followed: pages.followed ?? null,
+    followFailures: pages.followFailures ?? 0,
+    followAbandoned: pages.followAbandoned ?? 0,
+    sourceFailed: verdict.failed,
+    sourceFailedWhy: verdict.why ?? null,
     eventPagesRead: pages.filter((p) => !p.isIndex).length,
     eventPageUrls: pages.filter((p) => !p.isIndex).map((p) => p.url),
     kept: kept.length,
@@ -96,7 +104,8 @@ async function main() {
     : [];
 
   console.log(`\nEventbrite dry run (${summary.mode})`);
-  console.log(`listed on the index ${summary.listedOnIndex ?? '-'}   links ${summary.linksOffered ?? '-'}   followed ${summary.followed ?? '-'}   event pages read ${summary.eventPagesRead}   kept ${summary.kept}   dropped ${summary.dropped}   errors ${summary.errors.length}`);
+  console.log(`listed on the index ${summary.listedOnIndex ?? '-'}   links ${summary.linksOffered ?? '-'}   followed ${summary.followed ?? '-'}   event pages read ${summary.eventPagesRead}   failed follows ${summary.followFailures}   kept ${summary.kept}   dropped ${summary.dropped}   errors ${summary.errors.length}`);
+  if (verdict.failed) console.log(`\nA real poll would treat the source as FAILED (${verdict.why}) and keep last run's listings.`);
   console.log('\nkept:');
   for (const e of summary.keptEvents) {
     console.log(`  ${e.title}\n      ${e.date}${e.time ? ' ' + e.time : ''} · ${e.entry} · ${e.category} · ${e.art}\n      ${e.venue}, ${e.address}`);

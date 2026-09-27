@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 /* Eventbrite: offline checks over trimmed copies of real event pages
- * (scrape/fixtures/eventbrite.*), fetched 2026-09-27. No network. */
+ * (scrape/fixtures/eventbrite.*), fetched 2026-09-27. No network.
+ *
+ * Nothing here reads the clock. Every normalize and harvest call is handed
+ * the pinned `today` below, so the fixtures (dated September and October
+ * 2026) do not age out of the suite: `faketime '2027-06-01' npm test` passes
+ * as it does today. A new check that needs "today" takes it from here. */
 
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -14,11 +19,16 @@ import { fromJsonLd } from './extract.mjs';
 import { normalize, validate } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { matchArt } from './art-match.mjs';
-import { classifyEventbriteEvent, eventbritePrice, formatPrice, vetEventbrite,
-  CLASSIFIER_OUTPUTS, PROFESSIONAL_TITLE } from './eventbrite.mjs';
+import { classifyEventbriteEvent, eventbritePrice, formatPrice, vetEventbrite, readAmount,
+  settlePageNodes, alreadyHandListed, handListedIndex, eventbriteId, localityName,
+  CLASSIFIER_OUTPUTS, PROFESSIONAL_TITLE, PROFESSIONAL_DESCRIPTION } from './eventbrite.mjs';
 
+/* The suite, and only the suite, may follow pages with no pause. */
+process.env.EXPLORA_TEST = '1';
 process.env.FOLLOW_DELAY_MS = '0';
-const { harvest, livePages, report } = await import('./run.mjs');
+const { harvest, livePages, pollSource, followVerdict, carryForward, quietSources, followDelayMs,
+  report, FOLLOW_BREAKER, MIN_FOLLOW_DELAY_MS } = await import('./run.mjs');
+const { enabledSources } = await import('./sources.mjs');
 const { reportDir } = await import('./dry-run-eventbrite.mjs');
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -40,6 +50,13 @@ const checkAsync = async (name, fn) => {
   try { await fn(); console.log('  ok   ' + name); }
   catch (err) { failures++; console.log('  FAIL ' + name + '\n       ' + err.message); }
 };
+
+/* The run's shared report, emptied between checks that read it. */
+const resetReport = () => {
+  for (const k of ['kept', 'dropped', 'skipped', 'errors', 'coverage']) report[k].length = 0;
+  for (const k of Object.keys(report.followFailures)) delete report.followFailures[k];
+};
+const reportSize = () => ['kept', 'dropped', 'skipped', 'errors'].reduce((n, k) => n + report[k].length, 0);
 
 /* One fixture page -> normalize, the way a poll reads it. */
 const page = (slug) => {
@@ -109,9 +126,9 @@ check('a free tier beside paid ones is not Free, and not $0', () => {
   assert.match(r.why, /free and paid tickets .*cheapest paid ticket is not in the offers/);
 });
 check('individual offers give the cheapest paid ticket', () =>
-  assert.deepEqual(eventbritePrice([{ '@type': 'Offer', price: 0 }, { '@type': 'Offer', price: '20.00' }, { '@type': 'Offer', price: 50 }]), { entry: '$20' }));
-check('nested offers are read too', () =>
-  assert.deepEqual(eventbritePrice({ '@type': 'AggregateOffer', lowPrice: 0, highPrice: 30, offers: [{ price: 0 }, { price: 15 }, { price: 30 }] }), { entry: '$15' }));
+  assert.deepEqual(eventbritePrice([{ '@type': 'Offer', price: 0, priceCurrency: 'CAD' }, { '@type': 'Offer', price: '20.00', priceCurrency: 'CAD' }, { '@type': 'Offer', price: 50, priceCurrency: 'CAD' }]), { entry: '$20' }));
+check('nested offers are read too, taking the currency from their parent', () =>
+  assert.deepEqual(eventbritePrice({ '@type': 'AggregateOffer', lowPrice: 0, highPrice: 30, priceCurrency: 'CAD', offers: [{ price: 0 }, { price: 15 }, { price: 30 }] }), { entry: '$15' }));
 check('no offers, or no numbers in them, is no price', () => {
   assert.match(eventbritePrice(null).why, /no offers/);
   assert.match(eventbritePrice([{ '@type': 'Offer', availability: 'InStock' }]).why, /no readable price/);
@@ -121,7 +138,7 @@ check('a price in another currency is not passed off as dollars here', () =>
 check('never "$0" in any combination', () => {
   const vals = [0, '0', '0.0', '0.00', 0.001, 5, '19.5', 40];
   for (const a of vals) for (const b of vals) {
-    const r = eventbritePrice([{ lowPrice: a, highPrice: b, priceCurrency: 'CAD' }, { price: a }]);
+    const r = eventbritePrice([{ lowPrice: a, highPrice: b, priceCurrency: 'CAD' }, { price: a, priceCurrency: 'CAD' }]);
     if (r.entry) assert.doesNotMatch(r.entry, /^\$0(\.0+)?$/, JSON.stringify([a, b, r]));
   }
 });
@@ -129,13 +146,98 @@ check('written the way the board writes prices', () => {
   assert.equal(formatPrice(12), '$12');
   assert.equal(formatPrice(19.5), '$19.50');
   assert.equal(formatPrice(27.96), '$27.96');
-  assert.equal(eventbritePrice([{ lowPrice: '12.0', highPrice: '12.0' }]).entry, '$12');
+  assert.equal(eventbritePrice([{ lowPrice: '12.0', highPrice: '12.0', priceCurrency: 'CAD' }]).entry, '$12');
 });
 check('and price.js buckets what it writes', () => {
   assert.equal(priceOf('Free'), 'free');
   assert.equal(priceOf('$12.19'), 'under20');
   assert.equal(priceOf('$19.50'), 'under20');
   assert.equal(priceOf('$27.96'), 'over20');
+});
+
+console.log('\nPrice: read strictly, or not at all');
+const CAD = { priceCurrency: 'CAD' };
+check("'TBD' is unreadable, not Free", () => {
+  const r = eventbritePrice([{ price: 'TBD', ...CAD }]);
+  assert.equal(r.entry, undefined);
+  assert.match(r.why, /unreadable price \("TBD"\)/);
+});
+check("'' is unreadable, not Free", () => {
+  const r = eventbritePrice([{ lowPrice: '', highPrice: '', ...CAD }]);
+  assert.equal(r.entry, undefined);
+  assert.match(r.why, /empty price/);
+});
+check('a free tier beside an unreadable one is not Free either', () =>
+  assert.equal(eventbritePrice([{ lowPrice: '0', highPrice: 'TBA', ...CAD }]).entry, undefined));
+check("'-5' is refused, not read as $5", () => {
+  for (const v of ['-5', '-5.00', '$-5', '-$5', -5, '−5']) {
+    const r = eventbritePrice([{ price: v, ...CAD }]);
+    assert.equal(r.entry, undefined, JSON.stringify(v));
+    assert.match(r.why, /negative price/, JSON.stringify(v));
+  }
+});
+check("a comma decimal: '12,50' is $12.50, not $1250", () => {
+  assert.deepEqual(eventbritePrice([{ lowPrice: '12,50', highPrice: '12,50', ...CAD }]), { entry: '$12.50' });
+  assert.deepEqual(eventbritePrice([{ price: '7,5', ...CAD }]), { entry: '$7.50' });
+});
+check('a thousands comma is a thousands comma, and anything else with a comma is unreadable', () => {
+  assert.deepEqual(readAmount('1,250.00'), { n: 1250 });
+  assert.match(readAmount('1,2,3').bad, /unreadable/);
+  assert.match(readAmount('12,5,0').bad, /unreadable/);
+});
+check('currency marks around a figure are read, words are not', () => {
+  assert.deepEqual(readAmount('$12'), { n: 12 });
+  assert.deepEqual(readAmount('CA$19.50'), { n: 19.5 });
+  assert.deepEqual(readAmount('12.00 CAD'), { n: 12 });
+  assert.match(readAmount('free').bad, /unreadable/);
+  assert.match(readAmount('Donation').bad, /unreadable/);
+  assert.equal(readAmount(undefined), null);
+  assert.equal(readAmount(null), null);
+});
+check('an unreadable price on a real page drops the event instead of publishing it', () => {
+  const r = normalize({ ...page('walrus-talks'), offers: [{ '@type': 'AggregateOffer', lowPrice: 'TBD', highPrice: 'TBD', ...CAD }] }, eventbrite, opts);
+  assert.equal(r.ok, false);
+  assert.match(r.why, /unreadable price/);
+});
+check('sold-out tickets are not the cheapest price', () => {
+  assert.deepEqual(eventbritePrice([
+    { price: 10, availability: 'https://schema.org/SoldOut', ...CAD },
+    { price: 20, availability: 'https://schema.org/InStock', ...CAD },
+  ]), { entry: '$20' });
+  assert.deepEqual(eventbritePrice([
+    { price: 8, availability: 'OutOfStock', ...CAD },
+    { price: 14, availability: 'InStock', ...CAD },
+  ]), { entry: '$14' });
+});
+check('nor is a sold-out free tier a reason to call it Free', () =>
+  assert.deepEqual(eventbritePrice([
+    { price: 0, availability: 'https://schema.org/SoldOut', ...CAD },
+    { price: 15, ...CAD },
+  ]), { entry: '$15' }));
+check('a sold-out child is left out even when its parent summarises it', () =>
+  assert.deepEqual(eventbritePrice({ '@type': 'AggregateOffer', lowPrice: 5, highPrice: 30, ...CAD,
+    offers: [{ price: 5, availability: 'SoldOut' }, { price: 12 }, { price: 30 }] }), { entry: '$12' }));
+check('everything sold out: dropped, and says so', () => {
+  const r = eventbritePrice([{ lowPrice: '10', highPrice: '20', availability: 'https://schema.org/SoldOut', ...CAD }]);
+  assert.equal(r.entry, undefined);
+  assert.match(r.why, /sold out or unavailable/);
+});
+check('no currency on the offers: dropped, not assumed to be dollars', () => {
+  for (const offers of [[{ lowPrice: '12', highPrice: '20' }], [{ lowPrice: '0', highPrice: '0' }], [{ price: 5, ...CAD }, { price: 3 }]]) {
+    const r = eventbritePrice(offers);
+    assert.equal(r.entry, undefined, JSON.stringify(offers));
+    assert.match(r.why, /no currency/, JSON.stringify(offers));
+  }
+  const r = normalize({ ...page('artcell'), offers: [{ '@type': 'AggregateOffer', lowPrice: '27.96', highPrice: '54.58' }] }, eventbrite, opts);
+  assert.equal(r.ok, false);
+  assert.match(r.why, /no currency/);
+});
+check('a free tier with no highPrice says so without "$-Infinity"', () => {
+  const r = eventbritePrice([{ price: 0, ...CAD }, { lowPrice: 10, ...CAD }]);
+  assert.equal(r.entry, undefined);
+  assert.doesNotMatch(r.why, /Infinity|NaN/);
+  assert.match(r.why, /free and paid tickets; the cheapest paid ticket is not in the offers/);
+  assert.match(eventbritePrice([{ lowPrice: 0, highPrice: 76.41, ...CAD }]).why, /up to \$76\.41/);
 });
 
 console.log('\nThe gates, on the real pages');
@@ -163,15 +265,50 @@ check('and would be on its description even if it were filed as a plain Event', 
   assert.equal(r.ok, false);
   assert.match(r.why, /description says “keynote”/);
 });
-check('summits, expos, symposiums and networking in titles', () => {
-  for (const t of ['The Small Business Summit 2026', 'Young Professionals Leadership Summit 2026',
-    '16th African Economic Summit (Friends of Africa-2026)', 'Global Data Centre & Cloud Expo Canada',
-    'International Can-Africa Business Leaders Conference - 2026', 'Annual Keynote Breakfast',
-    'Professional Development Day for Teachers', 'Founders Networking Night', 'Two Symposia on Care']) {
+const TITLE_DROPS = ['The Small Business Summit 2026', 'Young Professionals Leadership Summit 2026',
+  '16th African Economic Summit (Friends of Africa-2026)', 'International Can-Africa Business Leaders Conference - 2026',
+  'Global Data Centre & Cloud Expo Canada', 'Ted Rogers Centre for Heart Research: 2026 Heart Failure Symposium'];
+check('the six business titles from the dry run are still dropped, from the listing and on the page', () => {
+  for (const t of TITLE_DROPS) {
+    assert.ok(eventbrite.skipBeforeFollow({ title: t, url: 'https://www.eventbrite.ca/e/x-tickets-1000000001' }), t);
     const r = normalize({ ...page('walrus-talks'), title: t }, eventbrite, opts);
     assert.equal(r.ok, false, t);
     assert.match(r.why, /business|conference|professional/, t);
   }
+});
+check('the Data Centre & Cloud Expo goes on its industry, not on the word "expo"', () => {
+  assert.ok(!PROFESSIONAL_TITLE.test('Global Expo Canada'));
+  assert.match(PROFESSIONAL_TITLE.exec('Global Data Centre & Cloud Expo Canada')[0], /data centre|cloud expo/i);
+  assert.ok(PROFESSIONAL_TITLE.test('Canada Cloud Expo'));
+  assert.ok(PROFESSIONAL_TITLE.test('Toronto Franchise Expo'));
+  assert.ok(PROFESSIONAL_TITLE.test('Healthcare Tech Forum'));
+});
+check('and more of the business end: keynotes, symposia, networking', () => {
+  for (const t of ['Annual Keynote Breakfast', 'Professional Development Day for Teachers', 'Founders Networking Night', 'Two Symposia on Care']) {
+    const r = normalize({ ...page('walrus-talks'), title: t }, eventbrite, opts);
+    assert.equal(r.ok, false, t);
+    assert.match(r.why, /business|conference|professional/, t);
+  }
+});
+check('an expo, a convention, a forum, Steve Jobs and a summit you hike to are all kept', () => {
+  for (const t of ['Toronto Comic Expo', 'Anime Convention', 'Community Forum on Transit',
+    'Steve Jobs (2015) — Outdoor Screening', 'Sunrise Hike to the Summit', 'Careers in Clay: A Pottery Night', 'Marketing Your Band — A Musicians Q&A']) {
+    assert.equal(eventbrite.skipBeforeFollow({ title: t, url: 'https://www.eventbrite.ca/e/x-tickets-1000000002' }), null, t);
+    const r = normalize({ ...page('walrus-talks'), title: t }, eventbrite, opts);
+    assert.ok(r.ok, `${t}: ${r.why}`);
+  }
+});
+check('a hike whose page says "reach the summit" is kept', () => {
+  const desc = 'A moderate 8 km hike through the Don Valley. We reach the summit of the escarpment around noon, then walk back for lunch.';
+  assert.ok(!PROFESSIONAL_DESCRIPTION.test(desc));
+  const r = normalize({ ...page('walrus-talks'), title: 'Don Valley Escarpment Hike', description: desc }, eventbrite, opts);
+  assert.ok(r.ok, r.why);
+  assert.equal(r.event.category, 'outdoors');
+});
+check('"conference" in passing on a page is no longer enough', () => {
+  const desc = 'Local band The Marsh play songs from the album they recorded after a conference tour of church basements.';
+  const r = normalize({ ...page('artcell'), title: 'The Marsh — Live', description: desc }, eventbrite, opts);
+  assert.ok(r.ok, r.why);
 });
 check('while a bake sale, a salsa night and a book launch get through the filter', () => {
   for (const t of ['Church Bake Sale', 'Salsa Night at the Lula Lounge', 'Book Launch: River Stories']) {
@@ -194,6 +331,73 @@ check('a GTA suburb in the address is out; Markham Street in Toronto is not', ()
   const base = { ...page('walrus-talks'), locality: null, streetAddress: null };
   assert.match(vetEventbrite({ ...base, address: '5000 Hwy 7, Markham, ON L3R 4M9' }).reject, /not in Toronto \(Markham\)/);
   assert.equal(vetEventbrite({ ...base, address: '600 Markham St, Toronto, ON M6G 2L8' }).reject, undefined);
+});
+check("addressLocality as organisers type it: 'Toronto, ON', 'City of Toronto'", () => {
+  for (const locality of ['Toronto, ON', 'City of Toronto', 'Toronto, Ontario, Canada', 'toronto ON', 'Scarborough, ON']) {
+    assert.equal(vetEventbrite({ ...page('walrus-talks'), locality }).reject, undefined, locality);
+  }
+  assert.match(vetEventbrite({ ...page('walrus-talks'), locality: 'City of Mississauga' }).reject, /not in Toronto \(City of Mississauga\)/);
+  assert.match(vetEventbrite({ ...page('walrus-talks'), locality: 'Brampton, ON' }).reject, /not in Toronto/);
+  assert.equal(localityName('City of Toronto'), 'Toronto');
+});
+check('and joined to a bare street it reads Toronto, ON once', () => {
+  const v = vetEventbrite({ ...page('walrus-talks'), streetAddress: '93 Charles St W', locality: 'Toronto, ON' });
+  assert.equal(v.address, '93 Charles St W, Toronto, ON');
+});
+check('a series node of 14 days or less does not show up beside its dated node', () => {
+  const base = page('walrus-talks');
+  const dated = { ...base, startDate: '2026-10-08T19:00:00-04:00', endDate: '2026-10-08T21:00:00-04:00' };
+  const series = { ...base, startDate: '2026-10-08T19:00:00-04:00', endDate: '2026-10-10T21:00:00-04:00' };
+  const { keep, dropped } = settlePageNodes([series, dated]);
+  assert.deepEqual(keep, [dated]);
+  assert.match(dropped[0].why, /series node \(2026-10-08 to 2026-10-10\) beside its dated node \(2026-10-08\)/);
+});
+await checkAsync('and harvest publishes the day card only', async () => {
+  const node = (start, end, type = 'Event') => ({ '@context': 'https://schema.org', '@type': type, name: 'Three Nights of Jazz',
+    startDate: start, endDate: end, url: 'https://www.eventbrite.ca/e/three-nights-of-jazz-tickets-1000000009',
+    location: { '@type': 'Place', name: 'The Emmet Ray', address: { '@type': 'PostalAddress', streetAddress: '924 College St', addressLocality: 'Toronto' } },
+    offers: [{ '@type': 'AggregateOffer', lowPrice: '12', highPrice: '12', priceCurrency: 'CAD' }] });
+  /* Typed as a plain Event, as Eventbrite's series nodes are: an
+     'EventSeries' node never reaches here, because extract.mjs only reads
+     types ending in "Event". */
+  const html = `<script type="application/ld+json">${JSON.stringify([
+    node('2026-10-08T20:00:00-04:00', '2026-10-10T23:00:00-04:00', 'MusicEvent'),
+    node('2026-10-08T20:00:00-04:00', '2026-10-08T23:00:00-04:00')])}</script>`;
+  resetReport();
+  const out = await harvest(eventbrite, [{ url: 'https://www.eventbrite.ca/e/three-nights-of-jazz-tickets-1000000009', html, isIndex: false }], { today });
+  assert.equal(out.length, 1);
+  assert.equal(out[0].schedule.kind, 'day');
+  assert.equal(out[0].schedule.date, '2026-10-08');
+  assert.ok(report.dropped.some((d) => /series node/.test(d)));
+});
+await checkAsync('nor when the series and its dated night are two event pages', async () => {
+  const at = (id, start, end) => {
+    const url = `https://www.eventbrite.com/e/three-nights-of-jazz-tickets-${id}`;
+    return { url, isIndex: false, html: `<script type="application/ld+json">${JSON.stringify({ '@type': 'MusicEvent', name: 'Three Nights of Jazz',
+      startDate: start, endDate: end, url,
+      location: { '@type': 'Place', name: 'The Emmet Ray', address: { '@type': 'PostalAddress', streetAddress: '924 College St', addressLocality: 'Toronto' } },
+      offers: [{ '@type': 'AggregateOffer', lowPrice: '12', highPrice: '12', priceCurrency: 'CAD' }] })}</script>` };
+  };
+  resetReport();
+  const out = await harvest(eventbrite, [
+    at('1000000011', '2026-10-08T20:00:00-04:00', '2026-10-10T23:00:00-04:00'),
+    at('1000000012', '2026-10-08T20:00:00-04:00', '2026-10-08T23:00:00-04:00'),
+  ], { today });
+  assert.deepEqual(out.map((e) => e.schedule.kind), ['day']);
+  assert.ok(report.dropped.some((d) => /series node \(2026-10-08 to 2026-10-10\).*on another event page/.test(d)), report.dropped.join('\n'));
+  assert.equal(report.kept.length, 1);
+  /* Two different nights of one show are both kept. */
+  resetReport();
+  const two = await harvest(eventbrite, [
+    at('1000000013', '2026-10-08T20:00:00-04:00', '2026-10-08T23:00:00-04:00'),
+    at('1000000014', '2026-10-09T20:00:00-04:00', '2026-10-09T23:00:00-04:00'),
+  ], { today });
+  assert.equal(two.length, 2);
+});
+check('while a page with one overnight node keeps it, and a long series is still refused', () => {
+  assert.equal(settlePageNodes([page('whine-slow')]).keep.length, 1);
+  const r = normalize({ ...page('walrus-talks'), startDate: '2026-10-01T20:00:00-04:00', endDate: '2026-10-20T23:00:00-04:00' }, eventbrite, opts);
+  assert.match(r.why, /recurring series/);
 });
 check('the Mississauga fix is Eventbrite’s alone: other sources keep the old town gate', () => {
   const wygo = SOURCES.find((s) => s.id === 'wygo');
@@ -253,6 +457,71 @@ check('a croissant competition is food; a historical tour is architecture', () =
   assert.equal(kept('u-of-t-historical-tour').category, 'architecture');
 });
 
+console.log('\nFiling: booking verbs, rocks, metal and tea');
+const filed = (title, description = '', venue = '') => {
+  const c = classifyEventbriteEvent({ title, description, venue });
+  return [c.category, c.art];
+};
+check("'Book now' and 'Book your tickets' do not make a costume night books", () => {
+  assert.notEqual(filed('Halloween Costume Night', 'Book your tickets now — costumes encouraged, prizes for the best.')[0], 'books');
+  assert.notEqual(filed('Book now: Costume Night at Lavelle')[0], 'books');
+  assert.notEqual(filed('Masquerade Costume Ball', 'Book a table for your group. Booking closes Friday.')[0], 'books');
+  assert.deepEqual(filed('Book now: Costume Party at Lavelle'), ['music', 'art-decks']);
+});
+check('nor a product launch, quoted name and all', () => {
+  assert.notEqual(filed('Product Launch "Nova X1"', 'Book now to see the reveal. Book tickets early.')[0], 'books');
+  assert.notEqual(filed('Sneaker launch "Air Toronto"', 'Presented by Nike Canada. Book your spot.')[0], 'books');
+  assert.notEqual(filed('Launch Night', 'Book now for the launch of our spring menu.')[0], 'books');
+});
+check('while real book words still count', () => {
+  assert.equal(filed('Signing at the Bookshop')[0], 'books');
+  assert.equal(filed('Book Club: The Handmaid’s Tale')[0], 'books');
+  assert.equal(filed('Used Books Sale')[0], 'books');
+  assert.equal(filed('Poetry Night at the Library')[0], 'books');
+});
+check('a launch is books only with book context: bookshop, author, novel, memoir, publisher, "by <Name>", an imprint', () => {
+  for (const [t, d] of [
+    ['Launch: The Quiet Year', 'Join us at Type Books for the launch.'],
+    ['Launch night', 'Meet the author and hear a reading.'],
+    ['Launch party', 'Celebrating her debut novel.'],
+    ['Spring launch', 'A new memoir about growing up in Scarborough.'],
+    ['Launch', 'Hosted with the publisher, Coach House Books.'],
+    ['Toronto launch "Low Water"', ''],
+    ['Launch', 'Celebrate "Low Water" by Maya Chen.'],
+    ['Launch: Low Water', 'Presented with Knopf Canada.'],
+  ]) {
+    if (t === 'Toronto launch "Low Water"') assert.notEqual(filed(t, d)[0], 'books', 'a quoted title alone is not a book');
+    else assert.deepEqual(filed(t, d), ['books', 'art-books'], `${t} / ${d}`);
+  }
+});
+check("'Rock Climbing' is not music, and nor is 'Metal Casting Workshop'", () => {
+  assert.notEqual(filed('Rock Climbing for Beginners')[0], 'music');
+  assert.notEqual(filed('Intro to Rock Climbing', 'Learn to climb at our gym.')[0], 'music');
+  assert.deepEqual(filed('Metal Casting Workshop'), ['dropin', 'art-pottery']);
+  assert.notEqual(filed('Metalworking Basics')[0], 'music');
+  assert.equal(filed('Punk Rock Night')[0], 'music');
+  assert.equal(filed('Heavy Metal Tribute')[0], 'music');
+});
+check("'Tea Party' does not get the DJ decks", () => {
+  assert.notEqual(filed('Mad Hatter Tea Party')[1], 'art-decks');
+  assert.deepEqual(filed('Victorian Tea Party'), ['food', 'art-food']);
+  assert.deepEqual(filed('Toronto Rooftop Day Party'), ['music', 'art-decks']);
+});
+check('the cases that went wrong before still file right: Walrus Talks, two launches, two bands', () => {
+  assert.deepEqual(filed(page('walrus-talks').title, page('walrus-talks').description), ['stage', 'art-lectern']);
+  const ds = kept('douglas-stuart');
+  assert.deepEqual([ds.category, ds.art], ['books', 'art-books']);
+  const nk = kept('end-times-fascism');
+  assert.deepEqual([nk.category, nk.art], ['books', 'art-books']);
+  const ac = kept('artcell');
+  assert.deepEqual([ac.category, ac.art], ['music', 'art-music']);
+  assert.equal(classifyEventbriteEvent(page('uk-calling')).category, 'music');
+});
+check('a comic expo is not comedy; a stand-up comic still is', () => {
+  assert.notEqual(filed('Toronto Comic Expo')[0], 'comedy');
+  assert.equal(filed('Stand-up comic showcase')[0], 'comedy');
+});
+
 console.log('\nEvery drawing and category the classifier can return is real');
 check('every art id is a file in illustrations/', () => {
   for (const o of CLASSIFIER_OUTPUTS) assert.ok(ART_FILES.has(o.art), `${o.name} -> ${o.art} has no illustrations/${o.art}.webp`);
@@ -273,9 +542,28 @@ check('and so is everything the fixtures actually produced', () => {
 });
 
 console.log('\nThe poll: listing page, follows, and scraped.js');
-await checkAsync('the listing page itself publishes nothing', async () => {
-  const out = await harvest(eventbrite, [{ url: eventbrite.url, html: fixture('eventbrite.html'), isIndex: true }]);
-  assert.equal(out.length, 0);
+await checkAsync('the listing page itself publishes nothing — it is skipped, not merely unpriced', async () => {
+  /* A complete, priced, publishable Event node. As an event page it is kept;
+     as the index page only the listingOnly skip in harvest keeps it off. */
+  const html = fixture('eventbrite.e-walrus-talks.html');
+  resetReport();
+  const asEventPage = await harvest(eventbrite, [{ url: 'https://www.eventbrite.ca/e/the-walrus-talks-community-reborn-tickets-1998915982513', html, isIndex: false }], { today });
+  assert.equal(asEventPage.length, 1, 'control: the page is publishable when it is not the index');
+  resetReport();
+  const asIndex = await harvest(eventbrite, [{ url: eventbrite.url, html, isIndex: true }], { today });
+  assert.equal(asIndex.length, 0);
+  /* And the real listing leaves no trace at all: not kept, not dropped for
+     having no price — not read. */
+  await harvest(eventbrite, [{ url: eventbrite.url, html: fixture('eventbrite.html'), isIndex: true }], { today });
+  assert.equal(reportSize(), 0, `the index was read: ${JSON.stringify(report.dropped.slice(0, 2))}`);
+});
+await checkAsync('harvest judges "already past" by the date it is handed, not the clock', async () => {
+  const html = fixture('eventbrite.e-walrus-talks.html');
+  const url = 'https://www.eventbrite.ca/e/the-walrus-talks-community-reborn-tickets-1998915982513';
+  assert.equal((await harvest(eventbrite, [{ url, html, isIndex: false }], { today: '2026-09-27' })).length, 1);
+  resetReport();
+  assert.equal((await harvest(eventbrite, [{ url, html, isIndex: false }], { today: '2026-12-01' })).length, 0);
+  assert.ok(report.dropped.some((d) => /already past \(2026-10-08\)/.test(d)));
 });
 await checkAsync('every listed event is followed, or dropped with a reason', async () => {
   /* A browser that serves the saved listing, and the saved event pages where
@@ -302,9 +590,9 @@ await checkAsync('every listed event is followed, or dropped with a reason', asy
     }),
     close: async () => {},
   }) };
-  report.dropped.length = 0; report.errors.length = 0;
+  resetReport();
   const pages = await livePages(eventbrite, browser);
-  const out = await harvest(eventbrite, pages);
+  const out = await harvest(eventbrite, pages, { today });
   assert.equal(pages.listed, 20);
   const ruledOut = listed.filter((e) => eventbrite.skipBeforeFollow(e));
   assert.ok(ruledOut.length >= 5, `only ${ruledOut.length} conferences ruled out from the listing`);
@@ -316,6 +604,9 @@ await checkAsync('every listed event is followed, or dropped with a reason', asy
   for (const e of listed) assert.ok(accounted.has(e.title), `${e.title} was neither kept nor dropped`);
   assert.ok(report.dropped.some((d) => d.includes('could not be read')));
   assert.ok(report.errors.some((d) => d.includes('Timeout')), 'the timeout is reported');
+  assert.equal(pages.followFailures, 2, 'one timeout and one 404, counted');
+  assert.equal(report.followFailures.eventbrite, 2);
+  assert.equal(followVerdict(pages).failed, false, 'two of fourteen is not a failed source');
   assert.ok(out.length >= 5, `kept ${out.length}`);
 });
 check('an offline poll leaves scraped.js exactly as it was', () => {
@@ -332,8 +623,173 @@ check('the dry run refuses to write inside the repository', () => {
   assert.ok(!reportDir(null).startsWith(root + path.sep));
   assert.ok(reportDir(null).startsWith(os.tmpdir()));
 });
-check('a real poll does not stop over Eventbrite going quiet', () =>
-  assert.equal(eventbrite.mayGoQuiet, true));
+
+/* A made-up listing of `n` free Toronto events, each with its own page, and a
+   browser that serves them — and fails the ones `fails(i)` says to. */
+const synthetic = (n) => {
+  const events = Array.from({ length: n }, (_, i) => ({
+    '@context': 'https://schema.org', '@type': 'Event', name: `Community Walk ${i + 1}`,
+    startDate: '2026-10-10T10:00:00-04:00', endDate: '2026-10-10T12:00:00-04:00',
+    url: `https://www.eventbrite.ca/e/community-walk-${i + 1}-tickets-${2000000000 + i}`,
+    location: { '@type': 'Place', name: `Park ${i + 1}`, address: { '@type': 'PostalAddress', streetAddress: `${i + 1} Queen St W`, addressLocality: 'Toronto' } },
+    offers: [{ '@type': 'AggregateOffer', lowPrice: '0', highPrice: '0', priceCurrency: 'CAD' }],
+  }));
+  const ld = (x) => `<script type="application/ld+json">${JSON.stringify(x)}</script>`;
+  const listing = ld({ '@type': 'ItemList', itemListElement: events.map((e, i) => ({ '@type': 'ListItem', position: i + 1, item: { ...e, offers: undefined } })) });
+  return { events, listing, pageFor: new Map(events.map((e) => [e.url, ld(e)])) };
+};
+const fakeBrowser = ({ listing, pageFor }, fails = () => false) => {
+  const tried = [];
+  let current = '';
+  const browser = { newContext: async () => ({
+    newPage: async () => ({
+      goto: async (u) => {
+        current = u;
+        if (u.endsWith('/robots.txt')) return { ok: () => true, status: () => 200 };
+        if (u === eventbrite.url) return { ok: () => true, status: () => 200 };
+        const i = tried.length;
+        tried.push(u);
+        if (fails(i, u)) throw new Error('page.goto: Timeout 45000ms exceeded.');
+        const ok = pageFor.has(u);
+        return { ok: () => ok, status: () => (ok ? 200 : 404) };
+      },
+      content: async () => (current.endsWith('/robots.txt') ? 'User-agent: *\nAllow: /\n'
+        : current === eventbrite.url ? listing : pageFor.get(current)),
+    }),
+    close: async () => {},
+  }) };
+  return { browser, tried };
+};
+
+console.log('\nFollow failures: the breaker, the count, and a failed source');
+await checkAsync(`${FOLLOW_BREAKER} failed follows in a row stop the source following`, async () => {
+  const site = synthetic(12);
+  const { browser, tried } = fakeBrowser(site, () => true);
+  resetReport();
+  const pages = await livePages(eventbrite, browser);
+  assert.equal(tried.length, FOLLOW_BREAKER, `fetched ${tried.length} event pages into a failing site`);
+  assert.equal(pages.followFailures, FOLLOW_BREAKER);
+  assert.equal(pages.followAbandoned, 12 - FOLLOW_BREAKER);
+  assert.equal(report.followFailures.eventbrite, FOLLOW_BREAKER);
+  assert.ok(report.errors.some((e) => /stopped following after 3 failed event pages in a row; 9 left unread/.test(e)));
+  assert.equal(report.dropped.filter((d) => /not fetched: stopped after 3 failed/.test(d)).length, 9, 'every link left is accounted for');
+  assert.equal(followVerdict(pages).failed, true);
+});
+await checkAsync('failures that never come three in a row do not trip it', async () => {
+  const site = synthetic(12);
+  const { browser, tried } = fakeBrowser(site, (i) => i % 3 !== 2);   /* fail, fail, read, … */
+  resetReport();
+  const pages = await livePages(eventbrite, browser);
+  assert.equal(tried.length, 12);
+  assert.equal(pages.followFailures, 8);
+  assert.equal(pages.followAbandoned, 0);
+});
+check('more than a third unread is a failed source; a third exactly is not', () => {
+  assert.equal(followVerdict({ followed: 12, followFailures: 4 }).failed, false);
+  assert.equal(followVerdict({ followed: 12, followFailures: 5 }).failed, true);
+  assert.equal(followVerdict({ followed: 12, followFailures: 3, followAbandoned: 9 }).failed, true);
+  assert.equal(followVerdict({ followed: 0, followFailures: 0 }).failed, false);
+  assert.match(followVerdict({ followed: 12, followFailures: 5 }).why, /5 of 12 event pages unread/);
+});
+const previousRun = [
+  { id: 'eventbrite-kept-a', title: 'Kept A', scrapedFrom: 'eventbrite', schedule: { kind: 'day', date: '2026-10-20' } },
+  { id: 'eventbrite-kept-b', title: 'Kept B', scrapedFrom: 'eventbrite', schedule: { kind: 'range', start: '2026-09-20', end: '2026-10-02' } },
+  { id: 'eventbrite-past', title: 'Past', scrapedFrom: 'eventbrite', schedule: { kind: 'day', date: '2026-09-01' } },
+  { id: 'luma-other', title: 'Other source', scrapedFrom: 'luma', schedule: { kind: 'day', date: '2026-10-20' } },
+];
+check('a failed source carries forward its own listings that have not finished', () =>
+  assert.deepEqual(carryForward(previousRun, 'eventbrite', today).map((e) => e.id), ['eventbrite-kept-a', 'eventbrite-kept-b']));
+await checkAsync('a poll where more than a third of follows fail keeps the last run’s listings, not a partial set', async () => {
+  const site = synthetic(15);
+  const { browser } = fakeBrowser(site, (i) => i % 3 !== 2);   /* 10 of 15 fail, never 3 in a row */
+  resetReport();
+  const found = await pollSource(eventbrite, { browser, previous: previousRun, today });
+  assert.deepEqual(found.map((e) => e.id), ['eventbrite-kept-a', 'eventbrite-kept-b']);
+  assert.ok(report.errors.some((e) => /eventbrite — failed: 10 of 15 event pages unread .*Kept its 2 listings from the last run/.test(e)), report.errors.join('\n'));
+  assert.ok(report.coverage.some((c) => /15 to read, 10 failed, 2 carried over from the last run/.test(c)), report.coverage.join('\n'));
+  assert.equal(report.followFailures.eventbrite, 10);
+});
+await checkAsync('with no last run to fall back on, a failed source publishes nothing rather than a part', async () => {
+  const site = synthetic(15);
+  const { browser } = fakeBrowser(site, (i) => i % 3 !== 2);
+  resetReport();
+  assert.deepEqual(await pollSource(eventbrite, { browser, previous: null, today }), []);
+});
+await checkAsync('one failed follow of fifteen is a page lost, and the rest are published', async () => {
+  const site = synthetic(15);
+  const { browser } = fakeBrowser(site, (i) => i === 4);
+  resetReport();
+  const found = await pollSource(eventbrite, { browser, previous: previousRun, today });
+  assert.equal(found.length, 14);
+  assert.ok(found.every((e) => e.title.startsWith('Community Walk')));
+  assert.ok(report.coverage.some((c) => /15 to read, 1 failed, 14 kept/.test(c)), report.coverage.join('\n'));
+});
+
+console.log('\nAlready hand-listed in data.js');
+const REHEAT = 'https://www.eventbrite.com/e/the-reheat-podcast-live-tickets-1997921693568';
+check('data.js does carry The Reheat Podcast on Eventbrite, by hand', () => {
+  const data = readFileSync(path.join(root, 'data.js'), 'utf8');
+  assert.ok(data.includes(REHEAT));
+  assert.ok(handListedIndex(data).ids.has('1997921693568'));
+});
+check('its url, or its event number under another host or with a tracking query, is skipped', () => {
+  assert.match(alreadyHandListed(REHEAT), /already hand-listed/);
+  assert.match(alreadyHandListed('https://www.eventbrite.ca/e/the-reheat-podcast-live-tickets-1997921693568?aff=ebdssbdestsearch'), /already hand-listed/);
+  assert.match(alreadyHandListed('https://www.eventbrite.ca/e/reheat-renamed-tickets-1997921693568'), /already hand-listed/);
+  assert.equal(alreadyHandListed('https://www.eventbrite.ca/e/the-walrus-talks-community-reborn-tickets-1998915982513'), null);
+  assert.equal(eventbriteId(REHEAT), '1997921693568');
+});
+check('on the event page, it is dropped with the reason', () => {
+  const r = normalize({ ...page('walrus-talks'), url: REHEAT }, eventbrite, opts);
+  assert.equal(r.ok, false);
+  assert.match(r.why, /already hand-listed in data\.js/);
+});
+await checkAsync('from the listing, it is dropped and never fetched', async () => {
+  const site = synthetic(3);
+  const reheat = { ...site.events[0], name: 'The Reheat Podcast LIVE', url: REHEAT };
+  const listing = `<script type="application/ld+json">${JSON.stringify({ '@type': 'ItemList', itemListElement: [...site.events, reheat].map((item, i) => ({ '@type': 'ListItem', position: i + 1, item })) })}</script>`;
+  const { browser, tried } = fakeBrowser({ listing, pageFor: site.pageFor });
+  resetReport();
+  const pages = await livePages(eventbrite, browser);
+  assert.ok(!tried.some((u) => u.includes('1997921693568')), 'the hand-listed event page was fetched');
+  assert.ok(report.dropped.some((d) => /^eventbrite: The Reheat Podcast LIVE — already hand-listed in data\.js .*\(not fetched\)$/.test(d)), report.dropped.join('\n'));
+  assert.equal(pages.followed, 3);
+});
+
+console.log('\nThe follow delay');
+check('non-numeric values are ignored, and a real poll never goes under a second', () => {
+  assert.equal(followDelayMs({}), 1500);
+  assert.equal(followDelayMs({ FOLLOW_DELAY_MS: 'fast' }), 1500);
+  assert.equal(followDelayMs({ FOLLOW_DELAY_MS: '' }), 1500);
+  assert.equal(followDelayMs({ FOLLOW_DELAY_MS: '-5' }), 1500);
+  assert.equal(followDelayMs({ FOLLOW_DELAY_MS: '0' }), MIN_FOLLOW_DELAY_MS);
+  assert.equal(followDelayMs({ FOLLOW_DELAY_MS: '200' }), 1000);
+  assert.equal(followDelayMs({ FOLLOW_DELAY_MS: '2500' }), 2500);
+});
+check('only the suite may go lower', () => {
+  assert.equal(followDelayMs({ FOLLOW_DELAY_MS: '0', EXPLORA_TEST: '1' }), 0);
+  assert.equal(followDelayMs({ FOLLOW_DELAY_MS: 'nope', EXPLORA_TEST: '1' }), 1500);
+});
+
+console.log('\nGoing quiet');
+check('a real poll does not stop over Eventbrite going quiet — the guard itself, run', () => {
+  const sources = enabledSources();
+  const lumaNow = Array.from({ length: 5 }, () => ({ scrapedFrom: 'luma' }));
+  const before = new Map([['eventbrite', 12], ['luma', 5]]);
+  const r = quietSources(before, lumaNow, sources, '');
+  assert.deepEqual(r.silent, [], `stopped over ${JSON.stringify(r.silent)}`);
+  assert.deepEqual(r.shrunk, []);
+  /* The control: the same guard, on a source that has not said it may go
+     quiet, does stop the run — so the pass above is the exemption working. */
+  const ebNow = Array.from({ length: 12 }, () => ({ scrapedFrom: 'eventbrite' }));
+  assert.deepEqual(quietSources(before, ebNow, sources, '').silent.map((x) => x.id), ['luma']);
+  assert.deepEqual(quietSources(before, ebNow, sources, 'luma').silent, []);
+});
+check('and main() runs its guard through that function', () => {
+  const src = readFileSync(path.join(here, 'run.mjs'), 'utf8');
+  const main = src.slice(src.indexOf('async function main()'));
+  assert.match(main, /quietSources\(countBySource\(previous\), events, enabledSources\(\), process\.env\.ALLOW_SILENT_SOURCES\)/);
+});
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
 process.exitCode = failures ? 1 : 0;

@@ -32,7 +32,7 @@
 import { asIsoDate } from './normalize.mjs';
 import { stripTags, priceFrom, splitPlace, timeRange, fromTribe } from './api.mjs';
 import { NETWORKING } from './filters.mjs';
-import { vetEventbrite, titleProblem } from './eventbrite.mjs';
+import { vetEventbrite, skipBeforeFollow, settlePageNodes } from './eventbrite.mjs';
 
 /* How many listings to keep from any one source.
  *
@@ -145,7 +145,12 @@ export const SOURCES = [
        listings drop out of scraped.js with it; nobody else's do. */
     mayGoQuiet: true,
     vet: vetEventbrite,
-    skipBeforeFollow: (listed) => titleProblem(listed.title),
+    /* From the listing alone: an event data.js already carries by hand, or
+       one whose title rules it out, is reported and never fetched. */
+    skipBeforeFollow,
+    /* One event page can carry a dated node and its series node; the dated
+       one is the listing. */
+    pageNodes: settlePageNodes,
     /* Only used if vet ever returned nothing; vetEventbrite always files an
        event itself. */
     category: 'dropin',
