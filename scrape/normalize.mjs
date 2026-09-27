@@ -190,7 +190,7 @@ export function normalize(raw, source, { today, checked }) {
   const title = stripSiteSuffix(clean(raw.title), source.name);
   const start = asDate(raw.startDate);
   const end = asDate(raw.endDate);
-  const venue = clean(raw.venue ?? source.defaultVenue);
+  let venue = clean(raw.venue ?? source.defaultVenue);
   let address = dedupeAddress(venue, clean(raw.address ?? source.defaultAddress));
 
   const reject = (why) => ({ ok: false, why, title: title || '(untitled)' });
@@ -215,6 +215,20 @@ export function normalize(raw, source, { today, checked }) {
 
   const runDays = Math.round((Date.parse(`${lastDay}T00:00:00Z`) - Date.parse(`${start}T00:00:00Z`)) / 86400000);
   if (runDays > LONGEST_RUN_DAYS) return reject(`runs ${runDays} days — a fixture, not an event`);
+  /* Some sources withhold the address until you have a ticket. On Luma an
+     organiser routinely publishes only "Toronto, ON" and sends the room to
+     people who RSVP, so the listing is not half-known — the city is the whole
+     of what has been said, and saying it is accurate rather than a guess.
+
+     Opt-in per source, because for everywhere else a missing venue is a page
+     the extractor failed to read and publishing "Toronto" would invent a fact.
+     The card says where it is as far as anyone knows, and says the rest comes
+     on RSVP rather than implying there is nothing more to know. */
+  if (source.placeOnRsvp && (!venue || CITY_ONLY.test(venue)) && IN_TOWN.test(`${address ?? ''} ${venue ?? ''} Toronto`)) {
+    venue = 'Toronto — address on RSVP';
+    address = address && !CITY_ONLY.test(address) ? address : 'Toronto, ON';
+  }
+
   if (!venue) return reject('no venue');
   if (PLACEHOLDER.test(venue)) return reject(`placeholder venue (${venue})`);
   if (CITY_ONLY.test(venue)) return reject(`venue is just the city (${venue})`);
