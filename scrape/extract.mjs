@@ -52,29 +52,41 @@ const isEvent = (node) => {
 
 /** schema.org/Event -> our raw shape. Returns [] when the page has none. */
 export function fromJsonLd(html) {
-  return jsonLdBlocks(html).filter(isEvent).map((e) => ({
-    title: text(e.name),
-    startDate: e.startDate ?? null,
-    endDate: e.endDate ?? null,
-    venue: text(e.location?.name),
-    address: addressOf(e.location),
-    url: text(e.url),
-    description: text(e.description),
-    entry: offerText(e.offers),
-    /* The time of day, which structured data carries inside startDate and the
-       card was never shown. Luma's listings all have one — "Sep 28 · 6:00pm –
-       9:00pm" — and arrived on the board as a bare date next to Rex listings
-       that had theirs, because those come through the API reader which has
-       always split it out. */
-    time: timeRange(clock(e.startDate), clock(e.endDate)),
-    /* Search Console asks for an image on every Event. A source that marks up
-       its events usually has one, and it is the event's own picture rather
-       than something of ours standing in for it. Where there is none we send
-       none — a site-wide photograph attached to somebody's comedy night is
-       not an image of that night. */
-    image: imageOf(e.image),
-    via: 'json-ld',
-  }));
+  return jsonLdBlocks(html).filter(isEvent).map((e) => {
+    /* Check if this is an online-only event via eventAttendanceMode.
+       OnlineEventAttendanceMode means online-only; we want to exclude those.
+       OfflineEventAttendanceMode and MixedEventAttendanceMode are fine. */
+    const mode = text(e.eventAttendanceMode);
+    const isOnlineOnly = mode && /OnlineEventAttendanceMode$/i.test(mode) 
+      && !/Offline|Mixed/i.test(mode);
+    
+    /* If it's online-only, mark the venue so normalize will reject it */
+    const venue = isOnlineOnly ? 'Online' : text(e.location?.name);
+    
+    return {
+      title: text(e.name),
+      startDate: e.startDate ?? null,
+      endDate: e.endDate ?? null,
+      venue,
+      address: addressOf(e.location),
+      url: text(e.url),
+      description: text(e.description),
+      entry: offerText(e.offers),
+      /* The time of day, which structured data carries inside startDate and the
+         card was never shown. Luma's listings all have one — "Sep 28 · 6:00pm –
+         9:00pm" — and arrived on the board as a bare date next to Rex listings
+         that had theirs, because those come through the API reader which has
+         always split it out. */
+      time: timeRange(clock(e.startDate), clock(e.endDate)),
+      /* Search Console asks for an image on every Event. A source that marks up
+         its events usually has one, and it is the event's own picture rather
+         than something of ours standing in for it. Where there is none we send
+         none — a site-wide photograph attached to somebody's comedy night is
+         not an image of that night. */
+      image: imageOf(e.image),
+      via: 'json-ld',
+    };
+  });
 }
 
 function text(v) {
