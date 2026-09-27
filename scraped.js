@@ -4,308 +4,991 @@
 
 const SCRAPED = [
   {
-    "id": "baddog-academy-showcase-narrative-process-sweet-sweet-f-2026-09-23",
-    "title": "Academy Showcase: Narrative Process & Sweet Sweet Friends",
+    "id": "baddog-academy-showcase-harold-process-2026-09-30",
+    "title": "Academy Showcase Harold Process",
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
-    "url": "https://baddogtheatre.com/whats-on",
-    "source": "https://baddogtheatre.com/whats-on",
-    "checked": "2026-09-11",
-    "description": "Listed by Bad Dog Theatre.",
+    "address": "180 Shaw Street Toronto, ON, M6J 2W5 Canada",
+    "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6a95c14450a1215242c9dc3b/1788199301752/Sept+30+7pm.png?format=1500w",
+    "url": "https://baddogtheatre.com/whats-on/2026/9/30/academy-showcase-harold-process",
+    "source": "https://baddogtheatre.com/whats-on/2026/9/30/academy-showcase-harold-process",
+    "checked": "2026-09-27",
+    "description": "Bad Dog Academy Presents ACADEMY SHOWCASE Watch our talented Studio Series Students do Their Thing! This hilarious showcase features performances by Alex Tindal",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-23",
-      "time": "7:00 PM – 8:00 PM"
-    },
-    "scrapedFrom": "baddog",
-    "via": "model"
-  },
-  {
-    "id": "baddog-sweet-sweet-friends-2026-09-16",
-    "title": "Sweet Sweet Friends",
-    "category": "comedy",
-    "art": "art-comedy",
-    "venue": "Sweet Sweet Friends",
-    "address": "180 Shaw Street\nToronto, ON, M6J 2W5\nCanada",
-    "url": "https://baddogtheatre.com/whats-on/2026/9/16/sweet-sweet-friends",
-    "source": "https://baddogtheatre.com/whats-on/2026/9/16/sweet-sweet-friends",
-    "checked": "2026-09-11",
-    "description": "Bad Dog’s alumni all-stars take the Wednesday stage with guest performers and whoever else they have talked into coming along.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-16"
+      "date": "2026-09-30"
     },
     "scrapedFrom": "baddog",
     "via": "json-ld"
   },
   {
-    "id": "baddog-the-audition-2026-09-11",
-    "title": "The Audition",
-    "category": "comedy",
-    "art": "art-comedy",
-    "venue": "Comedy Bar Bloor",
-    "address": "945 Bloor Street West\nToronto, ON, M6H 1L5\nCanada",
-    "url": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm",
-    "source": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm",
-    "checked": "2026-09-11",
-    "description": "Performers move through cold reads, callbacks, strange direction and unexpected twists as the audition process spirals — completely improvised and never the same twice.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-11"
-    },
-    "scrapedFrom": "baddog",
-    "via": "json-ld"
-  },
-  {
-    "id": "baddog-the-audition-2026-09-18",
-    "title": "The Audition",
-    "category": "comedy",
-    "art": "art-comedy",
-    "venue": "Comedy Bar Bloor",
-    "address": "945 Bloor Street West\nToronto, ON, M6H 1L5\nCanada",
-    "url": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm-977bl",
-    "source": "https://baddogtheatre.com/whats-on/2026/9/4/the-audition-rz4dm-977bl",
-    "checked": "2026-09-11",
-    "description": "Performers move through cold reads, callbacks, strange direction and unexpected twists as the audition process spirals — completely improvised and never the same twice.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-18"
-    },
-    "scrapedFrom": "baddog",
-    "via": "json-ld"
-  },
-  {
-    "id": "baddog-the-bucket-show-2026-09-16",
-    "title": "The Bucket Show",
-    "category": "comedy",
-    "art": "art-comedy",
-    "venue": "Sweet Action",
-    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5, Canada",
-    "url": "https://baddogtheatre.com/whats-on",
-    "source": "https://baddogtheatre.com/whats-on",
-    "checked": "2026-09-11",
-    "description": "Listed by Bad Dog Theatre.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-16",
-      "time": "8:30 PM – 9:30 PM"
-    },
-    "scrapedFrom": "baddog",
-    "via": "model"
-  },
-  {
-    "id": "bentway-artist-talk-with-paul-ram-rez-jonas-2026-09-15-toronto-public-library-fort-york-branch",
-    "title": "Artist Talk with Paul Ramírez Jonas",
+    "id": "bentway-2-for-1-roller-skate-rentals-2026-10-03",
+    "title": "2-for-1 Roller Skate Rentals",
     "category": "architecture",
     "art": "art-skates",
-    "entry": "Free",
-    "venue": "Toronto Public Library – Fort York Branch",
-    "address": "Fort York Boulevard, Toronto, ON, Canada",
-    "url": "https://thebentway.ca/event/artist-talk-with-paul-ramirez-jonas/",
-    "source": "https://thebentway.ca/event/artist-talk-with-paul-ramirez-jonas/",
-    "checked": "2026-09-11",
-    "description": "A conversation about Ramírez Jonas's participatory works, from Key to the City and The Commons to Public Trust, and how everyday acts of exchange and promise become ways of imagining new social contracts.",
+    "entry": "$18",
+    "venue": "The Bentway Skate Trail",
+    "address": "250 Fort York Boulevard, Toronto, ON, Canada",
+    "url": "https://thebentway.ca/event/nuit-blanche-roller-skate-rentals/",
+    "source": "https://thebentway.ca/event/nuit-blanche-roller-skate-rentals/",
+    "checked": "2026-09-27",
+    "description": "Join us this Nuit Blanche for one more skate under the Gardiner surrounded by Make the World Go Round by Caitlin Taguibao, a striking signature mural installation that wraps the columns of The Bentway Skate Trail.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-15",
-      "time": "6:00 pm – 7:30 pm"
+      "date": "2026-10-03",
+      "time": "7:00 pm – 11:00 pm"
     },
     "scrapedFrom": "bentway",
-    "via": "model"
+    "via": "api"
   },
   {
-    "id": "bentway-public-trust-2026-09-15-toronto-public-library-fort-york-branch",
-    "title": "Public Trust",
+    "id": "bentway-a-persistent-crossing-2026-05-09",
+    "title": "A Persistent Crossing",
     "category": "architecture",
-    "art": "art-skates",
+    "art": "art-sculpture",
     "entry": "Free",
-    "venue": "Toronto Public Library, Fort York branch",
-    "address": "190 Fort York Blvd, Toronto",
-    "url": "https://thebentway.ca/event/public-trust-toronto-public-library/",
-    "source": "https://thebentway.ca/event/public-trust-toronto-public-library/",
-    "checked": "2026-09-11",
-    "description": "An interactive artwork with a large-scale marquee and two eight-foot tables staffed by performers: you make a promise out loud, swearing on a sacred text or an object of your choosing, and it's recorded in a drawing you.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-15",
-      "time": "10:30 am – 5:30 pm"
-    },
-    "scrapedFrom": "bentway",
-    "via": "model"
-  },
-  {
-    "id": "bentway-public-trust-2026-09-15-toronto-public-library-fort-york-branch-marina-q",
-    "title": "Public Trust",
-    "category": "architecture",
-    "art": "art-skates",
-    "venue": "Toronto Public Library Fort York branch; Marina Quay West; Harbourfront Centre; The Bentway",
-    "address": "190 Fort York Blvd; 539 Queens Quay W; 235 Queens Quay W; 250 Fort York Blvd, Toronto",
-    "url": "https://thebentway.ca/event/public-trust/",
-    "source": "https://thebentway.ca/event/public-trust/",
-    "checked": "2026-09-11",
-    "description": "An interactive artwork with a large marquee and two eight-foot tables staffed by local performers: you make a promise aloud, swearing on a sacred text or an object that matters to you, and it is recorded in a drawing.",
+    "venue": "The Bentway",
+    "address": "44 Dan Leckie Way, Toronto, ON, Canada",
+    "url": "https://thebentway.ca/event/a-persistent-crossing/",
+    "source": "https://thebentway.ca/event/a-persistent-crossing/",
+    "checked": "2026-09-27",
+    "description": "Bentway Staging Grounds hosts the final chapter of its immersive installations, where human silhouettes, native vegetation, and Ontario pollinators invite visitors to reflect on their place within the city.",
     "schedule": {
       "kind": "range",
-      "start": "2026-09-15",
+      "start": "2026-05-09",
       "end": "2026-10-04"
     },
     "scrapedFrom": "bentway",
-    "via": "model",
-    "entry": "Free"
+    "via": "api"
   },
   {
-    "id": "bentway-roller-skate-lessons-september-11-2026-09-11",
-    "title": "Roller Skate Lessons: September 11",
+    "id": "bentway-francophonie-en-f-te-2026-09-26",
+    "title": "Francophonie en Fête",
     "category": "architecture",
-    "art": "art-skates",
+    "art": "art-festival",
     "venue": "The Bentway",
-    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
-    "url": "https://thebentway.ca/whats-on/",
-    "source": "https://thebentway.ca/whats-on/",
-    "checked": "2026-09-11",
-    "description": "A weekly lesson for novice skaters, where instructors teach basic skills and help you get around the figure-eight skate trail.",
+    "address": "250 Fort York Boulevard, Toronto, ON, Canada",
+    "url": "https://thebentway.ca/event/francophonie-en-fete/",
+    "source": "https://thebentway.ca/event/francophonie-en-fete/",
+    "checked": "2026-09-27",
+    "description": "A Franco-Ontarian celebration featuring 25 live performances, food and drink, a youth area, and more over three days at this free outdoor festival.",
     "schedule": {
-      "kind": "day",
-      "date": "2026-09-11",
-      "time": "6:30pm-7:30pm and 7:30pm-8:30pm"
+      "kind": "range",
+      "start": "2026-09-26",
+      "end": "2026-09-28"
     },
     "scrapedFrom": "bentway",
-    "via": "model"
+    "via": "api"
   },
   {
-    "id": "comedybar-matt-wright-the-peekaboo-tour-2026-09-12",
-    "title": "Matt Wright - The Peekaboo Tour",
+    "id": "bentway-make-the-world-go-round-2026-06-11",
+    "title": "Make the World Go Round",
+    "category": "architecture",
+    "art": "art-skates",
+    "entry": "Free",
+    "venue": "The Bentway",
+    "address": "250 Fort York Boulevard, Toronto, ON, Canada",
+    "url": "https://thebentway.ca/event/make-the-world-go-round/",
+    "source": "https://thebentway.ca/event/make-the-world-go-round/",
+    "checked": "2026-09-27",
+    "description": "Toronto-based illustrator and muralist Caitlin Taguibao brings the city to life with Make the World Go Round, a striking signature mural installation that wraps the columns of the Bentway Skate Trail, immersing viewers…",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-06-11",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "bentway",
+    "via": "api"
+  },
+  {
+    "id": "bentway-public-pier-2026-09-18",
+    "title": "Public Pier",
+    "category": "architecture",
+    "art": "art-skates",
+    "venue": "Marina Quay West",
+    "address": "539 Queens Quay West, Toronto, ON, Canada",
+    "url": "https://thebentway.ca/event/public-pier/",
+    "source": "https://thebentway.ca/event/public-pier/",
+    "checked": "2026-09-27",
+    "description": "A collaboration between The Bentway, Harbourfront Centre, OCAD University, and the Waterfront BIA, Public Pier is a public realm pilot that transforms Marina Quay West into a welcoming waterfront hub for arts and…",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-09-18",
+      "end": "2026-10-03"
+    },
+    "scrapedFrom": "bentway",
+    "via": "api"
+  },
+  {
+    "id": "bentway-public-trust-harbourfront-centre-2026-09-24",
+    "title": "Public Trust @ Harbourfront Centre",
+    "category": "architecture",
+    "art": "art-civic",
+    "entry": "Free",
+    "venue": "Harbourfront Centre Community Square",
+    "address": "Queens Quay West, Toronto, ON, Canada",
+    "url": "https://thebentway.ca/event/public-trust-harbourfront-centre/",
+    "source": "https://thebentway.ca/event/public-trust-harbourfront-centre/",
+    "checked": "2026-09-27",
+    "description": "Torontonians are invited to make promises to themselves and their community—not just as inhabitants of the city, but as co-authors of its future.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-09-24",
+      "end": "2026-09-27"
+    },
+    "scrapedFrom": "bentway",
+    "via": "api"
+  },
+  {
+    "id": "bentway-public-trust-the-bentway-2026-10-01",
+    "title": "Public Trust @ The Bentway",
+    "category": "architecture",
+    "art": "art-civic",
+    "entry": "Free",
+    "venue": "The Bentway",
+    "address": "Fort York Boulevard, Toronto, ON, Canada",
+    "url": "https://thebentway.ca/event/public-trust-the-bentway/",
+    "source": "https://thebentway.ca/event/public-trust-the-bentway/",
+    "checked": "2026-09-27",
+    "description": "Torontonians are invited to make promises to themselves and their community—not just as inhabitants of the city, but as co-authors of its future.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-01",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "bentway",
+    "via": "api"
+  },
+  {
+    "id": "bentway-roller-skate-rentals-2026-08-07",
+    "title": "Roller Skate Rentals",
+    "category": "architecture",
+    "art": "art-skates",
+    "entry": "$18",
+    "venue": "The Bentway",
+    "address": "Fort York Boulevard, Toronto, ON, Canada",
+    "url": "https://thebentway.ca/event/roller-skate-rentals/",
+    "source": "https://thebentway.ca/event/roller-skate-rentals/",
+    "checked": "2026-09-27",
+    "description": "The Bentway Skate Trail continues to be the best place to rock and roll in the summer, visit our Skate Rental Container on site to rent your roller skates and protective gear from Fridays-Sundays in August and September!",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-08-07",
+      "end": "2026-09-27"
+    },
+    "scrapedFrom": "bentway",
+    "via": "api"
+  },
+  {
+    "id": "comedybar-alistair-ogden-new-and-improved-2026-09-27",
+    "title": "Alistair Ogden: New and Improved",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25",
-    "venue": "Comedy Bar Bloor (Main Stage)",
+    "art": "art-comedy",
+    "entry": "$27.75",
+    "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/matt-wright-the-peekaboo-tour",
-    "source": "https://comedybar.ca/shows/matt-wright-the-peekaboo-tour",
-    "checked": "2026-09-11",
-    "description": "Stand-up from Matt Wright, his last Ontario date before he records a new special.",
+    "url": "https://comedybar.ca/shows/alistair-ogden-new-and-improved",
+    "source": "https://comedybar.ca/shows/alistair-ogden-new-and-improved",
+    "checked": "2026-09-27",
+    "description": "Stand-up comedy performance by Canadian comedian Alistair Ogden, known for his witty and self-deprecating style.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-12",
+      "date": "2026-09-27",
       "time": "7:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-16",
-    "title": "Toronto's Best New Comic: Semi Finals",
+    "id": "comedybar-ben-albert-and-friends-2026-10-03",
+    "title": "Ben Albert and Friends",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$18",
-    "venue": "Comedy Bar Bloor - Main Stage",
+    "art": "art-comedy",
+    "entry": "$27.75",
+    "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "checked": "2026-09-11",
-    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "url": "https://comedybar.ca/shows/ben-albert-and-friends-jfl",
+    "source": "https://comedybar.ca/shows/ben-albert-and-friends-jfl",
+    "checked": "2026-09-27",
+    "description": "Ben Albert hosts Toronto comedians in a stand-up showcase featuring high-energy performances and bold storytelling.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-16",
-      "time": "9:30pm"
+      "date": "2026-10-03",
+      "time": "7:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-17",
-    "title": "Toronto's Best New Comic: Semi Finals",
+    "id": "comedybar-comedy-records-live-2026-11-27",
+    "title": "Comedy Records LIVE",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$18",
-    "venue": "Comedy Bar Bloor - Main Stage",
+    "entry": "$25",
+    "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "checked": "2026-09-11",
-    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "url": "https://comedybar.ca/shows/comedy-records-live",
+    "source": "https://comedybar.ca/shows/comedy-records-live",
+    "checked": "2026-09-27",
+    "description": "Comedians from the award-winning Comedy Records label perform a live show.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-17",
-      "time": "9:30pm"
+      "date": "2026-11-27",
+      "time": "08:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-20",
-    "title": "Toronto's Best New Comic: Semi Finals",
+    "id": "comedybar-late-bad-game-hour-2026-10-02",
+    "title": "LATE BAD GAME HOUR",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$18",
-    "venue": "Comedy Bar Bloor - Main Stage",
+    "art": "art-lectern",
+    "entry": "$20 online/$25 at the door",
+    "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "checked": "2026-09-11",
-    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "url": "https://comedybar.ca/shows/late-bad",
+    "source": "https://comedybar.ca/shows/late-bad",
+    "checked": "2026-09-27",
+    "description": "A game show edition featuring a celebrity panel and characters, followed by a live DJ dance party.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-20",
-      "time": "7:00pm"
+      "date": "2026-10-02",
+      "time": "11:15 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-21",
-    "title": "Toronto's Best New Comic: Semi Finals",
+    "id": "comedybar-late-bad-party-2026-10-03",
+    "title": "LATE BAD PARTY",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$18",
-    "venue": "Comedy Bar Bloor - Main Stage",
+    "art": "art-decks",
+    "entry": "$20 online/$25 at the door",
+    "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "checked": "2026-09-11",
-    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "url": "https://comedybar.ca/shows/late-bad",
+    "source": "https://comedybar.ca/shows/late-bad",
+    "checked": "2026-09-27",
+    "description": "A party edition of the show that seamlessly transitions into a live DJ dance party for the festival's final night.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-21",
-      "time": "9:30pm"
+      "date": "2026-10-03",
+      "time": "11:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-toronto-s-best-new-comic-semi-finals-2026-09-23",
-    "title": "Toronto's Best New Comic: Semi Finals",
+    "id": "comedybar-late-bad-rises-2026-10-01",
+    "title": "LATE BAD RISES",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$18",
-    "venue": "Comedy Bar Bloor - Main Stage",
+    "art": "art-lectern",
+    "entry": "$20 online/$25 at the door",
+    "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "source": "https://comedybar.ca/shows/torontos-best-new-comic-semi-finals",
-    "checked": "2026-09-11",
-    "description": "A stand-up competition semi-final round, with two of the competitors advancing to the final show at JFL Toronto.",
+    "url": "https://comedybar.ca/shows/late-bad",
+    "source": "https://comedybar.ca/shows/late-bad",
+    "checked": "2026-09-27",
+    "description": "An improvised late-night talk show where comedians from different backgrounds perform interviews, games, and sketches with no two shows ever the same.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-23",
-      "time": "9:30pm"
+      "date": "2026-10-01",
+      "time": "11:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "evergreen-family-wander-2026-09-27",
-    "title": "Family Wander",
+    "id": "comedybar-ryan-dillon-special-taping-2026-09-27",
+    "title": "Ryan Dillon: Special Taping",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25.75",
+    "venue": "Comedy Bar",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/ryan-dillon-special-taping",
+    "source": "https://comedybar.ca/shows/ryan-dillon-special-taping",
+    "checked": "2026-09-27",
+    "description": "A special taping of stand-up comedy from Ryan Dillon, a Toronto-based comedian known for his clever, charming self-deprecating wit.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27",
+      "time": "9:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-threesome-2026-10-17",
+    "title": "THREESOME",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25 online, $28 door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/threesome",
+    "source": "https://comedybar.ca/shows/threesome",
+    "checked": "2026-09-27",
+    "description": "Three of Toronto's best comics perform in a showcase featuring performers seen on Just for Laughs, Don't Tell Comedy, Kill Tony, Kevin Hart's LOL Network, and CBC.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-17",
+      "time": "08:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-threesome-2026-11-21",
+    "title": "THREESOME",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25 online, $28 door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/threesome",
+    "source": "https://comedybar.ca/shows/threesome",
+    "checked": "2026-09-27",
+    "description": "Three of Toronto's best comics perform in a showcase featuring performers seen on Just for Laughs, Don't Tell Comedy, Kill Tony, Kevin Hart's LOL Network, and CBC.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-21",
+      "time": "08:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-threesome-2026-12-19",
+    "title": "THREESOME",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25 online, $28 door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/threesome",
+    "source": "https://comedybar.ca/shows/threesome",
+    "checked": "2026-09-27",
+    "description": "Three of Toronto's best comics perform in a showcase featuring performers seen on Just for Laughs, Don't Tell Comedy, Kill Tony, Kevin Hart's LOL Network, and CBC.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-19",
+      "time": "08:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "emmetray-arena-battle-jazz-with-dennis-kwok-2026-09-28",
+    "title": "ARENA, battle jazz, with Dennis Kwok",
+    "category": "music",
+    "art": "art-jazz-bass",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/arena-battle-jazz-with-dennis-kwok/",
+    "source": "https://www.theemmetray.com/event/arena-battle-jazz-with-dennis-kwok/",
+    "checked": "2026-09-27",
+    "description": "ARENA, battle jazz, with Dennis Kwok While watching bassist, Robert Lee, devour an entire lobster bare-handed on a salty-aired Halifax harbour patio, Julien Bradley-Combs, and Dennis Kwok, decided it’s time to start a…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-28",
+      "time": "9:15pm – 11:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-avenue-road-quartet-vintage-vocal-jazz-cabaret-2026-10-10",
+    "title": "Avenue Road Quartet, vintage vocal jazz & cabaret",
+    "category": "music",
+    "art": "art-jazz-piano",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/avenue-road-cabaret-songs-parlour-songs-and-vintage-vocal-jazz/",
+    "source": "https://www.theemmetray.com/event/avenue-road-cabaret-songs-parlour-songs-and-vintage-vocal-jazz/",
+    "checked": "2026-09-27",
+    "description": "Avenue Road Quartet, vintage vocal jazz & cabaret The Avenue Road Quartet, led by vocalist Julia Kennific, is a new ensemble dedicated to cabaret and vintage vocal jazz.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-10",
+      "time": "5:30pm – 8pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-axiomatic-heresy-thelonious-monk-b-day-tribute-2026-10-04",
+    "title": "Axiomatic Heresy, Thelonious Monk B-Day Tribute!",
+    "category": "music",
+    "art": "art-comedy",
+    "entry": "$12",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/axiomatic-heresy-thelonious-monk-b-day-tribute/",
+    "source": "https://www.theemmetray.com/event/axiomatic-heresy-thelonious-monk-b-day-tribute/",
+    "checked": "2026-09-27",
+    "description": "Axiomatic Heresy, Thelonious Monk B-Day Tribute! Diagrammatically improvising the music of Monk in honour of his birthday. Followed up a set of Steve Lacy improvisations.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-04",
+      "time": "5pm – 7:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-baraczka-carson-quintet-straight-ahead-vocal-jaz-2026-09-27",
+    "title": "Baraczka-Carson Quintet, Straight Ahead/Vocal Jazz",
+    "category": "music",
+    "art": "art-jazz-drums",
+    "entry": "$12",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/magda-baraczka-quartet-traditional-jazz-vocals/",
+    "source": "https://www.theemmetray.com/event/magda-baraczka-quartet-traditional-jazz-vocals/",
+    "checked": "2026-09-27",
+    "description": "Baraczka-Carson Quintet, Straight Ahead/Vocal Jazz Magda Baraczka and Steve Carson return to the Emmet Ray for an evening of straight ahead swinging jazz!",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27",
+      "time": "5pm – 7:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-bryan-toner-quartet-jazz-standards-2026-10-10",
+    "title": "Bryan Toner Quartet, Jazz Standards",
+    "category": "music",
+    "art": "art-jazz-bass",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/bryan-toner-quartet-jazz-standards/",
+    "source": "https://www.theemmetray.com/event/bryan-toner-quartet-jazz-standards/",
+    "checked": "2026-09-27",
+    "description": "Bryan Toner Quartet, Jazz Standards They will be playing familiar jazz standards with Bryan Toner leading the way on Drums. Often interacting with the listeners in a fun and entertaining manner.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-10",
+      "time": "8:30pm – 11pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-cody-copland-jazzy-band-jazz-guitarist-2026-10-03",
+    "title": "Cody Copland + Jazzy Band, Jazz Guitarist",
+    "category": "music",
+    "art": "art-jazz-drums",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/cody-copland-group-jazz-guitarist-bebop/",
+    "source": "https://www.theemmetray.com/event/cody-copland-group-jazz-guitarist-bebop/",
+    "checked": "2026-09-27",
+    "description": "Cody Copland + Jazzy Band, Jazz Guitarist Cody Copland joins the Jazzy Band trio to play standard Oscar Peterson repertoire and jazz standards.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-03",
+      "time": "8:30pm – 11pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-donovan-locke-trio-jazz-folk-vocals-2026-10-09",
+    "title": "Donovan Locke Trio, Jazz/Folk Vocals",
+    "category": "music",
+    "art": "art-jazz-trumpet",
+    "entry": "$20",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/donovan-locke-trio-jazz-vocals-with-carl-bray-on-piano-bennett-young-on-bass/",
+    "source": "https://www.theemmetray.com/event/donovan-locke-trio-jazz-vocals-with-carl-bray-on-piano-bennett-young-on-bass/",
+    "checked": "2026-09-27",
+    "description": "Donovan Locke Trio, Jazz/Folk Vocals Donovan Locke – Vocals Donovan Locke is one of Toronto’s Great Performers. He not only wows with his vocals but engages and brings joy to his listeners.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-09",
+      "time": "9:30pm – 11:59pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-drop-aphex-twin-meets-brooklyn-jazz-2026-09-29",
+    "title": "drop, Aphex Twin meets Brooklyn Jazz",
+    "category": "music",
+    "art": "art-jazz-sax",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/drop-modern-jazz-electronic-with-dan-pitt-jen-lo-max-forster-stefan-hegerat/",
+    "source": "https://www.theemmetray.com/event/drop-modern-jazz-electronic-with-dan-pitt-jen-lo-max-forster-stefan-hegerat/",
+    "checked": "2026-09-27",
+    "description": "drop, Aphex Twin meets Brooklyn Jazz drop is the newest project from Toronto guitarist Dan Pitt which combines his interest in electronic and synth-based music with his influences of jazz and post-rock.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-29",
+      "time": "9:15pm – 11:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-dylan-pilcher-group-jazz-folk-creative-2026-10-02",
+    "title": "Dylan Pilcher Group, Jazz, Folk, Creative",
+    "category": "music",
+    "art": "art-jazz-sax",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/dylan-pilcher-group-jazz-folk-creative/",
+    "source": "https://www.theemmetray.com/event/dylan-pilcher-group-jazz-folk-creative/",
+    "checked": "2026-09-27",
+    "description": "Dylan Pilcher Group, Jazz, Folk, Creative A group focused on original music, the Dylan Pilcher quintet draws from various stylistic idioms, creating a unique but inspired sound focused around authenticity, efficacy and…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-02",
+      "time": "6:30pm – 9pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-else-langhans-guitar-vocals-jazz-covers-original-2026-10-03",
+    "title": "Else Langhans, Guitar/Vocals, Jazz Covers Original Songwriter",
+    "category": "music",
+    "art": "art-jazz-bass",
+    "entry": "PWYC",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/else-langhans-guitar-vocals-jazz-covers-original-songwriter/",
+    "source": "https://www.theemmetray.com/event/else-langhans-guitar-vocals-jazz-covers-original-songwriter/",
+    "checked": "2026-09-27",
+    "description": "Else Langhans, Guitar/Vocals, Jazz Covers & Original Songwriter",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-03",
+      "time": "11:30am – 1:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-harry-vetro-and-friends-straight-ahead-jazz-2026-10-02",
+    "title": "Harry Vetro and Friends, Straight Ahead Jazz",
+    "category": "music",
+    "art": "art-jazz-trumpet",
+    "entry": "$20",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/harry-vetro-and-friends-straight-ahead-jazz-2/",
+    "source": "https://www.theemmetray.com/event/harry-vetro-and-friends-straight-ahead-jazz-2/",
+    "checked": "2026-09-27",
+    "description": "Harry Vetro and Friends, Straight Ahead Jazz Harry Vetro and Friends is a recurring monthly jazz series led by drummer and composer Harry Vetro.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-02",
+      "time": "9:30pm – 11:59pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-isaak-bonk-and-the-roast-chicken-ramblers-blues--2026-10-03",
+    "title": "Isaak Bonk and The Roast Chicken Ramblers, Blues/Jazz",
+    "category": "music",
+    "art": "art-jazz-sax",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/isaak-bonk-and-the-roast-chicken-ramblers-blues-jazz/",
+    "source": "https://www.theemmetray.com/event/isaak-bonk-and-the-roast-chicken-ramblers-blues-jazz/",
+    "checked": "2026-09-27",
+    "description": "Isaak Bonk and The Roast Chicken Ramblers, Blues/Jazz The Roast Chicken Ramblers are a Toronto based vintage blues, jazz and ragtime group. The roast chicken repertoire is largely based upon pre-war/swing era tunes.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-03",
+      "time": "5:30pm – 8pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-jen-howard-an-american-singer-songwriter-and-mul-2026-10-12",
+    "title": "Jen Howard, an American singer/songwriter and multi-instrumentalist.",
+    "category": "music",
+    "art": "art-folk",
+    "entry": "$12",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/jen-howard-an-american-singer-songwriter-and-multi-instrumentalist/",
+    "source": "https://www.theemmetray.com/event/jen-howard-an-american-singer-songwriter-and-multi-instrumentalist/",
+    "checked": "2026-09-27",
+    "description": "Jen Howard, an American singer/songwriter and multi-instrumentalist. Jen Howard is an American singer/songwriter and multi-instrumentalist, born in Prestonsburg, Kentucky.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-12",
+      "time": "5pm – 7:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-joel-sheridan-quintet-vintage-jazz-swing-and-cla-2026-09-27",
+    "title": "Joel Sheridan Quintet, Vintage Jazz, Swing, and Classic Pop.",
+    "category": "music",
+    "art": "art-jazz-sax",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/joel-sheridan-jazz-swing-cabaret-urban-blues-and-classic-pop-vocalist/",
+    "source": "https://www.theemmetray.com/event/joel-sheridan-jazz-swing-cabaret-urban-blues-and-classic-pop-vocalist/",
+    "checked": "2026-09-27",
+    "description": "Joel Sheridan Quintet, Vintage Jazz, Swing, and Classic Pop. An award-winning actor and singer, Joel Sheridan began his musical career in Musical Theatre before making the transition to singing Jazz.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27",
+      "time": "8pm – 10:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-jordan-middleton-group-swing-jazz-originals-2026-10-01",
+    "title": "Jordan Middleton Group, Swing Jazz & Originals",
+    "category": "music",
+    "art": "art-jazz-trumpet",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/jordan-middleton-group-swing-jazz-originals/",
+    "source": "https://www.theemmetray.com/event/jordan-middleton-group-swing-jazz-originals/",
+    "checked": "2026-09-27",
+    "description": "Jordan Middleton Quintet, Jazz Swing & Originals Jordan Middletons new group will showcase brand new pieces as well as Jackie McLean classics More info will be submitted once we get it from the musicians.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-01",
+      "time": "6:30pm – 8:45pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-jp-dela-cruz-trio-bebop-straight-ahead-standards-2026-09-28",
+    "title": "JP Dela Cruz Trio, Bebop, Straight Ahead, Standards",
+    "category": "music",
+    "art": "art-jazz-bass",
+    "entry": "$12",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/jp-dela-cruz-trio-straight-ahead-bebop-swing/",
+    "source": "https://www.theemmetray.com/event/jp-dela-cruz-trio-straight-ahead-bebop-swing/",
+    "checked": "2026-09-27",
+    "description": "JP Dela Cruz Trio, Bebop, Straight Ahead, Standards Performing music from the likes of Charlie Parker, Thelonious Monk, Tadd Dameron and some nice standards, this guitar trio will be relaxing yet still exciting!",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-28",
+      "time": "6:30pm – 8:45pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-junctional-rhythm-jazz-funk-blues-2026-10-16",
+    "title": "Junctional Rhythm, Jazz/Funk/Blues",
+    "category": "music",
+    "art": "art-jazz-drums",
+    "entry": "$12",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/junctional-rhythm-jazz-funk-blues/",
+    "source": "https://www.theemmetray.com/event/junctional-rhythm-jazz-funk-blues/",
+    "checked": "2026-09-27",
+    "description": "Junctional Rhythm, Jazz/Funk/Blues Junctional Rhythm is a four-piece instrumental group exploring the intersection of jazz, funk, and blues.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-16",
+      "time": "6:30pm – 9pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-kb-vox-with-kevin-barrett-kathryn-rose-2026-10-13",
+    "title": "kb + vox with Kevin Barrett 🎸 & Kathryn Rose🎙️",
+    "category": "music",
+    "art": "art-folk",
+    "entry": "$12",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/kb-vox-with-kevin-barrett-%f0%9f%8e%b8-kathryn-rose%f0%9f%8e%99%ef%b8%8f/",
+    "source": "https://www.theemmetray.com/event/kb-vox-with-kevin-barrett-%f0%9f%8e%b8-kathryn-rose%f0%9f%8e%99%ef%b8%8f/",
+    "checked": "2026-09-27",
+    "description": "kb + vox with Kevin Barrett 🎸 & Kathryn Rose 🎙️ Kevin Barrett has brought back his Guitar and Vocal series, this summer it is monthly, 2nd Tuesday of the month and good weather means we will be playing to the patio.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-13",
+      "time": "6:30pm – 8:45pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-late-night-jazz-jam-sponsor-by-glb-great-lakes-b-2026-10-10",
+    "title": "Late Night Jazz Jam, Sponsor by GLB Great Lakes Brewery, presented by JazzInToronto, Host Gracie Singh-Yuz",
+    "category": "music",
+    "art": "art-jam-stool",
+    "entry": "PWYC",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-jazzintoronto-presents-late-night-jazz-jam-pwyc-for-late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-ja/",
+    "source": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-jazzintoronto-presents-late-night-jazz-jam-pwyc-for-late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-ja/",
+    "checked": "2026-09-27",
+    "description": "Late Night Jazz Jam, Sponsor by GLB Great Lakes Brewery, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC for listeners 11pm doors, Starts at 11:30pm",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-10",
+      "time": "11:30pm – 2am"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-late-night-jazz-jam-sponsor-by-woodhouse-brewery-2026-10-03",
+    "title": "Late Night Jazz Jam, Sponsor by Woodhouse Brewery, presented by JazzInToronto, Host Yoshi Wall",
+    "category": "music",
+    "art": "art-jam-stool",
+    "entry": "PWYC",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-host-yoshi-wall/",
+    "source": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-host-yoshi-wall/",
+    "checked": "2026-09-27",
+    "description": "Late Night Jazz Jam, Sponsor by Woodhouse Brewery, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC for listeners 11pm doors, Starts at 11:30pm",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-03",
+      "time": "11:30pm – 2am"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-matt-endahl-group-jazz-piano-standards-improvisa-2026-10-04",
+    "title": "Matt Endahl Group, Jazz Piano Standards & Improvisations",
+    "category": "music",
+    "art": "art-improv",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/matt-endahl-group-jazz-piano-standards-improvisations/",
+    "source": "https://www.theemmetray.com/event/matt-endahl-group-jazz-piano-standards-improvisations/",
+    "checked": "2026-09-27",
+    "description": "Matt Endahl Group, Jazz Piano Standards & Improvisations More info coming…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-04",
+      "time": "8pm – 10:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-neighbours-phil-desir-e-sing-familiar-classics-f-2026-10-03",
+    "title": "Neighbours, Phil & Desirée, Sing Familiar Classics, Folk",
+    "category": "music",
+    "art": "art-folk",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/neighbours-phil-desiree-sing-familiar-classics-folk/",
+    "source": "https://www.theemmetray.com/event/neighbours-phil-desiree-sing-familiar-classics-folk/",
+    "checked": "2026-09-27",
+    "description": "Neighbours, Phil & Desirée, Sing Familiar Classics, Folk",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-03",
+      "time": "2pm – 4pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-peter-smith-s-garaj-funky-60-s-and-latin-jazz-2026-10-07",
+    "title": "Peter Smith’s Garaj, Funky 60’s and Latin Jazz",
+    "category": "music",
+    "art": "art-jazz-piano",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/peter-smiths-garaj-funky-60s-and-latin-jazz/",
+    "source": "https://www.theemmetray.com/event/peter-smiths-garaj-funky-60s-and-latin-jazz/",
+    "checked": "2026-09-27",
+    "description": "Peter Smith’s Garaj, Funky 60’s and Latin Jazz Seasoned pros bringing insight and edge to instrumental sax- and flute-driven 60s groove, Latin and current styles.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-07",
+      "time": "9:15pm – 11:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-presty-quintet-heart-warming-vocal-jazz-standard-2026-10-05",
+    "title": "Presty Quintet, heart warming vocal jazz standards and timeless popular music, Oct",
+    "category": "music",
+    "art": "art-jazz-trumpet",
+    "entry": "$12",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/natalie-presty-group-heart-warming-jazz-standards-and-timeless-popular-music/",
+    "source": "https://www.theemmetray.com/event/natalie-presty-group-heart-warming-jazz-standards-and-timeless-popular-music/",
+    "checked": "2026-09-27",
+    "description": "Presty Quintet, heart warming vocal jazz standards and timeless popular music A mixed bag of York grads, Humber students, and raw talent, these musicians first came together playing and dancing to ska music at…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-05",
+      "time": "6:30pm – 8:45pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-simon-dawes-quartet-jazz-quartet-playing-standar-2026-10-01",
+    "title": "Simon Dawes Quartet, Jazz Quartet Playing Standards",
+    "category": "music",
+    "art": "art-jazz-piano",
+    "entry": "$12",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/simon-dawes-group-straight-ahead-jazz-showcasing-the-citys-talent/",
+    "source": "https://www.theemmetray.com/event/simon-dawes-group-straight-ahead-jazz-showcasing-the-citys-talent/",
+    "checked": "2026-09-27",
+    "description": "Simon Dawes Quartet, Jazz Quartet Playing Standards Simon Dawes is a professional guitarist, studying for his BMU at the university of Toronto.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-01",
+      "time": "9:15pm – 11:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-teresa-marie-and-the-three-vocal-jazz-jazz-stand-2026-10-13",
+    "title": "Teresa Marie and The Three, Vocal Jazz, Jazz Standards",
+    "category": "music",
+    "art": "art-jazz-bass",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/teresa-marie-and-the-three-vocal-jazz-jazz-standards/",
+    "source": "https://www.theemmetray.com/event/teresa-marie-and-the-three-vocal-jazz-jazz-standards/",
+    "checked": "2026-09-27",
+    "description": "Teresa Marie and The Three, Vocal Jazz, Jazz Standards Teresa Marie is a Jazz Vocalist based out of Vancouver, British Columbia.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-13",
+      "time": "9:15pm – 11:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-the-adam-dilouya-quintet-jazz-ballads-and-swing-2026-09-30",
+    "title": "The Adam Dilouya Quintet, Jazz ballads and swing",
+    "category": "music",
+    "art": "art-jazz-sax",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/the-adam-dilouya-quintet-jazz-ballads-and-swing/",
+    "source": "https://www.theemmetray.com/event/the-adam-dilouya-quintet-jazz-ballads-and-swing/",
+    "checked": "2026-09-27",
+    "description": "The Adam Dilouya Quintet, Jazz ballads and swing Adam Dilouya is a vocalist and pianist based in Toronto, Ontario.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-30",
+      "time": "6:30pm – 8:45pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-the-ismael-quartet-straight-ahead-latin-2026-10-11",
+    "title": "The Ismael quartet, Straight ahead, Latin",
+    "category": "music",
+    "art": "art-jazz-sax",
+    "entry": "$12",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/the-ismael-quartet-straight-ahead-latin/",
+    "source": "https://www.theemmetray.com/event/the-ismael-quartet-straight-ahead-latin/",
+    "checked": "2026-09-27",
+    "description": "The Ismael quartet, Straight ahead, Latin This band will feature Ismael on piano.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-11",
+      "time": "5pm – 7:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-the-joseph-lee-quartet-straight-ahead-fusion-jaz-2026-09-29",
+    "title": "The Joseph Lee Quartet, Straight-Ahead/Fusion Jazz",
+    "category": "music",
+    "art": "art-jazz-sax",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/the-joseph-lee-quartet-straight-ahead-jazz/",
+    "source": "https://www.theemmetray.com/event/the-joseph-lee-quartet-straight-ahead-jazz/",
+    "checked": "2026-09-27",
+    "description": "The Joseph Lee Quartet, Straight-Ahead/Fusion Jazz Energetic band playing many great standards and originals. Joseph Lee – Guitar Lucas White – Piano Jordan Pelunsky – Bass Jacob Lee – Drums",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-29",
+      "time": "6:30pm – 8:45pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "emmetray-the-mighty-tusk-band-pop-jazz-original-song-and--2026-09-30",
+    "title": "The Mighty Tusk Band, pop, jazz, original song, and good cheer.",
+    "category": "music",
+    "art": "art-jazz-sax",
+    "entry": "$15",
+    "venue": "The Emmet Ray",
+    "address": "924 College St, Toronto, ON",
+    "url": "https://www.theemmetray.com/event/the-mighty-tusk-band-pop-jazz-original-song-and-good-cheer/",
+    "source": "https://www.theemmetray.com/event/the-mighty-tusk-band-pop-jazz-original-song-and-good-cheer/",
+    "checked": "2026-09-27",
+    "description": "The Mighty Tusk Band, pop, jazz, original song, and good cheer.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-30",
+      "time": "9:15pm – 11:30pm"
+    },
+    "scrapedFrom": "emmetray",
+    "via": "api"
+  },
+  {
+    "id": "evergreen-family-wanders-2026-09-27",
+    "title": "Family Wanders",
     "category": "dropin",
-    "art": "art-outdoors",
-    "entry": "Suggested $20 donation per family",
+    "art": "art-birdhouse",
+    "entry": "$20 suggested donation per family",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
-    "checked": "2026-09-11",
-    "description": "A guided hour-long walk through the ravine nature at the Brick Works, with sensory activities and seasonal observation for families.",
+    "checked": "2026-09-27",
+    "description": "Guided nature walk where families explore the Valley, observe changing seasons, and engage their senses.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-27",
@@ -315,17 +998,17 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "evergreen-family-wander-2026-11-15",
-    "title": "Family Wander",
+    "id": "evergreen-family-wanders-2026-11-15",
+    "title": "Family Wanders",
     "category": "dropin",
-    "art": "art-outdoors",
-    "entry": "Suggested $20 donation per family",
+    "art": "art-birdhouse",
+    "entry": "$20 suggested donation per family",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
-    "checked": "2026-09-11",
-    "description": "A guided hour-long walk through the ravine nature at the Brick Works, with sensory activities and seasonal observation for families.",
+    "checked": "2026-09-27",
+    "description": "Guided nature walk where families explore the Valley, observe changing seasons, and engage their senses.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-15",
@@ -335,171 +1018,828 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "evergreen-free-public-site-tours-of-evergreen-brick-works-2026-09-12",
-    "title": "Free Public Site Tours of Evergreen Brick Works",
+    "id": "evergreen-little-discoveries-2026-10-02",
+    "title": "Little Discoveries",
     "category": "dropin",
-    "art": "art-architecture",
-    "entry": "Free",
-    "venue": "Evergreen Brick Works",
-    "address": "550 Bayview Ave, Toronto",
-    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
-    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
-    "checked": "2026-09-11",
-    "description": "An hour-long guided walk that meets at the Welcome Desk in Building 14 and runs rain or shine.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-12"
-    },
-    "scrapedFrom": "evergreen",
-    "via": "model"
-  },
-  {
-    "id": "evergreen-intro-to-forest-bathing-walk-2026-09-20",
-    "title": "Intro to Forest Bathing Walk",
-    "category": "dropin",
-    "art": "art-bench",
+    "art": "art-boardwalk",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto",
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "checked": "2026-09-11",
-    "description": "An introductory guided forest bathing walk; spots must be reserved.",
+    "checked": "2026-09-27",
+    "description": "Listed by Evergreen Brick Works.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-20"
+      "date": "2026-10-02"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
   },
   {
-    "id": "evergreen-monthly-roller-skating-night-2026-09-20",
-    "title": "Monthly Roller Skating Night",
-    "category": "dropin",
-    "art": "art-skates",
-    "venue": "Evergreen Brick Works",
-    "address": "550 Bayview Ave, Toronto",
-    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "checked": "2026-09-11",
-    "description": "An evening of roller skating; rent skates on site or bring your own.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-20"
-    },
-    "scrapedFrom": "evergreen",
-    "via": "model"
-  },
-  {
-    "id": "evergreen-ontario-artisan-market-and-ontario-vintage-marke-2026-09-13",
-    "title": "Ontario Artisan Market and Ontario Vintage Market",
+    "id": "evergreen-ontario-artisan-market-ontario-vintage-market-2026-09-27",
+    "title": "Ontario Artisan Market & Ontario Vintage Market",
     "category": "dropin",
     "art": "art-market",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
-    "checked": "2026-09-11",
-    "description": "Two markets side by side on Sundays: over 40 local artists and makers selling handmade jewelry, skin care, art and candles, plus vintage vendors with curated antiques.",
+    "checked": "2026-09-27",
+    "description": "Shop from over 40 local artists and makers selling handmade, artisan and vintage wares, with food vendors and drinks available.",
     "schedule": {
-      "kind": "range",
-      "start": "2026-09-13",
-      "end": "2026-11-01"
+      "kind": "day",
+      "date": "2026-09-27",
+      "time": "10am-3pm"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
   },
   {
-    "id": "evergreen-saturday-farmers-market-2026-09-12",
-    "title": "Saturday Farmers Market",
+    "id": "evergreen-tafelmusik-voices-of-the-violin-2026-10-02",
+    "title": "Tafelmusik: Voices of the Violin",
     "category": "dropin",
-    "art": "art-market",
+    "art": "art-trailsign",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto",
-    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/saturday-farmers-market/",
-    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/saturday-farmers-market/",
-    "checked": "2026-09-11",
-    "description": "A year-round Saturday market where you can shop from Ontario farmers and food producers based within 205 km of the site, plus a local food court. From May to October the stalls set up outdoors under the pavilions.",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-09-27",
+    "description": "Listed by Evergreen Brick Works.",
     "schedule": {
-      "kind": "day",
-      "date": "2026-09-12",
-      "time": "8am – 1pm (Local Food Court open until 2pm)"
+      "kind": "range",
+      "start": "2026-10-02",
+      "end": "2026-10-04"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
   },
   {
-    "id": "luma-currently-reading-a-sunday-morning-mid-book-club-2026-09-13",
-    "title": "Currently Reading - a Sunday morning mid-book club at Book People",
-    "category": "social",
-    "art": "art-books",
-    "entry": "Free",
-    "venue": "Book People on Queen",
-    "address": "Toronto, Ontario",
-    "url": "https://luma.com/gp4fjufz",
-    "source": "https://luma.com/gp4fjufz",
-    "checked": "2026-09-11",
-    "description": "Bring the book you're currently reading. That's it - that's the whole assignment.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-13"
-    },
-    "scrapedFrom": "luma",
-    "via": "json-ld"
-  },
-  {
-    "id": "luma-designwalks-toronto-walk-11-2026-09-12",
-    "title": "designwalks™ - Toronto - Walk 11",
-    "category": "social",
-    "art": "art-architecture",
-    "entry": "Free",
-    "venue": "Trinity Bellwoods Park",
-    "address": "Toronto, Ontario",
-    "url": "https://luma.com/qmvmmfvk",
-    "source": "https://luma.com/qmvmmfvk",
-    "checked": "2026-09-11",
-    "description": "A monthly walk-and-talk for the design community, out on a Saturday afternoon. This one crosses Trinity Bellwoods arguing about whether a design can be built to provoke an emotion on purpose.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-12"
-    },
-    "scrapedFrom": "luma",
-    "via": "json-ld"
-  },
-  {
-    "id": "luma-step6ix-sunday-social-run-2026-09-13",
-    "title": "Step6ix Sunday Social Run",
-    "category": "social",
-    "art": "art-lectern",
-    "entry": "Free",
-    "venue": "Heval cafe",
-    "address": "Toronto, Ontario",
-    "url": "https://luma.com/b1q8dpsr",
-    "source": "https://luma.com/b1q8dpsr",
-    "checked": "2026-09-11",
-    "description": "A Sunday morning group run that starts and finishes at Heval on Spadina. The café puts on a runners’ combo afterwards and takes a quarter off coffee until one.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-13"
-    },
-    "scrapedFrom": "luma",
-    "via": "json-ld"
-  },
-  {
-    "id": "tpl-randy-boyagoda-lords-of-serendipity-2026-09-11",
-    "title": "Randy Boyagoda: Lords of Serendipity",
+    "id": "evergreen-toronto-sauna-festival-2026-10-03",
+    "title": "Toronto Sauna Festival",
     "category": "dropin",
-    "art": "art-books",
-    "venue": "Toronto Reference Library",
-    "address": "789 Yonge Street, Toronto, ON, M4W 2G8",
-    "url": "https://tpl.bibliocommons.com/v2/events/6a85b730fa71a30d92946b60",
-    "source": "https://tpl.bibliocommons.com/v2/events/6a85b730fa71a30d92946b60",
-    "checked": "2026-09-11",
-    "description": "TPL presents novelist Randy Boyagoda in conversation with Parul Sehgal at the Toronto Reference Library's Appel Salon.",
+    "art": "art-festival",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-09-27",
+    "description": "Listed by Evergreen Brick Works.",
     "schedule": {
       "kind": "day",
-      "date": "2026-09-11"
+      "date": "2026-10-03",
+      "time": "11:30am - 1pm"
     },
-    "scrapedFrom": "tpl",
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "grossmans-action-sound-band-2026-09-30",
+    "title": "Action Sound Band",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/action-sound-band-122/",
+    "source": "https://grossmanstavern.com/event/action-sound-band-122/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-30",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-action-sound-band-2026-10-07",
+    "title": "Action Sound Band",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/action-sound-band-124/",
+    "source": "https://grossmanstavern.com/event/action-sound-band-124/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-07",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-action-sound-band-2026-10-14",
+    "title": "Action Sound Band",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/action-sound-band-125/",
+    "source": "https://grossmanstavern.com/event/action-sound-band-125/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-14",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-action-sound-band-2026-10-21",
+    "title": "Action Sound Band",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/action-sound-band-126/",
+    "source": "https://grossmanstavern.com/event/action-sound-band-126/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-21",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-action-sound-band-2026-10-28",
+    "title": "Action Sound Band",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/action-sound-band-127/",
+    "source": "https://grossmanstavern.com/event/action-sound-band-127/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-28",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-ben-stager-album-release-2026-10-09",
+    "title": "Ben Stager Album Release",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/ben-stager-album-release/",
+    "source": "https://grossmanstavern.com/event/ben-stager-album-release/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-09",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-daniella-z-band-2026-10-23",
+    "title": "Daniella Z Band",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/daniella-z-band/",
+    "source": "https://grossmanstavern.com/event/daniella-z-band/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-23",
+      "time": "9:30pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-eric-lambier-band-2026-10-10",
+    "title": "Eric Lambier Band",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/eric-lambier-band/",
+    "source": "https://grossmanstavern.com/event/eric-lambier-band/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-10",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-hold-the-bus-2026-10-16",
+    "title": "Hold the Bus",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/hold-the-bus-16/",
+    "source": "https://grossmanstavern.com/event/hold-the-bus-16/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-16",
+      "time": "6pm – 9pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-joel-battle-friends-2026-10-15",
+    "title": "Joel Battle & Friends",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/joel-battle-friends-12/",
+    "source": "https://grossmanstavern.com/event/joel-battle-friends-12/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-15",
+      "time": "9:30pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-new-orleans-connection-all-star-jazz-band-2026-09-27",
+    "title": "New Orleans Connection All Star Jazz Band",
+    "category": "music",
+    "art": "art-jazz-trumpet",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-118/",
+    "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-118/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27",
+      "time": "3pm – 7pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-new-orleans-connection-all-star-jazz-band-2026-10-04",
+    "title": "New Orleans Connection All Star Jazz Band",
+    "category": "music",
+    "art": "art-jazz-trumpet",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-140/",
+    "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-140/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-04",
+      "time": "3pm – 7pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-new-orleans-connection-all-star-jazz-band-2026-10-11",
+    "title": "New Orleans Connection All Star Jazz Band",
+    "category": "music",
+    "art": "art-jazz-trumpet",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-139/",
+    "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-139/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-11",
+      "time": "3pm – 7pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-new-orleans-connection-all-star-jazz-band-2026-10-18",
+    "title": "New Orleans Connection All Star Jazz Band",
+    "category": "music",
+    "art": "art-jazz-trumpet",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-138/",
+    "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-138/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-18",
+      "time": "3pm – 7pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-new-orleans-connection-all-star-jazz-band-2026-10-25",
+    "title": "New Orleans Connection All Star Jazz Band",
+    "category": "music",
+    "art": "art-jazz-trumpet",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-137/",
+    "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-137/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-25",
+      "time": "3pm – 7pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-rae-melvin-blues-band-2026-10-02",
+    "title": "Rae Melvin Blues Band",
+    "category": "music",
+    "art": "art-blues",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/rae-melvin-blues-band-7/",
+    "source": "https://grossmanstavern.com/event/rae-melvin-blues-band-7/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-02",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-snooky-tynes-2026-10-16",
+    "title": "Snooky Tynes",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/snooky-tynes-6/",
+    "source": "https://grossmanstavern.com/event/snooky-tynes-6/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-16",
+      "time": "9:30pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-sound-ideas-big-band-2026-10-23",
+    "title": "Sound Ideas Big Band",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/sound-ideas-big-band-6/",
+    "source": "https://grossmanstavern.com/event/sound-ideas-big-band-6/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-23",
+      "time": "7pm – 9pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-sunday-jam-night-hosted-by-ken-yoshioka-2026-09-27",
+    "title": "Sunday Jam Night Hosted by Ken Yoshioka",
+    "category": "music",
+    "art": "art-jam-drum",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-ken-yoshioka-2/",
+    "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-ken-yoshioka-2/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-sunday-jam-night-hosted-by-ken-yoshioka-2026-10-25",
+    "title": "Sunday Jam Night Hosted by Ken Yoshioka",
+    "category": "music",
+    "art": "art-jam-drum",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-ken-yoshioka-3/",
+    "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-ken-yoshioka-3/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-25",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-sunday-jam-night-hosted-by-paul-storm-2026-10-04",
+    "title": "Sunday Jam Night Hosted by Paul Storm",
+    "category": "music",
+    "art": "art-jam-stool",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-paul-storm-29/",
+    "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-paul-storm-29/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-04",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-sunday-jam-night-hosted-by-rob-quail-2026-10-11",
+    "title": "Sunday Jam Night Hosted by Rob Quail",
+    "category": "music",
+    "art": "art-jam-stool",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-rob-quail-28/",
+    "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-rob-quail-28/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-11",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-sunday-jam-night-hosted-by-the-charter-blues-ban-2026-10-18",
+    "title": "Sunday Jam Night Hosted by The Charter Blues Band",
+    "category": "music",
+    "art": "art-jam-guitars",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-the-charter-blues-band-21/",
+    "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-the-charter-blues-band-21/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-18",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-the-379s-2026-10-17",
+    "title": "The 379s",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/the-379s-5/",
+    "source": "https://grossmanstavern.com/event/the-379s-5/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-17",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-the-4th-open-mic-2026-10-22",
+    "title": "The 4th Open Mic",
+    "category": "music",
+    "art": "art-comedy",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/the-4th-open-mic-31/",
+    "source": "https://grossmanstavern.com/event/the-4th-open-mic-31/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-22",
+      "time": "8pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-the-happy-pals-2026-10-03",
+    "title": "The Happy Pals",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/the-happy-pals-141/",
+    "source": "https://grossmanstavern.com/event/the-happy-pals-141/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-03",
+      "time": "3:30pm – 7pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-the-happy-pals-2026-10-10",
+    "title": "The Happy Pals",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/the-happy-pals-140/",
+    "source": "https://grossmanstavern.com/event/the-happy-pals-140/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-10",
+      "time": "3:30pm – 7pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-the-happy-pals-2026-10-17",
+    "title": "The Happy Pals",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/the-happy-pals-139/",
+    "source": "https://grossmanstavern.com/event/the-happy-pals-139/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-17",
+      "time": "3:30pm – 7pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-the-happy-pals-2026-10-24",
+    "title": "The Happy Pals",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/the-happy-pals-138/",
+    "source": "https://grossmanstavern.com/event/the-happy-pals-138/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-24",
+      "time": "3:30pm – 7pm"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-the-jelly-donuts-2026-10-01",
+    "title": "The Jelly Donuts",
+    "category": "music",
+    "art": "art-music",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/the-jelly-donuts-22/",
+    "source": "https://grossmanstavern.com/event/the-jelly-donuts-22/",
+    "checked": "2026-09-27",
+    "description": "Listed by Grossman’s Tavern.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-01",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "luma-salmon-run-hike-2026-09-27",
+    "title": "Salmon Run Hike!!",
+    "category": "social",
+    "art": "art-bench",
+    "entry": "Free",
+    "venue": "Mississauga, ON",
+    "address": "tario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/https://images.unsplash.com/photo-1616459943793-f4fca51b6647?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMjQyMjF8MHwxfHNlYXJjaHw0fHxzYWxtb258ZW58MHx8fHwxNzkwMTg0MjU1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+    "url": "https://luma.com/puuz8oak",
+    "source": "https://luma.com/puuz8oak",
+    "checked": "2026-09-27",
+    "description": "🐟 Adventure Alert! Witness the Annual Salmon Run at Erindale Park! 🌊🍂 Who's ready for a refreshing escape into nature?",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27"
+    },
+    "scrapedFrom": "luma",
     "via": "json-ld"
+  },
+  {
+    "id": "luma-small-things-place-based-art-2026-09-27",
+    "title": "Small Things: Place-Based Art",
+    "category": "social",
+    "art": "art-sculpture",
+    "entry": "Free",
+    "venue": "Scadding Court Community Centre",
+    "address": "Toronto, Ontario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/xi/5046fdb1-e781-4004-8451-e6ebf49c3716.png",
+    "url": "https://luma.com/xc21ngd9",
+    "source": "https://luma.com/xc21ngd9",
+    "checked": "2026-09-27",
+    "description": "Small Things: Place-Based Art Artist Ange Loft leads a deep, creative exploration of Indigenous pottery patterns from the region, and traditional maps from the Treaty Guide for Torontonians.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27"
+    },
+    "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
+    "id": "revival-afrobeats-friends-amapiano-r-b-dancehall-2026-10-02",
+    "title": "Afrobeats & Friends | Amapiano | R&B | Dancehall",
+    "category": "music",
+    "art": "art-music",
+    "entry": "$23",
+    "venue": "Revival Event Venue",
+    "address": "783 College Street, Toronto, Ontario, M6G 1C5",
+    "url": "https://www.revivaleventvenue.ca/event/afrobeats-friends-amapiano-rb-dancehall/",
+    "source": "https://www.revivaleventvenue.ca/event/afrobeats-friends-amapiano-rb-dancehall/",
+    "checked": "2026-09-27",
+    "description": "Pure undiluted Afrobeats & Amapiano from the newest hits to the sweetest throwbacks.. Dancing is the goal!!",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-02",
+      "time": "10pm – 2:30am"
+    },
+    "scrapedFrom": "revival",
+    "via": "api"
+  },
+  {
+    "id": "revival-big-vibe-toronto-birthday-celebration-2026-10-09",
+    "title": "Big Vibe Toronto – Birthday Celebration",
+    "category": "music",
+    "art": "art-music",
+    "entry": "$22",
+    "venue": "Revival Event Venue",
+    "address": "783 College Street, Toronto, Ontario, M6G 1C5",
+    "url": "https://www.revivaleventvenue.ca/event/big-vibe-toronto-birthday-celebration/",
+    "source": "https://www.revivaleventvenue.ca/event/big-vibe-toronto-birthday-celebration/",
+    "checked": "2026-09-27",
+    "description": "One night. One room. All the vibes… TORONTO! After our crazy Caribana Edition, We’re back. Taking over Revival for another night you won’t forget in a hurry. All hits, No misses!",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-09",
+      "time": "10pm – 2:30am"
+    },
+    "scrapedFrom": "revival",
+    "via": "api"
+  },
+  {
+    "id": "revival-destination-dancefloor-the-most-electric-90s-200-2026-11-14",
+    "title": "Destination Dancefloor | The Most Electric 90s & 2000s Dance Experience",
+    "category": "music",
+    "art": "art-decks",
+    "entry": "$28",
+    "venue": "Revival Event Venue",
+    "address": "783 College Street, Toronto, Ontario, M6G 1C5",
+    "url": "https://www.revivaleventvenue.ca/event/destination-dancefloor-the-most-electric-90s-2000s-dance-experience/",
+    "source": "https://www.revivaleventvenue.ca/event/destination-dancefloor-the-most-electric-90s-2000s-dance-experience/",
+    "checked": "2026-09-27",
+    "description": "Get ready for another massive night as EURO NATION brings you the next chapter of DESTINATION DANCEFLOOR, the city’s biggest celebration of 90s & 2000s euro, dance, house, trance, and club anthems.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-14",
+      "time": "10pm – 3am"
+    },
+    "scrapedFrom": "revival",
+    "via": "api"
+  },
+  {
+    "id": "revival-indigenous-grooves-2026-10-08",
+    "title": "Indigenous Grooves",
+    "category": "music",
+    "art": "art-improv",
+    "entry": "$10",
+    "venue": "Revival Event Venue",
+    "address": "783 College Street, Toronto, Ontario, M6G 1C5",
+    "url": "https://www.revivaleventvenue.ca/event/indigenous-grooves/",
+    "source": "https://www.revivaleventvenue.ca/event/indigenous-grooves/",
+    "checked": "2026-09-27",
+    "description": "✨ Electronic Pow Wow! ✨ Indigenous Grooves is BACK! October 8th at Revival, join us to celebrate the 5th Indigenous Grooves showcase! This event is ticketed at a sliding scale to keep it inclusive and accessible.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-08",
+      "time": "7pm – 11pm"
+    },
+    "scrapedFrom": "revival",
+    "via": "api"
+  },
+  {
+    "id": "revival-let-s-go-ghouls-2026-10-18",
+    "title": "Let’s Go Ghouls",
+    "category": "music",
+    "art": "art-film",
+    "entry": "$24",
+    "venue": "Revival Event Venue",
+    "address": "783 College Street, Toronto, Ontario, M6G 1C5",
+    "url": "https://www.revivaleventvenue.ca/event/lets-go-ghouls/",
+    "source": "https://www.revivaleventvenue.ca/event/lets-go-ghouls/",
+    "checked": "2026-09-27",
+    "description": "Gather your ghouls, goblins ghosts and girlies for this Halloween burlesque show by BoylesqueTO! With special guest Tito Bonito!",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-18",
+      "time": "7pm – 11:30pm"
+    },
+    "scrapedFrom": "revival",
+    "via": "api"
+  },
+  {
+    "id": "revival-ray-robinson-and-friends-2026-10-04",
+    "title": "Ray Robinson and Friends",
+    "category": "music",
+    "art": "art-music",
+    "entry": "$35",
+    "venue": "Revival Event Venue",
+    "address": "783 College Street, Toronto, Ontario, M6G 1C5",
+    "url": "https://www.revivaleventvenue.ca/event/ray-robinson-and-friends/",
+    "source": "https://www.revivaleventvenue.ca/event/ray-robinson-and-friends/",
+    "checked": "2026-09-27",
+    "description": "You are invited to an evening of live music for the album release and birthday celebration right here at Revival Event Venue. With special guests: Shi Wisdom, Andrea Knight, Keysha Fresh and more.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-04",
+      "time": "5pm – 10pm"
+    },
+    "scrapedFrom": "revival",
+    "via": "api"
+  },
+  {
+    "id": "revival-the-overkillers-dave-you-re-a-star-2026-10-24",
+    "title": "The OverKillers: Dave, You’re A Star!",
+    "category": "music",
+    "art": "art-architecture",
+    "entry": "$28",
+    "venue": "Revival Event Venue",
+    "address": "783 College Street, Toronto, Ontario, M6G 1C5",
+    "url": "https://www.revivaleventvenue.ca/event/the-overkillers-dave-youre-a-star/",
+    "source": "https://www.revivaleventvenue.ca/event/the-overkillers-dave-youre-a-star/",
+    "checked": "2026-09-27",
+    "description": "Canada’s Tribute to the Killers: The OverKillers are back at Revival for a full night of Killers hits, classics and fan favourites. We’re celebrating Dave’s birthday the best way we know how!",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-24",
+      "time": "9pm – 11:30pm"
+    },
+    "scrapedFrom": "revival",
+    "via": "api"
   }
 ];
