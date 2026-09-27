@@ -45,11 +45,17 @@ import { stripTags, priceFrom, splitPlace, timeRange, fromTribe } from './api.mj
  * Grossman's returns seventy-seven nights and was keeping twenty-five.
  * Raising it recovers events already extracted and costs nothing.
  *
+ * Which is exactly what it was doing at 30: the first full poll reported
+ * "emmetray — capped at 30 of 61" and "grossmans — capped at 30 of 68",
+ * so sixty-nine listings were fetched, parsed, validated and then dropped
+ * on the floor. A room that runs something most nights publishes two months
+ * at a time, and thirty of those is barely three weeks.
+ *
  * What does cost money is maxFollow, which decides how many pages get read
  * in the first place, and MODEL_CALL_BUDGET in run.mjs, which stops the run
  * spending past a point. Those are the two to think about before widening
  * anything; this one is not. */
-const A_MONTH_OF_LISTINGS = 30;
+const A_MONTH_OF_LISTINGS = 70;
 
 export const SOURCES = [
   {
