@@ -539,6 +539,12 @@ const EVENTS = [
        costs and has to stay readable as a price; this is a way to pay less
        than it, which is a different thing and belongs under it. */
     offer: { code: 'xoxogossipgirl', off: '15% off' },
+    /* The organiser's own poster, which they sent with the pitch. Shown in
+       the modal in place of the illustration — the card keeps its drawing so
+       the board still reads as one set. Resized from the 2.3MB PNG they sent
+       to a 100KB webp; it also corroborates the listing, giving the same
+       venue, street and hours we read off the ticket page. */
+    image: 'posters/reheat-live.webp',
     description: 'A pop-culture podcast records its fifth-anniversary episode in front of a room, with games and a book club announcement. Book Bar does coffee, cake and cocktails and is new to Mirvish Village.',
     schedule: { kind: 'day', date: '2026-09-30', time: '7–9pm', hour: 19 },
   },

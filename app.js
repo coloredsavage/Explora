@@ -576,11 +576,34 @@
       mTitle.appendChild(mPill);
     }
 
+    /* An organiser's own poster where there is one, and the illustration
+       otherwise. Only in the modal: the card keeps its illustration, because
+       the board's rhythm depends on the set being one set, and a poster is
+       mostly text — act names, times, a ticket button — which is the thing
+       the illustrations deliberately do not carry. Here the reader has
+       already clicked, so the poster is telling them something the drawing
+       cannot: who is actually playing. */
     var art = document.getElementById('modal-art');
     art.textContent = '';
-    var artEl = artFor(ev);
-    artEl.setAttribute('class', 'modal__art-item');
-    art.appendChild(artEl);
+    if (ev.image) {
+      var poster = document.createElement('img');
+      poster.className = 'modal__poster';
+      poster.src = ev.image;
+      poster.alt = ev.title;
+      poster.loading = 'lazy';
+      /* If it will not load, fall back rather than leaving a broken frame. */
+      poster.onerror = function () {
+        art.textContent = '';
+        var fb = artFor(ev);
+        fb.setAttribute('class', 'modal__art-item');
+        art.appendChild(fb);
+      };
+      art.appendChild(poster);
+    } else {
+      var artEl = artFor(ev);
+      artEl.setAttribute('class', 'modal__art-item');
+      art.appendChild(artEl);
+    }
 
     document.getElementById('modal-desc').textContent = ev.description;
 

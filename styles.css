@@ -635,6 +635,17 @@ img.card__art { border-radius: 8px; }
 .modal__art { margin: 0 0 26px; }
 .modal__art-item { display: block; width: min(300px, 72%); height: auto; margin: 0 auto; }
 
+/* An organiser's poster, where a listing has one. Wider than the illustration
+   because it is carrying information rather than standing in for it, and
+   cornered to match the cards it sits among. */
+.modal__poster {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  background: var(--line);
+}
+
 .modal__desc {
   margin: 0 0 22px;
   font-size: 15px;
