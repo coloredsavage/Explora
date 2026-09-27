@@ -654,6 +654,27 @@ console.log('\nA source that only says the city until you RSVP');
     assert.equal(read(plain, { venue: null, address: null }).ok, false));
 }
 
+console.log('\nA page describing many events does not describe any one of them');
+{
+  const page = (desc, events) => `<meta name="description" content="${desc}">`
+    + `<script type="application/ld+json">${JSON.stringify(events.length === 1 ? events[0]
+        : { '@type': 'ItemList', itemListElement: events.map((e, i) => ({ '@type': 'ListItem', position: i + 1, item: e })) })}</script>`;
+  const event = (name) => ({ '@type': 'Event', name, url: `https://x.ca/${name}`,
+    startDate: '2026-09-27T10:00:00-04:00',
+    location: { '@type': 'Place', name: 'A Hall', address: { addressLocality: 'Toronto' } } });
+
+  /* The rule run.mjs applies: meta belongs to the page, so it is the event's
+     only when the page is one event. Luma's city page says "Discover the
+     hottest events in Toronto" and that went out as the description of all
+     twenty once the ItemList became readable. */
+  const metaFor = (html) => (fromJsonLd(html).length > 1 ? null : metaDescription(html));
+
+  check('a listing page does not lend its strapline to its events', () =>
+    assert.equal(metaFor(page('Discover the hottest events in Toronto.', [event('a'), event('b')])), null));
+  check('an event page still lends its description', () =>
+    assert.match(String(metaFor(page('A night of documentary film, with the director in attendance for a Q and A afterwards.', [event('a')]))), /documentary/));
+}
+
 console.log('\nA listing page that marks its whole calendar up as one ItemList');
 {
   const page = (body) => `<script type="application/ld+json">${JSON.stringify(body)}</script>`;

@@ -45,8 +45,19 @@ async function harvest(source, pages) {
        the entire navigation menu, and this is the part an editor wrote about
        this event — so the model gets it as well as the body, and it is the
        last resort if nothing writes a description at all. */
-    const meta = metaDescription(html);
     let raws = fromJsonLd(html);
+
+    /* A page's meta description belongs to the page. On an event page that is
+       the event, and it has been the last resort for prose since the start. On
+       a listing page it is the site talking about itself — Luma's city page
+       says "Discover the hottest events in Toronto, and get notified of new
+       events before they sell out", and once the ItemList there became
+       readable that sentence was handed to all twenty events as their
+       description.
+
+       One event on the page, it is about that event. Twenty, it is not about
+       any of them. */
+    const meta = raws.length > 1 ? null : metaDescription(html);
 
     /* Structured data is authoritative for the facts and frequently silent on
        the prose. Bad Dog's event pages carry an Event node with name, dates,
@@ -279,8 +290,20 @@ async function livePages(source, browser) {
        page offered thirty-four links and three were reachable in the rendered
        DOM, which is the shape of every silent breakage here so far: the source
        answers, the numbers are small, and nothing says so. */
-    const all = candidateLinks(index, source.url, source.followLinks, Infinity);
-    const take = candidateLinks(index, source.url, source.followLinks, source.maxFollow ?? 0);
+    /* Links from the markup as well as from the anchors.
+
+       Luma's city page renders three <a> tags to events and describes twenty
+       in its ItemList, each with its own url. Those twenty are the events; the
+       three are whatever happened to be on screen. Taking urls from the
+       structured data too is what lets the rest of them be read at all — and
+       reading them is the only way they get a description of their own, since
+       the ItemList carries dates and places but no prose. */
+    const fromMarkup = fromJsonLd(index)
+      .map((e) => String(e.url ?? '').trim())
+      .filter((u) => u && source.followLinks && source.followLinks.test(u));
+    const anchors = candidateLinks(index, source.url, source.followLinks, Infinity);
+    const all = [...new Set([...fromMarkup, ...anchors])];
+    const take = all.slice(0, source.maxFollow ?? 0);
     pages.offered = all.length;
     pages.followed = take.length;
     for (const link of take) {
