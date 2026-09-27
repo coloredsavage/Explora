@@ -13,7 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { enabledSources, allSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
-import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources } from './normalize.mjs';
+import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources, shrunkSources } from './normalize.mjs';
 import { allowedBy, USER_AGENT } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -33,7 +33,7 @@ const MODEL_CALL_BUDGET = Number(process.env.MODEL_CALL_BUDGET || 40);
 let modelCalls = 0;
 const today = new Date().toISOString().slice(0, 10);
 
-const report = { kept: [], dropped: [], skipped: [], errors: [] };
+const report = { kept: [], dropped: [], skipped: [], errors: [], coverage: [] };
 const startOf = (e) => (e.schedule.kind === 'day' ? e.schedule.date : e.schedule.start);
 
 /* ------------------------------------------------------------- the sources */
@@ -275,7 +275,15 @@ async function livePages(source, browser) {
 
   const index = await visit(source.url);
   if (index) {
-    for (const link of candidateLinks(index, source.url, source.followLinks, source.maxFollow ?? 0)) {
+    /* What the page offered against what the cap let through. Luma's city
+       page offered thirty-four links and three were reachable in the rendered
+       DOM, which is the shape of every silent breakage here so far: the source
+       answers, the numbers are small, and nothing says so. */
+    const all = candidateLinks(index, source.url, source.followLinks, Infinity);
+    const take = candidateLinks(index, source.url, source.followLinks, source.maxFollow ?? 0);
+    pages.offered = all.length;
+    pages.followed = take.length;
+    for (const link of take) {
       await new Promise((r) => setTimeout(r, 1500));   /* one page every 1.5s */
       await visit(link);
     }
@@ -311,6 +319,15 @@ async function main() {
         found.sort((a, b) => startOf(a).localeCompare(startOf(b)));
         report.skipped.push(`${source.id} — capped at ${source.maxEvents} of ${found.length} events`);
         found = found.slice(0, source.maxEvents);
+      }
+      /* What the source offered against what came back. A source that answers
+         with a page full of links and yields a handful of listings has usually
+         broken in a way nothing else here reports: Luma sat at three of
+         thirty-four for weeks and every run said success. */
+      if (pages && pages.offered != null) {
+        report.coverage.push(
+          `${source.id} — ${pages.offered} link${pages.offered === 1 ? '' : 's'} on the page, `
+          + `${pages.followed} read, ${found.length} kept`);
       }
       events.push(...found);
     } catch (err) {
@@ -398,7 +415,7 @@ async function main() {
 const SCRAPED = [\n${body}\n];\n`;
 
   console.log(`\nkept ${report.kept.length}   dropped ${report.dropped.length}   skipped ${report.skipped.length}   errors ${report.errors.length}   model calls ${modelCalls}/${MODEL_CALL_BUDGET}`);
-  for (const [label, list] of [['kept', report.kept], ['dropped', report.dropped], ['skipped', report.skipped], ['errors', report.errors]]) {
+  for (const [label, list] of [['coverage', report.coverage], ['kept', report.kept], ['dropped', report.dropped], ['skipped', report.skipped], ['errors', report.errors]]) {
     if (list.length) console.log(`\n${label}:\n  ` + list.join('\n  '));
   }
 
@@ -407,6 +424,7 @@ const SCRAPED = [\n${body}\n];\n`;
      exempt. To land a poll where a source really has gone quiet, name it:
        ALLOW_SILENT_SOURCES=bentway,evergreen node scrape/run.mjs */
   let silent = [];
+  let shrunk = [];
   if (!OFFLINE) {
     const before = await previousCounts();
     if (before) {
@@ -415,7 +433,17 @@ const SCRAPED = [\n${body}\n];\n`;
       const allowed = new Set((process.env.ALLOW_SILENT_SOURCES || '')
         .split(',').map((x) => x.trim()).filter(Boolean));
       silent = silentSources(before, now, enabledSources().map((x) => x.id), allowed);
+      shrunk = shrunkSources(before, now, enabledSources().map((x) => x.id), allowed);
     }
+  }
+
+  /* Loud, and not fatal. See shrunkSources. */
+  if (shrunk.length) {
+    console.error(`\n${shrunk.length} source${shrunk.length === 1 ? '' : 's'} lost most of what they had:`);
+    for (const { id, had, has } of shrunk) console.error(`  ${id} — ${had} last run, ${has} this one`);
+    console.error('\nStill written, because a calendar does empty out. But a source that was'
+      + '\nproducing and now barely is has usually broken rather than gone quiet:'
+      + '\ncheck the log above for what it actually read.');
   }
 
   if (silent.length) {
