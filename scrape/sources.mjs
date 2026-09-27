@@ -31,6 +31,8 @@
 
 import { asIsoDate } from './normalize.mjs';
 import { stripTags, priceFrom, splitPlace, timeRange, fromTribe } from './api.mjs';
+import { NETWORKING } from './filters.mjs';
+import { vetEventbrite, titleProblem } from './eventbrite.mjs';
 
 /* How many listings to keep from any one source.
  *
@@ -90,7 +92,7 @@ export const SOURCES = [
     art: 'art-lectern',
     /* Skim off the most obvious of it. Deliberately narrow: a book launch or
        a talk is worth keeping even when a software company is hosting. */
-    exclude: /\b(networking|mixer|housewarming|happy hour|demo day|pitch (night|competition)|founders?|startups?|coworking|mastermind|fintech|saas|b2b|career fair|job fair|hiring|recruit|ama|office hours|speed dating)\b/i,
+    exclude: NETWORKING,
     defaultVenue: null,
     defaultAddress: null,
     /* Luma organisers routinely publish only the city and send the room to
@@ -111,33 +113,54 @@ export const SOURCES = [
     id: 'eventbrite',
     name: 'Eventbrite',
     url: 'https://www.eventbrite.ca/d/canada--toronto/all-events/',
-    /* EVENTBRITE'S TERMS OF SERVICE PROHIBIT AUTOMATED EXTRACTION.
-       The repo owner knowingly enabled this source on 2026-09-27 anyway,
-       accepting the risk that Eventbrite may block or pursue this use.
-       
-       We use all-events rather than free--events because the $35 price ceiling
-       gate drops expensive events at poll time. Follows event links to extract
-       prices from AggregateOffer JSON-LD. Events with no readable price are
-       dropped (not left unknown) because the recheck job only covers hand-
-       written listings in data.js, not scraped listings in scraped.js.
-       
-       Categories are classified from Eventbrite's category field when present,
-       or from title/description keywords, filtering out pure business/networking
-       events per existing Luma rules.
-       
-       The v3 API is not an alternative: public search was shut down in 2019,
-       and remaining endpoints only return events for orgs you control. */
+    /* EVENTBRITE'S TERMS OF SERVICE PROHIBIT AUTOMATED EXTRACTION. They say a
+       user has no right to scrape, crawl or use automated means to extract
+       data from the site, whatever robots.txt allows. The owner of this repo
+       knowingly enabled this source anyway on 2026-09-27, accepting the risk
+       that Eventbrite blocks it or objects to it. That is the owner's call,
+       recorded here so nobody mistakes it for an oversight — and it is the
+       opposite of the standard that keeps ra.co, Songkick and Bandsintown
+       parked below.
+
+       The API is not a way round it: public event search was withdrawn in
+       2019, and what remains only reaches organisations you control.
+
+       How it is read. The city page's ItemList names about twenty events and
+       carries no prices, so it is used only as a list of links: nothing on it
+       is published (listingOnly). Each event page is followed and its own
+       JSON-LD decides everything — the AggregateOffer for the price, @type
+       for BusinessEvent, eventAttendanceMode for online-only, addressLocality
+       for the city. all-events rather than free--events because the $35
+       ceiling in normalize.mjs does the price cut, and a $12 party is exactly
+       what this board is for. See vetEventbrite in eventbrite.mjs for the
+       gates, and why an event without a readable price is dropped rather than
+       left "Price not listed". */
     enabled: true,
-    /* Category and art are per-event, set by classifyEventbriteEvent() */
-    category: 'dropin',  /* fallback only */
-    art: 'art-market',   /* fallback only */
+    listingOnly: true,
+    /* The price has to come from the page's offers, which is structured data
+       or nothing. A model reading prose would guess, so it is never asked. */
+    noModel: true,
+    /* Eventbrite blocking the poller is the expected way this source fails,
+       and when it does the rest of the board should still update. Its own
+       listings drop out of scraped.js with it; nobody else's do. */
+    mayGoQuiet: true,
+    vet: vetEventbrite,
+    skipBeforeFollow: (listed) => titleProblem(listed.title),
+    /* Only used if vet ever returned nothing; vetEventbrite always files an
+       event itself. */
+    category: 'dropin',
+    art: 'art-dropin',
     defaultVenue: null,
     defaultAddress: null,
-    /* Filter out pure business/networking per Luma rules */
-    exclude: /\b(networking|mixer|career fair|job fair|hiring|recruit|pitch (night|competition)|demo day|trade show|expo|conference|summit|convention)\b/i,
-    /* Match both .ca and .com domains, and handle -tickets- or -registration- */
-    followLinks: /^https:\/\/www\.eventbrite\.c[ao]m?\/e\/[a-z0-9-]+-(tickets|registration)-\d+/i,
-    maxFollow: 40,  /* 20 from listing page, follow up to 40 */
+    /* No `exclude` here: vetEventbrite applies the same NETWORKING list as
+       Luma plus the conference-and-summit end of it, and says which rule
+       dropped each event. */
+    /* Both hosts: the city page links to .ca and .com event pages alike.
+       -registration- as well as -tickets-, which is how free RSVPs are named. */
+    followLinks: /^https:\/\/www\.eventbrite\.(ca|com)\/e\/[a-z0-9-]+-(tickets|registration)-\d+/i,
+    /* The city page names about twenty; anything past the cap is reported as
+       dropped, not silently lost. */
+    maxFollow: 40,
     maxEvents: A_MONTH_OF_LISTINGS,
   },
 

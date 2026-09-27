@@ -162,7 +162,8 @@ Four schedule shapes, all expanded at load:
 ```sh
 npm ci
 npm test                 # offline, over the fixtures — no network, no API key
-npm run poll:offline     # replay the fixtures end to end
+npm run poll:offline     # replay the fixtures end to end (writes to the temp dir, never scraped.js)
+npm run dry-run:eventbrite   # poll Eventbrite alone; report goes to the temp dir
 npm run poll             # live; needs `npx playwright install chromium`
 ```
 

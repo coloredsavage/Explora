@@ -69,7 +69,7 @@ jobs:
       # The offline suite runs first: if the extractors are broken, find out
       # before hitting anyone's servers.
       - name: Test the extractors offline
-        run: node scrape/test.mjs
+        run: npm test
 
       - name: Install Chromium
         run: npx playwright install --with-deps chromium

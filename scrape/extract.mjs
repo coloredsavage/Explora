@@ -51,49 +51,41 @@ const isEvent = (node) => {
 };
 
 /** schema.org/Event -> our raw shape. Returns [] when the page has none. */
-export function fromJsonLd(html, sourceId = null) {
-  return jsonLdBlocks(html).filter(isEvent).map((e) => {
-    /* Check if this is an online-only event via eventAttendanceMode.
-       OnlineEventAttendanceMode means online-only; we want to exclude those.
-       OfflineEventAttendanceMode and MixedEventAttendanceMode are fine. */
-    const mode = text(e.eventAttendanceMode);
-    const isOnlineOnly = mode && /OnlineEventAttendanceMode$/i.test(mode) 
-      && !/Offline|Mixed/i.test(mode);
-    
-    /* If it's online-only, mark the venue so normalize will reject it */
-    const venue = isOnlineOnly ? 'Online' : text(e.location?.name);
-    
-    /* For Eventbrite, extract price from offers properly */
-    let entry = offerText(e.offers);
-    if (sourceId === 'eventbrite' && e.offers) {
-      /* Eventbrite uses AggregateOffer with lowPrice/highPrice */
-      entry = eventbriteOfferText(e.offers);
-    }
-    
-    return {
-      title: text(e.name),
-      startDate: e.startDate ?? null,
-      endDate: e.endDate ?? null,
-      venue,
-      address: addressOf(e.location),
-      url: text(e.url),
-      description: text(e.description),
-      entry,
-      /* The time of day, which structured data carries inside startDate and the
-         card was never shown. Luma's listings all have one — "Sep 28 · 6:00pm –
-         9:00pm" — and arrived on the board as a bare date next to Rex listings
-         that had theirs, because those come through the API reader which has
-         always split it out. */
-      time: timeRange(clock(e.startDate), clock(e.endDate)),
-      /* Search Console asks for an image on every Event. A source that marks up
-         its events usually has one, and it is the event's own picture rather
-         than something of ours standing in for it. Where there is none we send
-         none — a site-wide photograph attached to somebody's comedy night is
-         not an image of that night. */
-      image: imageOf(e.image),
-      via: 'json-ld',
-    };
-  });
+export function fromJsonLd(html) {
+  return jsonLdBlocks(html).filter(isEvent).map((e) => ({
+    title: text(e.name),
+    startDate: e.startDate ?? null,
+    endDate: e.endDate ?? null,
+    venue: text(e.location?.name),
+    address: addressOf(e.location),
+    url: text(e.url),
+    description: text(e.description),
+    entry: offerText(e.offers),
+    /* The time of day, which structured data carries inside startDate and the
+       card was never shown. Luma's listings all have one — "Sep 28 · 6:00pm –
+       9:00pm" — and arrived on the board as a bare date next to Rex listings
+       that had theirs, because those come through the API reader which has
+       always split it out. */
+    time: timeRange(clock(e.startDate), clock(e.endDate)),
+    /* Search Console asks for an image on every Event. A source that marks up
+       its events usually has one, and it is the event's own picture rather
+       than something of ours standing in for it. Where there is none we send
+       none — a site-wide photograph attached to somebody's comedy night is
+       not an image of that night. */
+    image: imageOf(e.image),
+    via: 'json-ld',
+    /* Carried for sources that need more than the card does, and ignored by
+       normalize otherwise. Eventbrite's pages say what kind of event it is
+       (BusinessEvent, EducationEvent…), whether it happens anywhere, which
+       city it is in and every tier of ticket; offerText above keeps only the
+       first price, which is enough for a venue and not for a ticket vendor
+       where one event can have a free tier and a $600 one. */
+    types: [].concat(e['@type'] ?? []).filter((t) => typeof t === 'string'),
+    attendanceMode: text(e.eventAttendanceMode),
+    locality: typeof e.location?.address === 'object' ? text(e.location.address.addressLocality) : null,
+    streetAddress: typeof e.location?.address === 'object' ? text(e.location.address.streetAddress) : null,
+    offers: e.offers ?? null,
+  }));
 }
 
 function text(v) {
@@ -125,53 +117,6 @@ function offerText(offers) {
   const price = o.price ?? o.lowPrice;
   if (price === undefined || price === null || price === '') return null;
   return Number(price) === 0 ? 'Free' : `$${price}`;
-}
-
-/* Eventbrite-specific offer text extraction.
- * Handles AggregateOffer with lowPrice/highPrice, checks for free tickets. */
-function eventbriteOfferText(offers) {
-  if (!offers) return null;
-  
-  const offerList = Array.isArray(offers) ? offers : [offers];
-  let lowestPrice = null;
-  let hasFree = false;
-  
-  for (const offer of offerList) {
-    if (!offer) continue;
-    
-    const price = offer.price ?? offer.lowPrice ?? offer.highPrice;
-    
-    if (price === 0 || price === '0' || price === '0.00' || price === 0.0) {
-      hasFree = true;
-      continue;
-    }
-    
-    const num = parseFloat(String(price).replace(/[^0-9.]/g, ''));
-    if (Number.isFinite(num) && num >= 0) {
-      if (num === 0) {
-        hasFree = true;
-        continue;
-      }
-      if (lowestPrice === null || num < lowestPrice) {
-        lowestPrice = num;
-      }
-    }
-  }
-  
-  /* If any ticket is free, the event is free */
-  if (hasFree && lowestPrice === null) return 'Free';
-  if (hasFree) return 'Free';
-  
-  /* Return lowest price */
-  if (lowestPrice !== null) {
-    /* Clean up decimal places */
-    const rounded = Math.round(lowestPrice * 100) / 100;
-    /* If it rounded to zero, it's free */
-    if (rounded === 0) return 'Free';
-    return `$${rounded}`;
-  }
-  
-  return null;
 }
 
 /** The visible words of a page, for the model to read when JSON-LD is absent. */

@@ -2,15 +2,17 @@
 /* Poll each source once, and write what survived to scraped.js.
  *
  *   node scrape/run.mjs                 # live, needs playwright chromium
- *   node scrape/run.mjs --offline       # replay scrape/fixtures, no network
+ *   node scrape/run.mjs --offline       # replay scrape/fixtures, no network;
+ *                                       # writes to the temp dir, never scraped.js
  *   node scrape/run.mjs --dry-run       # report only, write nothing
  *
  * The model fallback runs only when a page has no JSON-LD and ANTHROPIC_API_KEY
  * is set; without a key those pages are simply skipped and reported. */
 
 import { readFile, writeFile, readdir } from 'node:fs/promises';
+import os from 'node:os';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { enabledSources, allSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources, shrunkSources } from './normalize.mjs';
@@ -33,19 +35,28 @@ const MODEL_CALL_BUDGET = Number(process.env.MODEL_CALL_BUDGET || 40);
 let modelCalls = 0;
 const today = new Date().toISOString().slice(0, 10);
 
-const report = { kept: [], dropped: [], skipped: [], errors: [], coverage: [] };
+export const report = { kept: [], dropped: [], skipped: [], errors: [], coverage: [] };
+
+/* The pause between event pages. Only the suite shortens it, to replay a
+   listing through livePages against a fake browser without waiting 30s. */
+const FOLLOW_DELAY_MS = Number(process.env.FOLLOW_DELAY_MS ?? 1500);
 const startOf = (e) => (e.schedule.kind === 'day' ? e.schedule.date : e.schedule.start);
 
 /* ------------------------------------------------------------- the sources */
 
-async function harvest(source, pages) {
+export async function harvest(source, pages) {
   const out = [];
-  for (const { url, html } of pages) {
+  for (const { url, html, isIndex } of pages) {
+    /* A listing-only source's index page is a list of links and nothing
+       more. Eventbrite's names twenty events with no price on any of them;
+       publishing those would put twenty "Price not listed" cards up beside
+       the priced copies read from the event pages. */
+    if (source.listingOnly && isIndex) continue;
     /* The page's own summary of itself. On a CMS the readable text opens with
        the entire navigation menu, and this is the part an editor wrote about
        this event — so the model gets it as well as the body, and it is the
        last resort if nothing writes a description at all. */
-    let raws = fromJsonLd(html, source.id);
+    let raws = fromJsonLd(html);
 
     /* A page's meta description belongs to the page. On an event page that is
        the event, and it has been the last resort for prose since the start. On
@@ -80,7 +91,14 @@ async function harvest(source, pages) {
       && raws.every((r) => !r.description)
       && !readsAsDescription(meta);
 
-    if (raws.length === 0 || noProse) {
+    /* A source whose facts must come from structured data never reaches the
+       model. An event page with nothing to read is reported, by name. */
+    if (source.noModel && raws.length === 0) {
+      report.dropped.push(`${source.id}: ${url} — no Event JSON-LD on the event page`);
+      continue;
+    }
+
+    if ((raws.length === 0 || noProse) && !source.noModel) {
       if (!process.env.ANTHROPIC_API_KEY) {
         if (raws.length === 0) report.skipped.push(`${url} — no JSON-LD and no ANTHROPIC_API_KEY`);
         continue;
@@ -124,18 +142,10 @@ async function harvest(source, pages) {
     }
 
     for (const raw of raws) {
-      /* For Eventbrite, classify category from content */
-      let sourceOverrides = {};
-      if (source.id === 'eventbrite') {
-        const { classifyEventbriteEvent } = await import('./eventbrite.mjs');
-        const classified = classifyEventbriteEvent(raw);
-        sourceOverrides = { category: classified.category, art: classified.art };
-      }
-      
       const result = normalize(
         { ...raw, url: raw.url ?? url,
           description: raw.description || (readsAsDescription(meta) ? meta : null) },
-        { ...source, ...sourceOverrides }, { today, checked: today });
+        source, { today, checked: today });
       if (!result.ok) { report.dropped.push(`${source.id}: ${result.title} — ${result.why}`); continue; }
 
       const problems = validate(result.event);
@@ -261,7 +271,7 @@ async function offlineRecords(source) {
   } catch { return []; }
 }
 
-async function offlinePages(source) {
+export async function offlinePages(source) {
   const dir = path.join(root, 'scrape', 'fixtures');
   let names = [];
   try { names = await readdir(dir); } catch { return []; }
@@ -269,10 +279,11 @@ async function offlinePages(source) {
   return Promise.all(mine.sort().map(async (n) => ({
     url: `${source.url}#${n}`,
     html: await readFile(path.join(dir, n), 'utf8'),
+    isIndex: n === `${source.id}.html`,
   })));
 }
 
-async function livePages(source, browser) {
+export async function livePages(source, browser) {
   const ctx = await browser.newContext({ userAgent: UA });
   const page = await ctx.newPage();
   const fetchText = async (u) => {
@@ -287,7 +298,7 @@ async function livePages(source, browser) {
     const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 45000 });
     if (!res || !res.ok()) { report.errors.push(`${url} — HTTP ${res ? res.status() : 'no response'}`); return null; }
     const html = await page.content();
-    pages.push({ url, html });
+    pages.push({ url, html, isIndex: url === source.url });
 
     return html;
   };
@@ -306,17 +317,68 @@ async function livePages(source, browser) {
        structured data too is what lets the rest of them be read at all — and
        reading them is the only way they get a description of their own, since
        the ItemList carries dates and places but no prose. */
-    const fromMarkup = fromJsonLd(index)
-      .map((e) => String(e.url ?? '').trim())
+    /* A listing-only source publishes nothing from its index, so every
+       event named there has to be accounted for: followed, or dropped with
+       the reason. Tracking links also drops their query strings, which is
+       how one Eventbrite event arrives as three urls. */
+    const bare = (u) => {
+      if (!source.listingOnly) return u;
+      try { const x = new URL(u); x.search = ''; x.hash = ''; return x.toString(); } catch { return u; }
+    };
+    const listed = fromJsonLd(index);
+    const fromMarkup = listed
+      .map((e) => bare(String(e.url ?? '').trim()))
       .filter((u) => u && source.followLinks && source.followLinks.test(u));
-    const anchors = candidateLinks(index, source.url, source.followLinks, Infinity);
-    const all = [...new Set([...fromMarkup, ...anchors])];
+    const anchors = candidateLinks(index, source.url, source.followLinks, Infinity).map(bare);
+    /* And one event under two hosts — Eventbrite links the same event as
+       .ca and .com — is one page to read, not two: the first url wins, which
+       is the listing's own JSON-LD. Keyed on the event's number, the only
+       part of the url that is the event's. */
+    const eventKey = (u) => {
+      if (!source.listingOnly) return u;
+      try { return /-(\d{6,})\/?$/.exec(new URL(u).pathname)?.[1] ?? u; } catch { return u; }
+    };
+    /* A source can rule an event out from the listing alone — Eventbrite's
+       conferences, by title — and then it is not fetched at all. */
+    const ruledOut = new Map();
+    if (source.skipBeforeFollow) {
+      for (const e of listed) {
+        const u = bare(String(e.url ?? '').trim());
+        const why = u ? source.skipBeforeFollow(e) : null;
+        if (why) ruledOut.set(eventKey(u), why);
+      }
+    }
+    const seenKeys = new Set();
+    const all = [...new Set([...fromMarkup, ...anchors])]
+      .filter((u) => !ruledOut.has(eventKey(u)))
+      .filter((u) => { const k = eventKey(u); if (seenKeys.has(k)) return false; seenKeys.add(k); return true; });
     const take = all.slice(0, source.maxFollow ?? 0);
-    pages.offered = all.length;
+    pages.offered = all.length + ruledOut.size;
     pages.followed = take.length;
+    pages.listed = listed.length;
+    pages.listedEvents = listed.map((e) => ({ title: e.title, url: bare(String(e.url ?? '').trim()) }));
+    if (source.listingOnly) {
+      const followed = new Set(take.map(eventKey));
+      for (const e of listed) {
+        const u = bare(String(e.url ?? '').trim());
+        const name = e.title ?? '(untitled)';
+        if (!u) report.dropped.push(`${source.id}: ${name} — listed with no event url`);
+        else if (ruledOut.has(eventKey(u))) report.dropped.push(`${source.id}: ${name} — ${ruledOut.get(eventKey(u))} (not fetched)`);
+        else if (!source.followLinks || !source.followLinks.test(u)) report.dropped.push(`${source.id}: ${name} — url does not look like an event page (${u})`);
+        else if (!followed.has(eventKey(u))) report.dropped.push(`${source.id}: ${name} — past the follow cap of ${source.maxFollow}`);
+      }
+    }
     for (const link of take) {
-      await new Promise((r) => setTimeout(r, 1500));   /* one page every 1.5s */
-      await visit(link);
+      await new Promise((r) => setTimeout(r, FOLLOW_DELAY_MS));   /* one page every 1.5s */
+      /* One page timing out is that page lost, not the whole source. It
+         used to throw out of here and take every page already read with it. */
+      const before = pages.length;
+      try { await visit(link); }
+      catch (err) { report.errors.push(`${link} — ${err.message.split('\n')[0]}`); }
+      if (source.listingOnly && pages.length === before) {
+        const named = listed.find((e) => e.url && eventKey(bare(String(e.url).trim())) === eventKey(link));
+        report.dropped.push(`${source.id}: ${named?.title ?? link} — event page could not be read (see errors and skipped)`);
+      }
     }
   }
   await ctx.close();
@@ -469,6 +531,10 @@ const SCRAPED = [\n${body}\n];\n`;
       for (const e of events) now.set(e.scrapedFrom, (now.get(e.scrapedFrom) ?? 0) + 1);
       const allowed = new Set((process.env.ALLOW_SILENT_SOURCES || '')
         .split(',').map((x) => x.trim()).filter(Boolean));
+      /* A source that says it may go quiet — Eventbrite, which can block the
+         poller at any time — does not stop the run by doing so. Only its own
+         listings are lost; every other source's still come from this poll. */
+      for (const s of enabledSources()) if (s.mayGoQuiet) allowed.add(s.id);
       silent = silentSources(before, now, enabledSources().map((x) => x.id), allowed);
       shrunk = shrunkSources(before, now, enabledSources().map((x) => x.id), allowed);
     }
@@ -495,11 +561,20 @@ const SCRAPED = [\n${body}\n];\n`;
   }
 
   if (DRY) { console.log('\n--dry-run: scraped.js not written'); return; }
-  await writeFile(path.join(root, 'scraped.js'), file);
-  console.log(`\nwrote scraped.js with ${events.length} event${events.length === 1 ? '' : 's'}`);
+  /* Offline replays fixtures, which say nothing about what the sources hold
+     today. Written over scraped.js it replaced the whole board with the two
+     fixture sources' dozen events — which is what happened on the Eventbrite
+     branch. So it goes to the temp dir, where it can be read and cannot be
+     committed by accident. */
+  const target = OFFLINE ? path.join(os.tmpdir(), 'explora-scraped.offline.js') : path.join(root, 'scraped.js');
+  await writeFile(target, file);
+  console.log(`\nwrote ${OFFLINE ? target : 'scraped.js'} with ${events.length} event${events.length === 1 ? '' : 's'}`);
 
   /* A source that errors should not quietly empty the calendar */
   if (report.errors.length && events.length === 0) process.exitCode = 1;
 }
 
-main().catch((err) => { console.error(err); process.exitCode = 1; });
+/* Run only when invoked, so scrape/dry-run-eventbrite.mjs can reuse harvest
+   and livePages without starting a poll that writes scraped.js. */
+const invoked = process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url;
+if (invoked) main().catch((err) => { console.error(err); process.exitCode = 1; });

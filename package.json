@@ -4,10 +4,11 @@
   "private": true,
   "description": "A calendar of free and cheap things to do in Toronto",
   "scripts": {
-    "test": "node scrape/test.mjs",
+    "test": "node scrape/test.mjs && node scrape/test-eventbrite.mjs",
     "poll": "node scrape/run.mjs",
     "poll:offline": "node scrape/run.mjs --offline",
     "poll:dry": "node scrape/run.mjs --dry-run",
+    "dry-run:eventbrite": "node scrape/dry-run-eventbrite.mjs",
     "discover": "node scrape/discover.mjs",
     "recheck": "node scrape/recheck.mjs",
     "recheck:all": "node scrape/recheck.mjs --all",
