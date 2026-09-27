@@ -1,186 +1,79 @@
-# Eventbrite Source - Implementation Findings
+# Eventbrite source — how it works and what it drops
 
-## Current Sources (Before Eventbrite)
+## Terms of Service
 
-Based on examination of the codebase, the following sources are currently polled:
+**Eventbrite's Terms of Service prohibit automated extraction.** The owner of
+this repo knowingly enabled the source anyway on 2026-09-27, accepting the risk
+that Eventbrite blocks it or objects. Nothing here claims the source is
+ToS-compliant. The same note sits beside the source in `scrape/sources.mjs`.
 
-### Enabled Sources:
-1. **wygo** - Wygo community events, JSON-LD extraction, follows event links
-2. **luma** - Luma Toronto events, JSON-LD extraction, filtered for networking/startup events
-3. **tpl** - Toronto Public Library events, JSON-LD extraction
-4. **bentway** - The Bentway, uses custom API endpoint (WordPress JSON API)
-5. **evergreen** - Evergreen Brick Works, reads through model (no JSON-LD on event pages)
-6. **comedybar** - Comedy Bar, reads through model
-7. **baddog** - Bad Dog Theatre, reads through model
-8. **revival** - Revival Event Venue, uses The Events Calendar API
-9. **emmetray** - The Emmet Ray, uses The Events Calendar API
-10. **grossmans** - Grossman's Tavern, uses The Events Calendar API
+The v3 API is not an alternative: public event search was withdrawn in 2019 and
+what remains only reaches organisations you control.
 
-### Polling Mechanism
+## How a poll reads it
 
-- **Schedule**: Daily via GitHub Actions (`.github/workflows/scrape.yml`) at 11:17 UTC
-- **Extraction Order**: JSON-LD first (fast path), then LLM model fallback if `ANTHROPIC_API_KEY` is set
-- **Data Storage**: Events written to `scraped.js`, merged with hand-written `data.js` at page load
-- **Pull Request Flow**: Poller opens a PR, never pushes directly to main
+1. `https://www.eventbrite.ca/d/canada--toronto/all-events/` is fetched. Its
+   ItemList JSON-LD names about 20 events **with no prices**, so the page is
+   used only as a list of links (`listingOnly`): nothing on it is published.
+2. Events whose title already rules them out (conferences, summits,
+   networking — see below) are dropped from the listing without being
+   fetched (`skipBeforeFollow`), and reported with the reason.
+3. Every other event page is followed (`.ca` and `.com`, `-tickets-` and
+   `-registration-`; one event number is read once, however many urls link
+   to it). A page that times out is reported and does not take the rest of the
+   source down with it.
+4. Each event page's own JSON-LD decides everything, in `vetEventbrite`
+   (`scrape/eventbrite.mjs`), called by `normalize` as the source's `vet`.
+   The model is never asked (`noModel`), because a price has to come from
+   structured data or not at all.
 
-### Normalized Listing Schema
+Every event named on the listing ends up either kept or dropped with a stated
+reason; `npm run dry-run:eventbrite` checks that and says so.
 
-Each listing must have:
-- `id`: `{source-id}-{slug(title)}-{date}`
-- `title`: Event name
-- `category`: One of 15 categories (museum, art, market, flea, books, architecture, festival, dropin, social, comedy, stage, music, film, outdoors, food)
-- `art`: Symbol ID for illustration
-- `entry`: Price/admission text (optional, bucketed as free/under20/over20/unknown)
-- `venue`: Venue name
-- `address`: Street address in Toronto
-- `url`: Event page URL
-- `source`: URL where schedule was confirmed
-- `checked`: Date last confirmed (YYYY-MM-DD)
-- `description`: Event description
-- `schedule`: One of 4 types (range, day, weekly, nth)
-- `scrapedFrom`: Source ID
-- `via`: Extraction method ('json-ld' or 'model')
+## Gates (in order)
 
-### Scoring/Filtering/Deduplication Rules
+| gate | drops | why |
+|---|---|---|
+| online-only | `eventAttendanceMode` = Online | nowhere to go |
+| networking | Luma's list (`scrape/filters.mjs`, now shared) | same problem as Luma |
+| professional | symposium, conference, summit, keynote, expo, seminar, professional(s), leadership, small business, business leaders… (title) | "Heart Failure Symposium", "Leadership Summit" got through before |
+| BusinessEvent | JSON-LD `@type` BusinessEvent | how Eventbrite files researchED, the summits and the expos |
+| professional prose | keynote, professional development, conference… (description) | catches a brand-name title like researchED |
+| series | start to end more than 14 days | a weekly night's series node ("Apr 5 – Dec 27") is not a run |
+| city | `addressLocality` must be Toronto or a former borough | `IN_TOWN` in normalize accepts Mississauga on purpose (Luma's Salmon Run Hike), which is how DOC Wine at 3045 Southcreek Road, Mississauga passed. Fixed for Eventbrite only, so no other source changes |
+| price | see below | an Eventbrite card without a price would stay "Price not listed" forever: the recheck job only fills `data.js` |
+| ceiling | over $35 (normalize, unchanged) | the board's promise |
 
-**Gates (events are dropped if they fail):**
-1. Must have title
-2. Must have parseable start date (ISO format)
-3. Start date must not be in the past (or end date if multi-day)
-4. Run must be ≤400 days (prevents permanent installations)
-5. Must have venue (not "TBD", "Online", placeholders)
-6. Must have address
-7. Address must place event in Toronto (regex match)
-8. Price must be ≤$35 (ceiling for "worth the fare")
-9. Cannot be explicitly cancelled/closed
-10. Cannot be programming for children (age ranges, "for kids", etc.)
+## Price rule
 
-**Deduplication:**
-- **Primary key**: `title + date + venue` (normalized, lowercase, no punctuation)
-- **Cross-source deduping**: Same event from multiple sources is collapsed
-- **Better version selection**: Prefers event's own page over index page, deeper URLs over shallow, longer descriptions
-- **ID disambiguation**: If same ID generated, venue name added to make unique
+- **Free** only when every ticket is $0 (`AggregateOffer` 0–0).
+- Otherwise the cheapest *paid* ticket: `lowPrice` when it is above zero, or
+  the cheapest individual `Offer.price` above zero when a page lists them.
+- `lowPrice` 0 with `highPrice` above 0 and no per-ticket list: the cheapest
+  paid price is not on the page, so the event is **dropped** with that reason
+  rather than called Free or guessed.
+- A `priceCurrency` other than CAD is dropped with that reason.
+- Written like the rest of the board — `Free`, `$12`, `$19.50` — so `price.js`
+  buckets it (Free / under $20 / $20 and up). `$0` is never emitted.
 
-**Price bucketing** (from `price.js`):
-- **Free**: Entry starts with "Free" or is pay-what-you-can
-- **Under $20**: First dollar figure < $20
-- **$20 and up**: First dollar figure ≥ $20
-- **Unknown**: No entry field or no dollar figure
+## Filing
 
-## Eventbrite Implementation
+`classifyEventbriteEvent` reads the title, then the description, then the
+venue's name, and returns a category from `CATEGORIES` in `data.js` and a
+drawing that exists in `illustrations/` (the suite checks every output of
+every rule against both). Parties and DJ nights file like Revival's: `music`
+with `art-decks`. Talks are `stage` with `art-lectern`; book launches `books`.
 
-### Terms of Service Notice
+## Safety
 
-**EVENTBRITE'S TERMS OF SERVICE PROHIBIT AUTOMATED EXTRACTION.**
-
-The repo owner knowingly enabled this source on 2026-09-27 anyway, accepting the risk that Eventbrite may block or pursue this use. This documentation does not claim the implementation is ToS-compliant.
-
-### Approach
-
-Eventbrite's public discovery pages (e.g., `https://www.eventbrite.ca/d/canada--toronto/all-events/`) serve structured JSON-LD data in an ItemList format. The listing page contains event summaries; individual event pages contain full details including prices via AggregateOffer JSON-LD.
-
-**Key Decisions**:
-- Use `all-events` (not `free--events`) because the $35 price ceiling gate drops expensive events at poll time
-- Follow event links to extract prices from AggregateOffer JSON-LD on each event page
-- Events with no readable price are **dropped** (not left unknown) because the recheck job only covers hand-written listings in `data.js`, not scraped listings in `scraped.js`
-- Categories are classified from title/description keywords, filtering out pure business/networking events per existing Luma rules
-- Free events are properly identified when AggregateOffer includes price=0 tickets
-
-### Technical Details
-
-**Modified files:**
-1. `scrape/sources.mjs` - Enabled Eventbrite source, no `followLinks` (listing page has everything)
-2. `scrape/extract.mjs` - Enhanced `fromJsonLd()` to check `eventAttendanceMode` and filter online-only events
-
-**Extraction flow:**
-1. Fetch `https://www.eventbrite.ca/d/canada--toronto/all-events/`
-2. Parse JSON-LD blocks (Playwright automatically unwraps ItemList into individual Events)
-3. Check `eventAttendanceMode` - if `OnlineEventAttendanceMode` only, set venue to "Online" (triggers rejection)
-4. Pass through existing `normalize.mjs` gates
-5. Validate and write to `scraped.js`
-
-**Online event filtering:**
-- Events with `eventAttendanceMode: "https://schema.org/OnlineEventAttendanceMode"` are marked with venue="Online"
-- The existing `NOT_A_PLACE` regex in `normalize.mjs` rejects them
-- `OfflineEventAttendanceMode` and `MixedEventAttendanceMode` are kept
-
-### Dry-Run Results
-
-**Test performed**: 2026-09-27
-**Command**: `node test-eventbrite-poll.mjs`
-
-**Results:**
-- **Fetched**: 20 events from listing page JSON-LD
-- **Kept**: 20 events
-- **Dropped**: 0 events
-- **Extraction method**: 100% JSON-LD (no model calls needed)
-- **Price information**: 0 events have prices (expected - will be filled by recheck job)
-
-**Sample of kept events (first 10):**
-1. The Small Business Summit 2026 - 2026-10-13 - Metro Toronto Convention Centre (MTCC)
-2. The Walrus Talks Community Reborn - 2026-10-08 - Isabel Bader Theatre
-3. WHINE SLOW - Toronto's Sexiest Dancehall & Soca Party - 2026-10-02 - Mia Toronto
-4. Young Professionals Leadership Summit 2026 - 2026-10-03 - Arcadian Court
-5. UK Calling - Toronto - 2026-10-02 - The Concert Hall
-6. Somebody Anybody - RnB Brunch & Day-Party @ Lavelle - 2026-09-27 - Lavelle
-7. Naomi Klein and Astra Taylor's END TIMES FASCISM - 2026-10-06 - Trinity-St. Paul's
-8. 16th African Economic Summit - 2026-09-30 - Metro Toronto Convention Centre
-9. DOC Wine Imports Annual Portfolio Wine Tasting 2026 - 2026-11-05 - Renaissance by the Creek
-10. Toronto Rooftop Day Party - 2026-09-27 - Aera
-
-**Observations:**
-- All events have proper Toronto venues and addresses
-- All dates are valid and in the future
-- Mix of event types (conferences, parties, talks, tastings)
-- Descriptions are present and substantial
-- Images are included
-- No online-only events in this sample (all properly filtered)
-
-### Integration with Existing Pipeline
-
-**Recheck job** (`scrape/recheck.mjs`):
-- Runs daily as part of poll workflow
-- Visits each listing with unknown price
-- Reads price from page (JSON-LD offers if available, model otherwise)
-- Patches `data.js` surgically with price + quoted sentence
-- Backs off on pages that state no price (30-day rest)
-- Cost: ~2-3 cents per listing on Opus 5
-
-**Expected behavior:**
-- First poll: 20 events with unknown prices
-- Recheck job: Gradually fills in prices from individual Eventbrite event pages
-- Cost: ~$0.40-0.60 for first pass (20 × $0.02-0.03)
-- Subsequent polls: Only new events need price lookup
-
-### Deduplication with Other Sources
-
-Eventbrite events are deduplicated by `title + date + venue`:
-- If the same event appears on Eventbrite AND (say) a venue's own site, they'll be collapsed
-- The version from the event's own page (deeper URL) will be preferred
-- This prevents duplicate cards for cross-posted events
-
-### Polite Scraping Practices
-
-- Single page fetch per poll (listing page only)
-- Respects `robots.txt` (checked: /d/ and /e/ paths are allowed)
-- Real User-Agent header
-- No aggressive following of event links
-- Graceful failure (errors don't break the poll)
-- 1.5s delay between pages in general (not applicable here since we don't follow links)
-
-### Future Considerations
-
-**Price extraction:**
-- Individual Eventbrite event pages DO have structured price data (offers in page)
-- Could potentially extract prices from individual pages if needed
-- Currently relying on recheck job for consistency with other sources
-
-**Pagination:**
-- The discovery page shows ~20 events (first page)
-- Could potentially handle pagination if more coverage is desired
-- Current implementation captures the most relevant/soonest events
-
-**Category refinement:**
-- Currently filing all Eventbrite events under `dropin` category
-- Could add per-event category classification based on title/description keywords
-- Would need to balance accuracy vs complexity
+- `scraped.js` is not touched by this PR. The branch once had it overwritten
+  by a fixtures run (`--offline`), which would have replaced the board with a
+  dozen fixture events; `--offline` now writes to the temp dir, and the suite
+  checks `scraped.js` is byte-identical after an offline poll.
+- `scrape/dry-run-eventbrite.mjs` runs the real `harvest`/`livePages` for this
+  one source and writes its report to the temp dir; a destination inside the
+  repository is refused.
+- In a real poll every source is harvested separately and `scraped.js` is
+  rebuilt from all of them, so an Eventbrite failure or empty result can only
+  remove Eventbrite's own listings. `mayGoQuiet` keeps it from tripping the
+  silent-source guard, which would otherwise stop the whole poll.
