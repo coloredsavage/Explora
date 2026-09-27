@@ -224,6 +224,38 @@ Append to `SOURCES` in `scrape/sources.mjs`:
 }
 ```
 
+Keys a source can also carry, all optional (Eventbrite uses every one; see
+`scrape/eventbrite.mjs`):
+
+- `listingOnly: true` — the index page is a list of links and nothing on it is
+  published. Every event it names is followed or dropped with a stated reason,
+  and tracking query strings are dropped so one event is fetched once.
+- `noModel: true` — never send this source's pages to the model. An event page
+  with no Event JSON-LD is dropped and reported by name. For facts (a price)
+  that must come from structured data or not at all.
+- `vet(raw)` — the source's own gate, called by `normalize` after the date
+  checks. Returns `{ reject: why }` or what to publish instead of the defaults
+  (`category`, `art`, `entry`, `address`); every later gate, the $35 ceiling
+  included, still applies.
+- `skipBeforeFollow(listed)` — given an event as the index lists it
+  (`title`, `url`), return a reason to rule it out without fetching its page,
+  or `null`. It is reported as dropped with `(not fetched)`.
+- `pageNodes(nodes)` — given nodes that describe one event, return
+  `{ keep, dropped: [{ title, why, node }] }`. `harvest` calls it with every
+  Event node on one page, and again with the published listings that share a
+  title and venue across the source's pages. Eventbrite uses it to keep a
+  dated occurrence and drop the series node that spans it.
+- `mayGoQuiet: true` — this source producing nothing does not trip the
+  silent-source guard that otherwise stops the whole poll. For a source
+  expected to block the poller now and then; only its own listings are lost.
+
+Following event pages has a circuit breaker for every source: three failed
+follows in a row and the rest of that source's links are left alone (each
+reported). If more than a third of a source's follows go unread, the source is
+treated as failed and keeps its listings from the previous `scraped.js`
+rather than publishing a partial set. The failed-follow count per source is in
+the run report.
+
 `exclude` is a per-source title filter, for a feed whose subject overlaps yours
 only partly. Luma's Toronto page is mostly startup and tech networking, so it
 files under its own `social` category — one click from hidden — and the most
@@ -236,9 +268,15 @@ review — a city-wide aggregator will otherwise bury a 40-line calendar under
 Soonest events survive the cap.
 
 Check the site's terms and `robots.txt` first — the poller honours `Disallow`
-rules for `*` and waits 1.5s between pages, but that is politeness, not
-permission, and the big ticketing platforms restrict automated access in their
-terms regardless of what `robots.txt` says. `npm run discover` reports the
+rules for `*` and waits 1.5s between pages (never less than 1s, whatever
+`FOLLOW_DELAY_MS` says), but that is politeness, not permission, and the big
+ticketing platforms restrict automated access in their terms regardless of what
+`robots.txt` says. **One enabled source is an exception, knowingly:
+Eventbrite's Terms of Service prohibit automated extraction, and the owner
+enabled the `eventbrite` source anyway on 2026-09-27, accepting the risk that
+Eventbrite blocks or objects to it.** That is recorded beside the source and in
+`EVENTBRITE-FINDINGS.md`; it is not a sign that the terms allow it, and it is
+not a precedent for the platforms still parked for the same reason. `npm run discover` reports the
 `robots.txt` verdict per source before you commit to one. Set `enabled: false` to park a
 source: it stops being polled but discovery still reports on it with `--all`,
 which is the point of parking rather than deleting. Several candidates sit

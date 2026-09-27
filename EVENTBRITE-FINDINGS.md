@@ -15,14 +15,27 @@ what remains only reaches organisations you control.
 1. `https://www.eventbrite.ca/d/canada--toronto/all-events/` is fetched. Its
    ItemList JSON-LD names about 20 events **with no prices**, so the page is
    used only as a list of links (`listingOnly`): nothing on it is published.
-2. Events whose title already rules them out (conferences, summits,
-   networking — see below) are dropped from the listing without being
-   fetched (`skipBeforeFollow`), and reported with the reason.
+2. Events the listing alone rules out are dropped without being fetched
+   (`skipBeforeFollow`) and reported with the reason: one that `data.js`
+   already carries by hand (same url, or same event number), or one whose
+   title is plainly a business event (see below). The title list is kept
+   narrow on purpose, because a false positive here is never even fetched.
 3. Every other event page is followed (`.ca` and `.com`, `-tickets-` and
    `-registration-`; one event number is read once, however many urls link
-   to it). A page that times out is reported and does not take the rest of the
-   source down with it.
-4. Each event page's own JSON-LD decides everything, in `vetEventbrite`
+   to it), at least a second apart. A page that fails is reported and does
+   not take the rest of the source down with it — but three failures in a row
+   stop the following (the circuit breaker, which applies to every source),
+   and if more than a third of the event pages go unread the source is
+   treated as failed and keeps its listings from the previous `scraped.js`
+   instead of publishing a partial set. The failed-follow count is in the run
+   report and the dry run.
+4. If a dated node and a series node whose dates contain it describe one
+   event — on one page, or as two event pages with the same title and venue
+   (the live listing linked MOODY OFFICE's series and its dated night as two
+   event numbers) — the series node is dropped (`pageNodes`), so a short run
+   does not show as a range card beside the night's own card. A series of
+   more than 14 days is refused on its own, whatever else is on the page.
+5. Each event page's own JSON-LD decides everything, in `vetEventbrite`
    (`scrape/eventbrite.mjs`), called by `normalize` as the source's `vet`.
    The model is never asked (`noModel`), because a price has to come from
    structured data or not at all.
@@ -35,24 +48,35 @@ reason; `npm run dry-run:eventbrite` checks that and says so.
 | gate | drops | why |
 |---|---|---|
 | online-only | `eventAttendanceMode` = Online | nowhere to go |
-| networking | Luma's list (`scrape/filters.mjs`, now shared) | same problem as Luma |
-| professional | symposium, conference, summit, keynote, expo, seminar, professional(s), leadership, small business, business leaders… (title) | "Heart Failure Symposium", "Leadership Summit" got through before |
+| hand-listed | url or event number already in `data.js` | `app.js` concatenates `data.js` and `scraped.js` without deduping; The Reheat Podcast is hand-listed with a `submitted` tag |
+| networking | Luma's list (`scrape/filters.mjs`, shared) | same problem as Luma |
+| professional (title) | symposium, conference, summit (not "the summit"), keynote, seminar, professional(s), leadership, small business, business leaders, data centre, cloud expo… and expo / convention / forum / fair **only with an industry word in front** (tech, trade, franchise, cloud, career…) | "Heart Failure Symposium", "Leadership Summit" got through before. Bare expo, convention, forum, jobs, careers and marketing were removed: they dropped Toronto Comic Expo, an anime convention, a community forum on transit and a Steve Jobs screening |
 | BusinessEvent | JSON-LD `@type` BusinessEvent | how Eventbrite files researchED, the summits and the expos |
-| professional prose | keynote, professional development, conference… (description) | catches a brand-name title like researchED |
+| professional (description) | keynote, professional development, CPD, networking event, symposium, trade show, B2B, thought leaders… | catches a brand-name title like researchED. "conference" and "summit" are not on this list: in prose they are a hike reaching the summit |
 | series | start to end more than 14 days | a weekly night's series node ("Apr 5 – Dec 27") is not a run |
-| city | `addressLocality` must be Toronto or a former borough | `IN_TOWN` in normalize accepts Mississauga on purpose (Luma's Salmon Run Hike), which is how DOC Wine at 3045 Southcreek Road, Mississauga passed. Fixed for Eventbrite only, so no other source changes |
+| city | `addressLocality` (tidied: "Toronto, ON", "City of Toronto") must be Toronto or a former borough | `IN_TOWN` in normalize accepts Mississauga on purpose (Luma's Salmon Run Hike), which is how DOC Wine at 3045 Southcreek Road, Mississauga passed. Fixed for Eventbrite only, so no other source changes |
 | price | see below | an Eventbrite card without a price would stay "Price not listed" forever: the recheck job only fills `data.js` |
 | ceiling | over $35 (normalize, unchanged) | the board's promise |
 
 ## Price rule
 
-- **Free** only when every ticket is $0 (`AggregateOffer` 0–0).
+- Only offers still on sale count: `availability` SoldOut or OutOfStock is
+  left out. Everything sold out is dropped with that reason.
+- An offer with child offers is a summary of them; the children are read,
+  inheriting the parent's currency and availability.
+- Every figure is read strictly. `'TBD'`, `''` and anything else that is not a
+  number is **unreadable** (the event is dropped, never called Free); a
+  negative figure is refused; `'12,50'` is read as $12.50 and `'1,250.00'` as
+  1250; other commas are unreadable. `$`, `C$`, `CA$` and `CAD` around a
+  figure are allowed.
+- Every counted offer must name its currency (`priceCurrency`), and it must be
+  CAD. Missing or foreign: dropped with the reason.
+- **Free** only when every ticket on sale is $0 (`AggregateOffer` 0–0).
 - Otherwise the cheapest *paid* ticket: `lowPrice` when it is above zero, or
   the cheapest individual `Offer.price` above zero when a page lists them.
 - `lowPrice` 0 with `highPrice` above 0 and no per-ticket list: the cheapest
   paid price is not on the page, so the event is **dropped** with that reason
   rather than called Free or guessed.
-- A `priceCurrency` other than CAD is dropped with that reason.
 - Written like the rest of the board — `Free`, `$12`, `$19.50` — so `price.js`
   buckets it (Free / under $20 / $20 and up). `$0` is never emitted.
 
@@ -62,7 +86,13 @@ reason; `npm run dry-run:eventbrite` checks that and says so.
 venue's name, and returns a category from `CATEGORIES` in `data.js` and a
 drawing that exists in `illustrations/` (the suite checks every output of
 every rule against both). Parties and DJ nights file like Revival's: `music`
-with `art-decks`. Talks are `stage` with `art-lectern`; book launches `books`.
+with `art-decks` — but not a tea party (food) or a watch party. Talks are
+`stage` with `art-lectern`. "Book" counts only when it is not a booking verb
+("Book now", "Book your tickets", "Book a table"), and a launch is `books` only
+with real book context: a bookshop, an author, a novel or memoir, a
+publisher or imprint (Knopf, Coach House…), or "<title> by <Name>". "Rock" and
+"metal" are music except in rock climbing and metal casting; a comic expo is
+not comedy.
 
 ## Safety
 
@@ -76,4 +106,11 @@ with `art-decks`. Talks are `stage` with `art-lectern`; book launches `books`.
 - In a real poll every source is harvested separately and `scraped.js` is
   rebuilt from all of them, so an Eventbrite failure or empty result can only
   remove Eventbrite's own listings. `mayGoQuiet` keeps it from tripping the
-  silent-source guard, which would otherwise stop the whole poll.
+  silent-source guard, which would otherwise stop the whole poll; the suite
+  runs that guard with Eventbrite gone quiet and checks the poll carries on.
+- A source that fails part-way (more than a third of event pages unread)
+  keeps its previous listings, less any already finished, instead of writing
+  a partial set.
+- The workflow runs `npm test` before polling, so the suite must not depend
+  on the date. It pins `today` for every `harvest`/`normalize` call and has
+  been run under `faketime` at 2026-10-05, 2026-11-01 and 2027-06-01.

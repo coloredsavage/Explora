@@ -140,8 +140,17 @@ spend on every poll. `evergreen` returns a Yoast `ld+json` block with no Event
 node — do not mistake it for a fast path. If the API bill matters more than the
 coverage, these two are the first things to park again.
 
-Still parked with recorded verdicts in `scrape/sources.mjs`: `eventbrite` (405),
-`harbourfront` (no Event JSON-LD), `akimbo` (no Event data), `blogto` (403).
+Still parked with recorded verdicts in `scrape/sources.mjs`: `harbourfront`
+(no Event JSON-LD), `akimbo` (no Event data), `blogto` (403).
+
+`eventbrite` is no longer parked. It is **enabled (PR #68) even though
+Eventbrite's Terms of Service prohibit automated extraction**: the owner accepted
+that risk on 2026-09-27, and the note beside the source in `sources.mjs` says
+so. It is the one exception to the rule that keeps ra.co, Songkick and
+Bandsintown out. It reads each event page's JSON-LD only (no model), drops
+anything without a strictly readable CAD price, and is marked `mayGoQuiet` so
+Eventbrite blocking the poller removes only its own listings. See
+`EVENTBRITE-FINDINGS.md`.
 
 ### Open pull requests
 
