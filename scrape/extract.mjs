@@ -3,6 +3,8 @@
  * Order matters: JSON-LD is exact and survives redesigns, so it is tried
  * first and the language model is only paid for what it cannot answer. */
 
+import { clock, timeRange } from './api.mjs';
+
 /** Every JSON-LD blob on the page, flattened out of @graph wrappers. */
 /* A node, or the things inside it if it is a list of them.
 
@@ -59,6 +61,12 @@ export function fromJsonLd(html) {
     url: text(e.url),
     description: text(e.description),
     entry: offerText(e.offers),
+    /* The time of day, which structured data carries inside startDate and the
+       card was never shown. Luma's listings all have one — "Sep 28 · 6:00pm –
+       9:00pm" — and arrived on the board as a bare date next to Rex listings
+       that had theirs, because those come through the API reader which has
+       always split it out. */
+    time: timeRange(clock(e.startDate), clock(e.endDate)),
     /* Search Console asks for an image on every Event. A source that marks up
        its events usually has one, and it is the event's own picture rather
        than something of ours standing in for it. Where there is none we send

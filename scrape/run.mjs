@@ -305,12 +305,18 @@ async function main() {
   for (const source of enabledSources()) {
     try {
       let found;
+      /* Declared out here because the coverage line below reads it, and an
+         api source never sets it. Leaving it inside the else made every source
+         throw a ReferenceError before events.push, so seven of them returned
+         nothing and the silent-source guard stopped the run — which is the
+         guard working, on a fault of mine. */
+      let pages = null;
       if (source.api) {
         const records = OFFLINE ? await offlineRecords(source) : await apiRecords(source);
         if (records.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
         found = await harvestApi(source, records);
       } else {
-        const pages = OFFLINE ? await offlinePages(source) : await livePages(source, browser);
+        pages = OFFLINE ? await offlinePages(source) : await livePages(source, browser);
         if (pages.length === 0) report.skipped.push(`${source.id} — nothing fetched`);
         found = await harvest(source, pages);
       }

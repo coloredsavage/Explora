@@ -100,8 +100,17 @@ export const RULES = [
 
   /* Outdoors last of the specific rules: "walk" and "wander" appear inside
      plenty of titles that are really something else, so everything that could
-     claim them has had its turn by here. */
-  [/forest|ravine|nature|bird|garden|wander|hike|trail|park\b|walk\b/i, 'art-outdoors'],
+     claim them has had its turn by here.
+
+     Split by what the outing is, rather than letting the hash choose from six
+     drawings that mean different things. "Salmon Run Hike" is a hike — it is
+     watching salmon run, not a race — and it drew a park bench, which is a
+     drawing of sitting down. Boots are what a hike is. */
+  [/\bhik(e|es|ing)\b|\btrek\b|\bramble\b|trail walk/i, 'art-boots'],
+  [/\bbird(s|ing|watch)?\b|\bowl\b|migration/i, 'art-birdhouse'],
+  [/canoe|kayak|paddle|\bswim/i, 'art-outdoors'],
+  [/boardwalk|waterfront|\bbeach\b|\bpier\b|lakeshore|harbour/i, 'art-boardwalk'],
+  [/forest|ravine|nature|garden|wander|trail|park\b|walk\b/i, 'art-outing'],
 ];
 
 /* A family is one idea with more than one drawing of it.
@@ -132,7 +141,11 @@ export const FAMILIES = {
      ideas than one canoe can carry — "Family Wander" is a walk in a park and
      was drawing a boat. Six drawings is roughly one per ten listings at
      current volume, which is where a repeat stops being noticeable. */
-  'art-outdoors': ['art-outdoors', 'art-boardwalk', 'art-bench',
+  /* Keyed on a name that is not a file, like art-jazz and art-jam. It was
+     'art-outdoors', which is also the canoe — so a rule that meant the canoe
+     specifically got expanded back across all six and "Canoe the Humber" drew
+     a trail signpost. A family key that names a file cannot be pointed at. */
+  'art-outing':   ['art-outdoors', 'art-boardwalk', 'art-bench',
                    'art-trailsign', 'art-boots', 'art-birdhouse'],
   /* Generic live music — a band, a concert, a gig — is the biggest family
      after jazz and was drawing one amplifier on forty-four listings. An

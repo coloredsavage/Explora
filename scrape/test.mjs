@@ -75,7 +75,12 @@ console.log('\nShape');
 check('ids are stable and readable', () =>
   assert.equal(kept[0].id, 'wygo-ultimate-hide-seek-2026-09-20'));
 check('a one-day event becomes a day schedule', () =>
-  assert.deepEqual(kept[0].schedule, { kind: 'day', date: '2026-09-20' }));
+  assert.deepEqual(kept[0].schedule, { kind: 'day', date: '2026-09-20', time: '1pm' }));
+/* The time comes off startDate now. A start with no end is still worth
+   showing: "Sep 20 · 1pm" beats a bare date, which is what Luma's listings
+   were getting while the Rex had its times all along. */
+check('a start with no end still gives the card a time', () =>
+  assert.equal(kept[0].schedule.time, '1pm'));
 check('carries the source it came from', () =>
   assert.equal(kept[0].source, 'https://wygo.world/hidenseek'));
 check('inherits the category of its source', () =>

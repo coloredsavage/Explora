@@ -76,7 +76,11 @@ export function timeRange(start, end) {
    separated — title, start, end, cost, and a venue object. One shape, so one
    reader, and each source only has to say where to find it. */
 
-const clock = (value) => {
+/* The wall clock as the page wrote it. Deliberately read off the string
+   rather than parsed into a Date: "2026-09-28T18:00:00-04:00" is six in the
+   evening in Toronto, and putting it through a Date on a UTC runner makes it
+   ten at night. */
+export const clock = (value) => {
   const m = /\d{4}-\d{2}-\d{2}[ T](\d{2}):(\d{2})/.exec(String(value ?? ''));
   if (!m) return null;
   const hour = Number(m[1]);
