@@ -71,7 +71,11 @@ export const SOURCES = [
   {
     id: 'luma',
     name: 'Luma',
-    url: 'https://lu.ma/toronto',
+    /* luma.com, not lu.ma. The short domain 301s to the long one and every
+       event link on the page is now luma.com/<slug>, so the follow pattern
+       below matched nothing and this source quietly returned zero for weeks.
+       Both hosts are accepted in case the redirect is ever reversed. */
+    url: 'https://luma.com/toronto',
     enabled: true,
     /* Luma's Toronto feed is mostly startup and tech networking. Filing it
        under its own category keeps it out of the way of the rest of the
@@ -84,7 +88,7 @@ export const SOURCES = [
     defaultVenue: null,
     defaultAddress: null,
     /* Event slugs are short and live at the root; the city page is not one. */
-    followLinks: /^https:\/\/lu\.ma\/(?!toronto$|discover|signin|create)[a-z0-9-]{4,}$/i,
+    followLinks: /^https:\/\/(?:lu\.ma|luma\.com)\/(?!toronto$|discover|signin|create|user|pricing|help)[a-z0-9-]{4,}$/i,
     maxFollow: 20,
     maxEvents: A_MONTH_OF_LISTINGS,
   },
