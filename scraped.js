@@ -432,7 +432,7 @@ const SCRAPED = [
     "id": "evergreen-intro-to-forest-bathing-walk-2026-09-20",
     "title": "Intro to Forest Bathing Walk",
     "category": "dropin",
-    "art": "art-outdoors",
+    "art": "art-bench",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto",
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",

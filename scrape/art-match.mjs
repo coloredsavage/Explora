@@ -106,7 +106,12 @@ export const FAMILIES = {
                    'art-jazz-piano', 'art-jazz-drums'],
   'art-jam':      ['art-jam-stool', 'art-jam-guitars', 'art-jam-drum'],
   'art-comedy':   ['art-comedy', 'art-improv'],
-  'art-outdoors': ['art-outdoors', 'art-boardwalk'],
+  /* Outdoors covers ravines, trails, swims, parks and walks, which is more
+     ideas than one canoe can carry — "Family Wander" is a walk in a park and
+     was drawing a boat. Six drawings is roughly one per ten listings at
+     current volume, which is where a repeat stops being noticeable. */
+  'art-outdoors': ['art-outdoors', 'art-boardwalk', 'art-bench',
+                   'art-trailsign', 'art-boots', 'art-birdhouse'],
   'art-music':    ['art-music'],
   'art-market':   ['art-market'],
 };
