@@ -618,6 +618,31 @@ console.log('\nOne id per listing');
   });
 }
 
+console.log('\nProgramming for children, which this calendar does not carry');
+{
+  const src = { id: 'x', name: 'X', category: 'dropin', art: 'art-dropin', url: 'x',
+                defaultVenue: null, defaultAddress: null };
+  const when = { today: '2026-09-11', checked: '2026-09-11' };
+  const read = (title, description) => normalize({ title, description: description || 'x'.repeat(60),
+    startDate: '2026-09-20', venue: 'A Hall', address: '1 King St W, Toronto, ON' }, src, when);
+
+  check('a program for young kids is dropped on its description alone', () =>
+    assert.equal(read('Little Discoveries', 'A program for young kids; registration required. ' + 'x'.repeat(20)).ok, false));
+  check("children's portraits are dropped", () =>
+    assert.equal(read('Mighty Minis: Child Portrait Photos', 'x'.repeat(60)).ok, false));
+  check('an age range in years is dropped', () =>
+    assert.equal(read('Drop-in craft, ages 5-12', 'x'.repeat(60)).ok, false));
+
+  /* The words are ambiguous; the phrases are not. These are the cases a rule
+     written on bare keywords gets wrong. */
+  check('Kids in the Hall is a comedy act, not a kids event', () =>
+    assert.equal(read('Kids in the Hall', 'The legendary sketch troupe, live. ' + 'x'.repeat(30)).ok, true));
+  check('Family Day is a public holiday adults attend', () =>
+    assert.equal(read('Family Day at Fort York', 'Free admission for everyone. ' + 'x'.repeat(30)).ok, true));
+  check('a family nature walk is a walk', () =>
+    assert.equal(read('Family Wander', 'A guided hour-long walk through the ravine. ' + 'x'.repeat(30)).ok, true));
+}
+
 console.log('\nOne event a source published on several of its own pages');
 {
   const deep = (e) => (e.url && e.url.replace(/\/$/, '').split('/').length > 4 ? 1 : 0);

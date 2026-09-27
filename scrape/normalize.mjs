@@ -197,6 +197,9 @@ export function normalize(raw, source, { today, checked }) {
 
   if (!title) return reject('no title');
   if (source.exclude && source.exclude.test(title)) return reject('excluded by this source’s filter');
+  if (FOR_CHILDREN.test(title) || FOR_CHILDREN.test(String(raw.description ?? ''))) {
+    return reject('programming for children');
+  }
   if (!start) return reject('no usable start date');
   /* A run that began before today and has not finished is on today, which
      is the question this calendar answers. Comparing the start alone threw
@@ -478,6 +481,31 @@ function trimDescription(text, limit = 220) {
   if (!cutMidSentence && /[.!?]$/.test(out)) return out;
   return out.replace(/[\s.,;:]+$/, '') + '…';
 }
+
+/* This is not a children's calendar, and aggregating one by accident is worse
+   than not having the listings: a parent cannot rely on four kids' events
+   scattered among eighty, and everyone else has to read past them.
+
+   Phrases rather than keywords, because the words are ambiguous and the
+   phrases are not. A rule matching a bare \bkids\b drops Kids in the Hall,
+   who are a comedy act Comedy Bar could plausibly book; "Family Day" is a
+   public holiday that adults attend. What is unambiguous is an audience being
+   named — "a program for young kids", "children's portraits", an age range in
+   years. The description is read as well as the title, because "Little
+   Discoveries" says nothing on its own and its page says young kids.
+
+   Deliberately not excluded: "family". A family nature walk is a walk, and
+   the Evergreen one is on the board for adults who want an easy hour. */
+const FOR_CHILDREN = new RegExp([
+  "\\bfor (?:young |little )?(?:kids|children|toddlers|babies)\\b",
+  "\\b(?:young |little )?(?:kids|child|children)(?:'s|s')? (?:program|programme|class|workshop|session|hour|club|craft|story|portrait|photo|camp)",
+  "\\bchildren's\\b",
+  "\\btoddlers?\\b",
+  "\\bpre-?school",
+  "\\bstory ?time\\b",
+  "\\bages? \\d+\\s*(?:[–—-]|to)\\s*\\d+\\b",
+  "\\bunder \\d+s?\\b",
+].join('|'), 'i');
 
 export function validate(event) {
   const problems = [];

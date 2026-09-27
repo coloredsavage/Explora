@@ -372,43 +372,6 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "evergreen-little-discoveries-2026-09-27",
-    "title": "Little Discoveries",
-    "category": "dropin",
-    "art": "art-kids",
-    "venue": "Evergreen Brick Works",
-    "address": "550 Bayview Ave, Toronto",
-    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "checked": "2026-09-11",
-    "description": "A program for young kids; registration required.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-27"
-    },
-    "scrapedFrom": "evergreen",
-    "via": "model"
-  },
-  {
-    "id": "evergreen-mighty-minis-child-portrait-photos-2026-09-13",
-    "title": "Mighty Minis: Child Portrait Photos",
-    "category": "dropin",
-    "art": "art-camera",
-    "venue": "Evergreen Brick Works",
-    "address": "550 Bayview Ave, Toronto",
-    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "checked": "2026-09-11",
-    "description": "Booked mini photo sessions for children's portraits.",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-09-13",
-      "end": "2026-09-20"
-    },
-    "scrapedFrom": "evergreen",
-    "via": "model"
-  },
-  {
     "id": "evergreen-monthly-roller-skating-night-2026-09-20",
     "title": "Monthly Roller Skating Night",
     "category": "dropin",

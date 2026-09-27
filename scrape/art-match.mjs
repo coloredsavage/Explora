@@ -68,9 +68,10 @@ export const RULES = [
   [/festival|parade|\bfair\b|street party|block party/i, 'art-festival'],
   [/food|bake|bread|cook|tasting|supper|brunch|dinner/i, 'art-food'],
 
-  /* Family programming. After comedy, so a "Family Comedy Matinee" stays
-     comedy, and after food, so a kids' baking session stays a loaf. */
-  [/\bkids\b|children|toddler|storytime|all ages|family day/i, 'art-kids'],
+  /* There was a kids rule here, and a kite drawn for it. The calendar does not
+     carry programming for children any more — normalize drops it — so the only
+     titles the rule could still reach were ones where the words mean something
+     else: "all ages" on a gig is a door policy, not an audience. */
 
   /* Civic and participatory work — the Bentway's Public Trust is the whole of
      this today, which is why the words are its words and not a general rule. */
