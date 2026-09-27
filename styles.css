@@ -640,9 +640,10 @@ img.card__art { border-radius: 8px; }
    cornered to match the cards it sits among. */
 .modal__poster {
   display: block;
-  width: 100%;
+  width: min(330px, 66%);
   height: auto;
-  border-radius: 12px;
+  margin: 0 auto;
+  border-radius: 10px;
   background: var(--line);
 }
 
