@@ -13,7 +13,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { enabledSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
-import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
+import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources } from './normalize.mjs';
 import { allowedBy, USER_AGENT } from './robots.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -339,6 +339,19 @@ async function main() {
   const better = (a, b) => {
     const deep = (e) => (e.url && e.url !== e.scrapedFromUrl && e.url.replace(/\/$/, '').split('/').length > 4 ? 1 : 0);
     if (deep(a) !== deep(b)) return deep(a) > deep(b) ? a : b;
+    /* Of two pages at the same depth, the one whose slug is the event's name
+       is the event's own page. The Bentway published Public Trust on its
+       after-school page as well as its own, both five segments deep, and
+       description length picked the after-school one — so the listing that
+       survived sent readers to the wrong page. Title against slug separates
+       them: "public-trust" shares both its words with the title and
+       "bentway-after-school" shares none. */
+    const slugHit = (e) => {
+      const words = new Set(String(e.title ?? '').toLowerCase().match(/[a-z0-9]+/g) ?? []);
+      const parts = String(e.url ?? '').toLowerCase().match(/[a-z0-9]+/g) ?? [];
+      return words.size ? parts.filter((w) => words.has(w)).length / words.size : 0;
+    };
+    if (slugHit(a) !== slugHit(b)) return slugHit(a) > slugHit(b) ? a : b;
     return (a.description || '').length >= (b.description || '').length ? a : b;
   };
   const byKey = new Map();
@@ -351,6 +364,14 @@ async function main() {
   if (collapsed) report.skipped.push(`${collapsed} duplicate${collapsed === 1 ? '' : 's'} collapsed`);
   events.length = 0;
   events.push(...byKey.values());
+
+  /* The rule above keeps two things with one name at two addresses apart, on
+     purpose. One project published across several of a source's own pages
+     looks exactly like that and is not; see collapseSubsumed. */
+  const subsumed = collapseSubsumed(events, better);
+  if (subsumed.dropped) {
+    report.skipped.push(`${subsumed.dropped} listing${subsumed.dropped === 1 ? '' : 's'} folded into a fuller copy of the same event`);
+  }
 
   /* The dedupe above kept some listings apart that the id would put back
      together; see disambiguateIds. */

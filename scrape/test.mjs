@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
-import { normalize, validate, stripSiteSuffix, disambiguateIds, silentSources } from './normalize.mjs';
+import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { matchArt, FAMILIES } from './art-match.mjs';
 import { allowedBy, PRODUCT_TOKEN } from './robots.mjs';
@@ -615,6 +615,65 @@ console.log('\nOne id per listing');
     const out = disambiguateIds(events);
     assert.deepEqual(out.shared, ['bentway-public-trust-2026-09-15']);
     assert.equal(out.changed, 2);
+  });
+}
+
+console.log('\nOne event a source published on several of its own pages');
+{
+  const deep = (e) => (e.url && e.url.replace(/\/$/, '').split('/').length > 4 ? 1 : 0);
+  const better = (a, b) => (deep(a) >= deep(b) ? a : b);
+  const ev = (over) => ({ scrapedFrom: 'bentway', title: 'Public Trust', venue: 'The Bentway',
+    url: 'https://x.ca/event/public-trust/', source: 'https://x.ca/event/public-trust/',
+    schedule: { kind: 'day', date: '2026-09-15' }, ...over });
+
+  check('a shorter title at a venue the longer one names is the same event', () => {
+    const events = [
+      ev({ title: 'Public Trust', venue: 'Toronto Public Library Fort York' }),
+      ev({ title: 'Public Trust — Toronto Public Library, Fort York branch',
+           venue: 'Toronto Public Library Fort York', url: 'https://x.ca/event/pt-library/' }),
+    ];
+    collapseSubsumed(events, better);
+    assert.equal(events.length, 1);
+  });
+
+  check('two venues that do not contain each other stay two listings', () => {
+    const events = [ev({ venue: 'Harbourfront Centre' }), ev({ venue: 'Fort York' })];
+    collapseSubsumed(events, better);
+    assert.equal(events.length, 2);
+  });
+
+  /* The rule that keeps those two apart is the one that kept a talk duplicated:
+     the index gave it "The Bentway" and its own page gave the library branch. */
+  check('an index line folds into the event page even when the venues differ', () => {
+    const events = [
+      ev({ title: 'Artist Talk', venue: 'The Bentway', url: 'https://x.ca/whats-on/',
+           source: 'https://x.ca/whats-on/' }),
+      ev({ title: 'Artist Talk', venue: 'Toronto Public Library – Fort York',
+           url: 'https://x.ca/event/artist-talk/' }),
+    ];
+    collapseSubsumed(events, better);
+    assert.equal(events.length, 1);
+    assert.match(events[0].url, /\/event\/artist-talk\//);
+  });
+
+  check('two real events with their own pages are never folded on title alone', () => {
+    const events = [
+      ev({ title: 'Leisure Swim', venue: 'Regent Park', url: 'https://x.ca/event/swim-regent/' }),
+      ev({ title: 'Leisure Swim', venue: 'Wallace Emerson', url: 'https://x.ca/event/swim-wallace/' }),
+    ];
+    collapseSubsumed(events, better);
+    assert.equal(events.length, 2);
+  });
+
+  /* Grouping on the start date alone folded a three-week run into a one-day
+     event that happened to open on the same morning. */
+  check('a run and a single day are not the same event', () => {
+    const events = [
+      ev({ schedule: { kind: 'range', start: '2026-09-15', end: '2026-10-04' } }),
+      ev({ schedule: { kind: 'day', date: '2026-09-15' } }),
+    ];
+    collapseSubsumed(events, better);
+    assert.equal(events.length, 2);
   });
 }
 

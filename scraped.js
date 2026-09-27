@@ -96,25 +96,7 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "bentway-artist-talk-with-paul-ram-rez-jonas-2026-09-15",
-    "title": "Artist Talk with Paul Ramírez Jonas",
-    "category": "architecture",
-    "art": "art-lectern",
-    "venue": "The Bentway",
-    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
-    "url": "https://thebentway.ca/whats-on/",
-    "source": "https://thebentway.ca/whats-on/",
-    "checked": "2026-09-11",
-    "description": "A conversation with the artist about his body of work and his long-time engagement with democracy, participation and the public realm, marking the Canadian premiere of Public Trust.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-15"
-    },
-    "scrapedFrom": "bentway",
-    "via": "model"
-  },
-  {
-    "id": "bentway-artist-talk-with-paul-ram-rez-jonas-2026-09-15",
+    "id": "bentway-artist-talk-with-paul-ram-rez-jonas-2026-09-15-toronto-public-library-fort-york-branch",
     "title": "Artist Talk with Paul Ramírez Jonas",
     "category": "architecture",
     "art": "art-skates",
@@ -134,46 +116,7 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "bentway-public-trust-2026-09-15",
-    "title": "Public Trust",
-    "category": "architecture",
-    "art": "art-civic",
-    "venue": "The Bentway",
-    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
-    "url": "https://thebentway.ca/event/bentway-after-school/",
-    "source": "https://thebentway.ca/event/bentway-after-school/",
-    "checked": "2026-09-11",
-    "description": "Torontonians are invited into a non-partisan space to make promises to themselves and their community as co-authors of the city's future.",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-09-15",
-      "end": "2026-10-04"
-    },
-    "scrapedFrom": "bentway",
-    "via": "model"
-  },
-  {
-    "id": "bentway-public-trust-2026-09-15",
-    "title": "Public Trust",
-    "category": "architecture",
-    "art": "art-skates",
-    "entry": "Free",
-    "venue": "Toronto Public Library Fort York branch; Marina Quay West; Harbourfront Centre; The Bentway",
-    "address": "190 Fort York Blvd; 539 Queens Quay W; 235 Queens Quay W; 250 Fort York Blvd, Toronto",
-    "url": "https://thebentway.ca/event/public-trust/",
-    "source": "https://thebentway.ca/event/public-trust/",
-    "checked": "2026-09-11",
-    "description": "An interactive artwork with a large marquee and two eight-foot tables staffed by local performers: you make a promise aloud, swearing on a sacred text or an object that matters to you, and it is recorded in a drawing.",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-09-15",
-      "end": "2026-10-04"
-    },
-    "scrapedFrom": "bentway",
-    "via": "model"
-  },
-  {
-    "id": "bentway-public-trust-2026-09-15",
+    "id": "bentway-public-trust-2026-09-15-toronto-public-library-fort-york-branch",
     "title": "Public Trust",
     "category": "architecture",
     "art": "art-skates",
@@ -193,42 +136,24 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "bentway-public-trust-toronto-public-library-2026-09-15",
-    "title": "Public Trust @ Toronto Public Library",
+    "id": "bentway-public-trust-2026-09-15-toronto-public-library-fort-york-branch-marina-q",
+    "title": "Public Trust",
     "category": "architecture",
-    "art": "art-books",
-    "venue": "Toronto Public Library",
-    "address": "250 Fort York Blvd, Toronto, ON M5V 3K9",
-    "url": "https://thebentway.ca/whats-on/",
-    "source": "https://thebentway.ca/whats-on/",
-    "checked": "2026-09-11",
-    "description": "Visitors are invited to make promises to themselves and their community in a welcoming, non-partisan space.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-09-15"
-    },
-    "scrapedFrom": "bentway",
-    "via": "model"
-  },
-  {
-    "id": "bentway-public-trust-toronto-public-library-fort-york-br-2026-09-15",
-    "title": "Public Trust — Toronto Public Library, Fort York branch (International Day of Democracy)",
-    "category": "architecture",
-    "art": "art-books",
-    "entry": "Free",
-    "venue": "Toronto Public Library, Fort York branch",
-    "address": "190 Fort York Blvd, Toronto",
+    "art": "art-skates",
+    "venue": "Toronto Public Library Fort York branch; Marina Quay West; Harbourfront Centre; The Bentway",
+    "address": "190 Fort York Blvd; 539 Queens Quay W; 235 Queens Quay W; 250 Fort York Blvd, Toronto",
     "url": "https://thebentway.ca/event/public-trust/",
     "source": "https://thebentway.ca/event/public-trust/",
     "checked": "2026-09-11",
-    "description": "The indoor leg of the touring promise-making installation, where performers record your promise in a drawing and post it on the marquee.",
+    "description": "An interactive artwork with a large marquee and two eight-foot tables staffed by local performers: you make a promise aloud, swearing on a sacred text or an object that matters to you, and it is recorded in a drawing.",
     "schedule": {
-      "kind": "day",
-      "date": "2026-09-15",
-      "time": "10:30 am – 5:30 pm"
+      "kind": "range",
+      "start": "2026-09-15",
+      "end": "2026-10-04"
     },
     "scrapedFrom": "bentway",
-    "via": "model"
+    "via": "model",
+    "entry": "Free"
   },
   {
     "id": "bentway-roller-skate-lessons-september-11-2026-09-11",
