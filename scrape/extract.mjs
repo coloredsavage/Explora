@@ -51,7 +51,7 @@ const isEvent = (node) => {
 };
 
 /** schema.org/Event -> our raw shape. Returns [] when the page has none. */
-export function fromJsonLd(html) {
+export function fromJsonLd(html, sourceId = null) {
   return jsonLdBlocks(html).filter(isEvent).map((e) => {
     /* Check if this is an online-only event via eventAttendanceMode.
        OnlineEventAttendanceMode means online-only; we want to exclude those.
@@ -63,6 +63,13 @@ export function fromJsonLd(html) {
     /* If it's online-only, mark the venue so normalize will reject it */
     const venue = isOnlineOnly ? 'Online' : text(e.location?.name);
     
+    /* For Eventbrite, extract price from offers properly */
+    let entry = offerText(e.offers);
+    if (sourceId === 'eventbrite' && e.offers) {
+      /* Eventbrite uses AggregateOffer with lowPrice/highPrice */
+      entry = eventbriteOfferText(e.offers);
+    }
+    
     return {
       title: text(e.name),
       startDate: e.startDate ?? null,
@@ -71,7 +78,7 @@ export function fromJsonLd(html) {
       address: addressOf(e.location),
       url: text(e.url),
       description: text(e.description),
-      entry: offerText(e.offers),
+      entry,
       /* The time of day, which structured data carries inside startDate and the
          card was never shown. Luma's listings all have one — "Sep 28 · 6:00pm –
          9:00pm" — and arrived on the board as a bare date next to Rex listings
@@ -118,6 +125,53 @@ function offerText(offers) {
   const price = o.price ?? o.lowPrice;
   if (price === undefined || price === null || price === '') return null;
   return Number(price) === 0 ? 'Free' : `$${price}`;
+}
+
+/* Eventbrite-specific offer text extraction.
+ * Handles AggregateOffer with lowPrice/highPrice, checks for free tickets. */
+function eventbriteOfferText(offers) {
+  if (!offers) return null;
+  
+  const offerList = Array.isArray(offers) ? offers : [offers];
+  let lowestPrice = null;
+  let hasFree = false;
+  
+  for (const offer of offerList) {
+    if (!offer) continue;
+    
+    const price = offer.price ?? offer.lowPrice ?? offer.highPrice;
+    
+    if (price === 0 || price === '0' || price === '0.00' || price === 0.0) {
+      hasFree = true;
+      continue;
+    }
+    
+    const num = parseFloat(String(price).replace(/[^0-9.]/g, ''));
+    if (Number.isFinite(num) && num >= 0) {
+      if (num === 0) {
+        hasFree = true;
+        continue;
+      }
+      if (lowestPrice === null || num < lowestPrice) {
+        lowestPrice = num;
+      }
+    }
+  }
+  
+  /* If any ticket is free, the event is free */
+  if (hasFree && lowestPrice === null) return 'Free';
+  if (hasFree) return 'Free';
+  
+  /* Return lowest price */
+  if (lowestPrice !== null) {
+    /* Clean up decimal places */
+    const rounded = Math.round(lowestPrice * 100) / 100;
+    /* If it rounded to zero, it's free */
+    if (rounded === 0) return 'Free';
+    return `$${rounded}`;
+  }
+  
+  return null;
 }
 
 /** The visible words of a page, for the model to read when JSON-LD is absent. */

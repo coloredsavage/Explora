@@ -111,27 +111,33 @@ export const SOURCES = [
     id: 'eventbrite',
     name: 'Eventbrite',
     url: 'https://www.eventbrite.ca/d/canada--toronto/all-events/',
-    /* NOW ENABLED. Uses the public Toronto discovery pages to parse
-       structured JSON-LD data from the listing page. The discovery page's
-       ItemList JSON-LD contains complete Event objects with dates, venue,
-       address, and eventAttendanceMode - everything needed except price.
+    /* EVENTBRITE'S TERMS OF SERVICE PROHIBIT AUTOMATED EXTRACTION.
+       The repo owner knowingly enabled this source on 2026-09-27 anyway,
+       accepting the risk that Eventbrite may block or pursue this use.
        
-       We DON'T follow individual event links because the listing page already
-       has all the data we need. Prices are left unknown and will be filled in
-       by the recheck job, consistent with how other sources work.
+       We use all-events rather than free--events because the $35 price ceiling
+       gate drops expensive events at poll time. Follows event links to extract
+       prices from AggregateOffer JSON-LD. Events with no readable price are
+       dropped (not left unknown) because the recheck job only covers hand-
+       written listings in data.js, not scraped listings in scraped.js.
        
-       We use the discovery page rather than the API because:
-       - The v3 API public search was shut down in 2019
-       - The remaining API endpoints only return events for orgs you control
+       Categories are classified from Eventbrite's category field when present,
+       or from title/description keywords, filtering out pure business/networking
+       events per existing Luma rules.
        
-       This approach is polite: single page fetch, respects robots.txt,
-       graceful failure. We exclude online-only events via eventAttendanceMode. */
+       The v3 API is not an alternative: public search was shut down in 2019,
+       and remaining endpoints only return events for orgs you control. */
     enabled: true,
-    category: 'dropin',
-    art: 'art-market',
+    /* Category and art are per-event, set by classifyEventbriteEvent() */
+    category: 'dropin',  /* fallback only */
+    art: 'art-market',   /* fallback only */
     defaultVenue: null,
     defaultAddress: null,
-    /* No followLinks - the listing page JSON-LD has everything we need */
+    /* Filter out pure business/networking per Luma rules */
+    exclude: /\b(networking|mixer|career fair|job fair|hiring|recruit|pitch (night|competition)|demo day|trade show|expo|conference|summit|convention)\b/i,
+    /* Match both .ca and .com domains, and handle -tickets- or -registration- */
+    followLinks: /^https:\/\/www\.eventbrite\.c[ao]m?\/e\/[a-z0-9-]+-(tickets|registration)-\d+/i,
+    maxFollow: 40,  /* 20 from listing page, follow up to 40 */
     maxEvents: A_MONTH_OF_LISTINGS,
   },
 

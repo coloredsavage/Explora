@@ -69,17 +69,22 @@ Each listing must have:
 
 ## Eventbrite Implementation
 
+### Terms of Service Notice
+
+**EVENTBRITE'S TERMS OF SERVICE PROHIBIT AUTOMATED EXTRACTION.**
+
+The repo owner knowingly enabled this source on 2026-09-27 anyway, accepting the risk that Eventbrite may block or pursue this use. This documentation does not claim the implementation is ToS-compliant.
+
 ### Approach
 
-Eventbrite's public discovery pages (e.g., `https://www.eventbrite.ca/d/canada--toronto/all-events/`) serve structured JSON-LD data in an ItemList format. Each event in the list is a complete `Event` object with:
-- Event name, dates (start/end)
-- Venue name and full postal address
-- Event description
-- Image URL
-- `eventAttendanceMode` to distinguish online/offline/mixed
-- Event page URL
+Eventbrite's public discovery pages (e.g., `https://www.eventbrite.ca/d/canada--toronto/all-events/`) serve structured JSON-LD data in an ItemList format. The listing page contains event summaries; individual event pages contain full details including prices via AggregateOffer JSON-LD.
 
-**Key Decision**: We parse ONLY the listing page, NOT individual event pages. The listing page JSON-LD contains all required data except price. Prices are left unknown and filled in later by the `recheck.mjs` job (which already handles the 13 hand-written listings with missing prices).
+**Key Decisions**:
+- Use `all-events` (not `free--events`) because the $35 price ceiling gate drops expensive events at poll time
+- Follow event links to extract prices from AggregateOffer JSON-LD on each event page
+- Events with no readable price are **dropped** (not left unknown) because the recheck job only covers hand-written listings in `data.js`, not scraped listings in `scraped.js`
+- Categories are classified from title/description keywords, filtering out pure business/networking events per existing Luma rules
+- Free events are properly identified when AggregateOffer includes price=0 tickets
 
 ### Technical Details
 

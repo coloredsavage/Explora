@@ -45,7 +45,7 @@ async function harvest(source, pages) {
        the entire navigation menu, and this is the part an editor wrote about
        this event — so the model gets it as well as the body, and it is the
        last resort if nothing writes a description at all. */
-    let raws = fromJsonLd(html);
+    let raws = fromJsonLd(html, source.id);
 
     /* A page's meta description belongs to the page. On an event page that is
        the event, and it has been the last resort for prose since the start. On
@@ -124,10 +124,18 @@ async function harvest(source, pages) {
     }
 
     for (const raw of raws) {
+      /* For Eventbrite, classify category from content */
+      let sourceOverrides = {};
+      if (source.id === 'eventbrite') {
+        const { classifyEventbriteEvent } = await import('./eventbrite.mjs');
+        const classified = classifyEventbriteEvent(raw);
+        sourceOverrides = { category: classified.category, art: classified.art };
+      }
+      
       const result = normalize(
         { ...raw, url: raw.url ?? url,
           description: raw.description || (readsAsDescription(meta) ? meta : null) },
-        source, { today, checked: today });
+        { ...source, ...sourceOverrides }, { today, checked: today });
       if (!result.ok) { report.dropped.push(`${source.id}: ${result.title} — ${result.why}`); continue; }
 
       const problems = validate(result.event);
