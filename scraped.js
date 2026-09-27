@@ -191,7 +191,7 @@ const SCRAPED = [
     "url": "https://comedybar.ca/shows/alistair-ogden-new-and-improved",
     "source": "https://comedybar.ca/shows/alistair-ogden-new-and-improved",
     "checked": "2026-09-27",
-    "description": "Stand-up comedy performance by Canadian comedian Alistair Ogden, known for his witty and self-deprecating style.",
+    "description": "Stand-up comedy from one of Canada's top comedic talents, known for witty and self-deprecating material mixing pop culture, politics, and personal anecdotes.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-27",
@@ -201,101 +201,261 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "comedybar-ben-albert-and-friends-2026-10-03",
-    "title": "Ben Albert and Friends",
+    "id": "comedybar-crush-christmas-2026-12-05",
+    "title": "Crush Christmas",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$27.75",
+    "entry": "$23",
     "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/ben-albert-and-friends-jfl",
-    "source": "https://comedybar.ca/shows/ben-albert-and-friends-jfl",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/crush-christmas",
+    "source": "https://comedybar.ca/shows/crush-christmas",
     "checked": "2026-09-27",
-    "description": "Ben Albert hosts Toronto comedians in a stand-up showcase featuring high-energy performances and bold storytelling.",
+    "description": "An improv comedy show in the style of Whose Line Is It Anyway, featuring rotating local comedians performing fast-paced, festive comedy that humorously roasts holiday traditions and clichés.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-03",
+      "date": "2026-12-05",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-crush-christmas-2026-12-12",
+    "title": "Crush Christmas",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$23",
+    "venue": "Comedy Bar",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/crush-christmas",
+    "source": "https://comedybar.ca/shows/crush-christmas",
+    "checked": "2026-09-27",
+    "description": "An improv comedy show in the style of Whose Line Is It Anyway, featuring rotating local comedians performing fast-paced, festive comedy that humorously roasts holiday traditions and clichés.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-12",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-crush-christmas-2026-12-19",
+    "title": "Crush Christmas",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$23",
+    "venue": "Comedy Bar",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/crush-christmas",
+    "source": "https://comedybar.ca/shows/crush-christmas",
+    "checked": "2026-09-27",
+    "description": "An improv comedy show in the style of Whose Line Is It Anyway, featuring rotating local comedians performing fast-paced, festive comedy that humorously roasts holiday traditions and clichés.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-19",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-crush-christmas-2026-12-26",
+    "title": "Crush Christmas",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$23",
+    "venue": "Comedy Bar",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/crush-christmas",
+    "source": "https://comedybar.ca/shows/crush-christmas",
+    "checked": "2026-09-27",
+    "description": "An improv comedy show in the style of Whose Line Is It Anyway, featuring rotating local comedians performing fast-paced, festive comedy that humorously roasts holiday traditions and clichés.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-26",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-impulse-comedy-2026-10-06",
+    "title": "Impulse Comedy",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15 online, $20 at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/impulse-comedy",
+    "source": "https://comedybar.ca/shows/impulse-comedy",
+    "checked": "2026-09-27",
+    "description": "Stand-up comedy show where the comics, date, and everything else were chosen impulsively. Hosted by Brandon Zakkai.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-06",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-impulse-comedy-2026-11-03",
+    "title": "Impulse Comedy",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15 online, $20 at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/impulse-comedy",
+    "source": "https://comedybar.ca/shows/impulse-comedy",
+    "checked": "2026-09-27",
+    "description": "Stand-up comedy show where the comics, date, and everything else were chosen impulsively. Hosted by Brandon Zakkai.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-03",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-impulse-comedy-2026-12-01",
+    "title": "Impulse Comedy",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15 online, $20 at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/impulse-comedy",
+    "source": "https://comedybar.ca/shows/impulse-comedy",
+    "checked": "2026-09-27",
+    "description": "Stand-up comedy show where the comics, date, and everything else were chosen impulsively. Hosted by Brandon Zakkai.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-01",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-kulture-shock-comedy-2026-10-22",
+    "title": "Kulture Shock Comedy",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$17.50 online, $22.50 at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/kulture-shock-comedy",
+    "source": "https://comedybar.ca/shows/kulture-shock-comedy",
+    "checked": "2026-09-27",
+    "description": "Five immigrant comedians from different parts of the world share their funniest culture shock stories about moving abroad, adjusting to a foreign partner, and navigating between languages.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-22",
+      "time": "8:00pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-kulture-shock-comedy-2026-11-26",
+    "title": "Kulture Shock Comedy",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$17.50 online, $22.50 at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/kulture-shock-comedy",
+    "source": "https://comedybar.ca/shows/kulture-shock-comedy",
+    "checked": "2026-09-27",
+    "description": "Five immigrant comedians from different parts of the world share their funniest culture shock stories about moving abroad, adjusting to a foreign partner, and navigating between languages.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-26",
+      "time": "8:00pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-lmgao-laugh-my-greek-a-off-2026-10-11",
+    "title": "LMGAO – Laugh My Greek A$$ Off",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$28",
+    "venue": "Comedy Bar Danforth",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/lmgao-laugh-my-greek-a-off",
+    "source": "https://comedybar.ca/shows/lmgao-laugh-my-greek-a-off",
+    "checked": "2026-09-27",
+    "description": "Greek-Canadian comedians perform stand-up exploring family dynamics, identity, dating, accents, traditions, and immigration experiences, performed in English and Greek.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-11",
       "time": "7:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-comedy-records-live-2026-11-27",
-    "title": "Comedy Records LIVE",
+    "id": "comedybar-murder-at-comedy-bar-an-interactive-comedy-murde-2026-10-30",
+    "title": "Murder at Comedy Bar: An Interactive Comedy Murder Mystery",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$25",
+    "entry": "$30 online or $35 at the door",
     "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/comedy-records-live",
-    "source": "https://comedybar.ca/shows/comedy-records-live",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/murder-at-comedy-bar-danforth",
+    "source": "https://comedybar.ca/shows/murder-at-comedy-bar-danforth",
     "checked": "2026-09-27",
-    "description": "Comedians from the award-winning Comedy Records label perform a live show.",
+    "description": "Stand-up comedians perform sets while clues to a murder mystery are hidden throughout the night. The audience must identify which comedian is the killer and solve the case before the reveal at the end.",
     "schedule": {
       "kind": "day",
-      "date": "2026-11-27",
-      "time": "08:30 PM"
+      "date": "2026-10-30",
+      "time": "9:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-late-bad-game-hour-2026-10-02",
-    "title": "LATE BAD GAME HOUR",
+    "id": "comedybar-murder-at-comedy-bar-an-interactive-comedy-murde-2026-10-31",
+    "title": "Murder at Comedy Bar: An Interactive Comedy Murder Mystery",
     "category": "comedy",
-    "art": "art-lectern",
-    "entry": "$20 online/$25 at the door",
+    "art": "art-improv",
+    "entry": "$30 online or $35 at the door",
     "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/late-bad",
-    "source": "https://comedybar.ca/shows/late-bad",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/murder-at-comedy-bar-danforth",
+    "source": "https://comedybar.ca/shows/murder-at-comedy-bar-danforth",
     "checked": "2026-09-27",
-    "description": "A game show edition featuring a celebrity panel and characters, followed by a live DJ dance party.",
+    "description": "Stand-up comedians perform sets while clues to a murder mystery are hidden throughout the night. The audience must identify which comedian is the killer and solve the case before the reveal at the end.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-02",
-      "time": "11:15 PM"
+      "date": "2026-10-31",
+      "time": "7:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-late-bad-party-2026-10-03",
-    "title": "LATE BAD PARTY",
+    "id": "comedybar-new-year-s-eve-fun-time-party-mega-jam-2026-12-31",
+    "title": "New Year's Eve Fun Time Party + Mega Jam!!!",
     "category": "comedy",
-    "art": "art-decks",
-    "entry": "$20 online/$25 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/late-bad",
-    "source": "https://comedybar.ca/shows/late-bad",
+    "art": "art-jam-guitars",
+    "entry": "$15",
+    "venue": "Comedy Bar Danforth",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/new-years-eve-fun-time-party--mega-jam",
+    "source": "https://comedybar.ca/shows/new-years-eve-fun-time-party--mega-jam",
     "checked": "2026-09-27",
-    "description": "A party edition of the show that seamlessly transitions into a live DJ dance party for the festival's final night.",
+    "description": "The improv group CRUSH 2026 performs short-form comedy inspired by audience suggestions about 2026 highlights and lowlights.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-03",
-      "time": "11:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-late-bad-rises-2026-10-01",
-    "title": "LATE BAD RISES",
-    "category": "comedy",
-    "art": "art-lectern",
-    "entry": "$20 online/$25 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/late-bad",
-    "source": "https://comedybar.ca/shows/late-bad",
-    "checked": "2026-09-27",
-    "description": "An improvised late-night talk show where comedians from different backgrounds perform interviews, games, and sketches with no two shows ever the same.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-01",
-      "time": "11:00 PM"
+      "date": "2026-12-31",
+      "time": "8:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
@@ -311,71 +471,31 @@ const SCRAPED = [
     "url": "https://comedybar.ca/shows/ryan-dillon-special-taping",
     "source": "https://comedybar.ca/shows/ryan-dillon-special-taping",
     "checked": "2026-09-27",
-    "description": "A special taping of stand-up comedy from Ryan Dillon, a Toronto-based comedian known for his clever, charming self-deprecating wit.",
+    "description": "A special taping of Newfoundland-born comedian Ryan Dillon, known for his clever, self-deprecating stand-up and his role as host of the monthly three-comic showcase THREESOME at Comedy Bar.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-27",
-      "time": "9:00 PM"
+      "time": "9:00pm"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-threesome-2026-10-17",
-    "title": "THREESOME",
+    "id": "comedybar-whose-land-is-it-anyways-2026-10-23",
+    "title": "Whose Land Is It Anyways",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$25 online, $28 door",
+    "entry": "$20 online, $25 at the door",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/threesome",
-    "source": "https://comedybar.ca/shows/threesome",
+    "url": "https://comedybar.ca/shows/whose-land-is-it-anyways",
+    "source": "https://comedybar.ca/shows/whose-land-is-it-anyways",
     "checked": "2026-09-27",
-    "description": "Three of Toronto's best comics perform in a showcase featuring performers seen on Just for Laughs, Don't Tell Comedy, Kill Tony, Kevin Hart's LOL Network, and CBC.",
+    "description": "Indigenous and South Asian comedians perform stand-up, hosted by Kevin Shawanda, covering topics from colonial history and immigrant experiences to family dynamics and reservation politics.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-17",
-      "time": "08:30 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-threesome-2026-11-21",
-    "title": "THREESOME",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$25 online, $28 door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/threesome",
-    "source": "https://comedybar.ca/shows/threesome",
-    "checked": "2026-09-27",
-    "description": "Three of Toronto's best comics perform in a showcase featuring performers seen on Just for Laughs, Don't Tell Comedy, Kill Tony, Kevin Hart's LOL Network, and CBC.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-21",
-      "time": "08:30 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-threesome-2026-12-19",
-    "title": "THREESOME",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$25 online, $28 door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/threesome",
-    "source": "https://comedybar.ca/shows/threesome",
-    "checked": "2026-09-27",
-    "description": "Three of Toronto's best comics perform in a showcase featuring performers seen on Just for Laughs, Don't Tell Comedy, Kill Tony, Kevin Hart's LOL Network, and CBC.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-19",
-      "time": "08:30 PM"
+      "date": "2026-10-23",
+      "time": "11:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
@@ -978,6 +1098,24 @@ const SCRAPED = [
     "via": "api"
   },
   {
+    "id": "evergreen-cycle-toronto-rec-hub-2026-09-27",
+    "title": "Cycle Toronto Rec Hub",
+    "category": "dropin",
+    "art": "art-bicycle",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-09-27",
+    "description": "Listed by Evergreen Brick Works.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
     "id": "evergreen-family-wanders-2026-09-27",
     "title": "Family Wanders",
     "category": "dropin",
@@ -988,11 +1126,11 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-09-27",
-    "description": "Guided nature walk where families explore the Valley, observe changing seasons, and engage their senses.",
+    "description": "Guided walks that explore the nature at Evergreen Brick Works, with families observing the changing seasons down in the Valley through their senses.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-27",
-      "time": "10:00 am – 11:00 am"
+      "time": "10:00am–11:00am"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -1008,11 +1146,11 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-09-27",
-    "description": "Guided nature walk where families explore the Valley, observe changing seasons, and engage their senses.",
+    "description": "Guided walks that explore the nature at Evergreen Brick Works, with families observing the changing seasons down in the Valley through their senses.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-15",
-      "time": "10:00 am – 11:00 am"
+      "time": "10:00am–11:00am"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -1045,7 +1183,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "checked": "2026-09-27",
-    "description": "Shop from over 40 local artists and makers selling handmade, artisan and vintage wares, with food vendors and drinks available.",
+    "description": "Local artisans and makers sell handmade, unique and sustainable products including jewelry, art and candles, alongside vintage and antique vendors offering curated one-of-a-kind finds. Food vendors and drinks available.",
     "schedule": {
       "kind": "day",
       "date": "2026-09-27",
@@ -1663,7 +1801,27 @@ const SCRAPED = [
     "via": "api"
   },
   {
-    "id": "luma-salmon-run-hike-2026-09-27",
+    "id": "luma-a-lowkey-5k-run-to-the-floating-convenience-stor-2026-09-27",
+    "title": "A Lowkey 5k Run To the Floating Convenience Store 🏪🌊",
+    "category": "social",
+    "art": "art-dropin",
+    "entry": "Free",
+    "venue": "Toronto — address on RSVP",
+    "address": "tario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/t0/0be917b7-0ebd-48e7-a1c6-cf0fd58a690c.png",
+    "url": "https://luma.com/ttj4yyr1",
+    "source": "https://luma.com/ttj4yyr1",
+    "checked": "2026-09-27",
+    "description": "Let's squeeze in one more summer adventure before this art piece floats away for good! Join us Sunday morning for an easy, no-pressure 5K from The Well down to the Floating Convenience Store by the water.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27"
+    },
+    "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
+    "id": "luma-salmon-run-hike-2026-09-27-mississauga-on",
     "title": "Salmon Run Hike!!",
     "category": "social",
     "art": "art-bench",
@@ -1681,6 +1839,25 @@ const SCRAPED = [
     },
     "scrapedFrom": "luma",
     "via": "json-ld"
+  },
+  {
+    "id": "luma-salmon-run-hike-2026-09-27-toronto-address-on-rsvp",
+    "title": "Salmon Run Hike!!",
+    "category": "social",
+    "art": "art-bench",
+    "venue": "Toronto — address on RSVP",
+    "address": "Mississauga, Canada",
+    "url": "https://luma.com/toronto",
+    "source": "https://luma.com/toronto",
+    "checked": "2026-09-27",
+    "description": "Discover the hottest events in Toronto, and get notified of new events before they sell out.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-09-27",
+      "time": "12:00 PM"
+    },
+    "scrapedFrom": "luma",
+    "via": "model"
   },
   {
     "id": "luma-small-things-place-based-art-2026-09-27",
