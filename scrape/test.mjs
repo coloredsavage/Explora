@@ -710,6 +710,33 @@ console.log('\nOne event a source published on several of its own pages');
     assert.match(events[0].url, /\/event\/artist-talk\//);
   });
 
+  /* Depth cannot find an index line on a site that puts events at the root:
+     luma.com/toronto and luma.com/puuz8oak are both four segments. The Salmon
+     Run kept an index copy beside the real listing, and "View event" on it
+     went to Luma's city page. */
+  check('an index url folds even when it is no shallower than the event url', () => {
+    const events = [
+      ev({ title: 'Salmon Run Hike', url: 'https://luma.com/toronto', source: 'https://luma.com/toronto' }),
+      ev({ title: 'Salmon Run Hike', url: 'https://luma.com/puuz8oak' }),
+    ];
+    collapseSubsumed(events, better, (u) => u === 'https://luma.com/toronto');
+    assert.equal(events.length, 1);
+    assert.equal(events[0].url, 'https://luma.com/puuz8oak');
+  });
+
+  /* Same check from the other side: with nothing told about index urls, the
+     depth fallback cannot tell two root-level slugs apart, so two listings at
+     different venues stay two. Venues differ here because identical title AND
+     identical venue is one event by containment whatever the urls say. */
+  check('without the predicate, two root-level urls stay two listings', () => {
+    const events = [
+      ev({ title: 'Salmon Run Hike', venue: 'Credit Valley', url: 'https://luma.com/toronto' }),
+      ev({ title: 'Salmon Run Hike', venue: 'Etienne Brule Park', url: 'https://luma.com/puuz8oak' }),
+    ];
+    collapseSubsumed(events, better);
+    assert.equal(events.length, 2);
+  });
+
   check('two real events with their own pages are never folded on title alone', () => {
     const events = [
       ev({ title: 'Leisure Swim', venue: 'Regent Park', url: 'https://x.ca/event/swim-regent/' }),

@@ -329,7 +329,7 @@ export function normalize(raw, source, { today, checked }) {
    Same source only. Two sources carrying one event is a different problem,
    left alone, because their titles and venues are written by different people
    and containment means less across them. */
-export function collapseSubsumed(events, prefer) {
+export function collapseSubsumed(events, prefer, isIndexUrl) {
   const norm = (x) => String(x ?? '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
   const dateOf = (e) => e.schedule?.date ?? e.schedule?.start ?? '';
   const covers = (a, b) => {
@@ -337,7 +337,15 @@ export function collapseSubsumed(events, prefer) {
     return x === y || x.includes(y) || y.includes(x);
   };
   const depth = (e) => (e.url ? e.url.replace(/\/$/, '').split('/').length : 0);
-  const shallow = (e) => depth(e) <= 4;
+  /* Depth alone does not find an index line. It works for a site that files
+     events under /event/<slug>, and fails completely for one that puts them at
+     the root: luma.com/toronto and luma.com/puuz8oak are both four segments, so
+     the Salmon Run kept an index copy pointing at Luma's city page next to the
+     real listing, and "View event" on it went nowhere useful.
+
+     The caller knows which urls are index pages, because they are the ones in
+     sources.mjs. Depth stays as the fallback for when it does not say. */
+  const shallow = isIndexUrl ? (e) => isIndexUrl(e.url) : (e) => depth(e) <= 4;
 
   /* The whole schedule, not just its first day. Grouping on the start alone
      folded a three-week installation into a one-day event at a library that
@@ -357,7 +365,14 @@ export function collapseSubsumed(events, prefer) {
        that could contain it; deepest url first among equals, so the fuller
        copy is the one the others fold into. */
     const order = [...group].sort((a, b) =>
-      String(b.title).length - String(a.title).length || depth(b) - depth(a));
+      /* Longest title first, so a shorter one is always tested against a title
+         that could contain it. Then a real event page ahead of an index line,
+         so the index line is the one that folds rather than the one that
+         hosts — with equal titles nothing else separates them, and on a site
+         with root-level slugs depth does not either. */
+      String(b.title).length - String(a.title).length
+      || (shallow(a) ? 1 : 0) - (shallow(b) ? 1 : 0)
+      || depth(b) - depth(a));
     const kept = [];
     for (const e of order) {
       const host = kept.find((k) => (
@@ -365,7 +380,12 @@ export function collapseSubsumed(events, prefer) {
         || (norm(k.title) === norm(e.title) && shallow(e) && !shallow(k))
       ));
       if (!host) { kept.push(e); continue; }
-      const winner = prefer ? prefer(host, e) : host;
+      /* An index line never wins on content. prefer() compares url depth, slug
+         against title and description length, and none of those separates
+         luma.com/toronto from luma.com/puuz8oak — so left to it, the copy
+         pointing at the city page could survive and "View event" would go
+         nowhere useful. */
+      const winner = shallow(e) && !shallow(host) ? host : (prefer ? prefer(host, e) : host);
       if (winner !== host) Object.assign(host, winner);
       dropped.push(e);
     }
