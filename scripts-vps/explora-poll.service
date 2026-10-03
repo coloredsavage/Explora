@@ -1,0 +1,29 @@
+[Unit]
+Description=Explora source poll — daily
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+# oneshot, not simple: this exits when the poll has pushed. Restart=always
+# would relaunch it in a loop and re-poll every source repeatedly.
+Type=oneshot
+User=root
+WorkingDirectory=/opt/Explora
+ExecStart=/opt/Explora/scripts-vps/run-poll.sh
+# A full poll was 5-7 minutes on the GitHub runner. 30 is slack for a slow
+# source, not a budget: past that something is hanging and should be killed
+# rather than left holding the lane lock.
+TimeoutStartSec=1800
+
+# This box runs the live beebot services, which are reading markets in real
+# time. A Chromium crawl is throughput work with no deadline, so it yields to
+# them rather than competing: the poll being three minutes slower costs
+# nothing, a missed tick does.
+Nice=10
+IOSchedulingClass=idle
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
