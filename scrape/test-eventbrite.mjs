@@ -716,6 +716,39 @@ await checkAsync('a poll of that page publishes the prose, not the title', async
   assert.notEqual(out[0].description, out[0].title);
 });
 
+console.log('\nThe description queue never holds an index page');
+await checkAsync('a listing harvested off an index is not queued, so it cannot be dropped for it', async () => {
+  const { descriptionQueue } = await import('./run.mjs');
+  descriptionQueue.clear();
+  resetReport();
+
+  /* One page, two Events, no descriptions on either — the shape of a venue's
+     "what's on" index. Bad Dog's "Super Hot Date Night" arrived exactly this
+     way, kept baddogtheatre.com/whats-on as its url, and the model was asked
+     what one of twenty shows on it was. */
+  const ld = (x) => `<script type="application/ld+json">${JSON.stringify(x)}</script>`;
+  const two = [1, 2].map((i) => ({
+    '@type': 'Event', name: `Show ${i}`, startDate: `2026-10-0${i}T20:00:00-04:00`,
+    location: { '@type': 'Place', name: 'Bad Dog', address: { '@type': 'PostalAddress', streetAddress: '875 Bloor St W', addressLocality: 'Toronto' } },
+  }));
+  const indexHtml = two.map(ld).join('');
+  const indexUrl = 'https://baddogtheatre.com/whats-on';
+
+  /* A source that publishes from its index (not listingOnly), the way Bad Dog
+     does, so harvest does not skip the page outright. */
+  const baddog = { ...eventbrite, id: 'baddog-test', listingOnly: false, noModel: true, vet: null, skipBeforeFollow: null };
+
+  await harvest(baddog, [{ url: indexUrl, html: indexHtml, isIndex: true }], { today });
+  assert.equal(descriptionQueue.size, 0, 'an index page was queued for a description');
+
+  /* The same markup as the event's own page IS queued. */
+  descriptionQueue.clear();
+  await harvest(baddog, [{ url: 'https://baddogtheatre.com/whats-on/2026/10/1/show-1', html: ld(two[0]), isIndex: false }], { today });
+  assert.equal(descriptionQueue.size, 1);
+  assert.equal([...descriptionQueue.values()][0].own, true, 'an event page should be queued as own');
+  descriptionQueue.clear();
+});
+
 console.log('\nExtra listing pages');
 await checkAsync('an alsoIndex page is pooled for links and never harvested as an event', async () => {
   const site = synthetic(4);

@@ -214,7 +214,17 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
       if (raw.description) continue;
       const u = raw.url ?? url;
       if (!u || descriptionQueue.has(u)) continue;
-      descriptionQueue.set(u, { title: raw.title ?? '', text: readableText(html, 6000) });
+      /* Never an index page's text, and this matters because the answer is
+         used to DROP listings. A listing harvested off a venue's index keeps
+         that index as its url — Bad Dog's "Super Hot Date Night" is
+         baddogtheatre.com/whats-on — so queueing it hands the model a page
+         listing twenty shows and asks what one of them is. It answered
+         NOTHING, correctly, and acting on that would have taken a real
+         listing off the board for a question it was never asked.
+         "This page says nothing about the event" is only a fact about the
+         event's own page. */
+      if (isIndex) continue;
+      descriptionQueue.set(u, { title: raw.title ?? '', text: readableText(html, 6000), own: true });
     }
 
     for (const raw of raws) {

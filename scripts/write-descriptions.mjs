@@ -109,7 +109,7 @@ async function collect(store, client) {
     return false;
   }
 
-  let wrote = 0; let none = 0; let failed = 0;
+  let wrote = 0; let none = 0; let failed = 0; let ignored = 0;
   for await (const r of await client.messages.batches.results(id)) {
     const url = ids[r.custom_id];
     if (!url) continue;
@@ -121,7 +121,13 @@ async function collect(store, client) {
     const good = acceptable(raw, title);
 
     if (good) { store.written[url] = { text: good, at: today() }; wrote += 1; }
-    else if (raw === NOTHING) { store.nothing[url] = today(); none += 1; }
+    /* NOTHING only counts against the event's own page. `own` is set by the
+       poll and is absent on anything queued before that distinction existed,
+       which is treated as not-own: a verdict that would drop a listing is
+       not worth guessing at. Those simply go unasked next time, because the
+       poll no longer queues index pages at all. */
+    else if (raw === NOTHING && store.queued[url]?.own) { store.nothing[url] = today(); none += 1; }
+    else if (raw === NOTHING) { ignored += 1; }
     /* Anything else — a refused answer, a wrapper sentence, a paragraph — is
        neither written nor written off. The URL stays unqueued and comes back
        next time the poll finds it still has no description. */
@@ -131,7 +137,8 @@ async function collect(store, client) {
   }
 
   store.pending = null;
-  console.log(`collected ${id}: ${wrote} written, ${none} had nothing to say, ${failed} unusable`);
+  console.log(`collected ${id}: ${wrote} written, ${none} had nothing to say, ${failed} unusable`
+    + (ignored ? `, ${ignored} said nothing about a page that was not the event's own (ignored)` : ''));
   return true;
 }
 
