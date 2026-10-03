@@ -1,0 +1,22 @@
+[Unit]
+Description=Explora site deploy — check main every 5 minutes
+
+[Timer]
+# This is the push-to-deploy that Pages gave us for free. GitHub fired
+# pages.yml on every push to main; a webhook would be the faithful version of
+# that, but it needs an endpoint, a secret and something listening. Polling
+# the remote costs one `git pull` against a repo that is nearly always
+# unchanged, and run-deploy.sh exits in milliseconds when the sha has not
+# moved. Five minutes is the worst-case lag between a push and the site.
+#
+# No timezone here, deliberately: this is an interval, not an appointment.
+OnBootSec=3min
+OnUnitActiveSec=5min
+
+# Not Persistent=true. A missed interval tick is meaningless — the next one
+# deploys whatever main holds, which is the same answer. Persistent would
+# only mean a burst of catch-up runs after a reboot.
+AccuracySec=30s
+
+[Install]
+WantedBy=timers.target

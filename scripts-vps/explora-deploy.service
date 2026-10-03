@@ -1,0 +1,22 @@
+[Unit]
+Description=Explora site deploy — publish main to the webroot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+WorkingDirectory=/opt/Explora
+ExecStart=/opt/Explora/scripts-vps/run-deploy.sh
+TimeoutStartSec=600
+
+# Same reasoning as the poll: this is an rsync and a sed, and the live
+# trading services on this box are not to be made to wait behind it.
+Nice=10
+IOSchedulingClass=idle
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
