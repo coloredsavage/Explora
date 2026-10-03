@@ -70,16 +70,29 @@ is the correct and expected answer for a large share of these pages; a
 plausible sentence invented from a title is the one answer that is worse than
 none.`;
 
-/* The board as published, read the way build-seo.mjs reads it. */
+/* The POLLED half of the board, and only that half.
+ *
+ * data.js is never offered to the model, and the reason is measured rather
+ * than assumed. Asked to rewrite eight hand-written descriptions it already
+ * had, Haiku produced worse copy every time: three of the eight opened with
+ * the same sentence ("Local farmers and food producers sell..."), the season
+ * end dates went missing, the AGO's "tickets are released online at 10am the
+ * Monday before, two per person, and they go" became "with advance ticket
+ * registration required", and St. Lawrence came back NOTHING against a
+ * description that was fine. None of the 52 hand-written listings qualify
+ * under needsWriting today, so this changes no behaviour — it is here so
+ * that an ellipsis landing in data.js one day cannot hand somebody's own
+ * writing to a cheap model to flatten. */
 async function board() {
   const ctx = vm.createContext({});
+  /* data.js is still loaded: scraped.js is read in the same context and the
+     files share helpers. It is simply never returned. */
   for (const f of ['price.js', 'data.js', 'scraped.js']) {
     try { vm.runInContext(await readFile(path.join(root, f), 'utf8'), ctx, { filename: f }); }
     catch (e) { if (f !== 'scraped.js') throw e; }
   }
-  const EVENTS = vm.runInContext('EVENTS', ctx);
   const SCRAPED = vm.runInContext('typeof SCRAPED !== "undefined" ? SCRAPED : []', ctx);
-  return EVENTS.concat(Array.isArray(SCRAPED) ? SCRAPED : []);
+  return Array.isArray(SCRAPED) ? SCRAPED : [];
 }
 
 /* An answer is kept only if it reads like a description. The model is cheap
