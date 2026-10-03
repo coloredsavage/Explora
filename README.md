@@ -56,17 +56,15 @@ the workflow token is granted, and `configure-pages` fails with *Resource not
 accessible by integration* until the setting exists. Once it is set, every push
 to `main` deploys.
 
-**Pages is no longer the only way the site gets published.** The VPS does the
-same job, from the same `main`, and is ready to take the domain — see below.
-Until DNS moves, Pages is what `explora.city` resolves to, and while the
-GitHub account is locked for billing it does not rebuild at all: the VPS
-pushes fresh listings and the site serves whatever Pages last managed to
-deploy. `curl -sI https://explora.city | grep last-modified` is the check that
-tells a fresh repository from a stale site.
+**Pages no longer serves the site.** `explora.city` moved to the VPS on
+2026-10-03, behind Cloudflare's proxy. `pages.yml` is kept because it still
+works and costs nothing dormant, but nothing depends on it and the GitHub
+account's billing lock no longer touches the site.
 
 ## Serving the site from the VPS
 
-Everything is built and verified; only the DNS record still points at GitHub.
+This is live. `explora.city` resolves to Cloudflare, which proxies to nginx on
+the box.
 
 | | |
 |---|---|
@@ -90,47 +88,64 @@ The five-minute timer is the push-to-deploy Pages gave for free. Worst-case
 lag between a push to `main` and the site is five minutes; an unchanged `main`
 costs half a second.
 
-**The cutover.** The certificate cannot come first, which is the opposite of
-how this reads. Let's Encrypt validates by fetching
-`http://explora.city/.well-known/acme-challenge/<token>` *over the public
-internet*, so while DNS still points at Pages it is GitHub that answers and
-the challenge 404s. Confirmed against the staging CA:
+### How the cutover went, and the order it has to go in
+
+Worth keeping, because the obvious order is wrong and the failure is a
+deadlock rather than an error.
+
+**The certificate cannot come first.** Let's Encrypt validates by fetching
+`http://explora.city/.well-known/acme-challenge/<token>` over the public
+internet, so while DNS still points at Pages it is GitHub that answers:
 
 ```
 Detail: 2606:50c0:8001::153: Invalid response from
         http://explora.city/.well-known/acme-challenge/... : 404
 ```
 
-— that address is GitHub Pages, not this box. So DNS moves first and the
-domain spends a few minutes on plain HTTP. The port-80 block is set up for
-exactly that: it serves the real site rather than redirecting (a redirect
-would present the sslip.io certificate under the wrong name, which browsers
-refuse) and it always serves `/.well-known/acme-challenge/`.
+That address is GitHub Pages. (Found with `--dry-run`, which validates
+against the staging CA and costs no rate limit — worth doing before any
+first issuance.)
 
-Rehearse it before touching DNS — `--resolve` makes curl pretend the record
-has already moved:
+**And DNS could not come first either, as the vhost then stood.** `certbot
+--nginx` writes `return 404` into the port-80 block for names it has not
+issued for. Harmless while the domain points elsewhere; fatal the moment it
+does not, because that 404 is served to visitors *and* to Let's Encrypt — so
+the certificate that would end it can never be issued. Redirecting instead is
+no better: it hands visitors the other name's certificate, which browsers
+refuse outright. Hence the `/.well-known/acme-challenge/` location in the
+vhost and the plain-HTTP site beside it. Both only matter for about a minute,
+once, and nothing works without them.
+
+**What broke the deadlock was Cloudflare's proxy.** With the record proxied,
+Cloudflare terminates TLS at its edge with its own certificate from the
+instant the record flips, so the domain never spends a second on plain HTTP,
+and the origin certificate can be issued afterwards at leisure — Cloudflare
+passes the ACME challenge through to the origin. Renewal works the same way;
+`certbot renew --dry-run` confirms it.
+
+The order, if it is ever done again:
+
+```sh
+# 1. proxy the record (orange cloud) and point it at the box
+#    explora.city.      A      187.77.25.242   proxied
+#    www.explora.city.  CNAME  explora.city.   proxied
+#    delete the other three Pages A records, and any AAAA
+
+# 2. SSL/TLS -> Full. NOT Full (strict): the origin has no certificate for
+#    this name yet, and strict rejects the mismatch.
+
+# 3. issue the origin certificate, through the proxy
+ssh beebot-vps 'certbot --nginx -d explora.city -d www.explora.city --redirect'
+
+# 4. now SSL/TLS -> Full (strict)
+```
+
+Rehearse any of it without touching DNS by making curl pretend the record has
+already moved:
 
 ```sh
 curl -s --resolve explora.city:80:187.77.25.242 http://explora.city/ | head
 ```
-
-```sh
-# 1. lower the TTL on the explora.city records first, and wait out the old
-#    one, so step 2 propagates in minutes and can be reversed in minutes.
-
-# 2. point the domain at the box, replacing the four GitHub Pages A records
-#    explora.city.      A      187.77.25.242
-#    www.explora.city.  CNAME  explora.city.
-
-# 3. the site is now plain HTTP. Issue the certificate as soon as it resolves:
-ssh beebot-vps 'certbot --nginx -d explora.city -d www.explora.city --redirect'
-
-# 4. confirm, and only then put the TTL back up
-curl -sI https://explora.city/ | grep -i server      # expect nginx, not GitHub.com
-```
-
-Then Pages can be turned off in **Settings → Pages**, and `pages.yml` deleted.
-Leave both until step 4 passes: while DNS is in flight, either may answer.
 
 ## The daily poll runs on the VPS
 
