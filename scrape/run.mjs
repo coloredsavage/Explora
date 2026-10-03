@@ -225,6 +225,14 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
          "This page says nothing about the event" is only a fact about the
          event's own page. */
       if (isIndex) continue;
+      /* The whole readable page, navigation and all.
+         
+         Trimming it looked obviously right and measured as a regression. Bad
+         Dog's event pages spend their first 420 characters on the site menu,
+         so a reduction that dropped nav, header, footer and anything classed
+         "menu" cut 2,100 characters to 600 — and took the show's own
+         paragraph with it, on four pages out of six. The model was never
+         confused by the menu; it reads past it. Leave the text alone. */
       descriptionQueue.set(u, { title: raw.title ?? '', text: readableText(html, 6000), own: true });
     }
 

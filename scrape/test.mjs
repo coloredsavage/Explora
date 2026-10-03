@@ -1243,7 +1243,11 @@ console.log('\nDescriptions: written, or written off');
     assert.equal(acceptable('The page does not provide any further information about this event at all.', t), null);
     /* Too short to be a description, or far too long. */
     assert.equal(acceptable('A band.', t), null);
-    assert.equal(acceptable('x'.repeat(401), t), null);
+    assert.equal(acceptable('x'.repeat(421), t), null);
+    /* And the ceiling is where the gate says it is, not where it used to be:
+       the prompt now asks for up to ~300 characters of specifics, so a long
+       but legitimate answer must survive. */
+    assert.ok(acceptable('A five-piece plays rhythm and blues standards. '.repeat(8).slice(0, 410), t));
     /* It opened with the title after being told not to. */
     assert.equal(acceptable('The Moving Violations play a long set of blues standards downtown.', t), null);
   });

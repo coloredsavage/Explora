@@ -48,6 +48,29 @@ const today = () => new Date().toISOString().slice(0, 10);
    alike, because one drops a listing and the other should retry. */
 const NOTHING = 'NOTHING';
 
+/* The prompt, and what measuring it taught.
+ *
+ * It has been rewritten twice. The second version asked for specifics —
+ * "prefer the specific, checkable thing", with the house voice shown in
+ * examples — and strengthened the licence to answer NOTHING. On identical
+ * input it then answered NOTHING for five pages out of six that the first
+ * version had described perfectly well ("Bad Dog Academy's advanced improv
+ * students perform Harold and Narrative Process formats, two structured
+ * styles of long-form improvisation comedy"). Raising the bar and widening
+ * the escape hatch in the same breath taught it to bail on any ordinary
+ * page. Both were reverted.
+ *
+ * So this is the first version plus the one thing the second genuinely won
+ * on: it stops the marketing. Where the old prompt wrote "Toronto's sharpest
+ * improvisers ... loud, wild, and welcoming to single people who just want
+ * to party", the rule below gets "Improvisers mine dating disasters and
+ * romantic misfires for fast comedy."
+ *
+ * And it no longer forbids every concrete fact. "Do not include the date,
+ * the price, the venue" was meant to stop the card being read back, and it
+ * also stopped "runs to October 26", "no booking needed" and "free for
+ * students" — the conditions that make a description worth reading. Restate
+ * nothing; qualify freely. */
 const SYSTEM = `You write one- or two-sentence descriptions of events for a
 Toronto listings calendar, from the text of the event's own page.
 
@@ -55,9 +78,16 @@ Say what the event IS and what someone attending would experience. Write
 plainly, in the third person, present tense. 200 characters is about right
 and 320 is the maximum.
 
-Do not include: the date, the time, the price, the address, the venue name,
-ticket or booking instructions, age restrictions, or the event's own title
-repeated back. All of those are already on the card, beside your sentence.
+Do not restate the card. It already shows the title, the date, the start
+time, the price and the venue, so do not open by repeating the title, do not
+name the venue or its street, and do not simply recite those five facts back. You may include a condition a reader
+could not otherwise see: that the season ends this month, that no booking is
+needed, that it is free for some people and not others, that tickets are
+released at a particular time and go quickly.
+
+Do not write marketing. No "join us", "don't miss", "unforgettable",
+"vibrant", "iconic", "a must for", no "sharpest" or "hottest", no second
+person, no exclamation marks. Describe, do not sell.
 
 Do not open with "This event", "Join us", "Come and" or the event's name.
 Start with the substance.
@@ -65,10 +95,7 @@ Start with the substance.
 Write nothing you did not read on the page. Do not infer what a band
 probably sounds like from its name, or what a night is probably like from
 its venue. If the page gives a title, a date and nothing else about what the
-event actually is, reply with exactly ${NOTHING} and no other text. ${NOTHING}
-is the correct and expected answer for a large share of these pages; a
-plausible sentence invented from a title is the one answer that is worse than
-none.`;
+event actually is, reply with exactly ${NOTHING} and no other text.`;
 
 /* The POLLED half of the board, and only that half.
  *
@@ -100,7 +127,7 @@ async function board() {
 export function acceptable(text, title) {
   const t = String(text ?? '').trim();
   if (!t || t === NOTHING) return null;
-  if (t.length < 40 || t.length > 400) return null;
+  if (t.length < 40 || t.length > 420) return null;
   /* It explained itself instead of answering. */
   if (/^(here|sure|certainly|i |based on|the page|this page|unfortunately)\b/i.test(t)) return null;
   /* It could not read the page and said so in prose rather than with the
@@ -179,7 +206,7 @@ async function submit(store, client) {
       custom_id: key,
       params: {
         model: MODEL,
-        max_tokens: 300,
+        max_tokens: 400,
         system: SYSTEM,
         messages: [{
           role: 'user',
