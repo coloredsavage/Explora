@@ -186,6 +186,40 @@ export function stripSiteSuffix(title, sourceName) {
   return namesTheSource && head.length >= 3 ? head : title;
 }
 
+/* A night you are in rather than one you watch.
+ *
+ * Only ever promotes `music`, which is the whole safety of it. Most sources
+ * carry one category for everything they publish — Revival is `music`,
+ * Grossman's is `music` — so without this the Parties filter would hold
+ * Eventbrite listings and nothing else, because only eventbrite.mjs files
+ * per event. Starting from `music` also keeps it off the categories where a
+ * party word means something else: Bad Dog's improv show "The After Party"
+ * is `comedy` and stays `comedy`.
+ *
+ * Deliberately narrower than the `party` rule in eventbrite.mjs. That one
+ * runs where the alternative is a generic source default, so it can afford
+ * genre words; here the alternative is `music`, which is often right. r&b,
+ * hip-hop and disco are the words that cost us: "CanAliens, Soul, Funk, RnB
+ * & a bit of Jazz" is a jazz gig at the Emmet Ray and matched the Eventbrite
+ * rule on "RnB" alone. So this asks what shape the night is — a DJ, a
+ * dancefloor, a club night — not what it sounds like. */
+const CLUB_NIGHT = new RegExp(
+  String.raw`\b(`
+  + String.raw`(?<!\b(tea|garden|watch|viewing|pizza|dinner|birthday|slumber|pyjama|pajama|knitting|craft|book|reading|puzzle|potluck|search|lunch|luncheon|picnic|cocktail) )part(y|ies)`
+  + String.raw`|day[- ]?part(y|ies)|djs?|club nights?|raves?|bashment`
+  + String.raw`|dance ?(floors?|part(y|ies)|nights?)|dancefloor`
+  + String.raw`|techno|edm|house music|amapiano|dancehall|soca|reggaeton|day ?club`
+  + String.raw`)\b`,
+  'i',
+);
+
+export function asParty(category, title, description) {
+  if (category !== 'music') return category;
+  return CLUB_NIGHT.test(title ?? '') || CLUB_NIGHT.test(description ?? '')
+    ? 'party'
+    : category;
+}
+
 export function normalize(raw, source, { today, checked }) {
   const title = stripSiteSuffix(clean(raw.title), source.name);
   const start = asDate(raw.startDate);
@@ -276,7 +310,7 @@ export function normalize(raw, source, { today, checked }) {
     event: {
       id: `${source.id}-${slug(title)}-${start}`,
       title,
-      category: filed?.category ?? source.category,
+      category: asParty(filed?.category ?? source.category, title, raw.description),
       /* The source's symbol is the fallback, not the answer. Stamping one
          per source is how every Bentway event became a roller skate,
          including an artist talk; see art-match.mjs. A source that vets its

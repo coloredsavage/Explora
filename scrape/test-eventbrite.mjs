@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
 import { fromJsonLd } from './extract.mjs';
-import { normalize, validate } from './normalize.mjs';
+import { normalize, validate, asParty } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { matchArt } from './art-match.mjs';
 import { classifyEventbriteEvent, eventbritePrice, formatPrice, vetEventbrite, readAmount,
@@ -435,14 +435,21 @@ check('and on its venue if the page said nothing', () =>
   assert.equal(classifyEventbriteEvent({ title: 'UK Calling - Toronto', description: '', venue: 'The Concert Hall' }).category, 'music'));
 check('a rooftop day party files like Revival’s DJ nights', () => {
   const e = kept('rooftop-day-party');
-  const revival = SOURCES.find((s) => s.id === 'revival');
-  assert.equal(e.category, revival.category);
+  assert.equal(e.category, 'party');
   assert.equal(e.art, matchArt({ title: 'Afrobeats & Friends | Amapiano | R&B | Dancehall' }));
   assert.equal(e.art, 'art-decks');
+  /* The claim in the name, tested rather than assumed. Revival carries one
+     category for everything it publishes, so its DJ nights only reach the
+     same place through asParty; comparing against revival.category would
+     now compare against the source default and pass whatever happened. */
+  const revival = SOURCES.find((s) => s.id === 'revival');
+  assert.equal(revival.category, 'music');
+  assert.equal(asParty(revival.category, 'Afrobeats & Friends | Amapiano | R&B | Dancehall', ''), 'party');
+  assert.equal(asParty(revival.category, 'Destination Dancefloor', ''), 'party');
 });
 check('so does a dancehall party', () => {
   const c = classifyEventbriteEvent(page('whine-slow'));
-  assert.deepEqual([c.category, c.art], ['music', 'art-decks']);
+  assert.deepEqual([c.category, c.art], ['party', 'art-decks']);
 });
 check('plurals and stems: Talks, Lectures, Bookshop, Concerts, Tastings', () => {
   const c = (title) => classifyEventbriteEvent({ title }).category;
@@ -466,7 +473,7 @@ check("'Book now' and 'Book your tickets' do not make a costume night books", ()
   assert.notEqual(filed('Halloween Costume Night', 'Book your tickets now — costumes encouraged, prizes for the best.')[0], 'books');
   assert.notEqual(filed('Book now: Costume Night at Lavelle')[0], 'books');
   assert.notEqual(filed('Masquerade Costume Ball', 'Book a table for your group. Booking closes Friday.')[0], 'books');
-  assert.deepEqual(filed('Book now: Costume Party at Lavelle'), ['music', 'art-decks']);
+  assert.deepEqual(filed('Book now: Costume Party at Lavelle'), ['party', 'art-decks']);
 });
 check('nor a product launch, quoted name and all', () => {
   assert.notEqual(filed('Product Launch "Nova X1"', 'Book now to see the reveal. Book tickets early.')[0], 'books');
@@ -505,7 +512,7 @@ check("'Rock Climbing' is not music, and nor is 'Metal Casting Workshop'", () =>
 check("'Tea Party' does not get the DJ decks", () => {
   assert.notEqual(filed('Mad Hatter Tea Party')[1], 'art-decks');
   assert.deepEqual(filed('Victorian Tea Party'), ['food', 'art-food']);
-  assert.deepEqual(filed('Toronto Rooftop Day Party'), ['music', 'art-decks']);
+  assert.deepEqual(filed('Toronto Rooftop Day Party'), ['party', 'art-decks']);
 });
 check('the cases that went wrong before still file right: Walrus Talks, two launches, two bands', () => {
   assert.deepEqual(filed(page('walrus-talks').title, page('walrus-talks').description), ['stage', 'art-lectern']);

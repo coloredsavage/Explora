@@ -20,6 +20,11 @@ const CATEGORIES = {
   comedy:       { label: 'Comedy',            art: 'art-comedy'          },
   stage:        { label: 'Stage',             art: 'art-stage'          },
   music:        { label: 'Live music',        art: 'art-music'       },
+  /* Separate from Live music because they are a different night out: a gig
+     is something you watch and a party is something you are in. Shares
+     art-decks with the drawing art-match already picks for a DJ listing, so
+     it needed no new illustration. */
+  party:        { label: 'Parties',           art: 'art-decks'       },
   film:         { label: 'Film',              art: 'art-film'      },
   outdoors:     { label: 'Outdoors',          art: 'art-outdoors'        },
   food:         { label: 'Food & drink',      art: 'art-food'         },

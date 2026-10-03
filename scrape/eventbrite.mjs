@@ -263,7 +263,7 @@ export const RULES = [
      Soca Party' — filed as Revival's "Afrobeats & Friends | Amapiano | R&B |
      Dancehall" already is. */
   /* Not every party has decks: a tea party is food, a watch party is film. */
-  { name: 'party', category: 'music', art: 'art-decks',
+  { name: 'party', category: 'party', art: 'art-decks',
     re: /\b((?<!\b(tea|garden|watch|viewing|pizza|dinner|birthday|slumber|pyjama|pajama|knitting|craft|book|reading|puzzle|potluck|search|lunch|luncheon|picnic|cocktail|dinner) )part(y|ies)|day[- ]?part(y|ies)|djs?|dancehall|soca|bashment|afrobeats?|amapiano|reggaeton|dembow|r&b|rnb|hip[- ]?hop|disco|raves?|club nights?|dance (party|parties|night|nights|floor)|dancefloor|house music|techno|edm|day ?club)\b/i },
   { name: 'classical', category: 'music', art: 'art-violin',
     re: /\b(orchestras?|orchestral|symphon(y|ies|ic)|classical|baroque|chamber (music|ensemble|orchestra)|string quartets?|philharmonic|recitals?|violin(s|ist)?|cellos?|cellist)\b/i },
