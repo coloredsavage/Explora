@@ -10,11 +10,45 @@ ToS-compliant. The same note sits beside the source in `scrape/sources.mjs`.
 The v3 API is not an alternative: public event search was withdrawn in 2019 and
 what remains only reaches organisations you control.
 
+## The 405, and why the entry point is `/ttd/`
+
+The source produced nothing at all for its first six days. Every poll from
+2026-09-28 reported `eventbrite — nothing fetched` and `HTTP 405` against
+`/d/canada--toronto/all-events/`, on GitHub's runners and then on the VPS.
+
+It is not the user-agent and not robots.txt — the same URL answers 200 from a
+residential address. It is the address. Both machines are in datacenters, and
+that is what Eventbrite is refusing. A VPS does not fix it: checked from
+187.77.25.242 on 2026-10-03, the 405 is identical.
+
+What the block actually covers is much narrower than "Eventbrite refuses
+bots". From the VPS, same day:
+
+| path | status |
+|---|---|
+| `/robots.txt` | 200 |
+| `/` | 200 |
+| `/e/<event>` — an event page, all 3 JSON-LD blocks | **200** |
+| `/sitemap_xml/sitemap_index.xml` | 200 |
+| `/ttd/canada--toronto/` | **200**, 61 unique `/e/` links |
+| `/poi/canada--toronto/<venue>/` | **200**, ~64 links each, 98 Toronto venues |
+| `/d/canada--toronto/...` — search | **405** |
+| `/api/v3/destination/search/` | **405** |
+
+The search is walled; the catalogue is not. `/ttd/` ("things to do in
+Toronto") is reached from Eventbrite's own sitemap index, which `robots.txt`
+advertises. It carries *more* of the city than the page it replaces — 61
+links against about 20 — so this is not a workaround that costs coverage.
+
+If `/ttd/` is ever walled too, the 98 `/poi/` venue pages are the next move:
+98 fetches instead of one, for a wider net.
+
 ## How a poll reads it
 
-1. `https://www.eventbrite.ca/d/canada--toronto/all-events/` is fetched. Its
-   ItemList JSON-LD names about 20 events **with no prices**, so the page is
-   used only as a list of links (`listingOnly`): nothing on it is published.
+1. `https://www.eventbrite.ca/ttd/canada--toronto/` is fetched. Its links are
+   used only as a list (`listingOnly`): nothing on the page is published. Its
+   ItemList JSON-LD names only about 8 of them, so most arrive from the
+   anchors — `livePages` unions both, which is why the count is 26 and not 8.
 2. Events the listing alone rules out are dropped without being fetched
    (`skipBeforeFollow`) and reported with the reason: one that `data.js`
    already carries by hand (same url, or same event number), or one whose

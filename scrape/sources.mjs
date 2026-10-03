@@ -112,7 +112,7 @@ export const SOURCES = [
   {
     id: 'eventbrite',
     name: 'Eventbrite',
-    url: 'https://www.eventbrite.ca/d/canada--toronto/all-events/',
+    url: 'https://www.eventbrite.ca/ttd/canada--toronto/',
     /* EVENTBRITE'S TERMS OF SERVICE PROHIBIT AUTOMATED EXTRACTION. They say a
        user has no right to scrape, crawl or use automated means to extract
        data from the site, whatever robots.txt allows. The owner of this repo
@@ -125,16 +125,40 @@ export const SOURCES = [
        The API is not a way round it: public event search was withdrawn in
        2019, and what remains only reaches organisations you control.
 
-       How it is read. The city page's ItemList names about twenty events and
-       carries no prices, so it is used only as a list of links: nothing on it
+       /ttd/, not /d/, and this is the whole reason the source produced
+       nothing for its first six days. Every poll from 2026-09-28 reported
+       "eventbrite — nothing fetched" and "HTTP 405" against
+       /d/canada--toronto/all-events/, on GitHub's runners and then on the
+       VPS alike. It is not the user-agent and not robots.txt: the same URL
+       answers 200 from a residential address. It is the address itself, and
+       both machines are in datacenters.
+
+       What the 405 is actually protecting is narrower than it looks. Checked
+       2026-10-03 from the VPS: /robots.txt 200, the homepage 200, an
+       individual /e/ event page 200 with all three of its JSON-LD blocks —
+       and 405 only on /d/ search and the /api/v3/destination/search/ endpoint
+       behind it. The search is walled; the catalogue is not.
+
+       /ttd/canada--toronto/ ("things to do in Toronto") is reached from
+       Eventbrite's own sitemap index, which robots.txt advertises and which
+       also answers 200 here. It carries 61 unique /e/ links against the ~20
+       the old city page named, so the change is not a workaround that costs
+       coverage — it is more of the city than before, from a page Eventbrite
+       publishes for crawlers on purpose.
+
+       How it is read. The page's links are used only as a list: nothing on it
        is published (listingOnly). Each event page is followed and its own
        JSON-LD decides everything — the AggregateOffer for the price, @type
        for BusinessEvent, eventAttendanceMode for online-only, addressLocality
-       for the city. all-events rather than free--events because the $35
-       ceiling in normalize.mjs does the price cut, and a $12 party is exactly
-       what this board is for. See vetEventbrite in eventbrite.mjs for the
-       gates, and why an event without a readable price is dropped rather than
-       left "Price not listed". */
+       for the city. No price filter in the URL, because the $35 ceiling in
+       normalize.mjs does the price cut and a $12 party is exactly what this
+       board is for. See vetEventbrite in eventbrite.mjs for the gates, and
+       why an event without a readable price is dropped rather than left
+       "Price not listed".
+
+       If /ttd/ is ever walled too, /poi/canada--toronto/<venue>/ is the next
+       move: the sitemap lists 98 Toronto venue pages, each answering 200 with
+       ~64 event links. Costs 98 fetches instead of one. */
     enabled: true,
     listingOnly: true,
     /* The price has to come from the page's offers, which is structured data
