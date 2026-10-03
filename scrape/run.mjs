@@ -781,21 +781,17 @@ async function main() {
     if (!url || !needsWriting(e.description, e.title)) continue;
     const written = writtenFor(descriptions, url);
     if (written) { e.description = written; rewritten += 1; continue; }
-    /* Only a listing with NO description comes off the board. One that is
-       merely cut off or opens with its title still says something true about
-       the event, so a page that turned out to have nothing more to give
-       leaves it exactly as it was. */
+    /* A page with nothing to say costs the listing its description, not its
+       place on the board. Grossman's publishes a band, a date and a time and
+       nothing else, 69 times out of 70 — and that still answers "what is on
+       tonight", which is what the board is for. Dropping those would have
+       taken a third of it, and Toronto's oldest blues bar with it.
+       `nothing` means stop asking, not remove. */
     if (isPlaceholder(e.description) && restsAsNothing(descriptions, url, today)) undescribed.push(e);
   }
   if (rewritten) report.skipped.push(`${rewritten} description${rewritten === 1 ? '' : 's'} written from the page`);
-  for (const e of undescribed) {
-    report.dropped.push(`${e.id} — the page says nothing about the event, and nor did we`);
-  }
   if (undescribed.length) {
-    const drop = new Set(undescribed);
-    const kept = events.filter((e) => !drop.has(e));
-    events.length = 0;
-    events.push(...kept);
+    report.skipped.push(`${undescribed.length} listing${undescribed.length === 1 ? '' : 's'} published with no description — their pages have none`);
   }
 
   /* What this run read, for the batch script to ask about after the poll.

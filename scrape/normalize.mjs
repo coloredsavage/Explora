@@ -324,7 +324,15 @@ export function normalize(raw, source, { today, checked }) {
       url: raw.url ?? source.url,
       source: raw.url ?? source.url,
       checked,
-      description: trimDescription(raw.description ?? '') || `Listed by ${source.name}.`,
+      /* Empty when the source wrote nothing, rather than "Listed by
+         <venue>." Grossman's publishes a band, a date and a time and not a
+         word more — on its API, on its event page, and on a poster that is
+         only the tavern's logo — so that fallback was on 69 of its 70
+         listings, telling a reader exactly what the venue line above it
+         already said. A card with no description line is honest; a card
+         with a padded one is not. scripts/write-descriptions.mjs fills
+         these in where a page gives it anything to work with. */
+      description: trimDescription(raw.description ?? ''),
       schedule,
       scrapedFrom: source.id,
       via: raw.via,
@@ -623,8 +631,12 @@ const FOR_CHILDREN = new RegExp([
 
 export function validate(event) {
   const problems = [];
-  const need = ['id', 'title', 'category', 'venue', 'address', 'url', 'source', 'checked', 'description'];
+  /* description is not here: a venue that writes none is a fact about the
+     venue, not a broken listing. Everything else still has to be present —
+     a card with no date or no address is not a listing. */
+  const need = ['id', 'title', 'category', 'venue', 'address', 'url', 'source', 'checked'];
   for (const k of need) if (!event[k]) problems.push(`missing ${k}`);
+  if (typeof event.description !== 'string') problems.push('missing description');
 
   const s = event.schedule;
   if (!s) problems.push('missing schedule');
@@ -632,6 +644,6 @@ export function validate(event) {
   else if (s.kind === 'range' && !(ISO.test(s.start) && ISO.test(s.end))) problems.push('bad range');
   else if (!['day', 'range'].includes(s.kind)) problems.push(`unexpected kind ${s.kind}`);
 
-  if (/[<>]/.test(event.title + event.description)) problems.push('markup leaked into text');
+  if (/[<>]/.test(event.title + (event.description ?? ''))) problems.push('markup leaked into text');
   return problems;
 }

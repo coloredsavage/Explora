@@ -672,7 +672,14 @@
       art.appendChild(artEl);
     }
 
-    document.getElementById('modal-desc').textContent = noOrphan(ev.description);
+    /* Hidden, not emptied. A venue that writes no prose — Grossman's, on 69
+       of its 70 nights — leaves this blank, and an empty <p> still takes its
+       margins, which reads as a description that failed to load rather than
+       one that was never written. */
+    var descEl = document.getElementById('modal-desc');
+    var desc = noOrphan(ev.description || '');
+    descEl.textContent = desc;
+    descEl.hidden = !desc;
 
     var link = document.getElementById('modal-link');
     link.href = ev.url;

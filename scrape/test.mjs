@@ -175,8 +175,20 @@ check('unescapes a doubly-escaped newline', () => {
     description: '\\nJoin us for a talk.' }).description;
   assert.equal(d, 'Join us for a talk.');
 });
-check('falls back when there is no description', () =>
-  assert.match(tidy({ venue: 'V', address: '1 King St W, Toronto, ON' }).description, /^Listed by/));
+check('no description is empty, not padded with "Listed by"', () => {
+  /* Grossman's publishes a band, a date and a time and nothing else, on 69
+     of its 70 listings. "Listed by Grossman's Tavern." told a reader exactly
+     what the venue line above it already said, so the card now carries no
+     description line at all. */
+  const e = tidy({ venue: 'V', address: '1 King St W, Toronto, ON' });
+  assert.equal(e.description, '');
+  /* And an empty one is a valid listing: a venue that writes no prose is a
+     fact about the venue, not a broken event. */
+  assert.deepEqual(validate(e).filter((p) => /description/.test(p)), []);
+  /* A missing field is still missing, though. */
+  const gone = { ...e }; delete gone.description;
+  assert.ok(validate(gone).includes('missing description'));
+});
 
 console.log('\nLink following');
 check('follows event links, not the index itself', () => {
