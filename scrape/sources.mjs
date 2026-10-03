@@ -161,6 +161,15 @@ export const SOURCES = [
        ~64 event links. Costs 98 fetches instead of one. */
     enabled: true,
     listingOnly: true,
+    /* Event pages are read at domcontentloaded, not networkidle.
+       Everything this source needs — the Event node, the AggregateOffer, the
+       address — is in the HTML Eventbrite serves; none of it waits on
+       JavaScript. Waiting for the network to go quiet on top of that means
+       waiting for the ads and analytics, and on 2026-10-03 five event pages
+       hit the 45s ceiling doing it. Two of them were listings the dry run
+       had kept, so the cost was real events off the board rather than a
+       slower poll. The index above still uses networkidle. */
+    followWait: 'domcontentloaded',
     /* The price has to come from the page's offers, which is structured data
        or nothing. A model reading prose would guess, so it is never asked. */
     noModel: true,

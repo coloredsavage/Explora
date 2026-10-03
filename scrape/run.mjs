@@ -379,10 +379,21 @@ export async function livePages(source, browser) {
   };
 
   const pages = [];
-  const visit = async (url) => {
+  /* `networkidle` by default, because an index page is often the one thing
+     here that genuinely needs the JavaScript to have run — Luma renders its
+     event anchors client-side, and waiting only for domcontentloaded there
+     would read an empty list and report the source as quiet.
+
+     A source can override it for the pages it FOLLOWS, which is a different
+     problem: an event page whose JSON-LD is in the initial HTML needs none
+     of the ad and analytics traffic that keeps the network busy, and waiting
+     for quiet on a heavy page just times out. Eventbrite lost five event
+     pages that way on 2026-10-03 — two of them listings the dry run had
+     kept, so the cost was real listings, not just time. See `followWait`. */
+  const visit = async (url, { wait = 'networkidle', timeout = 45000 } = {}) => {
     const robots = await allowedBy(fetchText, url);
     if (!robots.allowed) { report.skipped.push(`${url} — robots.txt disallows ${robots.rule}`); return null; }
-    const res = await page.goto(url, { waitUntil: 'networkidle', timeout: 45000 });
+    const res = await page.goto(url, { waitUntil: wait, timeout });
     if (!res || !res.ok()) { report.errors.push(`${url} — HTTP ${res ? res.status() : 'no response'}`); return null; }
     const html = await page.content();
     pages.push({ url, html, isIndex: url === source.url });
@@ -480,7 +491,7 @@ export async function livePages(source, browser) {
          now it is counted, and the count decides whether the source's result
          can be trusted (followVerdict). */
       const before = pages.length;
-      try { await visit(link); }
+      try { await visit(link, { wait: source.followWait ?? 'networkidle' }); }
       catch (err) { report.errors.push(`${link} — ${err.message.split('\n')[0]}`); }
       if (pages.length === before) {
         pages.followFailures += 1;
