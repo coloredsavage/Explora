@@ -93,7 +93,7 @@ node scrape/recheck.mjs || echo "(recheck exited $? — not fatal)"
 # trade — the listing is already on the board, correct, just thin. Not fatal
 # either: a batch that has not finished is simply collected tomorrow.
 echo "--- descriptions ---"
-node scripts/write-descriptions.mjs || echo "(write-descriptions exited $? — not fatal)"
+node scripts/write-descriptions.mjs --recover || echo "(write-descriptions exited $? — not fatal)"
 
 # price-attempts.json belongs in this list: it is the recheck's memory of
 # which pages have already answered "no price". Left uncommitted, every
@@ -140,7 +140,23 @@ set -euo pipefail
 git add -- "$@"
 git -c user.name=vps-bot -c user.email=vps-bot@users.noreply.github.com \
     commit -q -m "Polled event sources on $(date -u +%Y-%m-%d)"
-git push --quiet origin HEAD:main
+
+# Rebase and retry before giving up. A poll takes fifteen minutes and main
+# moves during it: on 2026-10-03 a push from a laptop landed mid-run, this
+# push was rejected as non-fast-forward, and the rollback below threw away a
+# good poll — along with the descriptions.json entry recording a batch that
+# had ALREADY been submitted, orphaning it. Paid for, uncollectable, and the
+# next run would have submitted the same questions again.
+#
+# A rejected push here is almost always that: someone else got there first,
+# and the fix is one rebase. Only when the retry fails too is it a real
+# problem worth losing the run over.
+if ! git push --quiet origin HEAD:main 2>/dev/null; then
+  echo "push rejected — rebasing onto origin/main and retrying" >&2
+  git -c user.name=vps-bot -c user.email=vps-bot@users.noreply.github.com \
+      pull --rebase --quiet origin main
+  git push --quiet origin HEAD:main
+fi
 INNER
 then
   echo "pushed"

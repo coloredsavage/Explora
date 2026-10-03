@@ -28,6 +28,7 @@
 
 import Anthropic from '@anthropic-ai/sdk';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
@@ -168,6 +169,34 @@ export function acceptable(text, title) {
   return t;
 }
 
+export const idFor = (url) => 'u' + createHash('sha1').update(url).digest('hex').slice(0, 24);
+
+/* Collect any finished batch whose answers were never applied, mapping its
+   custom_ids back through the queue. The safety net for a submit whose
+   record did not survive. */
+async function recover(store, client) {
+  const known = new Map();
+  for (const url of Object.keys(store.queued)) known.set(idFor(url), url);
+  let found = 0;
+  for await (const b of client.messages.batches.list({ limit: 20 })) {
+    if (b.processing_status !== 'ended') continue;
+    if (store.pending && b.id === store.pending.id) continue;
+    let applied = 0;
+    for await (const r of await client.messages.batches.results(b.id)) {
+      const url = known.get(r.custom_id);
+      if (!url || r.result.type !== 'succeeded') continue;
+      if (store.written[url] || store.nothing[url]) continue;
+      const text = (r.result.message.content.find((x) => x.type === 'text')?.text ?? '').trim();
+      const good = acceptable(text, store.queued[url]?.title);
+      if (good) { store.written[url] = { text: good, at: today() }; applied += 1; }
+      else if (text === NOTHING && store.queued[url]?.own) { store.nothing[url] = today(); applied += 1; }
+      if (applied) delete store.queued[url];
+    }
+    if (applied) { console.log(`recovered ${applied} from ${b.id}`); found += applied; }
+  }
+  return found;
+}
+
 async function collect(store, client) {
   if (!store.pending) { console.log('nothing pending'); return false; }
   const { id, ids } = store.pending;
@@ -242,9 +271,16 @@ async function submit(store, client) {
 
   const requests = [];
   const ids = {};
-  let n = 0;
   for (const [url, e] of byUrl) {
-    const key = `d${n++}`;
+    /* The custom_id is a hash of the url, not a counter.
+    
+       A counter means the id->url map lives only in descriptions.json, and
+       on 2026-10-03 a push race rolled that file back after a batch had
+       already been submitted: paid for, finished, and unreadable, because
+       nothing left could say which d0..d3 was which page. A hash can be
+       recomputed from the queue on the next run, so an orphaned batch is
+       always collectable. See --recover. */
+    const key = idFor(url);
     ids[key] = url;
     requests.push({
       custom_id: key,
@@ -285,6 +321,8 @@ async function main() {
 
   let changed = false;
   if (!ONLY_SUBMIT) changed = (await collect(store, client)) || changed;
+  /* Anything finished that the store never recorded — see idFor. */
+  if (argv.has('--recover')) changed = (await recover(store, client)) > 0 || changed;
   /* Only one batch in flight at a time: a second would ask the same
      questions again, and both would write the same answers. */
   if (!ONLY_COLLECT && !store.pending) changed = (await submit(store, client)) || changed;
