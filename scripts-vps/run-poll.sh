@@ -11,11 +11,10 @@
 #   2. Scheduled workflows run late. scrape.yml's own comment records 11:17
 #      UTC nominal firing at 15:07; the content lanes saw 2h08m to 5h18m.
 #
-# What it does NOT fix: Eventbrite. That source answers 405 to this box
-# (187.77.25.242) exactly as it did to the runner — checked 2026-10-03, both
-# the bot UA and a Chrome UA. It is a datacenter IP either way, which is what
-# Eventbrite is refusing. `mayGoQuiet: true` keeps it from taking the poll
-# down; it simply contributes nothing until it has residential egress.
+# It did not fix Eventbrite either, and for a while this comment said that
+# was the end of it — the 405 follows the datacenter IP, so the VPS gets it
+# exactly as the runner did. What actually fixed it was reading a different
+# page: only /d/ search is walled, and /ttd/ answers. See sources.mjs.
 #
 # Kept as a script rather than inlined into the unit so it can be run by hand
 # exactly as the timer runs it:  run-poll.sh --dry-run
@@ -83,10 +82,27 @@ done
 echo "--- price recheck ---"
 node scrape/recheck.mjs || echo "(recheck exited $? — not fatal)"
 
+# Descriptions for the listings whose source wrote none, on the Batch API.
+#
+# Two phases a day apart, which is why this is one line and not two: it
+# collects the batch submitted last night and submits tonight's in the same
+# run. The poll above has already read every page and left the text in
+# scrape/descriptions.json, so nothing here fetches anything.
+#
+# A day's lag on a description is the trade for half price, and it is a good
+# trade — the listing is already on the board, correct, just thin. Not fatal
+# either: a batch that has not finished is simply collected tomorrow.
+echo "--- descriptions ---"
+node scripts/write-descriptions.mjs || echo "(write-descriptions exited $? — not fatal)"
+
 # price-attempts.json belongs in this list: it is the recheck's memory of
 # which pages have already answered "no price". Left uncommitted, every
 # listing is asked again next run and the backoff silently does nothing.
-FILES='scraped.js data.js scrape/price-attempts.json'
+# descriptions.json belongs here for the same reason price-attempts.json
+# does: it is the memory of what has been written and what has been read and
+# found to say nothing. Left uncommitted it is rebuilt from zero every run,
+# every page is asked about again, and the batch bill repeats nightly.
+FILES='scraped.js data.js scrape/price-attempts.json scrape/descriptions.json'
 
 if [ -z "$(git status --porcelain -- $FILES)" ]; then
   echo "nothing changed"

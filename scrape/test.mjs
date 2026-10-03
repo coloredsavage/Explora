@@ -1187,3 +1187,50 @@ console.log('\nPicking an illustration per listing');
 
 console.log(failures ? `\n${failures} failing\n` : '\nall passing\n');
 process.exitCode = failures ? 1 : 0;
+
+console.log('\nDescriptions: written, or written off');
+{
+  const { isPlaceholder, restsAsNothing, writtenFor, NOTHING_RESTS_DAYS } = await import('./descriptions.mjs');
+  const { acceptable } = await import('../scripts/write-descriptions.mjs');
+
+  check('a placeholder is the fallback or nothing, not a short real description', () => {
+    assert.equal(isPlaceholder('Listed by Grossman\u2019s Tavern.'), true);
+    assert.equal(isPlaceholder(''), true);
+    assert.equal(isPlaceholder('   '), true);
+    assert.equal(isPlaceholder(undefined), true);
+    /* Short, but somebody wrote it about this event. */
+    assert.equal(isPlaceholder('A jazz quartet playing Monk.'), false);
+  });
+
+  check('a page written off for having nothing gets read again after a month', () => {
+    const store = { nothing: { 'u': '2026-09-01' } };
+    assert.equal(restsAsNothing(store, 'u', '2026-09-10'), true);
+    assert.equal(restsAsNothing(store, 'u', '2026-09-30'), true);
+    /* Day 30 is the first day it is asked again. */
+    assert.equal(restsAsNothing(store, 'u', '2026-10-01'), false);
+    assert.equal(restsAsNothing(store, 'never-seen', '2026-10-01'), false);
+  });
+
+  check('a written description is used, an empty one is not', () => {
+    assert.equal(writtenFor({ written: { u: { text: 'A quartet playing Monk.' } } }, 'u'), 'A quartet playing Monk.');
+    assert.equal(writtenFor({ written: { u: { text: '' } } }, 'u'), null);
+    assert.equal(writtenFor({ written: {} }, 'u'), null);
+  });
+
+  check('the gate throws away what the cheap model gets wrong', () => {
+    const t = 'The Moving Violations';
+    assert.ok(acceptable('A five-piece playing rhythm and blues standards, with a brass section and a long second set.', t));
+    /* The sentinel is not a description. */
+    assert.equal(acceptable('NOTHING', t), null);
+    /* It explained itself instead of answering. */
+    assert.equal(acceptable('Here is a description of the event you asked about, which is a band.', t), null);
+    assert.equal(acceptable('Sure! A band plays rhythm and blues at a tavern downtown tonight.', t), null);
+    /* It said in prose what the sentinel is for. */
+    assert.equal(acceptable('The page does not provide any further information about this event at all.', t), null);
+    /* Too short to be a description, or far too long. */
+    assert.equal(acceptable('A band.', t), null);
+    assert.equal(acceptable('x'.repeat(401), t), null);
+    /* It opened with the title after being told not to. */
+    assert.equal(acceptable('The Moving Violations play a long set of blues standards downtown.', t), null);
+  });
+}

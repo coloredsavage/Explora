@@ -18,6 +18,8 @@ import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescr
   sectionProse, echoesTitle } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources, shrunkSources } from './normalize.mjs';
 import { allowedBy, USER_AGENT } from './robots.mjs';
+import { load as loadDescriptions, save as saveDescriptions, writtenFor, restsAsNothing,
+  isPlaceholder } from './descriptions.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = new Set(process.argv.slice(2));
@@ -42,6 +44,11 @@ let modelCalls = 0;
 export const todayIso = () => new Date().toISOString().slice(0, 10);
 
 export const report = { kept: [], dropped: [], skipped: [], errors: [], coverage: [], followFailures: {} };
+
+/* Pages read this run whose listing has no description, url -> {title, text}.
+   Drained into scrape/descriptions.json at the end of main(); the batch
+   script picks it up from there. */
+export const descriptionQueue = new Map();
 
 /* The pause between event pages: 1.5s, and never under a second in a real
    poll whatever the environment says. A value that is not a number is
@@ -196,6 +203,18 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
         report.errors.push(`${url} — model extraction failed: ${err.message}`);
         if (raws.length === 0) continue;
       }
+    }
+
+    /* Keep this page's readable text for anything that is about to be filed
+       with no description of its own. scripts/write-descriptions.mjs reads
+       the queue and asks the model, on the Batch API, after the poll — the
+       page is already fetched here, so "check the site first" costs nothing
+       beyond holding the text. */
+    for (const raw of raws) {
+      if (raw.description) continue;
+      const u = raw.url ?? url;
+      if (!u || descriptionQueue.has(u)) continue;
+      descriptionQueue.set(u, { title: raw.title ?? '', text: readableText(html, 6000) });
     }
 
     for (const raw of raws) {
@@ -714,6 +733,48 @@ async function main() {
     report.skipped.push(`${subsumed.dropped} listing${subsumed.dropped === 1 ? '' : 's'} folded into a fuller copy of the same event`);
   }
 
+  /* The descriptions written since the last poll, and the pages that turned
+     out to have none.
+     
+     Applied here rather than in harvest because it is not a fact about a
+     source: every listing on the board goes through the same two questions.
+     Does a description written for this url exist? Then use it. Has this
+     page been read and found to say nothing about its own event? Then the
+     listing comes off the board, because "Listed by Grossman's Tavern." is
+     not a description of anything and a card carrying it tells a reader
+     nothing they did not already see in the title. */
+  const descriptions = await loadDescriptions(root);
+  let rewritten = 0;
+  const undescribed = [];
+  for (const e of events) {
+    const url = e.source || e.url;
+    if (!url || !isPlaceholder(e.description)) continue;
+    const written = writtenFor(descriptions, url);
+    if (written) { e.description = written; rewritten += 1; continue; }
+    if (restsAsNothing(descriptions, url, today)) undescribed.push(e);
+  }
+  if (rewritten) report.skipped.push(`${rewritten} description${rewritten === 1 ? '' : 's'} written from the page`);
+  for (const e of undescribed) {
+    report.dropped.push(`${e.id} — the page says nothing about the event, and nor did we`);
+  }
+  if (undescribed.length) {
+    const drop = new Set(undescribed);
+    const kept = events.filter((e) => !drop.has(e));
+    events.length = 0;
+    events.push(...kept);
+  }
+
+  /* What this run read, for the batch script to ask about after the poll.
+     Only urls still without a description: one the model has since written,
+     or one already written off, is not asked again. */
+  for (const [url, v] of descriptionQueue) {
+    if (descriptions.written[url] || descriptions.nothing[url]) continue;
+    descriptions.queued[url] = v;
+  }
+  for (const url of Object.keys(descriptions.queued)) {
+    if (descriptions.written[url] || descriptions.nothing[url]) delete descriptions.queued[url];
+  }
+
   /* The dedupe above kept some listings apart that the id would put back
      together; see disambiguateIds. */
   const ids = disambiguateIds(events);
@@ -778,6 +839,16 @@ const SCRAPED = [\n${body}\n];\n`;
   const target = OFFLINE ? path.join(os.tmpdir(), 'explora-scraped.offline.js') : path.join(root, 'scraped.js');
   await writeFile(target, file);
   console.log(`\nwrote ${OFFLINE ? target : 'scraped.js'} with ${events.length} event${events.length === 1 ? '' : 's'}`);
+
+  /* The queue, for the batch script to read after the poll. Never from an
+     offline replay: those pages are trimmed fixtures, and queueing them
+     would ask the model to describe an event from a page that was never the
+     whole page. */
+  if (!OFFLINE) {
+    await saveDescriptions(root, descriptions);
+    const waiting = Object.keys(descriptions.queued).length;
+    if (waiting) console.log(`${waiting} listing${waiting === 1 ? '' : 's'} with no description, queued for scripts/write-descriptions.mjs`);
+  }
 
   /* A source that errors should not quietly empty the calendar */
   if (report.errors.length && events.length === 0) process.exitCode = 1;
