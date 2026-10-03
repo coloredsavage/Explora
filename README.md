@@ -90,23 +90,47 @@ The five-minute timer is the push-to-deploy Pages gave for free. Worst-case
 lag between a push to `main` and the site is five minutes; an unchanged `main`
 costs half a second.
 
-**The cutover**, when you want it — nothing below is reversible in under the
-DNS TTL, which is why it is not done yet:
+**The cutover.** The certificate cannot come first, which is the opposite of
+how this reads. Let's Encrypt validates by fetching
+`http://explora.city/.well-known/acme-challenge/<token>` *over the public
+internet*, so while DNS still points at Pages it is GitHub that answers and
+the challenge 404s. Confirmed against the staging CA:
+
+```
+Detail: 2606:50c0:8001::153: Invalid response from
+        http://explora.city/.well-known/acme-challenge/... : 404
+```
+
+— that address is GitHub Pages, not this box. So DNS moves first and the
+domain spends a few minutes on plain HTTP. The port-80 block is set up for
+exactly that: it serves the real site rather than redirecting (a redirect
+would present the sslip.io certificate under the wrong name, which browsers
+refuse) and it always serves `/.well-known/acme-challenge/`.
+
+Rehearse it before touching DNS — `--resolve` makes curl pretend the record
+has already moved:
 
 ```sh
-# 1. a certificate for the real names (the vhost already answers to them)
-ssh beebot-vps 'certbot --nginx -d explora.city -d www.explora.city --redirect'
+curl -s --resolve explora.city:80:187.77.25.242 http://explora.city/ | head
+```
+
+```sh
+# 1. lower the TTL on the explora.city records first, and wait out the old
+#    one, so step 2 propagates in minutes and can be reversed in minutes.
 
 # 2. point the domain at the box, replacing the four GitHub Pages A records
 #    explora.city.      A      187.77.25.242
 #    www.explora.city.  CNAME  explora.city.
 
-# 3. once it has propagated
+# 3. the site is now plain HTTP. Issue the certificate as soon as it resolves:
+ssh beebot-vps 'certbot --nginx -d explora.city -d www.explora.city --redirect'
+
+# 4. confirm, and only then put the TTL back up
 curl -sI https://explora.city/ | grep -i server      # expect nginx, not GitHub.com
 ```
 
 Then Pages can be turned off in **Settings → Pages**, and `pages.yml` deleted.
-Leave both until step 3 passes: while DNS is in flight, either may answer.
+Leave both until step 4 passes: while DNS is in flight, either may answer.
 
 ## The daily poll runs on the VPS
 
