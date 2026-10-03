@@ -789,6 +789,20 @@ async function main() {
        `nothing` means stop asking, not remove. */
     if (isPlaceholder(e.description) && restsAsNothing(descriptions, url, today)) undescribed.push(e);
   }
+  /* The venue's own line, for listings still carrying nothing. Applied after
+     the written lookup, never over it: a description of this event always
+     beats a description of the room it is in. The batch still asks about
+     these — see needsWriting's venue-line clause — so an Emmet Ray poster
+     can replace it later, and the store's `nothing` marker is what stops
+     the asking for a venue like Grossman's that genuinely has none. */
+  const lineFor = new Map(allSources().filter((x) => x.venueLine).map((x) => [x.id, x.venueLine]));
+  let housed = 0;
+  for (const e of events) {
+    if (e.description) continue;
+    const line = lineFor.get(e.scrapedFrom);
+    if (line) { e.description = line; housed += 1; }
+  }
+  if (housed) report.skipped.push(`${housed} listing${housed === 1 ? '' : 's'} described by their venue's own line`);
   if (rewritten) report.skipped.push(`${rewritten} description${rewritten === 1 ? '' : 's'} written from the page`);
   if (undescribed.length) {
     report.skipped.push(`${undescribed.length} listing${undescribed.length === 1 ? '' : 's'} published with no description — their pages have none`);

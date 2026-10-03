@@ -1303,3 +1303,36 @@ console.log('\nThe poster, for pages that say nothing in words');
     descriptionQueue.clear();
   });
 }
+
+console.log('\nThe venue speaks when the event cannot');
+{
+  const { needsWriting } = await import('./descriptions.mjs');
+  const { allSources } = await import('./sources.mjs');
+  const LINES = allSources().map((x) => x.venueLine).filter(Boolean);
+
+  check('both venues that need one have one, and it says nothing about price', () => {
+    const g = allSources().find((x) => x.id === 'grossmans');
+    const e = allSources().find((x) => x.id === 'emmetray');
+    assert.ok(g.venueLine && e.venueLine);
+    /* All 70 Grossman's listings have no price at all, and all 54 Emmet Ray
+       ones have a real one on the card. A figure here would be a guess in
+       the first case and a duplicate in the second. */
+    for (const line of LINES) {
+      assert.ok(!/\$\d|free|no cover|pwyc|pay[- ]what/i.test(line), `price leaked into: ${line}`);
+      /* And it is a sentence about the room, not a card: no date, no title. */
+      assert.ok(!/\b(tonight|tomorrow|october|november)\b/i.test(line), `a date leaked into: ${line}`);
+      assert.ok(line.length > 60 && line.length <= 320, `bad length: ${line.length}`);
+    }
+  });
+
+  check('a venue line still counts as needing a description of the event', () => {
+    const g = allSources().find((x) => x.id === 'grossmans').venueLine;
+    /* Without the list it looks like a perfectly good description... */
+    assert.equal(needsWriting(g, 'Action Sound Band'), null);
+    /* ...and with it, the batch keeps asking, so an Emmet Ray poster can
+       still replace the room with the event. */
+    assert.equal(needsWriting(g, 'Action Sound Band', LINES), 'described only by its venue');
+    /* A real description is left alone either way. */
+    assert.equal(needsWriting('A seven-piece playing New Orleans jazz, two sets.', 'The Happy Pals', LINES), null);
+  });
+}

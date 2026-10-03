@@ -99,9 +99,14 @@ export function isPlaceholder(description) {
   return d === '' || /^Listed by /.test(d);
 }
 
-export function needsWriting(description, title) {
+export function needsWriting(description, title, venueLines = []) {
   const d = String(description ?? '').trim();
   if (isPlaceholder(d)) return 'no description';
+  /* A venue line is a floor, not an answer. It describes the room, so a
+     listing wearing one still wants a description of the event — the Emmet
+     Ray's posters supply those. What stops the asking is the store's
+     `nothing` marker, not this. */
+  if (venueLines.includes(d)) return 'described only by its venue';
   if (/[…]$|\.\.\.$/.test(d)) return 'cut off mid-sentence';
   if (title) {
     const bare = (x) => x.toLowerCase().replace(/[^a-z0-9]+/g, '');

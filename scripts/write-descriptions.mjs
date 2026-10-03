@@ -32,6 +32,7 @@ import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
 import { load, save, needsWriting } from '../scrape/descriptions.mjs';
+import { allSources } from '../scrape/sources.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = new Set(process.argv.slice(2));
@@ -223,13 +224,15 @@ function userContent(url, title, q) {
   ];
 }
 
+const VENUE_LINES = allSources().map((x) => x.venueLine).filter(Boolean);
+
 async function submit(store, client) {
   const listings = await board();
   const byUrl = new Map();
   for (const e of listings) {
     const url = e.source || e.url;
     if (!url) continue;
-    if (!needsWriting(e.description, e.title)) continue;
+    if (!needsWriting(e.description, e.title, VENUE_LINES)) continue;
     if (store.written[url] || store.nothing[url]) continue;
     if (!store.queued[url]?.text) continue;      /* the poll has not read it yet */
     byUrl.set(url, e);

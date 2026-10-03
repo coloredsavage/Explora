@@ -472,6 +472,21 @@ export const SOURCES = [
   },
   {
     id: 'emmetray',
+    /* The floor for an Emmet Ray listing, and only the floor: 40 of its 54
+       describe themselves with their own title and nothing else, but unlike
+       Grossman's its pages carry a poster worth reading, so the batch
+       usually does better than this. See `venueLine` on grossmans for why
+       these exist at all.
+    
+       Checked: the site calls itself a whisky bar and lists 924 College;
+       it opened in December 2009 with over 230 whiskies; the programme is
+       two bands a night across trad jazz, bebop, funk fusion and alt R&B,
+       with a weekly late-night jam — which matches our own data, where 38
+       of 54 titles say jazz and the Saturday late jam runs 11:30pm to 2am.
+       No price here either: these range $10 to $15 and PWYC, and the card
+       shows the real one. */
+    venueLine: 'A College Street whisky bar with two bands most nights \u2014 trad jazz, '
+      + 'bebop, funk fusion \u2014 and a late-night jam at the end of the week.',
     name: 'The Emmet Ray',
     url: 'https://www.theemmetray.com/events/',
     /* Jazz most nights, $12 to $15 at the door, which is the part of the
@@ -494,6 +509,27 @@ export const SOURCES = [
   {
     id: 'grossmans',
     name: 'Grossman\u2019s Tavern',
+    /* What a listing says when the venue says nothing.
+    
+       Grossman's publishes a band, a date and a time and not one word more —
+       its API sends an empty description, its event pages are 674 characters
+       of navigation, and the only image on them is the tavern's logo. That
+       was 69 of its 70 listings carrying "Listed by Grossman's Tavern.",
+       which told a reader exactly what the venue line above it already said.
+    
+       So the venue describes itself instead, once, for all of them. Every
+       clause is checked: "since 1943" is on its own site twice; blogTO has
+       it as one of the city's longest-running music venues, blues first and
+       then bluegrass, roots, folk, jazz and rock, with live music every
+       night; the Sunday jam is the longest-running in Toronto. The times
+       come from our own data — 35 of the 70 start at nine, 24 in the
+       afternoon at three.
+    
+       What it does NOT say is anything about the cover, because all 70
+       listings have no price at all and a guess there sends somebody to a
+       door with the wrong money. */
+    venueLine: 'A Chinatown blues bar since 1943, with live music every night and the '
+      + 'city\u2019s longest-running Sunday jam. Bands from nine, afternoon sets from three.',
     url: 'https://grossmanstavern.com/events/',
     enabled: true,
     category: 'music',
