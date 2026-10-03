@@ -198,6 +198,64 @@ export function readableText(html, limit = 12000) {
     .slice(0, limit);
 }
 
+/* The prose a page shows under its own heading, when its structured data
+ * carries none.
+ *
+ * Eventbrite needs this and it is not an edge case. Its Event JSON-LD sets
+ * `description` to the event's own *title*, and so do its meta description
+ * and its og:description — all three, on every page checked. "Best Croissant
+ * & Best Baguette in Toronto - The 2026 Competition" went on the board
+ * described as "Best Croissant & Best Baguette in Toronto - The 2026
+ * Competition", while the page itself opened with "On Sunday, October 4th,
+ * in front of a panel of professionals, the finest bakeries in the Toronto
+ * area will compete…". There is nothing wrong with the poller's priorities;
+ * the structured data is simply a copy of the headline.
+ *
+ * Matched on the stable half of the class name only. The real attribute is
+ * `Overview-module-scss-module__dJyb9a__summary` — that `dJyb9a` is a CSS
+ * module build hash and changes whenever Eventbrite ships, so pinning it
+ * would work until it quietly did not. "Overview…summary" is the part that
+ * means something.
+ *
+ * Returns null rather than a guess: no marker, no text, or nothing that
+ * reads as a description (readsAsDescription — the Bollyween page's summary
+ * is a logistics block in emoji) and the caller keeps what it had. */
+export function sectionProse(html, limit = 1200) {
+  if (!html) return null;
+  const open = /<(div|section)\b[^>]*class="[^"]*Overview[^"]*summary[^"]*"[^>]*>/i.exec(html);
+  if (!open) return null;
+
+  /* Walk from the marker counting opens and closes of the same tag, so the
+     nested copy of this class inside it does not end the block early. */
+  const tag = open[1].toLowerCase();
+  const rest = html.slice(open.index + open[0].length);
+  const step = new RegExp(`<${tag}\\b[^>]*>|</${tag}\\s*>`, 'gi');
+  let depth = 1;
+  let end = rest.length;
+  for (let m = step.exec(rest); m; m = step.exec(rest)) {
+    depth += m[0][1] === '/' ? -1 : 1;
+    if (depth === 0) { end = m.index; break; }
+  }
+
+  /* Block tags become spaces first, so two paragraphs do not run their last
+     and first words together into one. */
+  const prose = readableText(
+    rest.slice(0, end).replace(/<\/(p|li|div|h[1-6]|br)\s*>|<br\b[^>]*>/gi, ' '),
+    limit,
+  );
+  return prose && readsAsDescription(prose) ? prose : null;
+}
+
+/* A description that is only the title again is no description. Compared on
+   letters and digits alone, so punctuation and casing do not hide it. */
+export function echoesTitle(description, title) {
+  if (!description || !title) return false;
+  const bare = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
+  const d = bare(description);
+  const t = bare(title);
+  return d === t || (t.length > 12 && d.startsWith(t) && d.length < t.length * 1.25);
+}
+
 /* A site's own furniture. These match the shape of an event slug on most
    sites — /create is indistinguishable from /liminal-coworking by pattern
    alone — so they are excluded by name. Following them wastes a fetch and,

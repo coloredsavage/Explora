@@ -33,6 +33,7 @@ import { asIsoDate } from './normalize.mjs';
 import { stripTags, priceFrom, splitPlace, timeRange, fromTribe } from './api.mjs';
 import { NETWORKING } from './filters.mjs';
 import { vetEventbrite, skipBeforeFollow, settlePageNodes } from './eventbrite.mjs';
+import { sectionProse } from './extract.mjs';
 
 /* How many listings to keep from any one source.
  *
@@ -159,6 +160,43 @@ export const SOURCES = [
        If /ttd/ is ever walled too, /poi/canada--toronto/<venue>/ is the next
        move: the sitemap lists 98 Toronto venue pages, each answering 200 with
        ~64 event links. Costs 98 fetches instead of one. */
+    /* A second listing page, pooled with the first.
+
+       /b/ is Eventbrite's own browse shelf and answers 200 here exactly as
+       /ttd/ does — all 23 of Toronto's top-level ones do, checked
+       2026-10-03; only /d/ search and the API behind it are walled. Nightlife
+       is the one worth having on its own evidence: it renders 36 event links
+       where the others manage eight to eleven, and 32 of those 36 are not on
+       /ttd/ at all. One extra fetch for half again as many events.
+
+       The other ten that are relevant to this board are listed below with
+       what they measured, so widening this is a line rather than an
+       afternoon. They are off on purpose. Together they take the source from
+       61 events to 158, which is also 97 more event pages fetched per poll
+       from a site whose terms forbid all of this — the owner accepted that
+       risk at one listing page and forty follows, and quadrupling the
+       footprint is a separate decision to make deliberately. Add them a
+       couple at a time, and raise maxFollow with them.
+
+         new events each, over and above /ttd/ + nightlife:
+           /b/canada--toronto/sports-and-fitness/   10
+           /b/canada--toronto/film-and-media/       10
+           /b/canada--toronto/hobbies/              10
+           /b/canada--toronto/community/             8
+           /b/canada--toronto/food-and-drink/        7
+           /b/canada--toronto/home-and-lifestyle/    7
+           /b/canada--toronto/arts/                  6
+           /b/canada--toronto/travel-and-outdoor/    4
+           /b/canada--toronto/holiday/               2
+           /b/canada--toronto/music/                 1   <- all but one
+                                                           already on /ttd/ */
+    alsoIndex: ['https://www.eventbrite.ca/b/canada--toronto/nightlife/'],
+    /* Eventbrite's structured data describes every event with its own title —
+       the Event node, the meta description and og:description all three. The
+       prose is on the page, under its Overview heading, and this is the only
+       way to reach it: noModel means nothing here may ask the model to write
+       one instead. See sectionProse. */
+    descriptionFrom: sectionProse,
     enabled: true,
     listingOnly: true,
     /* Event pages are read at domcontentloaded, not networkidle.
@@ -196,9 +234,13 @@ export const SOURCES = [
     /* Both hosts: the city page links to .ca and .com event pages alike.
        -registration- as well as -tickets-, which is how free RSVPs are named. */
     followLinks: /^https:\/\/www\.eventbrite\.(ca|com)\/e\/[a-z0-9-]+-(tickets|registration)-\d+/i,
-    /* The city page names about twenty; anything past the cap is reported as
-       dropped, not silently lost. */
-    maxFollow: 40,
+    /* Two listing pages offer about 93 links between them, so 40 would now
+       drop more than it kept. 110 leaves headroom for a busy week without
+       being unbounded — anything past it is reported as dropped, not
+       silently lost, which is how the old cap was caught truncating Luma.
+       At the 1.5s follow delay this is the long pole in the poll: roughly
+       four minutes of Eventbrite on a full run. */
+    maxFollow: 110,
     maxEvents: A_MONTH_OF_LISTINGS,
   },
 

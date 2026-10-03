@@ -14,7 +14,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { enabledSources, allSources } from './sources.mjs';
-import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription } from './extract.mjs';
+import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription,
+  sectionProse, echoesTitle } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources, shrunkSources } from './normalize.mjs';
 import { allowedBy, USER_AGENT } from './robots.mjs';
 
@@ -100,7 +101,13 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
 
        One event on the page, it is about that event. Twenty, it is not about
        any of them. */
-    const meta = raws.length > 1 ? null : metaDescription(html);
+    /* And nulled when it is only the title again, for the same reason the
+       JSON-LD description is below: Eventbrite sets all three to the event's
+       name, and meta is the last resort further down (`raw.description ||
+       meta`), so leaving it would put the title back as the description
+       after the work above had taken it out. */
+    const metaRaw = raws.length > 1 ? null : metaDescription(html);
+    const meta = metaRaw && raws.length === 1 && echoesTitle(metaRaw, raws[0].title) ? null : metaRaw;
 
     /* Structured data is authoritative for the facts and frequently silent on
        the prose. Bad Dog's event pages carry an Event node with name, dates,
@@ -118,6 +125,24 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
       ...r,
       description: r.description && readsAsDescription(r.description) ? r.description : null,
     }));
+
+    /* A description that is only the title again is no description. On
+       Eventbrite that is every page: the Event node's `description`, the meta
+       description and og:description are all set to the event's own name, so
+       the board showed "Best Croissant & Best Baguette in Toronto - The 2026
+       Competition" as its own description while the page's first paragraph
+       sat unread. Dropping it here is what lets the fallbacks below run —
+       `descriptionFrom` for a source that cannot ask the model, the model
+       itself for one that can. */
+    raws = raws.map((r) => (echoesTitle(r.description, r.title) ? { ...r, description: null } : r));
+
+    /* The page's own prose, for a source whose structured data has none and
+       which never asks the model (noModel). Only consulted when there is
+       nothing better, and it returns null rather than guessing. */
+    if (source.descriptionFrom && raws.some((r) => !r.description)) {
+      const prose = source.descriptionFrom(html);
+      if (prose) raws = raws.map((r) => (r.description ? r : { ...r, description: prose }));
+    }
 
     const noProse = raws.length > 0
       && raws.every((r) => !r.description)
@@ -370,6 +395,18 @@ export async function offlinePages(source) {
   })));
 }
 
+/* Every listing page a source is read from: `url`, then any `alsoIndex`.
+ *
+ * One definition, because two places need the same answer and they are 250
+ * lines apart — livePages, to know which pages to visit and to mark them
+ * isIndex, and main(), to know which urls are listings rather than events
+ * when collapseSubsumed folds duplicates. A source whose extra indexes were
+ * known to one and not the other would have its listing pages harvested as
+ * if they were events. */
+export function indexUrls(source) {
+  return [source.url, ...(source.alsoIndex ?? [])];
+}
+
 export async function livePages(source, browser) {
   const ctx = await browser.newContext({ userAgent: UA });
   const page = await ctx.newPage();
@@ -396,11 +433,16 @@ export async function livePages(source, browser) {
     const res = await page.goto(url, { waitUntil: wait, timeout });
     if (!res || !res.ok()) { report.errors.push(`${url} — HTTP ${res ? res.status() : 'no response'}`); return null; }
     const html = await page.content();
-    pages.push({ url, html, isIndex: url === source.url });
+    /* Every listing page, not just source.url. Marking an extra index as an
+       event page would send its ItemList through harvest as if the twenty
+       names on it were twenty events, which for a listingOnly source is
+       precisely what line 78 exists to prevent. */
+    pages.push({ url, html, isIndex: INDEXES.includes(url) });
 
     return html;
   };
 
+  const INDEXES = indexUrls(source);
   const index = await visit(source.url);
   if (index) {
     /* What the page offered against what the cap let through. Luma's city
@@ -423,11 +465,26 @@ export async function livePages(source, browser) {
       if (!source.listingOnly) return u;
       try { const x = new URL(u); x.search = ''; x.hash = ''; return x.toString(); } catch { return u; }
     };
-    const listed = fromJsonLd(index);
+    /* The extra listing pages, read the same way and pooled with the first.
+       A failure here is one page's worth of links lost, not the source: the
+       index that matters is source.url, and `visit` has already reported
+       whatever went wrong. */
+    const extra = [];
+    for (const u of INDEXES.slice(1)) {
+      await new Promise((r) => setTimeout(r, FOLLOW_DELAY_MS));
+      try {
+        const html = await visit(u);
+        if (html) extra.push([u, html]);
+      } catch (err) { report.errors.push(`${u} — ${err.message.split('\n')[0]}`); }
+    }
+
+    const listed = [index, ...extra.map(([, html]) => html)].flatMap((h) => fromJsonLd(h));
     const fromMarkup = listed
       .map((e) => bare(String(e.url ?? '').trim()))
       .filter((u) => u && source.followLinks && source.followLinks.test(u));
-    const anchors = candidateLinks(index, source.url, source.followLinks, Infinity).map(bare);
+    const anchors = [[source.url, index], ...extra]
+      .flatMap(([u, h]) => candidateLinks(h, u, source.followLinks, Infinity))
+      .map(bare);
     /* And one event under two hosts — Eventbrite links the same event as
        .ca and .com — is one page to read, not two: the first url wins, which
        is the listing's own JSON-LD. Keyed on the event's number, the only
@@ -649,8 +706,8 @@ async function main() {
      purpose. One project published across several of a source's own pages
      looks exactly like that and is not; see collapseSubsumed. */
   /* Which urls are listing pages rather than events: exactly the ones this
-     repo configured as sources. */
-  const indexes = new Set(allSources().map((x) => String(x.url ?? '').replace(/\/$/, '')));
+     repo configured as sources, including each source's extra indexes. */
+  const indexes = new Set(allSources().flatMap(indexUrls).map((u) => String(u ?? '').replace(/\/$/, '')));
   const isIndexUrl = (u) => indexes.has(String(u ?? '').replace(/\/$/, ''));
   const subsumed = collapseSubsumed(events, better, isIndexUrl);
   if (subsumed.dropped) {

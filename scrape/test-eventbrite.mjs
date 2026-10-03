@@ -15,7 +15,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import { fromJsonLd } from './extract.mjs';
+import { fromJsonLd, sectionProse, echoesTitle, metaDescription } from './extract.mjs';
 import { normalize, validate, asNightlife } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { matchArt } from './art-match.mjs';
@@ -27,7 +27,7 @@ import { classifyEventbriteEvent, eventbritePrice, formatPrice, vetEventbrite, r
 process.env.EXPLORA_TEST = '1';
 process.env.FOLLOW_DELAY_MS = '0';
 const { harvest, livePages, pollSource, followVerdict, carryForward, quietSources, followDelayMs,
-  report, FOLLOW_BREAKER, MIN_FOLLOW_DELAY_MS } = await import('./run.mjs');
+  indexUrls, report, FOLLOW_BREAKER, MIN_FOLLOW_DELAY_MS } = await import('./run.mjs');
 const { enabledSources } = await import('./sources.mjs');
 const { reportDir } = await import('./dry-run-eventbrite.mjs');
 
@@ -645,15 +645,25 @@ const synthetic = (n) => {
   const listing = ld({ '@type': 'ItemList', itemListElement: events.map((e, i) => ({ '@type': 'ListItem', position: i + 1, item: { ...e, offers: undefined } })) });
   return { events, listing, pageFor: new Map(events.map((e) => [e.url, ld(e)])) };
 };
+/* `tried` is event pages only. Every one of the source's listing pages is
+   served here, not just source.url: livePages reads source.url plus each
+   alsoIndex, and a harness that knew about only the first counted the extra
+   ones as event pages — which made the breaker look like it had fetched one
+   page more than it had. The extra indexes serve an empty list, so the link
+   count is exactly what synthetic() says and these checks stay about the
+   breaker rather than about pooling. */
+const EMPTY_LISTING = '<script type="application/ld+json">'
+  + JSON.stringify({ '@type': 'ItemList', itemListElement: [] }) + '</script>';
 const fakeBrowser = ({ listing, pageFor }, fails = () => false) => {
   const tried = [];
+  const indexes = indexUrls(eventbrite);
   let current = '';
   const browser = { newContext: async () => ({
     newPage: async () => ({
       goto: async (u) => {
         current = u;
         if (u.endsWith('/robots.txt')) return { ok: () => true, status: () => 200 };
-        if (u === eventbrite.url) return { ok: () => true, status: () => 200 };
+        if (indexes.includes(u)) return { ok: () => true, status: () => 200 };
         const i = tried.length;
         tried.push(u);
         if (fails(i, u)) throw new Error('page.goto: Timeout 45000ms exceeded.');
@@ -661,12 +671,103 @@ const fakeBrowser = ({ listing, pageFor }, fails = () => false) => {
         return { ok: () => ok, status: () => (ok ? 200 : 404) };
       },
       content: async () => (current.endsWith('/robots.txt') ? 'User-agent: *\nAllow: /\n'
-        : current === eventbrite.url ? listing : pageFor.get(current)),
+        : current === eventbrite.url ? listing
+        : indexes.includes(current) ? EMPTY_LISTING
+        : pageFor.get(current)),
     }),
     close: async () => {},
   }) };
   return { browser, tried };
 };
+
+console.log('\nThe description Eventbrite does not put in its structured data');
+check('all three of its description fields are just the title', () => {
+  const html = fixture('eventbrite.e-croissant-overview.html');
+  const raw = fromJsonLd(html)[0];
+  assert.equal(raw.description, raw.title);
+  assert.ok(echoesTitle(raw.description, raw.title));
+  assert.ok(echoesTitle(metaDescription(html), raw.title), 'meta description should echo the title too');
+});
+check('sectionProse reads the Overview block instead', () => {
+  const prose = sectionProse(fixture('eventbrite.e-croissant-overview.html'));
+  assert.match(prose, /^On Sunday, October 4th, in front of a panel of professionals/);
+  assert.match(prose, /People's Choice Award/);
+  /* Both paragraphs, and not run together into one word. */
+  assert.match(prose, /Toronto\. Sample all the finest/);
+  assert.ok(!/Overview|module|scss/.test(prose), 'markup leaked into the prose');
+});
+check('the hash in the class name is not what it matches on', () => {
+  const html = fixture('eventbrite.e-croissant-overview.html');
+  /* Eventbrite ships a new CSS module hash; the prose must still be found. */
+  const rebuilt = html.replace(/dJyb9a/g, 'Zq91xK').replace(/5yIgma/g, 'aB3dEf');
+  assert.match(sectionProse(rebuilt), /^On Sunday, October 4th/);
+});
+check('no Overview block, or prose that is really a logistics block, is null', () => {
+  assert.equal(sectionProse(fixture('eventbrite.e-best-croissant.html')), null);
+  assert.equal(sectionProse(''), null);
+  assert.equal(sectionProse('<div class="Overview-x__summary"><p>\u{1F4CD} MIA, 244 Adelaide St W \u{1F553} 10pm \u{1F39F} $25</p></div>'), null);
+});
+await checkAsync('a poll of that page publishes the prose, not the title', async () => {
+  const html = fixture('eventbrite.e-croissant-overview.html');
+  resetReport();
+  const out = await harvest(eventbrite, [{ url: fromJsonLd(html)[0].url, html, isIndex: false }], { today });
+  assert.equal(out.length, 1);
+  assert.match(out[0].description, /^On Sunday, October 4th/);
+  assert.notEqual(out[0].description, out[0].title);
+});
+
+console.log('\nExtra listing pages');
+await checkAsync('an alsoIndex page is pooled for links and never harvested as an event', async () => {
+  const site = synthetic(4);
+  /* A second listing page naming two events of its own, one of which the
+     first page also names. */
+  const ld = (x) => `<script type="application/ld+json">${JSON.stringify(x)}</script>`;
+  const extraUrl = indexUrls(eventbrite)[1];
+  assert.ok(extraUrl, 'eventbrite should carry at least one alsoIndex');
+  const own = [site.events[0], {
+    '@type': 'Event', name: 'Only On The Second Page', startDate: '2026-10-20T20:00:00-04:00',
+    url: 'https://www.eventbrite.ca/e/only-on-the-second-page-tickets-2000009999',
+    location: { '@type': 'Place', name: 'Club', address: { '@type': 'PostalAddress', streetAddress: '9 Queen St W', addressLocality: 'Toronto' } },
+    offers: [{ '@type': 'AggregateOffer', lowPrice: '0', highPrice: '0', priceCurrency: 'CAD' }],
+  }];
+  site.pageFor.set(own[1].url, ld(own[1]));
+  const second = ld({ '@type': 'ItemList', itemListElement: own.map((e, i) => ({ '@type': 'ListItem', position: i + 1, item: { ...e, offers: undefined } })) });
+
+  const tried = [];
+  let current = '';
+  const indexes = indexUrls(eventbrite);
+  const browser = { newContext: async () => ({
+    newPage: async () => ({
+      goto: async (u) => {
+        current = u;
+        if (u.endsWith('/robots.txt') || indexes.includes(u)) return { ok: () => true, status: () => 200 };
+        tried.push(u);
+        return { ok: () => site.pageFor.has(u), status: () => (site.pageFor.has(u) ? 200 : 404) };
+      },
+      content: async () => (current.endsWith('/robots.txt') ? 'User-agent: *\nAllow: /\n'
+        : current === eventbrite.url ? site.listing
+        : current === extraUrl ? second
+        : site.pageFor.get(current)),
+    }),
+    close: async () => {},
+  }) };
+
+  resetReport();
+  const pages = await livePages(eventbrite, browser);
+
+  /* The second page's own event is followed; the one it shares with the
+     first is read once, not twice. */
+  assert.ok(tried.includes(own[1].url), 'the event only the second page names was not followed');
+  assert.equal(new Set(tried).size, tried.length, 'an event shared by both pages was fetched twice');
+  assert.equal(tried.length, 5, `followed ${tried.length}, expected 4 + 1`);
+
+  /* Both listing pages are marked as listings, so neither is harvested. */
+  const indexPages = pages.filter((p) => p.isIndex).map((p) => p.url);
+  assert.deepEqual(indexPages.sort(), [eventbrite.url, extraUrl].sort());
+  const harvested = await harvest(eventbrite, pages, { today });
+  assert.ok(!harvested.some((e) => /Community Walk/.test(e.title) && e.entry === undefined),
+    'an index ItemList was harvested as events');
+});
 
 console.log('\nFollow failures: the breaker, the count, and a failed source');
 await checkAsync(`${FOLLOW_BREAKER} failed follows in a row stop the source following`, async () => {
