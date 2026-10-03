@@ -6,13 +6,19 @@ Description=Explora source poll at 08:30 Toronto
 # DST change, which is the bug the content lanes already hit before
 # lib/schedule.mjs started resolving instants in Toronto.
 #
+# The zone goes INLINE in OnCalendar, which systemd has supported since v252
+# (this box is 255). There is no `Timezone=` key in [Timer] — every other
+# timer on this box carries one and systemd ignores all of them:
+#   systemd-analyze verify ... -> Unknown key name 'Timezone', ignoring
+# They work anyway because they also set the zone inline, so the dead line
+# looks load-bearing and is not. Checked: next elapse 12:30 UTC = 08:30 EDT.
+#
 # 08:30 is chosen against explora-reel.timer at 09:45: the reel reads
 # /opt/Explora for the listings it posts, so the poll has to have landed
 # before it runs. Roughly 70 minutes of margin for a 5-7 minute job. It also
 # puts the poll before the Toronto working day, so a source that publishes
 # in the morning is read the same day rather than the next.
 OnCalendar=*-*-* 08:30:00 America/Toronto
-Timezone=America/Toronto
 
 # The box can be down or rebooting at 08:30; without this the day is simply
 # skipped, which is the failure mode we are leaving GitHub to escape.
