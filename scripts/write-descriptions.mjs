@@ -39,7 +39,35 @@ const DRY = argv.has('--dry-run');
 const ONLY_COLLECT = argv.has('--collect');
 const ONLY_SUBMIT = argv.has('--submit');
 
-const MODEL = 'claude-haiku-4-5';
+/* Opus, and the reasoning is the opposite of #33's.
+ *
+ * That commit — "Stop spending Opus money on reading event listings" — moved
+ * EXTRACTION to Haiku and was right to: six fields, every one checked by
+ * normalize and validate afterwards, up to 121 pages a run, and a wrong
+ * answer is dropped rather than published. Bounded work, high volume,
+ * self-correcting.
+ *
+ * Writing a description is none of those things. There is no right answer to
+ * check it against, nothing downstream catches a dull one, and the whole
+ * value of the output is the part a cheap model loses. On six Bad Dog pages,
+ * same prompt, same text: Haiku wrote "Graduates of the Bad Dog Academy's
+ * longform improv studio series perform Harold and Armando formats, directed
+ * by Alex Tindal"; Opus wrote the same thing and then "Pay-what-you-can at
+ * the door, and free for Bad Dog students". It found the hour-long running
+ * time on four of six, the ticket conditions on three, and on the page with
+ * nothing to say it returned the sentinel where Haiku replied "I cannot
+ * complete this task as the page provides only the event title..." in prose.
+ *
+ * And the volume is nothing like extraction's, because the store is keyed by
+ * url and a description does not change: after the catch-up this writes only
+ * new listings. $0.62 once, then about $2.77 a month at batch rates against
+ * Haiku's $0.55. Two dollars a month is the right price for the difference
+ * between a card worth reading and a card that is merely accurate.
+ *
+ * The descriptions on this board that read best were written this way — an
+ * Opus session reading each page, in #36, when re-polling was too expensive.
+ * This is that, on a schedule. */
+const MODEL = 'claude-opus-5';
 const today = () => new Date().toISOString().slice(0, 10);
 
 /* The exact token the model returns when a page says nothing about its own
@@ -208,6 +236,10 @@ async function submit(store, client) {
         model: MODEL,
         max_tokens: 400,
         system: SYSTEM,
+        /* Two sentences from a page already in front of it. Nothing here
+           needs deliberation, and effort is what keeps this at batch prices
+           rather than Opus prices. */
+        output_config: { effort: 'low' },
         messages: [{
           role: 'user',
           content: `Event title: ${e.title}\nPage: ${url}\n\nThe readable text of that page:\n\n${store.queued[url].text}`,
