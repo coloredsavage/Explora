@@ -137,6 +137,21 @@ export function fromTribe(rec) {
        a door with the wrong money. */
     entry: rec.cost || null,
     description: stripTags(rec.description),
+    /* The poster, which this never captured and which is the only place some
+       venues write anything down. The Emmet Ray's event pages carry the
+       title, the date, the price and no prose at all — "Else Langhans,
+       Guitar/Vocals, Jazz Covers Original Songwriter" three times over — and
+       then a 1660x1660 collage reading "Every Saturday 11:30am to 1:30pm /
+       Solo acoustic original songs + folk & jazz covers". Forty of its
+       fifty-four listings are in that shape. The plugin sends `image` as an
+       object with a url, or `false` when there is none. */
+    image: tribeImage(rec.image),
     via: 'api',
   };
+}
+
+function tribeImage(v) {
+  if (!v) return null;                               /* `false` when unset */
+  const u = typeof v === 'string' ? v : (v.url ?? v.source ?? null);
+  return typeof u === 'string' && /^https?:\/\//i.test(u.trim()) ? u.trim() : null;
 }

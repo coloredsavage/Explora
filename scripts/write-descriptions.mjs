@@ -210,6 +210,19 @@ async function collect(store, client) {
   return true;
 }
 
+/* What the model is shown. The poster is attached only where the poll found
+   the page wordless — see the queue in run.mjs — and it is introduced
+   explicitly, because an unannounced image invites a description OF the
+   picture rather than of the event. */
+function userContent(url, title, q) {
+  const text = `Event title: ${title}\nPage: ${url}\n\nThe readable text of that page:\n\n${q.text}`;
+  if (!q.image) return text;
+  return [
+    { type: 'image', source: { type: 'url', url: q.image } },
+    { type: 'text', text: `${text}\n\nThat page says nothing about the event in words. Its poster is attached. Read any writing ON the poster and use it. Do not describe the photograph — who is pictured, what they are wearing, what the room looks like — and if the poster carries no words beyond the title, reply ${NOTHING}.` },
+  ];
+}
+
 async function submit(store, client) {
   const listings = await board();
   const byUrl = new Map();
@@ -240,10 +253,7 @@ async function submit(store, client) {
            needs deliberation, and effort is what keeps this at batch prices
            rather than Opus prices. */
         output_config: { effort: 'low' },
-        messages: [{
-          role: 'user',
-          content: `Event title: ${e.title}\nPage: ${url}\n\nThe readable text of that page:\n\n${store.queued[url].text}`,
-        }],
+        messages: [{ role: 'user', content: userContent(url, e.title, store.queued[url]) }],
       },
     });
   }

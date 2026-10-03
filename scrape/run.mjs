@@ -233,7 +233,18 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
          "menu" cut 2,100 characters to 600 — and took the show's own
          paragraph with it, on four pages out of six. The model was never
          confused by the menu; it reads past it. Leave the text alone. */
-      descriptionQueue.set(u, { title: raw.title ?? '', text: readableText(html, 6000), own: true });
+      /* The poster goes in the queue only when the page gave no words of its
+         own. Measured on four Eventbrite pages, attaching it where there is
+         already prose changed the description not at all and cost 27% more
+         input; on the Emmet Ray, where the page says only the title, it is
+         the entire description. So: no prose, send the picture. */
+      const wordless = !raw.description || echoesTitle(raw.description, raw.title);
+      descriptionQueue.set(u, {
+        title: raw.title ?? '',
+        text: readableText(html, 6000),
+        ...(wordless && raw.image ? { image: raw.image } : {}),
+        own: true,
+      });
     }
 
     for (const raw of raws) {

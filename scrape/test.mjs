@@ -1252,3 +1252,42 @@ console.log('\nDescriptions: written, or written off');
     assert.equal(acceptable('The Moving Violations play a long set of blues standards downtown.', t), null);
   });
 }
+
+console.log('\nThe poster, for pages that say nothing in words');
+{
+  const { fromTribe } = await import('./api.mjs');
+  const base = { title: 'Else Langhans, Guitar/Vocals, Jazz Covers', start_date: '2026-10-03 11:30:00',
+    end_date: '2026-10-03 13:30:00', url: 'https://www.theemmetray.com/event/else-langhans/', description: '<p>Else Langhans</p>' };
+
+  check('the Tribe api carries the poster through, in either shape', () => {
+    assert.equal(fromTribe({ ...base, image: { url: 'https://x/p.png' } }).image, 'https://x/p.png');
+    assert.equal(fromTribe({ ...base, image: 'https://x/p.png' }).image, 'https://x/p.png');
+    /* The plugin sends false when there is none, and junk must not pass. */
+    assert.equal(fromTribe({ ...base, image: false }).image, null);
+    assert.equal(fromTribe({ ...base }).image, null);
+    assert.equal(fromTribe({ ...base, image: { url: '/relative.png' } }).image, null);
+    assert.equal(fromTribe({ ...base, image: { nope: 1 } }).image, null);
+  });
+
+  await checkAsync('a page with real prose does not get its poster sent', async () => {
+    const { descriptionQueue } = await import('./run.mjs');
+    const { harvest } = await import('./run.mjs');
+    const src = { id: 'poster-test', category: 'music', art: 'art-music', noModel: true,
+      defaultVenue: 'The Emmet Ray', defaultAddress: '924 College St, Toronto, ON' };
+    const ld = (x) => `<script type="application/ld+json">${JSON.stringify(x)}</script>`;
+    const ev = (desc) => ({ '@type': 'MusicEvent', name: 'Else Langhans Trio', startDate: '2026-10-03T11:30:00-04:00',
+      image: 'https://x/poster.png', description: desc,
+      location: { '@type': 'Place', name: 'The Emmet Ray', address: { '@type': 'PostalAddress', streetAddress: '924 College St', addressLocality: 'Toronto' } } });
+
+    /* Prose of its own: no poster in the queue. */
+    descriptionQueue.clear();
+    await harvest(src, [{ url: 'https://e/1', html: ld(ev('A solo set of original songs and standards, played on a nylon-string guitar.')), isIndex: false }], { today: '2026-09-27' });
+    assert.equal([...descriptionQueue.values()][0]?.image, undefined, 'poster sent for a page that had prose');
+
+    /* Description is only the title: the poster is the description. */
+    descriptionQueue.clear();
+    await harvest(src, [{ url: 'https://e/2', html: ld(ev('Else Langhans Trio')), isIndex: false }], { today: '2026-09-27' });
+    assert.equal([...descriptionQueue.values()][0]?.image, 'https://x/poster.png', 'poster not sent for a wordless page');
+    descriptionQueue.clear();
+  });
+}
