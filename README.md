@@ -56,11 +56,57 @@ the workflow token is granted, and `configure-pages` fails with *Resource not
 accessible by integration* until the setting exists. Once it is set, every push
 to `main` deploys.
 
-**The deploy is still on Actions, and the poll is not.** If the GitHub account
-is ever locked for billing again, the VPS keeps polling and pushing `main`
-while Pages quietly stops rebuilding — the repository stays current and the
-site does not. `curl -sI https://explora.city | grep last-modified` is the
-check that tells them apart.
+**Pages is no longer the only way the site gets published.** The VPS does the
+same job, from the same `main`, and is ready to take the domain — see below.
+Until DNS moves, Pages is what `explora.city` resolves to, and while the
+GitHub account is locked for billing it does not rebuild at all: the VPS
+pushes fresh listings and the site serves whatever Pages last managed to
+deploy. `curl -sI https://explora.city | grep last-modified` is the check that
+tells a fresh repository from a stale site.
+
+## Serving the site from the VPS
+
+Everything is built and verified; only the DNS record still points at GitHub.
+
+| | |
+|---|---|
+| vhost | `scripts-vps/explora.city.nginx.conf` → `/etc/nginx/sites-available/explora.city` |
+| webroot | `/var/www/explora/current` — a symlink into `releases/<sha>/` |
+| deploy | `scripts-vps/run-deploy.sh`, on `explora-deploy.timer` every 5 minutes |
+| staging URL | `https://explora.187-77-25-242.sslip.io/` — this box, no DNS needed |
+
+`run-deploy.sh` does what `pages.yml` does and in the same order: `build-seo.mjs`,
+the `?v=dev` → commit-sha cache bust, then the repository as-is. It checks the
+bust applied, that JSON-LD is present and that the sitemap is non-empty
+*before* publishing, then swaps a symlink — one rename, so no request ever
+sees a half-copied tree. Five releases are kept, so rolling back is:
+
+```sh
+ssh beebot-vps 'ln -sfn /var/www/explora/releases/<sha> /var/www/explora/.t \
+  && mv -Tf /var/www/explora/.t /var/www/explora/current'
+```
+
+The five-minute timer is the push-to-deploy Pages gave for free. Worst-case
+lag between a push to `main` and the site is five minutes; an unchanged `main`
+costs half a second.
+
+**The cutover**, when you want it — nothing below is reversible in under the
+DNS TTL, which is why it is not done yet:
+
+```sh
+# 1. a certificate for the real names (the vhost already answers to them)
+ssh beebot-vps 'certbot --nginx -d explora.city -d www.explora.city --redirect'
+
+# 2. point the domain at the box, replacing the four GitHub Pages A records
+#    explora.city.      A      187.77.25.242
+#    www.explora.city.  CNAME  explora.city.
+
+# 3. once it has propagated
+curl -sI https://explora.city/ | grep -i server      # expect nginx, not GitHub.com
+```
+
+Then Pages can be turned off in **Settings → Pages**, and `pages.yml` deleted.
+Leave both until step 3 passes: while DNS is in flight, either may answer.
 
 ## The daily poll runs on the VPS
 
