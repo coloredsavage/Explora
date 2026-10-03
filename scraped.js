@@ -29,7 +29,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-comedy",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5",
+    "address": "180 Shaw Street, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-03",
@@ -68,7 +68,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5",
+    "address": "180 Shaw Street, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-03",
@@ -87,7 +87,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-comedy",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5",
+    "address": "180 Shaw Street, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-03",
@@ -206,7 +206,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Comedy Bar Bloor",
-    "address": "945 Bloor Street West, Toronto, ON, M6H 1L5",
+    "address": "945 Bloor Street West, Toronto, ON, M6H 1L5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-03",
@@ -250,7 +250,7 @@ const SCRAPED = [
     "url": "https://baddogtheatre.com/whats-on/2026/10/7/sweet-sweet-friends",
     "source": "https://baddogtheatre.com/whats-on/2026/10/7/sweet-sweet-friends",
     "checked": "2026-10-03",
-    "description": "Rising stars and alumni performers do improvised comedy on the Sweet Sweet Wednesday stage, with special guest performers.",
+    "description": "Rising stars and alumni perform improv comedy, joined by special guests.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-07",
@@ -285,7 +285,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action",
-    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5",
+    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-03",
@@ -304,7 +304,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action",
-    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5",
+    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-03",
@@ -493,301 +493,621 @@ const SCRAPED = [
     "via": "api"
   },
   {
-    "id": "comedybar-all-out-comedy-2026-10-16",
-    "title": "ALL OUT COMEDY",
+    "id": "comedybar-all-the-best-a-stand-up-show-2026-10-17",
+    "title": "All The Best: A Stand-Up Show",
     "category": "comedy",
-    "art": "art-improv",
+    "art": "art-comedy",
     "entry": "$25",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/all-out-comedy",
-    "source": "https://comedybar.ca/shows/all-out-comedy",
+    "url": "https://comedybar.ca/shows/all-the-best-a-stand-up-show",
+    "source": "https://comedybar.ca/shows/all-the-best-a-stand-up-show",
     "checked": "2026-10-03",
-    "description": "A night of Toronto comedians hosted by Justin Subryan, featuring 75 minutes of stand-up comedy.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-16",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-all-out-comedy-2026-11-20",
-    "title": "ALL OUT COMEDY",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/all-out-comedy",
-    "source": "https://comedybar.ca/shows/all-out-comedy",
-    "checked": "2026-10-03",
-    "description": "A night of Toronto comedians hosted by Justin Subryan, featuring 75 minutes of stand-up comedy.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-20",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-greaseboy-live-2026-10-17",
-    "title": "Greaseboy Live!",
-    "category": "comedy",
-    "art": "art-books",
-    "entry": "$18 (General Admission) or $30 (includes signed book)",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/greaseboy-live",
-    "source": "https://comedybar.ca/shows/greaseboy-live",
-    "checked": "2026-10-03",
-    "description": "Noah Farberman promotes his debut novella The Death of Greaseboy with stand-up from local comedians and comedy music, offering signed copies that can be dipped in Vaseline.",
+    "description": "A stand-up comedy show featuring top comedians from Just For Laughs, Crave, CBC, SiriusXM and more, hosted by Juliana Rodrigues.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-17",
-      "time": "05:00 PM"
+      "time": "10:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-murder-at-comedy-bar-an-interactive-comedy-murde-2026-10-30",
-    "title": "Murder at Comedy Bar: An Interactive Comedy Murder Mystery",
+    "id": "comedybar-all-the-best-a-stand-up-show-2026-11-21",
+    "title": "All The Best: A Stand-Up Show",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$30 online or $35 at the door",
+    "art": "art-comedy",
+    "entry": "$25",
     "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/murder-at-comedy-bar-danforth",
-    "source": "https://comedybar.ca/shows/murder-at-comedy-bar-danforth",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/all-the-best-a-stand-up-show",
+    "source": "https://comedybar.ca/shows/all-the-best-a-stand-up-show",
     "checked": "2026-10-03",
-    "description": "Stand-up comedians perform while clues to a murder mystery are woven throughout the night. One performer is the killer, and the audience must gather evidence and accusations to solve the case before the reveal.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-30",
-      "time": "9:00pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-murder-at-comedy-bar-an-interactive-comedy-murde-2026-10-31",
-    "title": "Murder at Comedy Bar: An Interactive Comedy Murder Mystery",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$30 online or $35 at the door",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/murder-at-comedy-bar-danforth",
-    "source": "https://comedybar.ca/shows/murder-at-comedy-bar-danforth",
-    "checked": "2026-10-03",
-    "description": "Stand-up comedians perform while clues to a murder mystery are woven throughout the night. One performer is the killer, and the audience must gather evidence and accusations to solve the case before the reveal.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-31",
-      "time": "7:00pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-peyton-ruddy-2026-11-20",
-    "title": "Peyton Ruddy",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$30.75–$40.75",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/peyton-ruddy",
-    "source": "https://comedybar.ca/shows/peyton-ruddy",
-    "checked": "2026-10-03",
-    "description": "Stand-up comedy from the Chicago-born comedian known for viral content and appearances on Kill Tony.",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-11-20",
-      "end": "2026-11-21"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-peyton-ruddy-2026-11-21",
-    "title": "Peyton Ruddy",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$30.75–$40.75",
-    "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/peyton-ruddy",
-    "source": "https://comedybar.ca/shows/peyton-ruddy",
-    "checked": "2026-10-03",
-    "description": "Stand-up comedy from the Chicago-born comedian known for viral content and appearances on Kill Tony.",
+    "description": "A stand-up comedy show featuring top comedians from Just For Laughs, Crave, CBC, SiriusXM and more, hosted by Juliana Rodrigues.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-21",
-      "time": "7:00 PM"
+      "time": "10:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-queer-trash-trivia-2026-11-07",
-    "title": "Queer Trash Trivia",
+    "id": "comedybar-all-the-best-a-stand-up-show-2026-12-19",
+    "title": "All The Best: A Stand-Up Show",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
+    "art": "art-comedy",
+    "entry": "$25",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/queer-trash-trivia",
-    "source": "https://comedybar.ca/shows/queer-trash-trivia",
+    "url": "https://comedybar.ca/shows/all-the-best-a-stand-up-show",
+    "source": "https://comedybar.ca/shows/all-the-best-a-stand-up-show",
     "checked": "2026-10-03",
-    "description": "Hosts Bee Bertrand and Cleo Vaillancourt create trivia questions for teams to answer for a chance to win items from their homes, with performances from Canada's Best Comics between rounds. Everyone wins a prize.",
+    "description": "A stand-up comedy show featuring top comedians from Just For Laughs, Crave, CBC, SiriusXM and more, hosted by Juliana Rodrigues.",
     "schedule": {
       "kind": "day",
-      "date": "2026-11-07",
-      "time": "7:00 PM"
+      "date": "2026-12-19",
+      "time": "10:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-queer-trash-trivia-2026-12-05",
-    "title": "Queer Trash Trivia",
+    "id": "comedybar-bloomin-funyuns-2026-10-13",
+    "title": "BLOOMIN FUNYUNS",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
+    "art": "art-comedy",
+    "entry": "$25",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/queer-trash-trivia",
-    "source": "https://comedybar.ca/shows/queer-trash-trivia",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
     "checked": "2026-10-03",
-    "description": "Hosts Bee Bertrand and Cleo Vaillancourt create trivia questions for teams to answer for a chance to win items from their homes, with performances from Canada's Best Comics between rounds. Everyone wins a prize.",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-13",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-bloomin-funyuns-2026-10-27",
+    "title": "BLOOMIN FUNYUNS",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
+    "checked": "2026-10-03",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-27",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-bloomin-funyuns-2026-11-10",
+    "title": "BLOOMIN FUNYUNS",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
+    "checked": "2026-10-03",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-10",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-bloomin-funyuns-2026-11-24",
+    "title": "BLOOMIN FUNYUNS",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
+    "checked": "2026-10-03",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-24",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-bloomin-funyuns-2026-12-08",
+    "title": "BLOOMIN FUNYUNS",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
+    "checked": "2026-10-03",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-08",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-bloomin-funyuns-2026-12-22",
+    "title": "BLOOMIN FUNYUNS",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
+    "checked": "2026-10-03",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-22",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-bloomin-funyuns-2027-01-12",
+    "title": "BLOOMIN FUNYUNS",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
+    "checked": "2026-10-03",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-01-12",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-bloomin-funyuns-2027-01-19",
+    "title": "BLOOMIN FUNYUNS",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
+    "checked": "2026-10-03",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-01-19",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-bloomin-funyuns-2027-02-09",
+    "title": "BLOOMIN FUNYUNS",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
+    "checked": "2026-10-03",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-02-09",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-bloomin-funyuns-2027-02-23",
+    "title": "BLOOMIN FUNYUNS",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/bloomin-funyuns",
+    "source": "https://comedybar.ca/shows/bloomin-funyuns",
+    "checked": "2026-10-03",
+    "description": "Up-and-coming stand-ups from the cbpro comedy school perform alongside seasoned comedians and a rotating guest host.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-02-23",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-crush-christmas-2026-12-05",
+    "title": "CRUSH CHRISTMAS",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$23",
+    "venue": "Comedy Bar",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/crush-christmas",
+    "source": "https://comedybar.ca/shows/crush-christmas",
+    "checked": "2026-10-03",
+    "description": "An improv comedy show where rotating local comedians perform fast-paced sketches in a Whose Line Is It Anyway style, humorously roasting holiday traditions and frustrations.",
     "schedule": {
       "kind": "day",
       "date": "2026-12-05",
-      "time": "7:00 PM"
+      "time": "8:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-stand-up-night-in-canada-2026-10-11",
-    "title": "Stand Up Night in Canada",
+    "id": "comedybar-crush-christmas-2026-12-12",
+    "title": "CRUSH CHRISTMAS",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$25",
+    "entry": "$23",
     "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/stand-up-night-in-canada",
-    "source": "https://comedybar.ca/shows/stand-up-night-in-canada",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/crush-christmas",
+    "source": "https://comedybar.ca/shows/crush-christmas",
     "checked": "2026-10-03",
-    "description": "A mix of professional and emerging comedians performing stand-up comedy, hosted by Dan Galea.",
+    "description": "An improv comedy show where rotating local comedians perform fast-paced sketches in a Whose Line Is It Anyway style, humorously roasting holiday traditions and frustrations.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-11",
-      "time": "7:00 PM"
+      "date": "2026-12-12",
+      "time": "8:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-stand-up-night-in-canada-2026-11-08",
-    "title": "Stand Up Night in Canada",
+    "id": "comedybar-crush-christmas-2026-12-19",
+    "title": "CRUSH CHRISTMAS",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$25",
+    "entry": "$23",
     "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/stand-up-night-in-canada",
-    "source": "https://comedybar.ca/shows/stand-up-night-in-canada",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/crush-christmas",
+    "source": "https://comedybar.ca/shows/crush-christmas",
     "checked": "2026-10-03",
-    "description": "A mix of professional and emerging comedians performing stand-up comedy, hosted by Dan Galea.",
+    "description": "An improv comedy show where rotating local comedians perform fast-paced sketches in a Whose Line Is It Anyway style, humorously roasting holiday traditions and frustrations.",
     "schedule": {
       "kind": "day",
-      "date": "2026-11-08",
-      "time": "7:00 PM"
+      "date": "2026-12-19",
+      "time": "8:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-stand-up-night-in-canada-2026-12-13",
-    "title": "Stand Up Night in Canada",
+    "id": "comedybar-crush-christmas-2026-12-26",
+    "title": "CRUSH CHRISTMAS",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$25",
+    "entry": "$23",
     "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/stand-up-night-in-canada",
-    "source": "https://comedybar.ca/shows/stand-up-night-in-canada",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/crush-christmas",
+    "source": "https://comedybar.ca/shows/crush-christmas",
     "checked": "2026-10-03",
-    "description": "A mix of professional and emerging comedians performing stand-up comedy, hosted by Dan Galea.",
+    "description": "An improv comedy show where rotating local comedians perform fast-paced sketches in a Whose Line Is It Anyway style, humorously roasting holiday traditions and frustrations.",
     "schedule": {
       "kind": "day",
-      "date": "2026-12-13",
-      "time": "7:00 PM"
+      "date": "2026-12-26",
+      "time": "8:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-the-toronto-comedy-showcase-singles-night-2026-10-08",
-    "title": "The Toronto Comedy Showcase - Singles Night",
+    "id": "comedybar-gay-sh-t-2026-10-21",
+    "title": "GAY SH!T",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$20",
+    "entry": "$15 (early bird) or $18 (general admission)",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-toronto-comedy-showcase-singles-night",
-    "source": "https://comedybar.ca/shows/the-toronto-comedy-showcase-singles-night",
+    "url": "https://comedybar.ca/shows/gay-sht",
+    "source": "https://comedybar.ca/shows/gay-sht",
     "checked": "2026-10-03",
-    "description": "Comedians share stories about love, relationships, and dating in Toronto, with sharp observations on dating app disasters and crowd work.",
+    "description": "NSFW stand-up comedy from LGBTQIA+ comedians with a rotating lineup. This month features host James O'Hara with Ada Nicole, Sam Sferrazza, Bren D'Souza, VIZA, and Tracy Hamilton.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-08",
-      "time": "7pm"
+      "date": "2026-10-21",
+      "time": "8:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-troupes-improv-showcase-2026-11-06",
-    "title": "TROUPES: Improv Showcase",
+    "id": "comedybar-gay-sh-t-2026-11-18",
+    "title": "GAY SH!T",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$15",
-    "venue": "Studio Theatre",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/troupes-improv-showcase",
-    "source": "https://comedybar.ca/shows/troupes-improv-showcase",
+    "art": "art-comedy",
+    "entry": "$15 (early bird) or $18 (general admission)",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/gay-sht",
+    "source": "https://comedybar.ca/shows/gay-sht",
     "checked": "2026-10-03",
-    "description": "A troupe debuts an original longform improv format of their own creation, featuring bold choices and scenes that evolve unpredictably.",
+    "description": "NSFW stand-up comedy from LGBTQIA+ comedians with a rotating monthly lineup of some of Canada's best, plus an emerging comic featured on each show.",
     "schedule": {
       "kind": "day",
-      "date": "2026-11-06",
-      "time": "09:30 PM"
+      "date": "2026-11-18",
+      "time": "8:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-troupes-improv-showcase-2026-11-21",
-    "title": "TROUPES: Improv Showcase",
+    "id": "comedybar-gay-sh-t-2026-12-16",
+    "title": "GAY SH!T",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$15 (early bird) or $18 (general admission)",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/gay-sht",
+    "source": "https://comedybar.ca/shows/gay-sht",
+    "checked": "2026-10-03",
+    "description": "NSFW stand-up comedy from LGBTQIA+ comedians with a rotating monthly lineup of some of Canada's best, plus an emerging comic featured on each show.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-16",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-hidden-gems-2026-10-30",
+    "title": "Hidden Gems",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$25 online, $28 at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/hidden-gems",
+    "source": "https://comedybar.ca/shows/hidden-gems",
+    "checked": "2026-10-03",
+    "description": "Host Jacob Balshin presents comedians from across Canada, featuring performers who have appeared on Just For Laughs and CBC.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-30",
+      "time": "08:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-nightmare-on-danforth-2026-10-23",
+    "title": "Nightmare on Danforth",
     "category": "comedy",
     "art": "art-improv",
     "entry": "$15",
-    "venue": "Studio Theatre",
+    "venue": "Comedy Bar",
     "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/troupes-improv-showcase",
-    "source": "https://comedybar.ca/shows/troupes-improv-showcase",
+    "url": "https://comedybar.ca/shows/nightmare-on-danforth",
+    "source": "https://comedybar.ca/shows/nightmare-on-danforth",
     "checked": "2026-10-03",
-    "description": "A troupe debuts an original longform improv format of their own creation, featuring bold choices and scenes that evolve unpredictably.",
+    "description": "An improvised musical featuring ghostly harmonies, terrifyingly funny characters, and spontaneous musical numbers that differ every night, taking audiences on a spooky, comedic journey.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-23",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-peter-revello-2026-11-20",
+    "title": "Peter Revello",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$28",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/peter-revello",
+    "source": "https://comedybar.ca/shows/peter-revello",
+    "checked": "2026-10-03",
+    "description": "Stand-up comedian, actor, and writer from New York City sharing his unique perspective on life as one of the few Staten Islanders not currently in a union.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-20",
+      "time": "07:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-peter-revello-2026-11-21",
+    "title": "Peter Revello",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$28",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/peter-revello",
+    "source": "https://comedybar.ca/shows/peter-revello",
+    "checked": "2026-10-03",
+    "description": "Stand-up comedian, actor, and writer from New York City sharing his unique perspective on life as one of the few Staten Islanders not currently in a union.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-21",
-      "time": "09:30 PM"
+      "time": "07:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-starship-improvise-2026-10-14",
+    "title": "Starship Improvise",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/Starship-Improvise",
+    "source": "https://comedybar.ca/shows/Starship-Improvise",
+    "checked": "2026-10-03",
+    "description": "A sci-fi improv show where the plot and characters continue from one performance to the next, with stories and missions shaped by audience suggestions.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-14",
+      "time": "8:00pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-starship-improvise-2026-11-11",
+    "title": "Starship Improvise",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/Starship-Improvise",
+    "source": "https://comedybar.ca/shows/Starship-Improvise",
+    "checked": "2026-10-03",
+    "description": "A sci-fi improv show where the plot and characters continue from one performance to the next, with stories and missions shaped by audience suggestions.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-11",
+      "time": "8:00pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-starship-improvise-2026-12-09",
+    "title": "Starship Improvise",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/Starship-Improvise",
+    "source": "https://comedybar.ca/shows/Starship-Improvise",
+    "checked": "2026-10-03",
+    "description": "A sci-fi improv show where the plot and characters continue from one performance to the next, with stories and missions shaped by audience suggestions.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-09",
+      "time": "8:00pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-the-best-comedians-tonight-2026-11-07",
+    "title": "The Best Comedians Tonight",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$22 online, $22.50 at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/the-best-comedians-tonight",
+    "source": "https://comedybar.ca/shows/the-best-comedians-tonight",
+    "checked": "2026-10-03",
+    "description": "Dylan Gott hosts a rotating lineup of stand-up comedians who have performed on Just For Laughs, NBC, The Tonight Show, Netflix, and other major platforms.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-07",
+      "time": "08:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-the-best-comedians-tonight-2026-12-05",
+    "title": "The Best Comedians Tonight",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$22 online, $22.50 at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/the-best-comedians-tonight",
+    "source": "https://comedybar.ca/shows/the-best-comedians-tonight",
+    "checked": "2026-10-03",
+    "description": "Dylan Gott hosts a rotating lineup of stand-up comedians who have performed on Just For Laughs, NBC, The Tonight Show, Netflix, and other major platforms.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-05",
+      "time": "08:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-troupes-musical-longform-showcase-2026-10-16",
+    "title": "Troupes: Musical Longform Showcase",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15",
+    "venue": "Studio Theatre",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/troupes-musical-longform-showcase",
+    "source": "https://comedybar.ca/shows/troupes-musical-longform-showcase",
+    "checked": "2026-10-03",
+    "description": "A fully improvised musical where scenes, songs, and stories are created on the spot based on audience suggestions.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-16",
+      "time": "9:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-troupes-musical-longform-showcase-2026-10-17",
+    "title": "Troupes: Musical Longform Showcase",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15",
+    "venue": "Studio Theatre",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/troupes-musical-longform-showcase",
+    "source": "https://comedybar.ca/shows/troupes-musical-longform-showcase",
+    "checked": "2026-10-03",
+    "description": "A fully improvised musical where scenes, songs, and stories are created on the spot based on audience suggestions.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-17",
+      "time": "9:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
@@ -1871,6 +2191,48 @@ const SCRAPED = [
     "via": "api"
   },
   {
+    "id": "eventbrite-90-s-house-music-tribute-party-w-dino-terry-jaso-2026-10-03",
+    "title": "90's House Music Tribute Party w/ Dino & Terry, Jason Palma & DJ YOGI",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$19.56",
+    "venue": "Sound Machine",
+    "address": "178 Bathurst Street, Toronto, ON M5V 2R4",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193524636%2F486396105%2F1%2Foriginal.20260915-052536?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=976c5948a339bf2eb5af7e0881429d09",
+    "url": "https://www.eventbrite.ca/e/90s-house-music-tribute-party-w-dino-terry-jason-palma-dj-yogi-tickets-2001037448876",
+    "source": "https://www.eventbrite.ca/e/90s-house-music-tribute-party-w-dino-terry-jason-palma-dj-yogi-tickets-2001037448876",
+    "checked": "2026-10-03",
+    "description": "Just Announced: 90's House Music Tribute Party featuring Dino & Terry, Jason Palma & DJ YOGI: Sat Oct 3rd, 2026 at Sound Machine",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-03",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-b-ody-p-ussy-m-ind-2026-10-09",
+    "title": "(b)ODY (p)USSY (m)IND",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "Free",
+    "venue": "Geary Avenue Warehouse",
+    "address": "209 Geary Avenue, Toronto, ON M6H 2C1",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193305830%2F2995569856410%2F1%2Foriginal.20260912-000126?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=9d7181273bd1d564c6f611d41b6306a8",
+    "url": "https://www.eventbrite.ca/e/body-pussy-mind-tickets-2000664691950",
+    "source": "https://www.eventbrite.ca/e/body-pussy-mind-tickets-2000664691950",
+    "checked": "2026-10-03",
+    "description": "(b)ODY (p)USSY (m)IND returns to Geary Warehouse: a free night celebrating queer & trans POC nightlife in Toronto.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-09",
+      "end": "2026-10-10"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
     "id": "eventbrite-best-croissant-best-baguette-in-toronto-the-2026-2026-10-04",
     "title": "Best Croissant & Best Baguette in Toronto - The 2026 Competition",
     "category": "food",
@@ -1882,11 +2244,32 @@ const SCRAPED = [
     "url": "https://www.eventbrite.com/e/best-croissant-best-baguette-in-toronto-the-2026-competition-tickets-1987310302612",
     "source": "https://www.eventbrite.com/e/best-croissant-best-baguette-in-toronto-the-2026-competition-tickets-1987310302612",
     "checked": "2026-10-03",
-    "description": "Best Croissant & Best Baguette in Toronto - The 2026 Competition",
+    "description": "Best Croissant & Best Baguette in Toronto - The 2026 Competition On Sunday, October 4th, in front of a panel of professionals, the finest bakeries in the Toronto area will compete for the prizes of Best Croissant & Best…",
     "schedule": {
       "kind": "day",
       "date": "2026-10-04",
       "time": "11am – 1pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-clownpocalypse-3-0-clowntopia-2026-10-30",
+    "title": "CLOWNPOCALYPSE 3.0: CLOWNTOPIA",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$27.96",
+    "venue": "Lithuanian House",
+    "address": "1573 Bloor Street West, Toronto, ON M6P 1A6",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194331777%2F2338463293873%2F1%2Foriginal.20260925-011952?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.528&fp-y=0.071&s=a87466dbd4c0649f47ae53bcb29338de",
+    "url": "https://www.eventbrite.ca/e/clownpocalypse-30-clowntopia-tickets-1998618984183",
+    "source": "https://www.eventbrite.ca/e/clownpocalypse-30-clowntopia-tickets-1998618984183",
+    "checked": "2026-10-03",
+    "description": "Canada’s favourite annual clown rave is back for one night only!",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-30",
+      "end": "2026-10-31"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -1913,6 +2296,27 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
+    "id": "eventbrite-douglas-stuart-toronto-launch-john-of-john-2026-10-22",
+    "title": "Douglas Stuart Toronto launch \"John of John\"",
+    "category": "books",
+    "art": "art-books",
+    "entry": "$19.50",
+    "venue": "Hot Docs Ted Rogers Cinema",
+    "address": "506 Bloor Street West, Toronto, ON M5S 1Y3",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1190565776%2F207720945042%2F1%2Foriginal.20260807-183834?w=940&auto=format%2Ccompress&q=75&sharp=10&s=8a3b52c78fc64c689b3ba3ed4e6c6ec8",
+    "url": "https://www.eventbrite.ca/e/douglas-stuart-toronto-launch-john-of-john-tickets-1993696203012",
+    "source": "https://www.eventbrite.ca/e/douglas-stuart-toronto-launch-john-of-john-tickets-1993696203012",
+    "checked": "2026-10-03",
+    "description": "Join Another Story Bookshop and Knopf Canada to celebrate the launch of John of John by Douglas Stuart with Zak Jones.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-22",
+      "time": "7pm – 9pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
     "id": "eventbrite-fall-colours-walking-tour-bloor-west-village-to--2026-10-24",
     "title": "Fall Colours Walking Tour: Bloor West Village to High Park",
     "category": "architecture",
@@ -1929,6 +2333,69 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-10-24",
       "time": "9am – 11am"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-field-trips-salmon-run-2026-10-18",
+    "title": "Field Trips: Salmon Run",
+    "category": "dropin",
+    "art": "art-dropin",
+    "entry": "$17.31",
+    "venue": "Etienne Brulé Park",
+    "address": "10 Catherine Avenue, Toronto, ON M6S",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194537777%2F498756005881%2F1%2Foriginal.20260928-164451?w=940&auto=format%2Ccompress&q=75&sharp=10&s=d8db9da8bf4c671a879fe92596d9b2cf",
+    "url": "https://www.eventbrite.ca/e/field-trips-salmon-run-tickets-2002228448187",
+    "source": "https://www.eventbrite.ca/e/field-trips-salmon-run-tickets-2002228448187",
+    "checked": "2026-10-03",
+    "description": "Catch the annual Salmon Run on the Humber River with RCIScience and SCI AIDE.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-18",
+      "time": "10am – 12pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-halloween-semi-2026-10-22",
+    "title": "Halloween Semi",
+    "category": "music",
+    "art": "art-music",
+    "entry": "$22.63",
+    "venue": "LA BAMBA LOUNGE",
+    "address": "1355 Saint Clair Avenue West, Toronto, ON M6E 1C5",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193674904%2F2993705212636%2F1%2Foriginal.20260916-174349?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=04b062d28199ef91363f6d663a5249ce",
+    "url": "https://www.eventbrite.com/e/halloween-semi-tickets-2001244376803",
+    "source": "https://www.eventbrite.com/e/halloween-semi-tickets-2001244376803",
+    "checked": "2026-10-03",
+    "description": "Get ready for a great night at the Halloween semi. Dress up, Show out and get ready for a night packed with dancing, music, and great vibes.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-22",
+      "time": "9pm – 11:59pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-halloween-thriller-2026-nest-ladies-free-1-free--2026-10-31",
+    "title": "HALLOWEEN THRILLER 2026 @ NEST | LADIES FREE + 1 FREE DRINK | SAT, OCT 31st",
+    "category": "dropin",
+    "art": "art-dropin",
+    "entry": "Free",
+    "venue": "NEST",
+    "address": "423 College Street, Toronto, ON M5T 1T1",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192816952%2F173910726698%2F1%2Foriginal.20260906-132502?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=9d484775412573f25047acf5e4ba5a9e",
+    "url": "https://www.eventbrite.ca/e/halloween-thriller-2026-nest-ladies-free-1-free-drink-sat-oct-31st-tickets-2000083326069",
+    "source": "https://www.eventbrite.ca/e/halloween-thriller-2026-nest-ladies-free-1-free-drink-sat-oct-31st-tickets-2000083326069",
+    "checked": "2026-10-03",
+    "description": "Listed by Eventbrite.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-31",
+      "end": "2026-11-01"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -1955,6 +2422,69 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
+    "id": "eventbrite-kpop-club-night-in-toronto-oct-3-2026-10-03",
+    "title": "Kpop Club Night in Toronto Oct 3",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$31.08",
+    "venue": "The Rec Room Roundhouse",
+    "address": "255 Bremner Boulevard, Toronto, ON M5V 3L9",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194045766%2F2746095075231%2F1%2Foriginal.20260921-204615?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.025&fp-y=0.494&s=5b7e39f929c0413b2c64ca96bb679541",
+    "url": "https://www.eventbrite.ca/e/kpop-club-night-in-toronto-oct-3-tickets-1999736077439",
+    "source": "https://www.eventbrite.ca/e/kpop-club-night-in-toronto-oct-3-tickets-1999736077439",
+    "checked": "2026-10-03",
+    "description": "Listed by Eventbrite.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-03",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-mamasita-nest-ladies-free-1-free-drink-sat-oct-3-2026-10-03",
+    "title": "MAMASITA @ NEST| LADIES FREE +1 FREE DRINK| SAT, OCT 3",
+    "category": "dropin",
+    "art": "art-dropin",
+    "entry": "Free",
+    "venue": "NEST",
+    "address": "423 College Street, Toronto, ON M5T 1T1",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1186719882%2F173910726698%2F1%2Foriginal.20260611-222718?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=a6cf3226a62fd2fd544efe41217392ac",
+    "url": "https://www.eventbrite.ca/e/mamasita-nest-ladies-free-1-free-drink-sat-oct-3-tickets-2002357262474",
+    "source": "https://www.eventbrite.ca/e/mamasita-nest-ladies-free-1-free-drink-sat-oct-3-tickets-2002357262474",
+    "checked": "2026-10-03",
+    "description": "Listed by Eventbrite.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-03",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-nostalgia-max-3-2026-10-03",
+    "title": "NOSTALGIA MAX 3",
+    "category": "dropin",
+    "art": "art-dropin",
+    "entry": "Free",
+    "venue": "225 Geary Ave",
+    "address": "nue, Toronto, ON M6H 2C1",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192683728%2F2085803831893%2F1%2Foriginal.20260904-142616?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=6cb5726cecf449eefbb0c414b6087b96",
+    "url": "https://www.eventbrite.com/e/nostalgia-max-3-tickets-1999781485255",
+    "source": "https://www.eventbrite.com/e/nostalgia-max-3-tickets-1999781485255",
+    "checked": "2026-10-03",
+    "description": "NOSTALGIA MAX 3 va ser una festa en viu plena de bones vibracions i hits clàssics que et van fer viatjar en el temps!",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-03",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
     "id": "eventbrite-october-3-2026-awe-walk-in-rennie-park-2026-10-03",
     "title": "October 3, 2026 Awe Walk in Rennie Park",
     "category": "outdoors",
@@ -1976,6 +2506,69 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
+    "id": "eventbrite-palm-trees-acqua-saturday-october-3rd-2026-10-03",
+    "title": "PALM TREES @ ACQUA: SATURDAY OCTOBER 3RD",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$27.63",
+    "venue": "Acqua Supper Club",
+    "address": "50 Prince Edward Island Crescent, Toronto, ON M6K 3C3",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193719720%2F983589111943%2F1%2Foriginal.20260917-042041?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=f84f563f35f5fd25695e6225e6b4f281",
+    "url": "https://www.eventbrite.ca/e/palm-trees-acqua-saturday-october-3rd-tickets-2001158107770",
+    "source": "https://www.eventbrite.ca/e/palm-trees-acqua-saturday-october-3rd-tickets-2001158107770",
+    "checked": "2026-10-03",
+    "description": "Palm Trees is back at Acqua. Seven DJs, three hosts, and the first night out of the fall. Saturday, October 3. 10PM until late.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-03",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-panic-80s-90s-halloween-video-dance-party-w-dj-l-2026-10-31",
+    "title": "PANIC: 80s/90s Halloween Video Dance Party w/ DJ Lazarus",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$22.63",
+    "venue": "Ground Control - 1279 Queen St W",
+    "address": "1279 Queen Street West, Toronto, ON M6K 1L6",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194428353%2F302590666792%2F1%2Foriginal.20260926-183518?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=53e894c15145af8634eeeafc5e746952",
+    "url": "https://www.eventbrite.ca/e/panic-80s90s-halloween-video-dance-party-w-dj-lazarus-tickets-2000228314734",
+    "source": "https://www.eventbrite.ca/e/panic-80s90s-halloween-video-dance-party-w-dj-lazarus-tickets-2000228314734",
+    "checked": "2026-10-03",
+    "description": "PANIC Halloween retro party always sells out. Great music and amazing crowd. Get your tickets now!",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-31",
+      "end": "2026-11-01"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-pony-rave-toronto-2026-11-21",
+    "title": "PONY RAVE TORONTO",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$6.05",
+    "venue": "The Dopamine - Pub & Lounge",
+    "address": "2415 Yonge Street, Toronto, ON M4P 2E7",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192207220%2F2997101950518%2F1%2Foriginal.20260830-043544?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.533&fp-y=0.241&s=bc7c909f7c7f465d300cc22ff916fcaa",
+    "url": "https://www.eventbrite.ca/e/pony-rave-toronto-tickets-1993133271268",
+    "source": "https://www.eventbrite.ca/e/pony-rave-toronto-tickets-1993133271268",
+    "checked": "2026-10-03",
+    "description": "FRIENDSHIP IS MAGIC",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-11-21",
+      "end": "2026-11-22"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
     "id": "eventbrite-pop-girlies-drag-lunch-the-rec-room-toronto-2026-10-04",
     "title": "POP GIRLIES Drag Lunch @ The Rec Room Toronto!",
     "category": "dropin",
@@ -1992,6 +2585,27 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-10-04",
       "time": "12:30pm – 3pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-que-calor-haunted-mansion-2026-10-31",
+    "title": "QUE CALOR \"HAUNTED MANSION\"",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$15",
+    "venue": "Acqua Supper Club",
+    "address": "50 Prince Edward Island Crescent, Toronto, ON M6K 3C3",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192929845%2F403544886963%2F1%2Foriginal.20260908-012902?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=5ea06454694be09b64a672c2284da153",
+    "url": "https://www.eventbrite.ca/e/que-calor-haunted-mansion-tickets-2000076557825",
+    "source": "https://www.eventbrite.ca/e/que-calor-haunted-mansion-tickets-2000076557825",
+    "checked": "2026-10-03",
+    "description": "Canada’s Biggest Latin Halloween Party | 1,500+ Capacity • $5,000 in Costume Prizes • Haunted Mansion Experience",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-31",
+      "end": "2026-11-01"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2034,6 +2648,27 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-10-16",
       "time": "7:30pm – 11pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-sorry-papi-halloween-tour-2026-10-15",
+    "title": "SORRY PAPI HALLOWEEN TOUR",
+    "category": "architecture",
+    "art": "art-architecture",
+    "entry": "$11.98",
+    "venue": "Myst Toronto",
+    "address": "423 College Street, Toronto, ON M5T 1T1",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193129908%2F403544886963%2F1%2Foriginal.20260910-041123?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=aaed73a3b270f623fd5a69bb40db0103",
+    "url": "https://www.eventbrite.ca/e/sorry-papi-halloween-tour-tickets-2000359364708",
+    "source": "https://www.eventbrite.ca/e/sorry-papi-halloween-tour-tickets-2000359364708",
+    "checked": "2026-10-03",
+    "description": "The Largest ALL-GIRL Party is going on a HALLOWEEN TOUR",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-15",
+      "end": "2026-10-16"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2102,6 +2737,48 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
+    "id": "eventbrite-the-riddim-link-up-2026-10-03",
+    "title": "The Riddim Link Up",
+    "category": "dropin",
+    "art": "art-dropin",
+    "entry": "$28.25",
+    "venue": "793 Dundas St W",
+    "address": "793 Dundas Street West, Toronto, ON M6J 1V2",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1187992943%2F3006298484760%2F1%2Foriginal.20260701-112137?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.498&fp-y=0.509&s=7d6a49c42b3e3e6d912be6d0e4e3a4ca",
+    "url": "https://www.eventbrite.com/e/the-riddim-link-up-tickets-1992915594190",
+    "source": "https://www.eventbrite.com/e/the-riddim-link-up-tickets-1992915594190",
+    "checked": "2026-10-03",
+    "description": "Project AP Presents The Riddim Link Up. Coming to Toronto October 3rd, 2026.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-03",
+      "end": "2026-10-04"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-the-walrus-talks-community-reborn-2026-10-08",
+    "title": "The Walrus Talks Community Reborn",
+    "category": "stage",
+    "art": "art-lectern",
+    "entry": "Free",
+    "venue": "Isabel Bader Theatre",
+    "address": "93 Charles St W, Toronto, ON M5S 2C7",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193067426%2F58969109365%2F1%2Foriginal.20260909-155444?w=940&auto=format%2Ccompress&q=75&sharp=10&s=5a8fa45599a30edd66f00d1ba1a9cba4",
+    "url": "https://www.eventbrite.ca/e/the-walrus-talks-community-reborn-tickets-1998915982513",
+    "source": "https://www.eventbrite.ca/e/the-walrus-talks-community-reborn-tickets-1998915982513",
+    "checked": "2026-10-03",
+    "description": "How can we reinvent community in a time of increasing social isolation?",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-08",
+      "time": "7pm – 9pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
     "id": "eventbrite-toronto-s-haunted-cruise-2026-halloween-boat-par-2026-10-31",
     "title": "TORONTO'S HAUNTED CRUISE 2026 | HALLOWEEN BOAT PARTY",
     "category": "nightlife",
@@ -2118,6 +2795,27 @@ const SCRAPED = [
       "kind": "range",
       "start": "2026-10-31",
       "end": "2026-11-01"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-uwcsa-x-ampm-x-hilo-x-24evr-blackout-2026-10-15",
+    "title": "UWCSA x AMPM x HILO x 24EVR: BLACKOUT",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$17.31",
+    "venue": "AMPM",
+    "address": "1566 Queen St W, Toronto, ON M6R 1A6",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194418395%2F2346335022943%2F1%2Foriginal.20260926-142632?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.419&fp-y=0.677&s=e8a68893c6115fa7a850ca641184d4f3",
+    "url": "https://www.eventbrite.ca/e/uwcsa-x-ampm-x-hilo-x-24evr-blackout-tickets-2001406706335",
+    "source": "https://www.eventbrite.ca/e/uwcsa-x-ampm-x-hilo-x-24evr-blackout-tickets-2001406706335",
+    "checked": "2026-10-03",
+    "description": "UWCSA x AMPM x HILO x 24EVR present BLACKOUT ❤️ A Reading Week takeover with two spaces, 4 DJs, and nonstop music all night.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-15",
+      "time": "10pm"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2165,17 +2863,17 @@ const SCRAPED = [
     "title": "Family Wanders",
     "category": "dropin",
     "art": "art-birdhouse",
-    "entry": "$20 donation suggested",
+    "entry": "Suggested $20 donation per family",
     "venue": "Evergreen Brick Works",
-    "address": "Building 1, Toronto",
+    "address": "Building 1, Toronto, Ontario",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-10-03",
-    "description": "Guided nature walk where families explore the changing seasons and natural environment in the ravine valley, observing with their senses.",
+    "description": "Guided nature walks where families explore the seasonal changes in the valley, engaging their senses and observing wildlife and plants at the Brick Works.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-22",
-      "time": "10:00 am – 11:00 am"
+      "time": "10:00am–11:00am"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -2190,7 +2888,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/events/good-mourning-festival/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/events/good-mourning-festival/",
     "checked": "2026-10-03",
-    "description": "A two-day festival bringing grief and mourning into the light. Day 1 features workshops, art installations, music and peer support for expressing and sharing grief.",
+    "description": "A two-day public festival exploring grief and mourning. The first day features workshops, art installations, music and peer support focused on expressing and understanding grief.",
     "schedule": {
       "kind": "range",
       "start": "2026-10-24",
@@ -2245,49 +2943,11 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "checked": "2026-10-03",
-    "description": "Local artisans and vintage vendors sell handmade, sustainable products and carefully curated antiques. Food vendors and The Sipping Container provide drinks and snacks.",
+    "description": "Local artisans and makers sell handmade, sustainable products including jewelry, art, and candles alongside curated vintage and antique goods from over 40 vendors. Food and drink available on site.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-04",
       "time": "10am-3pm"
-    },
-    "scrapedFrom": "evergreen",
-    "via": "model"
-  },
-  {
-    "id": "evergreen-site-tours-history-tour-2026-10-10",
-    "title": "Site Tours - History Tour",
-    "category": "dropin",
-    "art": "art-architecture",
-    "entry": "Free",
-    "venue": "Evergreen Brick Works",
-    "address": "4 Pamela Road, Toronto",
-    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
-    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
-    "checked": "2026-10-03",
-    "description": "Journey through the geological and industrial history of the site while learning how Evergreen transformed it into an environmental community centre, with an hour-long tour through the industrial site and historic…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-10"
-    },
-    "scrapedFrom": "evergreen",
-    "via": "model"
-  },
-  {
-    "id": "evergreen-site-tours-nature-tour-2026-10-10",
-    "title": "Site Tours - Nature Tour",
-    "category": "dropin",
-    "art": "art-architecture",
-    "entry": "Free",
-    "venue": "Evergreen Brick Works",
-    "address": "4 Pamela Road, Toronto",
-    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
-    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
-    "checked": "2026-10-03",
-    "description": "Witness the transformation of an industrial site into a green oasis, visiting gardens and learning about sustainable agricultural practices in an hour-long outdoor tour.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-10"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -3863,7 +4523,7 @@ const SCRAPED = [
     "url": "https://luma.com/pzevo4e5",
     "source": "https://luma.com/pzevo4e5",
     "checked": "2026-10-03",
-    "description": "Everyone brings a dish from a favourite cookbook or their own kitchen to share potluck-style, then eats and socializes together. There's also a DIY mocktail bar where you can build your own drink.",
+    "description": "Everyone cooks a dish at home and brings it to share potluck-style, then eats and mingles with fellow food lovers. This month features a DIY mocktail bar where you can build your own drink.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-18",
@@ -3926,7 +4586,7 @@ const SCRAPED = [
     "url": "https://luma.com/jjszs7qt",
     "source": "https://luma.com/jjszs7qt",
     "checked": "2026-10-03",
-    "description": "Bean Bag and friends host a family Halloween event with musical performances from The Animal Band and secret spooky guests, with costumes encouraged.",
+    "description": "A family Halloween event featuring live music from The Animal Band and secret spooky guests, with musical games and activities. Costumes are highly encouraged.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-25",
