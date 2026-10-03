@@ -220,7 +220,7 @@ export function readableText(html, limit = 12000) {
  * Returns null rather than a guess: no marker, no text, or nothing that
  * reads as a description (readsAsDescription — the Bollyween page's summary
  * is a logistics block in emoji) and the caller keeps what it had. */
-export function sectionProse(html, limit = 1200) {
+export function sectionText(html, limit = 4000) {
   if (!html) return null;
   const open = /<(div|section)\b[^>]*class="[^"]*Overview[^"]*summary[^"]*"[^>]*>/i.exec(html);
   if (!open) return null;
@@ -239,10 +239,51 @@ export function sectionProse(html, limit = 1200) {
 
   /* Block tags become spaces first, so two paragraphs do not run their last
      and first words together into one. */
-  const prose = readableText(
+  return readableText(
     rest.slice(0, end).replace(/<\/(p|li|div|h[1-6]|br)\s*>|<br\b[^>]*>/gi, ' '),
     limit,
-  );
+  ) || null;
+}
+
+/* The same block, with the heading removed and held to the standard a
+ * published description is held to.
+ *
+ * The heading matters more than it sounds. Eventbrite's Overview container
+ * holds the event's own <h2> above its paragraphs, so the raw block opens
+ * "Best Croissant & Best Baguette in Toronto - The 2026 Competition On
+ * Sunday, October 4th, in front of a panel of professionals…" — and that is
+ * what went on the board: the title repeated, and then sixty-three
+ * characters of the real sentence pushed past the length budget and cut off
+ * with an ellipsis. The fixture that tested this did not have the heading,
+ * which is exactly why it passed. */
+export function sectionProse(html, { title, limit = 1200 } = {}) {
+  let prose = sectionText(html, limit + 400);
+  if (!prose) return null;
+
+  if (title) {
+    /* Compared with punctuation and spacing normalised away, because the
+       heading in the markup is rarely byte-identical to the JSON-LD title —
+       a dash, a double space, and an ampersand that one of them spells out.
+       "&" and "and" are folded together for that last reason: the croissant
+       page's JSON-LD says "Best Croissant & Best Baguette" where its own
+       heading can say "and", and a word's difference should not put the
+       title back at the front of the description. */
+    const loose = (x) => x
+      .replace(/&/g, ' and ')
+      .replace(/[^\p{L}\p{N}]+/gu, ' ')
+      .replace(/\band\b/g, '&')
+      .trim()
+      .toLowerCase();
+    const t = loose(title);
+    if (t.length > 8) {
+      const words = prose.split(/\s+/);
+      for (let n = Math.min(words.length, t.split(' ').length + 4); n > 0; n -= 1) {
+        if (loose(words.slice(0, n).join(' ')) === t) { prose = words.slice(n).join(' '); break; }
+      }
+    }
+  }
+
+  prose = prose.replace(/^[\s\p{Pd}:·—–|]+/u, '').slice(0, limit).trim();
   return prose && readsAsDescription(prose) ? prose : null;
 }
 

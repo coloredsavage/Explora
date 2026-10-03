@@ -70,15 +70,43 @@ export function writtenFor(store, url) {
   return hit && hit.text ? hit.text : null;
 }
 
-/* Which listings still need a description written.
+/* Which listings need a description written.
  *
- * Deliberately not "every listing the audit flags". `opens with the title`
- * and `very short` are often the honest answer from a venue that wrote one
- * good line, and rewriting those spends money to make them longer rather
- * than better. This is the set where the source wrote nothing at all: the
- * "Listed by <venue>" placeholder normalize falls back to, and the empty
- * ones. */
+ * Three kinds, and the third is the one that is easy to argue yourself out
+ * of.
+ *
+ *   nothing      — empty, or the "Listed by <venue>" placeholder normalize
+ *                  falls back to when a source publishes no prose at all.
+ *   truncated    — ends in an ellipsis. These are the ones that look fine in
+ *                  a diff and are not: accurate and unhelpful. The croissant
+ *                  competition read "On Sunday, October 4th, in front of a
+ *                  panel of professionals, the finest bakeries in the Toronto
+ *                  area will compete for the prizes of Best Croissant &
+ *                  Best…" — a sentence that stops before it says what
+ *                  happens. A whole short sentence beats most of a long one,
+ *                  which is what a rewrite gets you and a longer budget does
+ *                  not.
+ *   title echo   — the prose begins by repeating the card's own title, so the
+ *                  first words of the description tell the reader nothing
+ *                  they have not already read directly above it.
+ *
+ * Still deliberately NOT "every listing the audit flags". `very short` is
+ * often the honest answer from a venue that wrote one good line, and
+ * `shouting` is a style complaint. Rewriting those spends money to make them
+ * longer rather than better. */
 export function isPlaceholder(description) {
   const d = String(description ?? '').trim();
   return d === '' || /^Listed by /.test(d);
+}
+
+export function needsWriting(description, title) {
+  const d = String(description ?? '').trim();
+  if (isPlaceholder(d)) return 'no description';
+  if (/[…]$|\.\.\.$/.test(d)) return 'cut off mid-sentence';
+  if (title) {
+    const bare = (x) => x.toLowerCase().replace(/[^a-z0-9]+/g, '');
+    const t = bare(title);
+    if (t.length > 12 && bare(d).startsWith(t)) return 'opens by repeating the title';
+  }
+  return null;
 }

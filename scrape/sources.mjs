@@ -196,7 +196,7 @@ export const SOURCES = [
        prose is on the page, under its Overview heading, and this is the only
        way to reach it: noModel means nothing here may ask the model to write
        one instead. See sectionProse. */
-    descriptionFrom: sectionProse,
+    descriptionFrom: (html, title) => sectionProse(html, { title }),
     enabled: true,
     listingOnly: true,
     /* Event pages are read at domcontentloaded, not networkidle.

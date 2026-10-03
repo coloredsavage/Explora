@@ -1190,8 +1190,22 @@ process.exitCode = failures ? 1 : 0;
 
 console.log('\nDescriptions: written, or written off');
 {
-  const { isPlaceholder, restsAsNothing, writtenFor, NOTHING_RESTS_DAYS } = await import('./descriptions.mjs');
+  const { isPlaceholder, needsWriting, restsAsNothing, writtenFor } = await import('./descriptions.mjs');
   const { acceptable } = await import('../scripts/write-descriptions.mjs');
+
+  check('what needs writing: nothing, cut off, or opening with the title', () => {
+    const t = 'Best Croissant & Best Baguette in Toronto';
+    assert.equal(needsWriting('Listed by Bad Dog.', t), 'no description');
+    assert.equal(needsWriting('', t), 'no description');
+    /* Accurate and unhelpful: a sentence that stops before it says what
+       happens. This is the case the user asked for. */
+    assert.equal(needsWriting('On Sunday, in front of a panel of professionals, the finest bakeries will\u2026', t), 'cut off mid-sentence');
+    assert.equal(needsWriting('Something trails off...', t), 'cut off mid-sentence');
+    assert.equal(needsWriting('Best Croissant & Best Baguette in Toronto is a competition.', t), 'opens by repeating the title');
+    /* Short but whole, and written about this event: left alone. */
+    assert.equal(needsWriting('A jazz quartet plays Monk.', 'Axiomatic Heresy'), null);
+    assert.equal(needsWriting('Bakeries compete for the best croissant in the city.', t), null);
+  });
 
   check('a placeholder is the fallback or nothing, not a short real description', () => {
     assert.equal(isPlaceholder('Listed by Grossman\u2019s Tavern.'), true);

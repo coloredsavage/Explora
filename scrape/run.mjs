@@ -15,11 +15,11 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { enabledSources, allSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription,
-  sectionProse, echoesTitle } from './extract.mjs';
+  sectionProse, sectionText, echoesTitle } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources, shrunkSources } from './normalize.mjs';
 import { allowedBy, USER_AGENT } from './robots.mjs';
 import { load as loadDescriptions, save as saveDescriptions, writtenFor, restsAsNothing,
-  isPlaceholder } from './descriptions.mjs';
+  isPlaceholder, needsWriting } from './descriptions.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = new Set(process.argv.slice(2));
@@ -146,9 +146,10 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
     /* The page's own prose, for a source whose structured data has none and
        which never asks the model (noModel). Only consulted when there is
        nothing better, and it returns null rather than guessing. */
-    if (source.descriptionFrom && raws.some((r) => !r.description)) {
-      const prose = source.descriptionFrom(html);
-      if (prose) raws = raws.map((r) => (r.description ? r : { ...r, description: prose }));
+    if (source.descriptionFrom) {
+      raws = raws.map((r) => (r.description
+        ? r
+        : { ...r, description: source.descriptionFrom(html, r.title) ?? null }));
     }
 
     const noProse = raws.length > 0
@@ -211,7 +212,7 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
        page is already fetched here, so "check the site first" costs nothing
        beyond holding the text. */
     for (const raw of raws) {
-      if (raw.description) continue;
+      if (raw.description && !needsWriting(raw.description, raw.title)) continue;
       const u = raw.url ?? url;
       if (!u || descriptionQueue.has(u)) continue;
       /* Never an index page's text, and this matters because the answer is
@@ -758,10 +759,14 @@ async function main() {
   const undescribed = [];
   for (const e of events) {
     const url = e.source || e.url;
-    if (!url || !isPlaceholder(e.description)) continue;
+    if (!url || !needsWriting(e.description, e.title)) continue;
     const written = writtenFor(descriptions, url);
     if (written) { e.description = written; rewritten += 1; continue; }
-    if (restsAsNothing(descriptions, url, today)) undescribed.push(e);
+    /* Only a listing with NO description comes off the board. One that is
+       merely cut off or opens with its title still says something true about
+       the event, so a page that turned out to have nothing more to give
+       leaves it exactly as it was. */
+    if (isPlaceholder(e.description) && restsAsNothing(descriptions, url, today)) undescribed.push(e);
   }
   if (rewritten) report.skipped.push(`${rewritten} description${rewritten === 1 ? '' : 's'} written from the page`);
   for (const e of undescribed) {

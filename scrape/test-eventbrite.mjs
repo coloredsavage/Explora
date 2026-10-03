@@ -15,7 +15,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import { fromJsonLd, sectionProse, echoesTitle, metaDescription } from './extract.mjs';
+import { fromJsonLd, sectionProse, sectionText, echoesTitle, metaDescription } from './extract.mjs';
 import { normalize, validate, asNightlife } from './normalize.mjs';
 import { SOURCES } from './sources.mjs';
 import { matchArt } from './art-match.mjs';
@@ -688,8 +688,22 @@ check('all three of its description fields are just the title', () => {
   assert.ok(echoesTitle(raw.description, raw.title));
   assert.ok(echoesTitle(metaDescription(html), raw.title), 'meta description should echo the title too');
 });
+check('sectionProse drops the heading the container holds', () => {
+  const html = fixture('eventbrite.e-croissant-overview.html');
+  const title = fromJsonLd(html)[0].title;
+  /* Ungated, the block opens with the event's own h2. */
+  assert.match(sectionText(html), /^Best Croissant & Best Baguette in Toronto - The 2026 Competition On Sunday/);
+  /* Given the title, it starts at the prose — which is also what keeps the
+     first sentence inside the length budget instead of cut off for it. */
+  const prose = sectionProse(html, { title });
+  assert.match(prose, /^On Sunday, October 4th/);
+  assert.ok(!/Best Croissant/.test(prose.slice(0, 40)), 'the heading leaked through');
+  /* An ampersand and a double space in the markup must not defeat it. */
+  const messy = html.replace('<h2>Best Croissant &amp; Best', '<h2>Best  Croissant  and  Best');
+  assert.match(sectionProse(messy, { title }), /^On Sunday, October 4th/);
+});
 check('sectionProse reads the Overview block instead', () => {
-  const prose = sectionProse(fixture('eventbrite.e-croissant-overview.html'));
+  const prose = sectionProse(fixture('eventbrite.e-croissant-overview.html'), { title: fromJsonLd(fixture('eventbrite.e-croissant-overview.html'))[0].title });
   assert.match(prose, /^On Sunday, October 4th, in front of a panel of professionals/);
   assert.match(prose, /People's Choice Award/);
   /* Both paragraphs, and not run together into one word. */
@@ -700,10 +714,11 @@ check('the hash in the class name is not what it matches on', () => {
   const html = fixture('eventbrite.e-croissant-overview.html');
   /* Eventbrite ships a new CSS module hash; the prose must still be found. */
   const rebuilt = html.replace(/dJyb9a/g, 'Zq91xK').replace(/5yIgma/g, 'aB3dEf');
-  assert.match(sectionProse(rebuilt), /^On Sunday, October 4th/);
+  assert.match(sectionProse(rebuilt, { title: fromJsonLd(html)[0].title }), /^On Sunday, October 4th/);
 });
 check('no Overview block, or prose that is really a logistics block, is null', () => {
   assert.equal(sectionProse(fixture('eventbrite.e-best-croissant.html')), null);
+  assert.equal(sectionText(fixture('eventbrite.e-best-croissant.html')), null);
   assert.equal(sectionProse(''), null);
   assert.equal(sectionProse('<div class="Overview-x__summary"><p>\u{1F4CD} MIA, 244 Adelaide St W \u{1F553} 10pm \u{1F39F} $25</p></div>'), null);
 });
