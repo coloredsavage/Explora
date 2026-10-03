@@ -20,11 +20,21 @@ const CATEGORIES = {
   comedy:       { label: 'Comedy',            art: 'art-comedy'          },
   stage:        { label: 'Stage',             art: 'art-stage'          },
   music:        { label: 'Live music',        art: 'art-music'       },
-  /* Separate from Live music because they are a different night out: a gig
-     is something you watch and a party is something you are in. Shares
-     art-decks with the drawing art-match already picks for a DJ listing, so
-     it needed no new illustration. */
-  party:        { label: 'Parties',           art: 'art-decks'       },
+  /* Separate from Live music because it is a different night out: a gig is
+     something you watch and this is something you are in.
+
+     "Nightlife" rather than "Parties", which is what it was called for
+     about an hour. Two listings decided it. 'Palm Trees @ Acqua' — seven
+     DJs at a club — is a party by any reading; 'Mango Szn: Toronto', which
+     bills itself as "South Asian Electronic Music, Served Ripe", is a bill
+     of electronic acts and calling that a party is a stretch. Nightlife
+     holds both, and it is also what Eventbrite calls the same shelf
+     (/b/canada--toronto/nightlife/), which is where a lot of these arrive
+     from. It costs the day parties their exact word, which is the trade.
+
+     Shares art-decks with the drawing art-match already picks for a DJ
+     listing, so it needed no new illustration. */
+  nightlife:    { label: 'Nightlife',         art: 'art-decks'       },
   film:         { label: 'Film',              art: 'art-film'      },
   outdoors:     { label: 'Outdoors',          art: 'art-outdoors'        },
   food:         { label: 'Food & drink',      art: 'art-food'         },

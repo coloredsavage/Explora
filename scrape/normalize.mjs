@@ -186,11 +186,11 @@ export function stripSiteSuffix(title, sourceName) {
   return namesTheSource && head.length >= 3 ? head : title;
 }
 
-/* A night you are in rather than one you watch.
+/* A night you are in rather than one you watch: Nightlife, not Live music.
  *
  * Only ever promotes `music`, which is the whole safety of it. Most sources
  * carry one category for everything they publish — Revival is `music`,
- * Grossman's is `music` — so without this the Parties filter would hold
+ * Grossman's is `music` — so without this the Nightlife filter would hold
  * Eventbrite listings and nothing else, because only eventbrite.mjs files
  * per event. Starting from `music` also keeps it off the categories where a
  * party word means something else: Bad Dog's improv show "The After Party"
@@ -208,15 +208,16 @@ const CLUB_NIGHT = new RegExp(
   + String.raw`(?<!\b(tea|garden|watch|viewing|pizza|dinner|birthday|slumber|pyjama|pajama|knitting|craft|book|reading|puzzle|potluck|search|lunch|luncheon|picnic|cocktail) )part(y|ies)`
   + String.raw`|day[- ]?part(y|ies)|djs?|club nights?|raves?|bashment`
   + String.raw`|dance ?(floors?|part(y|ies)|nights?)|dancefloor`
-  + String.raw`|techno|edm|house music|amapiano|dancehall|soca|reggaeton|day ?club`
+  + String.raw`|techno|trance|edm|electronic (music|dance)|house music|deep house|afro ?house`
+  + String.raw`|drum ?(and|&|n) ?bass|dnb|amapiano|dancehall|soca|reggaeton|day ?club|nightlife`
   + String.raw`)\b`,
   'i',
 );
 
-export function asParty(category, title, description) {
+export function asNightlife(category, title, description) {
   if (category !== 'music') return category;
   return CLUB_NIGHT.test(title ?? '') || CLUB_NIGHT.test(description ?? '')
-    ? 'party'
+    ? 'nightlife'
     : category;
 }
 
@@ -310,7 +311,7 @@ export function normalize(raw, source, { today, checked }) {
     event: {
       id: `${source.id}-${slug(title)}-${start}`,
       title,
-      category: asParty(filed?.category ?? source.category, title, raw.description),
+      category: asNightlife(filed?.category ?? source.category, title, raw.description),
       /* The source's symbol is the fallback, not the answer. Stamping one
          per source is how every Bentway event became a roller skate,
          including an artist talk; see art-match.mjs. A source that vets its

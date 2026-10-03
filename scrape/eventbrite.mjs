@@ -222,9 +222,11 @@ export function eventbritePrice(offers) {
  * this returned 'art-stage'-style names for categories that happened to
  * exist and one that did not.
  *
- * Parties and DJ nights file the way Revival's already do: music, drawn as
- * decks. Talks are stage with the lectern, the drawing art-match gives an
- * artist talk; Luma's are 'social' only because Luma as a whole is. */
+ * Parties and DJ nights are nightlife, drawn as decks — and so are
+ * Revival's, which get there through asNightlife in normalize.mjs rather
+ * than here, because Revival files everything it publishes as music.
+ * Talks are stage with the lectern, the drawing art-match gives an artist
+ * talk; Luma's are 'social' only because Luma as a whole is. */
 /* "Book" is also what every ticket page tells you to do. 'Book now', 'Book
    your tickets', 'Book a table' put a costume night and a product launch in
    books, so the word counts only when it is not a booking verb. 'Booking'
@@ -263,8 +265,13 @@ export const RULES = [
      Soca Party' — filed as Revival's "Afrobeats & Friends | Amapiano | R&B |
      Dancehall" already is. */
   /* Not every party has decks: a tea party is food, a watch party is film. */
-  { name: 'party', category: 'party', art: 'art-decks',
-    re: /\b((?<!\b(tea|garden|watch|viewing|pizza|dinner|birthday|slumber|pyjama|pajama|knitting|craft|book|reading|puzzle|potluck|search|lunch|luncheon|picnic|cocktail|dinner) )part(y|ies)|day[- ]?part(y|ies)|djs?|dancehall|soca|bashment|afrobeats?|amapiano|reggaeton|dembow|r&b|rnb|hip[- ]?hop|disco|raves?|club nights?|dance (party|parties|night|nights|floor)|dancefloor|house music|techno|edm|day ?club)\b/i },
+  /* 'Mango Szn: Toronto' says only "South Asian Electronic Music, Served
+     Ripe" and matched none of the below on its first pass — it fell through
+     to the generic music rule on the word "Music". Electronic music is the
+     one club genre whose name ends in the word that files it as a gig, so
+     it has to be matched before that happens. */
+  { name: 'nightlife', category: 'nightlife', art: 'art-decks',
+    re: /\b((?<!\b(tea|garden|watch|viewing|pizza|dinner|birthday|slumber|pyjama|pajama|knitting|craft|book|reading|puzzle|potluck|search|lunch|luncheon|picnic|cocktail|dinner) )part(y|ies)|day[- ]?part(y|ies)|djs?|dancehall|soca|bashment|afrobeats?|amapiano|reggaeton|dembow|r&b|rnb|hip[- ]?hop|disco|raves?|club nights?|dance (party|parties|night|nights|floor)|dancefloor|house music|deep house|afro ?house|techno|trance|edm|electronic (music|dance)|drum ?(and|&|n) ?bass|dnb|day ?club|nightlife)\b/i },
   { name: 'classical', category: 'music', art: 'art-violin',
     re: /\b(orchestras?|orchestral|symphon(y|ies|ic)|classical|baroque|chamber (music|ensemble|orchestra)|string quartets?|philharmonic|recitals?|violin(s|ist)?|cellos?|cellist)\b/i },
   { name: 'jazz', category: 'music', art: 'art-jazz-sax',
