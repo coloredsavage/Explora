@@ -13,7 +13,7 @@ const SCRAPED = [
     "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6a95c1d6c9cb9e48853ca9f6/1788199447234/oct+14+7pm+academy.png?format=1500w",
     "url": "https://baddogtheatre.com/whats-on/2026/10/14/academy-showcase-harold-narrative-process",
     "source": "https://baddogtheatre.com/whats-on/2026/10/14/academy-showcase-harold-narrative-process",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Bad Dog Academy Presents ACADEMY SHOWCASE Watch our talented Studio Series Students do Their Thing! This hilarious showcase features performances by Alex Tindal",
     "schedule": {
       "kind": "day",
@@ -32,7 +32,7 @@ const SCRAPED = [
     "address": "180 Shaw Street, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "day",
@@ -52,7 +52,7 @@ const SCRAPED = [
     "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6a95c269b095ca3c361ceb1f/1788199621524/sat+oct+24+7pm+grad+show.png?format=1500w",
     "url": "https://baddogtheatre.com/whats-on/2026/10/24/grad-showcase-harold-1-amp-armando",
     "source": "https://baddogtheatre.com/whats-on/2026/10/24/grad-showcase-harold-1-amp-armando",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Watch Our Studio Series Grads Do Their Thing! The Bad Dog Academy Presents...",
     "schedule": {
       "kind": "day",
@@ -71,7 +71,7 @@ const SCRAPED = [
     "address": "180 Shaw Street, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "day",
@@ -90,7 +90,7 @@ const SCRAPED = [
     "address": "180 Shaw Street, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "day",
@@ -110,7 +110,7 @@ const SCRAPED = [
     "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6a95c2c72dc67534e6694531/1788199681726/sat+oct+24+8_30pm+-+Grad+Showcase.png?format=1500w",
     "url": "https://baddogtheatre.com/whats-on/2026/10/24/grad-showcase-stand-up",
     "source": "https://baddogtheatre.com/whats-on/2026/10/24/grad-showcase-stand-up",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Bad Dog Academy Presents Stand Up Comedy GRAD SHOWCASE Watch our talented Bad Dog Academy Graduates do Their Thing! This brilliant showcase features performances by Daphney Joseph",
     "schedule": {
       "kind": "day",
@@ -130,7 +130,7 @@ const SCRAPED = [
     "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6a95c218d84ab95eba898ffe/1788199527368/oct+21+7pm+grad+show.png?format=1500w",
     "url": "https://baddogtheatre.com/whats-on/2026/10/21/grad-showcase-storytelling",
     "source": "https://baddogtheatre.com/whats-on/2026/10/21/grad-showcase-storytelling",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Bad Dog Academy Presents GRAD SHOWCASE Watch our talented Bad Dog Academy Graduates do Their Thing! This brilliant showcase features performances by Curtis Campbell",
     "schedule": {
       "kind": "day",
@@ -150,8 +150,8 @@ const SCRAPED = [
     "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6965609cf16c582f976550ea/1790547170471/BAD+DOG+2026.png?format=1500w",
     "url": "https://baddogtheatre.com/whats-on/2026/11/6/roses-amp-thorns",
     "source": "https://baddogtheatre.com/whats-on/2026/11/6/roses-amp-thorns",
-    "checked": "2026-10-03",
-    "description": "",
+    "checked": "2026-10-04",
+    "description": "Performers transform audience members' personal highs and lows into improvised comedy sketches, creating an optimistic show designed to lift spirits heading into winter.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-09",
@@ -170,8 +170,8 @@ const SCRAPED = [
     "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6aa761e62adf457204d5001f/1790547185483/BAD+DOG+2026.png?format=1500w",
     "url": "https://baddogtheatre.com/whats-on/2026/11/6/roses-amp-thorns-6z46d",
     "source": "https://baddogtheatre.com/whats-on/2026/11/6/roses-amp-thorns-6z46d",
-    "checked": "2026-10-03",
-    "description": "",
+    "checked": "2026-10-04",
+    "description": "An improvised comedy where performers transform audience members' daily highs and lows into comedic scenes, offering feel-good laughs and optimism.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-16",
@@ -190,8 +190,8 @@ const SCRAPED = [
     "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6aa762032adf457204d501e8/1790547194230/BAD+DOG+2026.png?format=1500w",
     "url": "https://baddogtheatre.com/whats-on/2026/11/6/roses-amp-thorns-6z46d-5byxs",
     "source": "https://baddogtheatre.com/whats-on/2026/11/6/roses-amp-thorns-6z46d-5byxs",
-    "checked": "2026-10-03",
-    "description": "",
+    "checked": "2026-10-04",
+    "description": "An improvised comedy show where a cast transforms audience members' reflections on their daily highs and lows into comedic scenes, offering optimism and laughs.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-23",
@@ -209,7 +209,7 @@ const SCRAPED = [
     "address": "945 Bloor Street West, Toronto, ON, M6H 1L5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "day",
@@ -218,26 +218,6 @@ const SCRAPED = [
     },
     "scrapedFrom": "baddog",
     "via": "model"
-  },
-  {
-    "id": "baddog-super-hot-date-night-2026-10-03",
-    "title": "Super Hot Date Night",
-    "category": "comedy",
-    "art": "art-comedy",
-    "venue": "Society Clubhouse",
-    "address": "967 College Street Toronto, ON, M6H 1A6 Canada",
-    "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/69790fa69456a21bbb85e014/1769541551554/BAD+DOG+2026.jpg?format=1500w",
-    "url": "https://baddogtheatre.com/whats-on/2026/4/4/super-hot-date-night-5twsd-6n9ap-mfddy-weyjr-65f79-z7em4",
-    "source": "https://baddogtheatre.com/whats-on/2026/4/4/super-hot-date-night-5twsd-6n9ap-mfddy-weyjr-65f79-z7em4",
-    "checked": "2026-10-03",
-    "description": "Comedy inspired by dating disasters and romantic misfires.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
-      "time": "8pm – 9pm"
-    },
-    "scrapedFrom": "baddog",
-    "via": "json-ld"
   },
   {
     "id": "baddog-sweet-sweet-friends-2026-10-07",
@@ -249,32 +229,12 @@ const SCRAPED = [
     "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6a95c19710144d154dc1b182/1788199380492/oct+7+7pm+Sweet+Friends.png?format=1500w",
     "url": "https://baddogtheatre.com/whats-on/2026/10/7/sweet-sweet-friends",
     "source": "https://baddogtheatre.com/whats-on/2026/10/7/sweet-sweet-friends",
-    "checked": "2026-10-03",
-    "description": "Rising stars and alumni performers take the stage for an improv show with special guest appearances.",
+    "checked": "2026-10-04",
+    "description": "Rising stars and alumni all-stars perform improv comedy together on the Sweet Sweet Wednesday stage.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-07",
       "time": "7pm – 8pm"
-    },
-    "scrapedFrom": "baddog",
-    "via": "json-ld"
-  },
-  {
-    "id": "baddog-the-after-party-2026-10-03",
-    "title": "The After Party",
-    "category": "comedy",
-    "art": "art-comedy",
-    "venue": "Society Clubhouse",
-    "address": "967 College Street Toronto, ON, M6H 1A6 Canada",
-    "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/6aadaadb5a3df1334b7fdcb0/1790547107321/image.jpg?format=1500w",
-    "url": "https://baddogtheatre.com/whats-on/2026/10/3/the-after-party",
-    "source": "https://baddogtheatre.com/whats-on/2026/10/3/the-after-party",
-    "checked": "2026-10-03",
-    "description": "The best party in town is The After Party! Join us for a night of drinks, fun vibes, and comedy where we take your best/worst/grossest/raunchiest/sweetest/wildest party stories and turn them into side splitting comedy.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
-      "time": "9:30pm – 10:30pm"
     },
     "scrapedFrom": "baddog",
     "via": "json-ld"
@@ -288,7 +248,7 @@ const SCRAPED = [
     "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "day",
@@ -307,7 +267,7 @@ const SCRAPED = [
     "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "day",
@@ -326,32 +286,12 @@ const SCRAPED = [
     "address": "250 Fort York Boulevard, Toronto, ON, Canada",
     "url": "https://thebentway.ca/event/13th-annual-toronto-art-crawls-christmas-market/",
     "source": "https://thebentway.ca/event/13th-annual-toronto-art-crawls-christmas-market/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Shop from over 180 artists and artisans for fashion, jewelry, home decor, original art, skincare products, vintage and photography.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-07",
       "time": "12:00 pm – 6:00 pm"
-    },
-    "scrapedFrom": "bentway",
-    "via": "api"
-  },
-  {
-    "id": "bentway-2-for-1-roller-skate-rentals-2026-10-03",
-    "title": "2-for-1 Roller Skate Rentals",
-    "category": "architecture",
-    "art": "art-skates",
-    "entry": "$18",
-    "venue": "The Bentway Skate Trail",
-    "address": "250 Fort York Boulevard, Toronto, ON, Canada",
-    "url": "https://thebentway.ca/event/nuit-blanche-roller-skate-rentals/",
-    "source": "https://thebentway.ca/event/nuit-blanche-roller-skate-rentals/",
-    "checked": "2026-10-03",
-    "description": "Join us this Nuit Blanche for one more skate under the Gardiner surrounded by Make the World Go Round by Caitlin Taguibao, a striking signature mural installation that wraps the columns of The Bentway Skate Trail.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
-      "time": "7:00 pm – 11:00 pm"
     },
     "scrapedFrom": "bentway",
     "via": "api"
@@ -366,7 +306,7 @@ const SCRAPED = [
     "address": "44 Dan Leckie Way, Toronto, ON, Canada",
     "url": "https://thebentway.ca/event/a-persistent-crossing/",
     "source": "https://thebentway.ca/event/a-persistent-crossing/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Bentway Staging Grounds hosts the final chapter of its immersive installations, where human silhouettes, native vegetation, and Ontario pollinators invite visitors to reflect on their place within the city.",
     "schedule": {
       "kind": "range",
@@ -385,7 +325,7 @@ const SCRAPED = [
     "address": "250 Fort York Boulevard, Toronto, ON, Canada",
     "url": "https://thebentway.ca/event/brooks-to-brought-to-you-by-city-shred/",
     "source": "https://thebentway.ca/event/brooks-to-brought-to-you-by-city-shred/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Join the Brooks community to celebrate, carb load & connect as we approach the race everyone has been training for – the Toronto Waterfront Marathon",
     "schedule": {
       "kind": "day",
@@ -404,7 +344,7 @@ const SCRAPED = [
     "address": "Fort York Boulevard, Toronto, ON, Canada",
     "url": "https://thebentway.ca/event/howloween-2026/",
     "source": "https://thebentway.ca/event/howloween-2026/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "We’re back with the ulti-mutt fall celebration: Howl’oween at The Bentway! Round up the whole pack, two-legged and four, for our fur-nomenal costume contest.",
     "schedule": {
       "kind": "day",
@@ -423,7 +363,7 @@ const SCRAPED = [
     "address": "250 Fort York Boulevard, Toronto, ON, Canada",
     "url": "https://thebentway.ca/event/kings-hawaiian-presents-canadas-longest-friendsgiving-table/",
     "source": "https://thebentway.ca/event/kings-hawaiian-presents-canadas-longest-friendsgiving-table/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "King’s Hawaiian is bringing hundreds of Canadians together for Canada’s Longest Friendsgiving Table – a gathering that celebrates the brand’s long-standing tradition of bringing people together through food.",
     "schedule": {
       "kind": "day",
@@ -443,31 +383,12 @@ const SCRAPED = [
     "address": "250 Fort York Boulevard, Toronto, ON, Canada",
     "url": "https://thebentway.ca/event/make-the-world-go-round/",
     "source": "https://thebentway.ca/event/make-the-world-go-round/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Toronto-based illustrator and muralist Caitlin Taguibao brings the city to life with Make the World Go Round, a striking signature mural installation that wraps the columns of the Bentway Skate Trail, immersing viewers…",
     "schedule": {
       "kind": "range",
       "start": "2026-06-11",
       "end": "2026-10-04"
-    },
-    "scrapedFrom": "bentway",
-    "via": "api"
-  },
-  {
-    "id": "bentway-public-pier-2026-09-18",
-    "title": "Public Pier",
-    "category": "architecture",
-    "art": "art-boardwalk",
-    "venue": "Marina Quay West",
-    "address": "539 Queens Quay West, Toronto, ON, Canada",
-    "url": "https://thebentway.ca/event/public-pier/",
-    "source": "https://thebentway.ca/event/public-pier/",
-    "checked": "2026-10-03",
-    "description": "A collaboration between The Bentway, Harbourfront Centre, OCAD University, and the Waterfront BIA, Public Pier is a public realm pilot that transforms Marina Quay West into a welcoming waterfront hub for arts and…",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-09-18",
-      "end": "2026-10-03"
     },
     "scrapedFrom": "bentway",
     "via": "api"
@@ -482,7 +403,7 @@ const SCRAPED = [
     "address": "Fort York Boulevard, Toronto, ON, Canada",
     "url": "https://thebentway.ca/event/public-trust-the-bentway/",
     "source": "https://thebentway.ca/event/public-trust-the-bentway/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Torontonians are invited to make promises to themselves and their community—not just as inhabitants of the city, but as co-authors of its future.",
     "schedule": {
       "kind": "range",
@@ -493,421 +414,241 @@ const SCRAPED = [
     "via": "api"
   },
   {
-    "id": "comedybar-anthony-locascio-2026-10-08",
-    "title": "Anthony Locascio",
+    "id": "comedybar-all-out-comedy-2026-10-16",
+    "title": "ALL OUT COMEDY",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$30.75",
+    "entry": "$25",
     "venue": "Comedy Bar",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/anthony-locascio",
-    "source": "https://comedybar.ca/shows/anthony-locascio",
-    "checked": "2026-10-03",
-    "description": "Stand-up comedy from Australian comedian Anthony Locascio, performing material from his critically acclaimed show Pappou.",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/all-out-comedy",
+    "source": "https://comedybar.ca/shows/all-out-comedy",
+    "checked": "2026-10-04",
+    "description": "Toronto comedians perform stand-up comedy hosted by Justin Subryan for 75 minutes.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-08",
+      "date": "2026-10-16",
+      "time": "10:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-all-out-comedy-2026-11-20",
+    "title": "ALL OUT COMEDY",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/all-out-comedy",
+    "source": "https://comedybar.ca/shows/all-out-comedy",
+    "checked": "2026-10-04",
+    "description": "Toronto comedians perform stand-up comedy hosted by Justin Subryan for 75 minutes.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-20",
+      "time": "10:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-faris-hytiaa-be-good-2026-10-24",
+    "title": "Faris Hytiaa - Be Good",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$33",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/be-good",
+    "source": "https://comedybar.ca/shows/be-good",
+    "checked": "2026-10-04",
+    "description": "Faris Hytiaa performs new material breaking down culture and identity, exploring his Sudanese heritage and its conflicts with his Canadian upbringing through comedy.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-24",
       "time": "9:00pm"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-comedy-slam-2026-10-06",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-06",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-10-13",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-13",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-10-20",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-20",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-10-27",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-27",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-11-03",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-03",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-11-10",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-10",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-11-17",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-17",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-11-24",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-24",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-12-01",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-01",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-12-08",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-08",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-12-15",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-15",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-12-22",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-22",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-comedy-slam-2026-12-29",
-    "title": "Comedy Slam",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$10",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "source": "https://comedybar.ca/shows/COMEDY-SLAM",
-    "checked": "2026-10-03",
-    "description": "Professional stand-up comedians performing in a fast-paced showcase, with different lineups each week.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-29",
-      "time": "9:30pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-double-down-2026-10-10",
-    "title": "Double Down",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20+tax in advance, $25+tax at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/double-down",
-    "source": "https://comedybar.ca/shows/double-down",
-    "checked": "2026-10-03",
-    "description": "Stand-up comedy hosted by Yaw Attuah, featuring new comedians and an extended set from a headliner.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-10",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-double-down-2026-11-14",
-    "title": "Double Down",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20+tax in advance, $25+tax at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/double-down",
-    "source": "https://comedybar.ca/shows/double-down",
-    "checked": "2026-10-03",
-    "description": "Stand-up comedy hosted by Yaw Attuah, featuring new comedians and an extended set from a headliner.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-14",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-double-down-2026-12-12",
-    "title": "Double Down",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20+tax in advance, $25+tax at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/double-down",
-    "source": "https://comedybar.ca/shows/double-down",
-    "checked": "2026-10-03",
-    "description": "Stand-up comedy hosted by Yaw Attuah, featuring new comedians and an extended set from a headliner.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-12",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-sappho-say-what-2026-10-07",
-    "title": "Sappho Say What?",
+    "id": "comedybar-ghost-orgy-2026-10-24",
+    "title": "Ghost Orgy",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$23 advance / $28 at the door",
+    "entry": "$25",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sappho-say-what",
-    "source": "https://comedybar.ca/shows/sappho-say-what",
-    "checked": "2026-10-03",
-    "description": "An all-lesbian stand-up comedy lineup featuring Toronto's best comics, including comedy award winners and performers seen on OutTV, JFL, CBC, SiriusXM and TikTok, with headliner Elvira Kurt.",
+    "url": "https://comedybar.ca/shows/ghost-orgy",
+    "source": "https://comedybar.ca/shows/ghost-orgy",
+    "checked": "2026-10-04",
+    "description": "A monthly dark and dirty stand-up comedy showcase featuring a different lineup of comedians, hosted by Hannah Lawrence.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-07",
-      "time": "8:00 PM"
+      "date": "2026-10-24",
+      "time": "10:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-sketch-o-matic-2026-11-29",
-    "title": "SKETCH-O-MATIC",
+    "id": "comedybar-ghost-orgy-2026-11-28",
+    "title": "Ghost Orgy",
     "category": "comedy",
-    "art": "art-improv",
+    "art": "art-comedy",
     "entry": "$25",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sketch-o-matic",
-    "source": "https://comedybar.ca/shows/sketch-o-matic",
-    "checked": "2026-10-03",
-    "description": "An original live sketch comedy show featuring new material performed on the main stage.",
+    "url": "https://comedybar.ca/shows/ghost-orgy",
+    "source": "https://comedybar.ca/shows/ghost-orgy",
+    "checked": "2026-10-04",
+    "description": "A monthly dark and dirty stand-up comedy showcase featuring a different lineup of comedians, hosted by Hannah Lawrence.",
     "schedule": {
       "kind": "day",
-      "date": "2026-11-29",
-      "time": "7:00 PM"
+      "date": "2026-11-28",
+      "time": "10:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-sketch-o-matic-2027-01-30",
-    "title": "SKETCH-O-MATIC",
+    "id": "comedybar-ghost-orgy-2026-12-26",
+    "title": "Ghost Orgy",
     "category": "comedy",
-    "art": "art-improv",
+    "art": "art-comedy",
     "entry": "$25",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sketch-o-matic",
-    "source": "https://comedybar.ca/shows/sketch-o-matic",
-    "checked": "2026-10-03",
-    "description": "An original live sketch comedy show featuring new material performed on the main stage.",
+    "url": "https://comedybar.ca/shows/ghost-orgy",
+    "source": "https://comedybar.ca/shows/ghost-orgy",
+    "checked": "2026-10-04",
+    "description": "A monthly dark and dirty stand-up comedy showcase featuring a different lineup of comedians, hosted by Hannah Lawrence.",
     "schedule": {
       "kind": "day",
-      "date": "2027-01-30",
-      "time": "7:00 PM"
+      "date": "2026-12-26",
+      "time": "10:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-sketch-o-matic-2027-04-24",
-    "title": "SKETCH-O-MATIC",
+    "id": "comedybar-hell-a-stand-up-comedy-show-hosted-by-chris-lock-2026-10-28",
+    "title": "Hell: A Stand Up Comedy show hosted by Chris Locke",
     "category": "comedy",
-    "art": "art-improv",
+    "art": "art-comedy",
     "entry": "$25",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sketch-o-matic",
-    "source": "https://comedybar.ca/shows/sketch-o-matic",
-    "checked": "2026-10-03",
-    "description": "An original live sketch comedy show featuring new material performed on the main stage.",
+    "url": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
+    "source": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
+    "checked": "2026-10-04",
+    "description": "",
     "schedule": {
       "kind": "day",
-      "date": "2027-04-24",
-      "time": "7:00 PM"
+      "date": "2026-10-28",
+      "time": "09:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-hell-a-stand-up-comedy-show-hosted-by-chris-lock-2026-11-25",
+    "title": "Hell: A Stand Up Comedy show hosted by Chris Locke",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
+    "source": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
+    "checked": "2026-10-04",
+    "description": "",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-25",
+      "time": "09:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-hell-a-stand-up-comedy-show-hosted-by-chris-lock-2026-12-30",
+    "title": "Hell: A Stand Up Comedy show hosted by Chris Locke",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
+    "source": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
+    "checked": "2026-10-04",
+    "description": "",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-30",
+      "time": "09:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-still-awake-2026-10-16",
+    "title": "Still Awake",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15 online, $18 at door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/still-awake",
+    "source": "https://comedybar.ca/shows/still-awake",
+    "checked": "2026-10-04",
+    "description": "Audience members anonymously submit late-night thoughts—overthinking, spirals, bad ideas, weird questions—and hosts and comedians turn them into stand-up, riffs, and improvised moments on stage.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-16",
+      "time": "11:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-still-awake-2026-11-20",
+    "title": "Still Awake",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15 online, $18 at door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/still-awake",
+    "source": "https://comedybar.ca/shows/still-awake",
+    "checked": "2026-10-04",
+    "description": "Audience members anonymously submit late-night thoughts—overthinking, spirals, bad ideas, weird questions—and hosts and comedians turn them into stand-up, riffs, and improvised moments on stage.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-20",
+      "time": "11:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-still-awake-2026-12-18",
+    "title": "Still Awake",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15 online, $18 at door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/still-awake",
+    "source": "https://comedybar.ca/shows/still-awake",
+    "checked": "2026-10-04",
+    "description": "Audience members anonymously submit late-night thoughts—overthinking, spirals, bad ideas, weird questions—and hosts and comedians turn them into stand-up, riffs, and improvised moments on stage.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-18",
+      "time": "11:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
@@ -917,13 +658,13 @@ const SCRAPED = [
     "title": "Sunthar V & Me2Chat",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$30",
+    "entry": "$30–$55",
     "venue": "Comedy Bar",
     "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
     "url": "https://comedybar.ca/shows/sunthar-v--me2chat",
     "source": "https://comedybar.ca/shows/sunthar-v--me2chat",
-    "checked": "2026-10-03",
-    "description": "Sunthar V & Me2Chat present a special preview of their upcoming European tour Unbothered & Overthinking, performed in English and Tamil.",
+    "checked": "2026-10-04",
+    "description": "A special preview of their upcoming European tour 'Unbothered & Overthinking', performed in English and Tamil.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-17",
@@ -937,13 +678,13 @@ const SCRAPED = [
     "title": "Sunthar V & Me2Chat",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$30",
+    "entry": "$30–$55",
     "venue": "Comedy Bar",
     "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
     "url": "https://comedybar.ca/shows/sunthar-v--me2chat",
     "source": "https://comedybar.ca/shows/sunthar-v--me2chat",
-    "checked": "2026-10-03",
-    "description": "Sunthar V & Me2Chat present a special preview of their upcoming European tour Unbothered & Overthinking, performed in English and Tamil.",
+    "checked": "2026-10-04",
+    "description": "A special preview of their upcoming European tour 'Unbothered & Overthinking', performed in English and Tamil.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-18",
@@ -953,241 +694,81 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "comedybar-the-pro-show-2026-10-08",
-    "title": "The Pro Show",
+    "id": "comedybar-the-comedy-magic-show-2026-10-09",
+    "title": "The Comedy Magic Show",
     "category": "comedy",
     "art": "art-improv",
     "entry": "$20",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
+    "url": "https://comedybar.ca/shows/the-comedy-magic-show",
+    "source": "https://comedybar.ca/shows/the-comedy-magic-show",
+    "checked": "2026-10-04",
+    "description": "A mix of comedy and magic tricks in an interactive show with audience participation.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-08",
-      "time": "8:00 PM"
+      "date": "2026-10-09",
+      "time": "11:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-the-pro-show-2026-10-15",
-    "title": "The Pro Show",
+    "id": "comedybar-the-sketchening-2026-10-30",
+    "title": "The Sketchening",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-15",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-10-22",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-22",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-10-29",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-29",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-11-05",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-05",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-11-12",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-12",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-11-19",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-19",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-11-26",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-26",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-12-03",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-03",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-12-10",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-10",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-12-17",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-03",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners from around the world, curated and hosted by Jeff Paul.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-17",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-six-from-the-6ix-back-from-scotland-edition-2026-10-30",
-    "title": "The Six from the 6ix – Back from Scotland Edition",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-six-from-the-6ix-back-from-scotland-edition",
-    "source": "https://comedybar.ca/shows/the-six-from-the-6ix-back-from-scotland-edition",
-    "checked": "2026-10-03",
-    "description": "Six Toronto comedians perform stand-up stories about their time at the Edinburgh Fringe, covering everything from wild parties to unexpected encounters and a mysterious chair.",
+    "entry": "$15",
+    "venue": "Studio Theatre",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/the-sketchening",
+    "source": "https://comedybar.ca/shows/the-sketchening",
+    "checked": "2026-10-04",
+    "description": "Fast-paced Halloween-themed sketches with big characters and unhinged moments.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-30",
-      "time": "10:00 PM"
+      "time": "8:00pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-the-sketchening-2026-10-31",
+    "title": "The Sketchening",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15",
+    "venue": "Studio Theatre",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/the-sketchening",
+    "source": "https://comedybar.ca/shows/the-sketchening",
+    "checked": "2026-10-04",
+    "description": "Fast-paced Halloween-themed sketches with big characters and unhinged moments.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-31",
+      "time": "9:30pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-whose-land-is-it-anyways-2026-10-23",
+    "title": "Whose Land Is It Anyways",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$20 online, $25 at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/whose-land-is-it-anyways",
+    "source": "https://comedybar.ca/shows/whose-land-is-it-anyways",
+    "checked": "2026-10-04",
+    "description": "Indigenous and South Asian comedians perform stand-up about colonial history, immigrant experiences, and cultural politics, hosted by Kevin Shawanda.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-23",
+      "time": "11:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
@@ -1203,7 +784,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Abacus-Cornet-Quartet-Oct-21-2026-Jonathan-Luke.png",
     "url": "https://www.theemmetray.com/event/abacus-cornet-quartet-avant-jazz-chamber-jazz-folk-jazz/",
     "source": "https://www.theemmetray.com/event/abacus-cornet-quartet-avant-jazz-chamber-jazz-folk-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Abacus Cornet Quartet, avant jazz, chamber jazz, folk jazz Jazz quartet exploring the compositions of drummer/composer Paul Motian.",
     "schedule": {
       "kind": "day",
@@ -1224,7 +805,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Emmet-Ray-Nov-2-Allie-Stewart.png",
     "url": "https://www.theemmetray.com/event/allie-stewart-tap-dance-jazz-standards/",
     "source": "https://www.theemmetray.com/event/allie-stewart-tap-dance-jazz-standards/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Allie Stewart Tap Dance, Jazz Standards Spend an evening immersed in classic jazz standards, with these four amazing local musicians: Aidan McConnell on drums, Curran McConnell on bass, Henry Lewis on piano, and Allie…",
     "schedule": {
       "kind": "day",
@@ -1244,7 +825,7 @@ const SCRAPED = [
     "address": "924 College St, Toronto, ON",
     "url": "https://www.theemmetray.com/event/avenue-road-cabaret-songs-parlour-songs-and-vintage-vocal-jazz/",
     "source": "https://www.theemmetray.com/event/avenue-road-cabaret-songs-parlour-songs-and-vintage-vocal-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Avenue Road Quartet, vintage vocal jazz & cabaret The Avenue Road Quartet, led by vocalist Julia Kennific, is a new ensemble dedicated to cabaret and vintage vocal jazz.",
     "schedule": {
       "kind": "day",
@@ -1265,7 +846,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/MonkLacy.jpg",
     "url": "https://www.theemmetray.com/event/axiomatic-heresy-thelonious-monk-b-day-tribute/",
     "source": "https://www.theemmetray.com/event/axiomatic-heresy-thelonious-monk-b-day-tribute/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Axiomatic Heresy, Thelonious Monk B-Day Tribute! Diagrammatically improvising the music of Monk in honour of his birthday. Followed up a set of Steve Lacy improvisations.",
     "schedule": {
       "kind": "day",
@@ -1286,7 +867,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Ben-Basso-4tet-Ben-Basso.png",
     "url": "https://www.theemmetray.com/event/ben-basso-quartet-4tet-straight-ahead-jazz-standards/",
     "source": "https://www.theemmetray.com/event/ben-basso-quartet-4tet-straight-ahead-jazz-standards/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Ben Basso Quartet (4tet), Straight ahead jazz/standards. Standards and bebop, straight ahead Ben Basso – Tenor Sax Tomoki Belrose – Upright Lyle Fleras – Piano Joeseph Sgrignuoli – Drums",
     "schedule": {
       "kind": "day",
@@ -1307,7 +888,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Emmet-Ray-Ben-Estrin.png",
     "url": "https://www.theemmetray.com/event/ben-estrin-trio-w-lily-galivan-straight-ahead-jazz/",
     "source": "https://www.theemmetray.com/event/ben-estrin-trio-w-lily-galivan-straight-ahead-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Ben Estrin Trio w/ Lily Galivan, Straight Ahead Jazz. Ben Estrin Trio with keller Mchardy and Sam Heggum-Truscott with special guest Lily Galivan.",
     "schedule": {
       "kind": "day",
@@ -1328,7 +909,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/PhotoCollageMaker_20260920_200131780.jpg",
     "url": "https://www.theemmetray.com/event/bryan-toner-quartet-jazz-standards/",
     "source": "https://www.theemmetray.com/event/bryan-toner-quartet-jazz-standards/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Bryan Toner Quartet, Jazz Standards They will be playing familiar jazz standards with Bryan Toner leading the way on Drums. Often interacting with the listeners in a fun and entertaining manner.",
     "schedule": {
       "kind": "day",
@@ -1349,7 +930,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/SQUARE-Wisla-Nov-3rd-Cale-Fladager.png",
     "url": "https://www.theemmetray.com/event/cale-fladagers-wisla-ensemble-polish-jazz-modern-jazz-2/",
     "source": "https://www.theemmetray.com/event/cale-fladagers-wisla-ensemble-polish-jazz-modern-jazz-2/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Cale Fladager’s Wisła Ensemble, Polish Jazz, Modern Jazz The Wisła Ensemble is a jazz and improvised music group dedicated to presenting the unique tradition of Polish Jazz music.",
     "schedule": {
       "kind": "day",
@@ -1370,7 +951,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/SQUARE-Wisla-Jan-31-Cale-Fladager.png",
     "url": "https://www.theemmetray.com/event/cale-fladagers-wisla-ensemble-polish-jazz-modern-jazz/",
     "source": "https://www.theemmetray.com/event/cale-fladagers-wisla-ensemble-polish-jazz-modern-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Cale Fladager’s Wisła Ensemble, Polish Jazz, Modern Jazz The Wisła Ensemble is a jazz and improvised music group dedicated to presenting the unique tradition of Polish Jazz music.",
     "schedule": {
       "kind": "day",
@@ -1391,7 +972,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Screenshot_20260922-215723.jpg",
     "url": "https://www.theemmetray.com/event/canaliens-soul-funk-rnb-a-bit-of-jazz/",
     "source": "https://www.theemmetray.com/event/canaliens-soul-funk-rnb-a-bit-of-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "CanAliens, Soul, Funk, RnB, and Jazz. Vocals: Phil Smith, Sax and keys: Ross Ogden, Guitar: Cameron Guest, Drums: Blake Manning, Bass: Rob Reedijk",
     "schedule": {
       "kind": "day",
@@ -1412,7 +993,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/08/Screenshot_20260917-115245.jpg",
     "url": "https://www.theemmetray.com/event/chloe-watkinson-the-ptero-cards/",
     "source": "https://www.theemmetray.com/event/chloe-watkinson-the-ptero-cards/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Chloe Watkinson & the Ptero Cards We are still waiting on details for the show but it will be a monthly series and we all know Chloe Watkinson’s voice is beyond compare. So much soul so much depth, simply wonderful.",
     "schedule": {
       "kind": "day",
@@ -1433,7 +1014,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Screenshot_20260917-234049.jpg",
     "url": "https://www.theemmetray.com/event/clean-breaks-groove-funk-rock-with-vocalist-mip/",
     "source": "https://www.theemmetray.com/event/clean-breaks-groove-funk-rock-with-vocalist-mip/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Clean Breaks, Groove, Funk, Rock with vocalist MIP Prepare to move. Special guest Originally from a small town in BC, Mip is best known for fronting the energetic rock band Mip Power Trio.",
     "schedule": {
       "kind": "day",
@@ -1454,32 +1035,11 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/02/Screenshot_20260917-233903.jpg",
     "url": "https://www.theemmetray.com/event/clean-breaks-groove-funk-rock-july/",
     "source": "https://www.theemmetray.com/event/clean-breaks-groove-funk-rock-july/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Clean Breaks, Groove, Funk, Rock with vocalist Shezelle Weekes Prepare to move. Special guest Shezelle Weekes is a versatile and in-demand singer known for her powerful, soulful delivery and commanding stage presence.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-17",
-      "time": "8:30pm – 11pm"
-    },
-    "scrapedFrom": "emmetray",
-    "via": "api"
-  },
-  {
-    "id": "emmetray-cody-copland-jazzy-band-jazz-guitarist-2026-10-03",
-    "title": "Cody Copland + Jazzy Band, Jazz Guitarist",
-    "category": "music",
-    "art": "art-jazz-drums",
-    "entry": "$15",
-    "venue": "The Emmet Ray",
-    "address": "924 College St, Toronto, ON",
-    "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/PhotoCollageMaker_20260926_192938261.png.png",
-    "url": "https://www.theemmetray.com/event/cody-copland-group-jazz-guitarist-bebop/",
-    "source": "https://www.theemmetray.com/event/cody-copland-group-jazz-guitarist-bebop/",
-    "checked": "2026-10-03",
-    "description": "Cody Copland + Jazzy Band, Jazz Guitarist Cody Copland joins the Jazzy Band trio to play standard Oscar Peterson repertoire and jazz standards.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
       "time": "8:30pm – 11pm"
     },
     "scrapedFrom": "emmetray",
@@ -1496,33 +1056,12 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2024/12/PhotoCollageMaker_20260920_195722551.jpg",
     "url": "https://www.theemmetray.com/event/donovan-locke-trio-jazz-vocals-with-carl-bray-on-piano-bennett-young-on-bass/",
     "source": "https://www.theemmetray.com/event/donovan-locke-trio-jazz-vocals-with-carl-bray-on-piano-bennett-young-on-bass/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Donovan Locke Trio, Jazz/Folk Vocals Donovan Locke – Vocals Donovan Locke is one of Toronto’s Great Performers. He not only wows with his vocals but engages and brings joy to his listeners.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-09",
       "time": "9:30pm – 11:59pm"
-    },
-    "scrapedFrom": "emmetray",
-    "via": "api"
-  },
-  {
-    "id": "emmetray-else-langhans-guitar-vocals-jazz-covers-original-2026-10-03",
-    "title": "Else Langhans, Guitar/Vocals, Jazz Covers Original Songwriter",
-    "category": "music",
-    "art": "art-jazz-bass",
-    "entry": "PWYC",
-    "venue": "The Emmet Ray",
-    "address": "924 College St, Toronto, ON",
-    "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/PhotoCollageMaker_20260926_232001157.png.png",
-    "url": "https://www.theemmetray.com/event/else-langhans-guitar-vocals-jazz-covers-original-songwriter/",
-    "source": "https://www.theemmetray.com/event/else-langhans-guitar-vocals-jazz-covers-original-songwriter/",
-    "checked": "2026-10-03",
-    "description": "Else Langhans, Guitar/Vocals, Jazz Covers & Original Songwriter",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
-      "time": "11:30am – 1:30pm"
     },
     "scrapedFrom": "emmetray",
     "via": "api"
@@ -1538,7 +1077,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Oct-5-Emmet-Jack-and-Fiona-Duo-Fiona-Varty.jpg",
     "url": "https://www.theemmetray.com/event/fiona-jack-jazz-folk/",
     "source": "https://www.theemmetray.com/event/fiona-jack-jazz-folk/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Fiona & Jack, Jazz folk Fiona Varty and Jack Stockill are collaborate improvisatory jazz musicians in the Toronto jazz scene. Their group strives to incorporate listening, poetry, and spontaneous musical interaction.",
     "schedule": {
       "kind": "day",
@@ -1559,33 +1098,12 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/35FC15C5-C8CA-407C-98C7-A8E1F257071D-Alex-Deuzeman.png",
     "url": "https://www.theemmetray.com/event/groove-cartel-funky-blues-jazz-and-latin-blended-into-infectious-rhythms/",
     "source": "https://www.theemmetray.com/event/groove-cartel-funky-blues-jazz-and-latin-blended-into-infectious-rhythms/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Groove Cartel, Funky, Blues, Jazz and Latin blended into infectious rhythms Groove Cartel is a high-energy trio from Sarnia, Ontario, featuring Wulf Von Waldo on saxophone, Alex Deuzeman on bass, and Evan Chambers on…",
     "schedule": {
       "kind": "day",
       "date": "2026-10-16",
       "time": "9:30pm – 11:59pm"
-    },
-    "scrapedFrom": "emmetray",
-    "via": "api"
-  },
-  {
-    "id": "emmetray-isaak-bonk-and-the-roast-chicken-ramblers-blues--2026-10-03",
-    "title": "Isaak Bonk and The Roast Chicken Ramblers, Blues/Jazz",
-    "category": "music",
-    "art": "art-jazz-sax",
-    "entry": "$15",
-    "venue": "The Emmet Ray",
-    "address": "924 College St, Toronto, ON",
-    "image": "https://www.theemmetray.com/wp-content/uploads/2024/12/PhotoCollageMaker_20260920_195331981.jpg",
-    "url": "https://www.theemmetray.com/event/isaak-bonk-and-the-roast-chicken-ramblers-blues-jazz/",
-    "source": "https://www.theemmetray.com/event/isaak-bonk-and-the-roast-chicken-ramblers-blues-jazz/",
-    "checked": "2026-10-03",
-    "description": "Isaak Bonk and The Roast Chicken Ramblers, Blues/Jazz The Roast Chicken Ramblers are a Toronto based vintage blues, jazz and ragtime group. The roast chicken repertoire is largely based upon pre-war/swing era tunes.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
-      "time": "5:30pm – 8pm"
     },
     "scrapedFrom": "emmetray",
     "via": "api"
@@ -1601,7 +1119,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/IMG_3796-Jack-Marshall-scaled.jpeg",
     "url": "https://www.theemmetray.com/event/jack-marshalls-thankful-quartet-jazz-standards/",
     "source": "https://www.theemmetray.com/event/jack-marshalls-thankful-quartet-jazz-standards/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Jack Marshall’s Thankful Quartet, Jazz standards As this show is one day before thanksgiving all members of this band aren’t going home for the holiday.",
     "schedule": {
       "kind": "day",
@@ -1622,7 +1140,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/06/10.12-Toronto-ON-Jen-Howard.jpg",
     "url": "https://www.theemmetray.com/event/jen-howard-an-american-singer-songwriter-and-multi-instrumentalist/",
     "source": "https://www.theemmetray.com/event/jen-howard-an-american-singer-songwriter-and-multi-instrumentalist/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Jen Howard, an American singer/songwriter and multi-instrumentalist. Jen Howard is an American singer/songwriter and multi-instrumentalist, born in Prestonsburg, Kentucky.",
     "schedule": {
       "kind": "day",
@@ -1643,7 +1161,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/08/C13A6A52-1747-400A-A8C9-CF5E9AC8BF69-M-Taylor.png",
     "url": "https://www.theemmetray.com/event/junctional-rhythm-jazz-funk-blues/",
     "source": "https://www.theemmetray.com/event/junctional-rhythm-jazz-funk-blues/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Junctional Rhythm, Jazz/Funk/Blues Junctional Rhythm is a four-piece instrumental group exploring the intersection of jazz, funk, and blues.",
     "schedule": {
       "kind": "day",
@@ -1663,7 +1181,7 @@ const SCRAPED = [
     "address": "924 College St, Toronto, ON",
     "url": "https://www.theemmetray.com/event/kb-vox-with-kevin-barrett-%f0%9f%8e%b8-kathryn-rose%f0%9f%8e%99%ef%b8%8f/",
     "source": "https://www.theemmetray.com/event/kb-vox-with-kevin-barrett-%f0%9f%8e%b8-kathryn-rose%f0%9f%8e%99%ef%b8%8f/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "kb + vox with Kevin Barrett 🎸 & Kathryn Rose 🎙️ Kevin Barrett has brought back his Guitar and Vocal series, this summer it is monthly, 2nd Tuesday of the month and good weather means we will be playing to the patio.",
     "schedule": {
       "kind": "day",
@@ -1684,7 +1202,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/03/PhotoCollageMaker_20260501_230011934.png.png",
     "url": "https://www.theemmetray.com/event/late-night-jazz-jam-free-for-jammers-sponsor-by-glb-great-lakes-brewery-presented-by-jazzintoronto-2/",
     "source": "https://www.theemmetray.com/event/late-night-jazz-jam-free-for-jammers-sponsor-by-glb-great-lakes-brewery-presented-by-jazzintoronto-2/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Late Night Jazz Jam, Sponsor by GLB Great Lakes Brewery, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC for listeners 11pm doors, Starts at 11:30pm",
     "schedule": {
       "kind": "day",
@@ -1705,7 +1223,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/05/PhotoCollageMaker_20260614_170023470.jpg",
     "url": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-bushmills-irish-whisky-presented-by-jazzintoronto-host-david-riddel/",
     "source": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-bushmills-irish-whisky-presented-by-jazzintoronto-host-david-riddel/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Late Night Jazz Jam, Sponsor by Bushmills Irish Whiskey, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC 11pm doors, Starts at 11:30pm",
     "schedule": {
       "kind": "day",
@@ -1726,32 +1244,11 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/PhotoCollageMaker_20260614_170023470-1200x1200-2.jpg",
     "url": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-bushmills-irish-whiskey-presented-by-jazzintoronto-host-jake-b-k/",
     "source": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-bushmills-irish-whiskey-presented-by-jazzintoronto-host-jake-b-k/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Late Night Jazz Jam, Sponsor by Bushmills Irish Whiskey, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC for listeners 11pm doors, Starts at 11:30pm",
     "schedule": {
       "kind": "day",
       "date": "2026-11-21",
-      "time": "11:30pm – 2am"
-    },
-    "scrapedFrom": "emmetray",
-    "via": "api"
-  },
-  {
-    "id": "emmetray-late-night-jazz-jam-sponsor-by-glb-great-lakes-b-2026-10-03",
-    "title": "Late Night Jazz Jam, Sponsor by GLB Great Lakes Brewery, presented by JazzInToronto, Host Yoshi Wall",
-    "category": "music",
-    "art": "art-jam-stool",
-    "entry": "PWYC",
-    "venue": "The Emmet Ray",
-    "address": "924 College St, Toronto, ON",
-    "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Screenshot_20260920-194636.jpg",
-    "url": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-host-yoshi-wall/",
-    "source": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-host-yoshi-wall/",
-    "checked": "2026-10-03",
-    "description": "Late Night Jazz Jam, Sponsor by GLB Great Lakes Brewery, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC for listeners 11pm doors, Starts at 11:30pm",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
       "time": "11:30pm – 2am"
     },
     "scrapedFrom": "emmetray",
@@ -1768,7 +1265,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Screenshot_20260920-194636.jpg",
     "url": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-jazzintoronto-presents-late-night-jazz-jam-pwyc-for-late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-ja/",
     "source": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-jazzintoronto-presents-late-night-jazz-jam-pwyc-for-late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-ja/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Late Night Jazz Jam, Sponsor by GLB Great Lakes Brewery, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC for listeners 11pm doors, Starts at 11:30pm",
     "schedule": {
       "kind": "day",
@@ -1789,7 +1286,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Screenshot_20260920-194636.jpg",
     "url": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-glb-great-lakes-brewery-presented-by-jazzintoronto-host-sam-griffin/",
     "source": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-glb-great-lakes-brewery-presented-by-jazzintoronto-host-sam-griffin/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Late Night Jazz Jam, Sponsor by GLB Great Lakes Brewery, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC for listeners 11pm doors, Starts at 11:30pm",
     "schedule": {
       "kind": "day",
@@ -1810,7 +1307,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2025/08/PhotoCollageMaker_20260501_225718327.jpg",
     "url": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-host-esra-gurcay/",
     "source": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-host-esra-gurcay/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Late Night Jazz Jam, Sponsor by Woodhouse Brewery, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC 11pm doors, Starts at 11:30pm",
     "schedule": {
       "kind": "day",
@@ -1831,7 +1328,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/PhotoCollageMaker_20260501_225718327-1200x1200-1.jpg",
     "url": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-host-lucas-white/",
     "source": "https://www.theemmetray.com/event/late-night-jazz-jam-sponsor-by-woodhouse-brewery-presented-by-jazzintoronto-host-lucas-white/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Late Night Jazz Jam, Sponsor by Woodhouse Brewery, presented by JazzInToronto JazzInToronto Presents: Late Night Jazz Jam PWYC for listeners 11pm doors, Starts at 11:30pm",
     "schedule": {
       "kind": "day",
@@ -1852,7 +1349,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Minimalist-Typography-Simple-Personal-Art-Exhibition-Poster-Joseph-Sgrignuoli.png",
     "url": "https://www.theemmetray.com/event/leung-sgrigs-quartet-straight-ahead-bebop-jazz/",
     "source": "https://www.theemmetray.com/event/leung-sgrigs-quartet-straight-ahead-bebop-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Leung & Sgrigs Quartet, Straight ahead Bebop/Jazz Playing the tunes of Charlie “”Bird”” Parker and Earl “”Bud”” Powell. Blazing bebop from their respective songbooks across two sets.",
     "schedule": {
       "kind": "day",
@@ -1872,7 +1369,7 @@ const SCRAPED = [
     "address": "924 College St, Toronto, ON",
     "url": "https://www.theemmetray.com/event/liminal-switch-instrumental-prog-fusion/",
     "source": "https://www.theemmetray.com/event/liminal-switch-instrumental-prog-fusion/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Band name or leader: Liminal Switch Music style of influence: Instrumental prog/fusion Band members: Marcus Celia (guitar), Alex Kohlsmith (keys), Ryan Sullivan (bass), Ryan Sequeira (drums) More info coming…",
     "schedule": {
       "kind": "day",
@@ -1893,7 +1390,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Emmet-Oct-18th-2-Lucas-White.png",
     "url": "https://www.theemmetray.com/event/lucas-white-quintet-contemporary-jazz/",
     "source": "https://www.theemmetray.com/event/lucas-white-quintet-contemporary-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Lucas White Quintet, Contemporary Jazz Lucas White is a jazz pianist studying at the University of Toronto’s Faculty of Music, who has performed with many differing groups at the Emmet Ray.",
     "schedule": {
       "kind": "day",
@@ -1914,7 +1411,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/图像2026-09-23-上午12.11-Ethan-Hu.jpg",
     "url": "https://www.theemmetray.com/event/lyf-trio-modern-jazz/",
     "source": "https://www.theemmetray.com/event/lyf-trio-modern-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Lyf! Trio, Modern Jazz LyF! Trio is inspired by many modern greats such as Fly Trio, Freedom of Ideas, Immanuel Wilkins, Tyshawn Sorey, and many more.",
     "schedule": {
       "kind": "day",
@@ -1935,7 +1432,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/08/image0-Marky-Dawson.png",
     "url": "https://www.theemmetray.com/event/marky-dawson-boogie-woogie-rock-n-roll/",
     "source": "https://www.theemmetray.com/event/marky-dawson-boogie-woogie-rock-n-roll/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Marky Dawson, Boogie Woogie/Rock n Roll Virtuoso Blues Man? Sensitive Singer Songwriter? Raucous Piano pounder? Marky Dawson is proud to be all three.",
     "schedule": {
       "kind": "day",
@@ -1955,7 +1452,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/PhotoCollageMaker_20260926_225411477.jpg",
     "url": "https://www.theemmetray.com/event/matt-endahl-group-jazz-piano-standards-improvisations/",
     "source": "https://www.theemmetray.com/event/matt-endahl-group-jazz-piano-standards-improvisations/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Matt Endahl Group, Jazz Piano Standards & Improvisations More info coming…",
     "schedule": {
       "kind": "day",
@@ -1975,32 +1472,12 @@ const SCRAPED = [
     "address": "924 College St, Toronto, ON",
     "url": "https://www.theemmetray.com/event/michael-spiroff-ragtime-blues-cabaret-songs-2/",
     "source": "https://www.theemmetray.com/event/michael-spiroff-ragtime-blues-cabaret-songs-2/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Michael Spiroff, ragtime, blues, cabaret songs Michael Spiroff is a composer, pianist, and singer whose work draws from blues, classical, jazz, and theatre traditions.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-29",
       "time": "9:15pm – 11:30pm"
-    },
-    "scrapedFrom": "emmetray",
-    "via": "api"
-  },
-  {
-    "id": "emmetray-neighbours-phil-desir-e-sing-familiar-classics-f-2026-10-03",
-    "title": "Neighbours, Phil & Desirée, Sing Familiar Classics, Folk",
-    "category": "music",
-    "art": "art-folk",
-    "venue": "The Emmet Ray",
-    "address": "924 College St, Toronto, ON",
-    "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/IMG_20260905_160252.png",
-    "url": "https://www.theemmetray.com/event/neighbours-phil-desiree-sing-familiar-classics-folk/",
-    "source": "https://www.theemmetray.com/event/neighbours-phil-desiree-sing-familiar-classics-folk/",
-    "checked": "2026-10-03",
-    "description": "Neighbours, Phil & Desirée, Sing Familiar Classics, Folk",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
-      "time": "2pm – 4pm"
     },
     "scrapedFrom": "emmetray",
     "via": "api"
@@ -2016,7 +1493,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Screenshot_20260922-220514.jpg",
     "url": "https://www.theemmetray.com/event/peter-smiths-garaj-funky-60s-and-latin-jazz/",
     "source": "https://www.theemmetray.com/event/peter-smiths-garaj-funky-60s-and-latin-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Peter Smith’s Garaj, Funky 60’s and Latin Jazz Seasoned pros bringing insight and edge to instrumental sax- and flute-driven 60s groove, Latin and current styles.",
     "schedule": {
       "kind": "day",
@@ -2037,7 +1514,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/oct-2026-emmet-.png",
     "url": "https://www.theemmetray.com/event/natalie-presty-group-heart-warming-jazz-standards-and-timeless-popular-music/",
     "source": "https://www.theemmetray.com/event/natalie-presty-group-heart-warming-jazz-standards-and-timeless-popular-music/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Presty Quintet, heart warming vocal jazz standards and timeless popular music A mixed bag of York grads, Humber students, and raw talent, these musicians first came together playing and dancing to ska music at…",
     "schedule": {
       "kind": "day",
@@ -2058,7 +1535,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Nov-5-Natalie-Prest.png",
     "url": "https://www.theemmetray.com/event/presty-quintet-heart-warming-vocal-jazz-standards-and-timeless-popular-music-nov/",
     "source": "https://www.theemmetray.com/event/presty-quintet-heart-warming-vocal-jazz-standards-and-timeless-popular-music-nov/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Presty Quintet, heart warming vocal jazz standards and timeless popular music A mixed bag of York grads, Humber students, and raw talent, these musicians first came together playing and dancing to ska music at…",
     "schedule": {
       "kind": "day",
@@ -2079,7 +1556,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/01/IMG_5053.jpg",
     "url": "https://www.theemmetray.com/event/ready-for-success-with-tony-quarrington-jazz-standards-originals/",
     "source": "https://www.theemmetray.com/event/ready-for-success-with-tony-quarrington-jazz-standards-originals/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Ready for Success with Tony Quarrington, Eclectic swinging standard-like originals This new band of veteran players got together to do what ended up being a year-long residency at Toronto’s Imperial Pub, recently closed…",
     "schedule": {
       "kind": "day",
@@ -2100,7 +1577,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/MFL3363-alexis-wong.jpeg",
     "url": "https://www.theemmetray.com/event/real-and-emotional-music-for-listening-jazz-standards-more/",
     "source": "https://www.theemmetray.com/event/real-and-emotional-music-for-listening-jazz-standards-more/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Real and Emotional Music, For Listening, Jazz, Standards & More This fine group of musicians from across Canada and the city Toronto will be playing a collection of jazz songs that resonate.",
     "schedule": {
       "kind": "day",
@@ -2121,7 +1598,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/ERIC-WELTY-Instagram-Post-PUSH.png",
     "url": "https://www.theemmetray.com/event/ric-contemporary-improvisation-guitar-sax-ewi/",
     "source": "https://www.theemmetray.com/event/ric-contemporary-improvisation-guitar-sax-ewi/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Ric, Contemporary Improvisation Ric is a sonic phenome based out of the western United States. He is charting new ground in different genres and styles of improvised music.",
     "schedule": {
       "kind": "day",
@@ -2141,7 +1618,7 @@ const SCRAPED = [
     "address": "924 College St, Toronto, ON",
     "url": "https://www.theemmetray.com/event/sam-griffin-quartet-jazz-inspired-by-hancock-henderson-hubbard/",
     "source": "https://www.theemmetray.com/event/sam-griffin-quartet-jazz-inspired-by-hancock-henderson-hubbard/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "The band is the Sam Griffin Quartet. It is a jazz quartet inspired by musicians like Herbie Hancock, Joe Henderson, and Freddie Hubbard.",
     "schedule": {
       "kind": "day",
@@ -2162,7 +1639,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Seascape-Oct8th-EMMETRAY-Andre-Valerio.jpeg",
     "url": "https://www.theemmetray.com/event/seascape-olivia-franco-andre-valerio-and-the-beauty-of-brazilian-music/",
     "source": "https://www.theemmetray.com/event/seascape-olivia-franco-andre-valerio-and-the-beauty-of-brazilian-music/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Seascape – Olivia Franco & Andre Valerio, Their performances move between the familiar and the unexpected, creating space for spontaneity, musical conversation, and the beauty of Brazilian music.",
     "schedule": {
       "kind": "day",
@@ -2183,7 +1660,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/TeresaMarie-Show-09-13-26-Teresa-C-scaled.jpg",
     "url": "https://www.theemmetray.com/event/teresa-marie-and-the-three-vocal-jazz-jazz-standards/",
     "source": "https://www.theemmetray.com/event/teresa-marie-and-the-three-vocal-jazz-jazz-standards/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Teresa Marie and The Three, Vocal Jazz, Jazz Standards Teresa Marie is a Jazz Vocalist based out of Vancouver, British Columbia.",
     "schedule": {
       "kind": "day",
@@ -2204,7 +1681,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/817650159_4500995053447377_3134054478269477528_n-Paul-Fitterer.png",
     "url": "https://www.theemmetray.com/event/the-blue-sky-group-progressive-improvised-jazz/",
     "source": "https://www.theemmetray.com/event/the-blue-sky-group-progressive-improvised-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "The Blue Sky Group, Progressive improvised Jazz The Blue Sky Group has been on its musical journey since 2022.",
     "schedule": {
       "kind": "day",
@@ -2225,7 +1702,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/dvp-poster-EMMET-RAY-2-The-Don-Valley-Playboys-pdf.jpg",
     "url": "https://www.theemmetray.com/event/the-don-valley-playboys-country-western-band-covering-the-classics/",
     "source": "https://www.theemmetray.com/event/the-don-valley-playboys-country-western-band-covering-the-classics/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "The Don Valley Playboys, The Don Valley Playboys are a modern country western band covering classic and modern hits on the day. GEORGE DAMATO guitar,/vocal/song writer. ROB REEDIJK Bass/vocals.",
     "schedule": {
       "kind": "day",
@@ -2246,7 +1723,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/Emmet-Ray-Aether-Martuci-Sean-pdf.jpg",
     "url": "https://www.theemmetray.com/event/the-ismael-quartet-straight-ahead-latin/",
     "source": "https://www.theemmetray.com/event/the-ismael-quartet-straight-ahead-latin/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "The Ismael quartet, Straight ahead, Latin This band will feature Ismael on piano.",
     "schedule": {
       "kind": "day",
@@ -2267,7 +1744,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/ic-Jack-Wyndham.jpg",
     "url": "https://www.theemmetray.com/event/the-jack-wyndham-trio-jazz/",
     "source": "https://www.theemmetray.com/event/the-jack-wyndham-trio-jazz/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "The Jack Wyndham Trio, Jazz The Jack Wyndham Trio is a classic jazz trio comprised of Jack Wyndham on piano, Lucas Last on bass, and Liam Schatz on drums.",
     "schedule": {
       "kind": "day",
@@ -2288,7 +1765,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/yUNBsTejMsRxvemMzX62u9-1000-80-ben-z-walker.jpg",
     "url": "https://www.theemmetray.com/event/the-starfires-improv-rock-and-folk-grooves/",
     "source": "https://www.theemmetray.com/event/the-starfires-improv-rock-and-folk-grooves/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "The Starfires, improv rock and folk grooves The Starfires are a Toronto institution – for almost 20 years, they have been playing their unique blend of space, ambient, folk and improvised rock music.",
     "schedule": {
       "kind": "day",
@@ -2309,7 +1786,7 @@ const SCRAPED = [
     "image": "https://www.theemmetray.com/wp-content/uploads/2026/09/emmetrayposter-William-Xu.png",
     "url": "https://www.theemmetray.com/event/william-xu-quintet-original-jazz-music-2/",
     "source": "https://www.theemmetray.com/event/william-xu-quintet-original-jazz-music-2/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "William Xu Quintet, Original jazz music William Xu is a talented Chinese-Canadian jazz trumpet player and composer studying at Manhattan School of Music in New York.",
     "schedule": {
       "kind": "day",
@@ -2318,27 +1795,6 @@ const SCRAPED = [
     },
     "scrapedFrom": "emmetray",
     "via": "api"
-  },
-  {
-    "id": "eventbrite-90-s-house-music-tribute-party-w-dino-terry-jaso-2026-10-03",
-    "title": "90's House Music Tribute Party w/ Dino & Terry, Jason Palma & DJ YOGI",
-    "category": "nightlife",
-    "art": "art-decks",
-    "entry": "$19.56",
-    "venue": "Sound Machine",
-    "address": "178 Bathurst Street, Toronto, ON M5V 2R4",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193524636%2F486396105%2F1%2Foriginal.20260915-052536?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=976c5948a339bf2eb5af7e0881429d09",
-    "url": "https://www.eventbrite.ca/e/90s-house-music-tribute-party-w-dino-terry-jason-palma-dj-yogi-tickets-2001037448876",
-    "source": "https://www.eventbrite.ca/e/90s-house-music-tribute-party-w-dino-terry-jason-palma-dj-yogi-tickets-2001037448876",
-    "checked": "2026-10-03",
-    "description": "Just Announced: 90's House Music Tribute Party featuring Dino & Terry, Jason Palma & DJ YOGI: Sat Oct 3rd, 2026 at Sound Machine",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-10-03",
-      "end": "2026-10-04"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
   },
   {
     "id": "eventbrite-b-ody-p-ussy-m-ind-2026-10-09",
@@ -2351,12 +1807,33 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193305830%2F2995569856410%2F1%2Foriginal.20260912-000126?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=9d7181273bd1d564c6f611d41b6306a8",
     "url": "https://www.eventbrite.ca/e/body-pussy-mind-tickets-2000664691950",
     "source": "https://www.eventbrite.ca/e/body-pussy-mind-tickets-2000664691950",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "(b)ODY (p)USSY (m)IND returns to Geary Warehouse: a free night celebrating queer & trans POC nightlife in Toronto.",
     "schedule": {
       "kind": "range",
       "start": "2026-10-09",
       "end": "2026-10-10"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-baddest-b-tches-in-toronto-girl-pop-hyperpop-dan-2026-10-16",
+    "title": "BADDEST B*TCHES IN TORONTO: GIRL POP & HYPERPOP DANCE PARTY ★",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$15",
+    "venue": "268 Augusta Ave",
+    "address": "nue, Toronto, ON M5T 2L9",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194224114%2F1618805386633%2F1%2Foriginal.20260923-193156?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=6837701c50e82b3fc9f6736a678692d0",
+    "url": "https://www.eventbrite.ca/e/baddest-btches-in-toronto-girl-pop-hyperpop-dance-party-tickets-2001609740616",
+    "source": "https://www.eventbrite.ca/e/baddest-btches-in-toronto-girl-pop-hyperpop-dance-party-tickets-2001609740616",
+    "checked": "2026-10-04",
+    "description": "Glimmering Dolls presents a girl pop and hyperpop dance party featuring Adéla's music.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-16",
+      "end": "2026-10-17"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2372,7 +1849,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1179609517%2F2933807155841%2F1%2Foriginal.20260311-173109?w=940&auto=format%2Ccompress&q=75&sharp=10&s=0c58349254733d201ee138ba526ad061",
     "url": "https://www.eventbrite.com/e/best-croissant-best-baguette-in-toronto-the-2026-competition-tickets-1987310302612",
     "source": "https://www.eventbrite.com/e/best-croissant-best-baguette-in-toronto-the-2026-competition-tickets-1987310302612",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "On Sunday, October 4th, in front of a panel of professionals, the finest bakeries in the Toronto area will compete for the prizes of Best Croissant & Best Baguette in Toronto .",
     "schedule": {
       "kind": "day",
@@ -2383,64 +1860,43 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
-    "id": "eventbrite-clownpocalypse-3-0-clowntopia-2026-10-30",
-    "title": "CLOWNPOCALYPSE 3.0: CLOWNTOPIA",
+    "id": "eventbrite-bring-back-the-choir-concert-2026-2026-10-11",
+    "title": "Bring Back the Choir Concert 2026",
+    "category": "music",
+    "art": "art-music",
+    "entry": "$12.19",
+    "venue": "Islington Evangel Ctr",
+    "address": "49 Queens Plate Drive, Toronto, ON M9W 6P1",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192776430%2F546442704365%2F1%2Foriginal.20260905-155949?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=d064e9e22bbfbbb7d2aa7d7e33a79576",
+    "url": "https://www.eventbrite.com/e/bring-back-the-choir-concert-2026-tickets-1999734831713",
+    "source": "https://www.eventbrite.com/e/bring-back-the-choir-concert-2026-tickets-1999734831713",
+    "checked": "2026-10-04",
+    "description": "Theme: The Mass Choir",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-11",
+      "time": "8pm – 11pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-brunchxafropiano-szn-finale-2026-10-04",
+    "title": "BrunchxAfroPiano (Szn Finale)",
     "category": "nightlife",
     "art": "art-decks",
-    "entry": "$27.96",
-    "venue": "Lithuanian House",
-    "address": "1573 Bloor Street West, Toronto, ON M6P 1A6",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194331777%2F2338463293873%2F1%2Foriginal.20260925-011952?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.528&fp-y=0.071&s=a87466dbd4c0649f47ae53bcb29338de",
-    "url": "https://www.eventbrite.ca/e/clownpocalypse-30-clowntopia-tickets-1998618984183",
-    "source": "https://www.eventbrite.ca/e/clownpocalypse-30-clowntopia-tickets-1998618984183",
-    "checked": "2026-10-03",
-    "description": "Canada’s favourite annual clown rave is back for one night only!",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-10-30",
-      "end": "2026-10-31"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
-    "id": "eventbrite-conversations-in-computing-bruce-schneier-on-hac-2026-10-22",
-    "title": "Conversations in Computing: Bruce Schneier on Hacking AI",
-    "category": "books",
-    "art": "art-books",
-    "entry": "Free",
-    "venue": "U of T: Schwartz Reisman Innovation Campus",
-    "address": "108 College Street, Toronto, ON M5G 0C6",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194190436%2F242569057139%2F1%2Foriginal.20260923-134355?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=7cfee7cd73f8af047757039696e5e4d1",
-    "url": "https://www.eventbrite.ca/e/conversations-in-computing-bruce-schneier-on-hacking-ai-tickets-1998780074007",
-    "source": "https://www.eventbrite.ca/e/conversations-in-computing-bruce-schneier-on-hacking-ai-tickets-1998780074007",
-    "checked": "2026-10-03",
-    "description": "Join us for an evening with Bruce Schneier—renowned security technologist, author of Rewiring Democracy, Harvard fellow & EFF board member.",
+    "entry": "$17.31",
+    "venue": "Vino Kabbana Bar + Grill",
+    "address": "132 John Street, Toronto, ON M5V 2E3",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1181948942%2F215741418082%2F1%2Foriginal.20260411-203804?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=b84e77b320299f87f76e70834377bae5",
+    "url": "https://www.eventbrite.ca/e/brunchxafropiano-szn-finale-tickets-1987204371770",
+    "source": "https://www.eventbrite.ca/e/brunchxafropiano-szn-finale-tickets-1987204371770",
+    "checked": "2026-10-04",
+    "description": "Toronto's Premium Afro Brunch and Day Party",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-22",
-      "time": "5pm – 7pm"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
-    "id": "eventbrite-douglas-stuart-toronto-launch-john-of-john-2026-10-22",
-    "title": "Douglas Stuart Toronto launch \"John of John\"",
-    "category": "books",
-    "art": "art-books",
-    "entry": "$19.50",
-    "venue": "Hot Docs Ted Rogers Cinema",
-    "address": "506 Bloor Street West, Toronto, ON M5S 1Y3",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1190565776%2F207720945042%2F1%2Foriginal.20260807-183834?w=940&auto=format%2Ccompress&q=75&sharp=10&s=8a3b52c78fc64c689b3ba3ed4e6c6ec8",
-    "url": "https://www.eventbrite.ca/e/douglas-stuart-toronto-launch-john-of-john-tickets-1993696203012",
-    "source": "https://www.eventbrite.ca/e/douglas-stuart-toronto-launch-john-of-john-tickets-1993696203012",
-    "checked": "2026-10-03",
-    "description": "Join Another Story Bookshop and Knopf Canada to celebrate the launch of John of John by Douglas Stuart with Zak Jones.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-22",
-      "time": "7pm – 9pm"
+      "date": "2026-10-04",
+      "time": "2pm – 9pm"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2456,7 +1912,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194283514%2F585175785203%2F1%2Foriginal.20260924-142901?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=1.0&fp-y=0.466&s=2c21636407bf2204f5d3f0a1fb78d1e4",
     "url": "https://www.eventbrite.ca/e/fall-colours-walking-tour-bloor-west-village-to-high-park-tickets-2001063239015",
     "source": "https://www.eventbrite.ca/e/fall-colours-walking-tour-bloor-west-village-to-high-park-tickets-2001063239015",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Join local nature photographer Richard Bod for a fall adventure through one of Toronto’s most spectacular natural spaces—High Park!",
     "schedule": {
       "kind": "day",
@@ -2477,12 +1933,33 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194537777%2F498756005881%2F1%2Foriginal.20260928-164451?w=940&auto=format%2Ccompress&q=75&sharp=10&s=d8db9da8bf4c671a879fe92596d9b2cf",
     "url": "https://www.eventbrite.ca/e/field-trips-salmon-run-tickets-2002228448187",
     "source": "https://www.eventbrite.ca/e/field-trips-salmon-run-tickets-2002228448187",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Catch the annual Salmon Run on the Humber River with RCIScience and SCI AIDE.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-18",
       "time": "10am – 12pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-friends-of-roxy-a-queer-comedy-fundraiser-2026-10-04",
+    "title": "Friends of Roxy - A Queer Comedy Fundraiser!",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "Free",
+    "venue": "Pegasus On Church",
+    "address": "489B Church Street, Toronto, ON M4Y 2C6",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193197710%2F876091418863%2F1%2Foriginal.20260910-193535?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=16b2045f7e63af23ad6f1e2ac449ebab",
+    "url": "https://www.eventbrite.com/e/friends-of-roxy-a-queer-comedy-fundraiser-tickets-2000510822723",
+    "source": "https://www.eventbrite.com/e/friends-of-roxy-a-queer-comedy-fundraiser-tickets-2000510822723",
+    "checked": "2026-10-04",
+    "description": "Toronto's top queer and allied comedians take the stage to raise funds for people living with HIV / AIDs!",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-04",
+      "time": "8:30pm – 10pm"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2498,7 +1975,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193674904%2F2993705212636%2F1%2Foriginal.20260916-174349?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=04b062d28199ef91363f6d663a5249ce",
     "url": "https://www.eventbrite.com/e/halloween-semi-tickets-2001244376803",
     "source": "https://www.eventbrite.com/e/halloween-semi-tickets-2001244376803",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Get ready for a great night at the Halloween semi. Dress up, Show out and get ready for a night packed with dancing, music, and great vibes.",
     "schedule": {
       "kind": "day",
@@ -2519,7 +1996,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192816952%2F173910726698%2F1%2Foriginal.20260906-132502?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=9d484775412573f25047acf5e4ba5a9e",
     "url": "https://www.eventbrite.ca/e/halloween-thriller-2026-nest-ladies-free-1-free-drink-sat-oct-31st-tickets-2000083326069",
     "source": "https://www.eventbrite.ca/e/halloween-thriller-2026-nest-ladies-free-1-free-drink-sat-oct-31st-tickets-2000083326069",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "range",
@@ -2540,7 +2017,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193282425%2F208232858527%2F1%2Foriginal.20260911-182516?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.528&fp-y=0.633&s=63087afd95297a8752c058222a8d17cc",
     "url": "https://www.eventbrite.ca/e/high-park-forest-bathing-walk-tickets-2000653538590",
     "source": "https://www.eventbrite.ca/e/high-park-forest-bathing-walk-tickets-2000653538590",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Join us for a slow, gentle exploration of Returning, a chance to notice the quiet transformation happening all around us.",
     "schedule": {
       "kind": "day",
@@ -2551,106 +2028,22 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
-    "id": "eventbrite-kpop-club-night-in-toronto-oct-3-2026-10-03",
-    "title": "Kpop Club Night in Toronto Oct 3",
-    "category": "nightlife",
-    "art": "art-decks",
-    "entry": "$31.08",
-    "venue": "The Rec Room Roundhouse",
-    "address": "255 Bremner Boulevard, Toronto, ON M5V 3L9",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194045766%2F2746095075231%2F1%2Foriginal.20260921-204615?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.025&fp-y=0.494&s=5b7e39f929c0413b2c64ca96bb679541",
-    "url": "https://www.eventbrite.ca/e/kpop-club-night-in-toronto-oct-3-tickets-1999736077439",
-    "source": "https://www.eventbrite.ca/e/kpop-club-night-in-toronto-oct-3-tickets-1999736077439",
-    "checked": "2026-10-03",
-    "description": "",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-10-03",
-      "end": "2026-10-04"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
-    "id": "eventbrite-mamasita-nest-ladies-free-1-free-drink-sat-oct-3-2026-10-03",
-    "title": "MAMASITA @ NEST| LADIES FREE +1 FREE DRINK| SAT, OCT 3",
-    "category": "dropin",
-    "art": "art-dropin",
-    "entry": "Free",
-    "venue": "NEST",
-    "address": "423 College Street, Toronto, ON M5T 1T1",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1186719882%2F173910726698%2F1%2Foriginal.20260611-222718?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=a6cf3226a62fd2fd544efe41217392ac",
-    "url": "https://www.eventbrite.ca/e/mamasita-nest-ladies-free-1-free-drink-sat-oct-3-tickets-2002357262474",
-    "source": "https://www.eventbrite.ca/e/mamasita-nest-ladies-free-1-free-drink-sat-oct-3-tickets-2002357262474",
-    "checked": "2026-10-03",
-    "description": "",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-10-03",
-      "end": "2026-10-04"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
-    "id": "eventbrite-nostalgia-max-3-2026-10-03",
-    "title": "NOSTALGIA MAX 3",
-    "category": "dropin",
-    "art": "art-dropin",
-    "entry": "Free",
-    "venue": "225 Geary Ave",
-    "address": "nue, Toronto, ON M6H 2C1",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192683728%2F2085803831893%2F1%2Foriginal.20260904-142616?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=6cb5726cecf449eefbb0c414b6087b96",
-    "url": "https://www.eventbrite.com/e/nostalgia-max-3-tickets-1999781485255",
-    "source": "https://www.eventbrite.com/e/nostalgia-max-3-tickets-1999781485255",
-    "checked": "2026-10-03",
-    "description": "NOSTALGIA MAX 3 va ser una festa en viu plena de bones vibracions i hits clàssics que et van fer viatjar en el temps!",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-10-03",
-      "end": "2026-10-04"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
-    "id": "eventbrite-october-3-2026-awe-walk-in-rennie-park-2026-10-03",
-    "title": "October 3, 2026 Awe Walk in Rennie Park",
-    "category": "outdoors",
-    "art": "art-trailsign",
-    "entry": "Free",
-    "venue": "Rennie Park",
-    "address": "1 Rennie Terrace, Toronto, Toronto, ON M6S 4Z9",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193222857%2F398837455%2F1%2Foriginal.20260911-013709?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=ea5ee6dbd2c56e109c92065b97d05264",
-    "url": "https://www.eventbrite.com/e/october-3-2026-awe-walk-in-rennie-park-tickets-2000530372196",
-    "source": "https://www.eventbrite.com/e/october-3-2026-awe-walk-in-rennie-park-tickets-2000530372196",
-    "checked": "2026-10-03",
-    "description": "Please join us to explore awe and connection through a guided walk in nature.",
+    "id": "eventbrite-naomi-klein-astra-taylor-s-end-times-fascism-oct-2026-10-04",
+    "title": "Naomi Klein & Astra Taylor's END TIMES FASCISM (Oct 4)",
+    "category": "books",
+    "art": "art-books",
+    "entry": "$19.50",
+    "venue": "Trinity-St. Paul's United Church and Centre for Faith, Justice and the Arts",
+    "address": "427 Bloor Street West, Toronto, ON M5S 1X7",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192193427%2F207720945042%2F1%2Foriginal.20260829-202941?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=f2fabebf435a072991c258173e5147e5",
+    "url": "https://www.eventbrite.ca/e/naomi-klein-astra-taylors-end-times-fascism-oct-4-tickets-1998658710004",
+    "source": "https://www.eventbrite.ca/e/naomi-klein-astra-taylors-end-times-fascism-oct-4-tickets-1998658710004",
+    "checked": "2026-10-04",
+    "description": "Second event added: Another Story Bookshop and Knopf Canada present Naomi Klein and Astra Taylor!",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-03",
-      "time": "1pm – 3pm"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
-    "id": "eventbrite-palm-trees-acqua-saturday-october-3rd-2026-10-03",
-    "title": "PALM TREES @ ACQUA: SATURDAY OCTOBER 3RD",
-    "category": "nightlife",
-    "art": "art-decks",
-    "entry": "$27.63",
-    "venue": "Acqua Supper Club",
-    "address": "50 Prince Edward Island Crescent, Toronto, ON M6K 3C3",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193719720%2F983589111943%2F1%2Foriginal.20260917-042041?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=f84f563f35f5fd25695e6225e6b4f281",
-    "url": "https://www.eventbrite.ca/e/palm-trees-acqua-saturday-october-3rd-tickets-2001158107770",
-    "source": "https://www.eventbrite.ca/e/palm-trees-acqua-saturday-october-3rd-tickets-2001158107770",
-    "checked": "2026-10-03",
-    "description": "Palm Trees is back at Acqua. Seven DJs, three hosts, and the first night out of the fall. Saturday, October 3. 10PM until late.",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-10-03",
-      "end": "2026-10-04"
+      "date": "2026-10-04",
+      "time": "7pm – 9pm"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2666,7 +2059,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194428353%2F302590666792%2F1%2Foriginal.20260926-183518?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=53e894c15145af8634eeeafc5e746952",
     "url": "https://www.eventbrite.ca/e/panic-80s90s-halloween-video-dance-party-w-dj-lazarus-tickets-2000228314734",
     "source": "https://www.eventbrite.ca/e/panic-80s90s-halloween-video-dance-party-w-dj-lazarus-tickets-2000228314734",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "PANIC Halloween retro party always sells out. Great music and amazing crowd. Get your tickets now!",
     "schedule": {
       "kind": "range",
@@ -2687,7 +2080,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192207220%2F2997101950518%2F1%2Foriginal.20260830-043544?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.533&fp-y=0.241&s=bc7c909f7c7f465d300cc22ff916fcaa",
     "url": "https://www.eventbrite.ca/e/pony-rave-toronto-tickets-1993133271268",
     "source": "https://www.eventbrite.ca/e/pony-rave-toronto-tickets-1993133271268",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "FRIENDSHIP IS MAGIC",
     "schedule": {
       "kind": "range",
@@ -2708,7 +2101,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192086166%2F1929557963643%2F1%2Foriginal.20260828-005754?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=f4dcd2db75c8a25490c5e59a3317d74f",
     "url": "https://www.eventbrite.ca/e/pop-girlies-drag-lunch-the-rec-room-toronto-tickets-1998503798660",
     "source": "https://www.eventbrite.ca/e/pop-girlies-drag-lunch-the-rec-room-toronto-tickets-1998503798660",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Get ready for a wild drag lunch with all the pop princess vibes! Hosted by Sucka Queen with Kami Leon & Claim Supreme!",
     "schedule": {
       "kind": "day",
@@ -2729,7 +2122,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192929845%2F403544886963%2F1%2Foriginal.20260908-012902?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=5ea06454694be09b64a672c2284da153",
     "url": "https://www.eventbrite.ca/e/que-calor-haunted-mansion-tickets-2000076557825",
     "source": "https://www.eventbrite.ca/e/que-calor-haunted-mansion-tickets-2000076557825",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Canada’s Biggest Latin Halloween Party | 1,500+ Capacity • $5,000 in Costume Prizes • Haunted Mansion Experience",
     "schedule": {
       "kind": "range",
@@ -2750,7 +2143,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1190563600%2F2888794930531%2F1%2Foriginal.20260807-180835?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=b9180d28c4cb58e49a5bdc8022820e38",
     "url": "https://www.eventbrite.ca/e/queening-out-tickets-1997803025629",
     "source": "https://www.eventbrite.ca/e/queening-out-tickets-1997803025629",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Step into the early days of 2SLGBTQ+ activism in Toronto and explore protests, organizing, and community-building.",
     "schedule": {
       "kind": "day",
@@ -2771,7 +2164,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193154032%2F841124572403%2F1%2Foriginal.20260910-122349?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=1.0&fp-y=0.567&s=5ecf650d41103c8187103749611d8829",
     "url": "https://www.eventbrite.ca/e/sam-casey-w-solid-body-contact-meave-tickets-1998931272245",
     "source": "https://www.eventbrite.ca/e/sam-casey-w-solid-body-contact-meave-tickets-1998931272245",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Don't miss this incredible show from one of Toronto's most electrifying alt-rockers. Tickets are $20 in advance & $30 door.",
     "schedule": {
       "kind": "day",
@@ -2792,12 +2185,33 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193129908%2F403544886963%2F1%2Foriginal.20260910-041123?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=aaed73a3b270f623fd5a69bb40db0103",
     "url": "https://www.eventbrite.ca/e/sorry-papi-halloween-tour-tickets-2000359364708",
     "source": "https://www.eventbrite.ca/e/sorry-papi-halloween-tour-tickets-2000359364708",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "The Largest ALL-GIRL Party is going on a HALLOWEEN TOUR",
     "schedule": {
       "kind": "range",
       "start": "2026-10-15",
       "end": "2026-10-16"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-stillness-among-autumn-leaves-a-toronto-photo-wa-2026-10-17",
+    "title": "Stillness Among Autumn Leaves - A Toronto Photo Walk",
+    "category": "outdoors",
+    "art": "art-trailsign",
+    "entry": "$10",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Avenue, Toronto, ON M4W 3X8",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194233265%2F259111020964%2F1%2Foriginal.20260923-211521?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=e8f93bcd5539b85f1f0fd24f4234b21b",
+    "url": "https://www.eventbrite.ca/e/stillness-among-autumn-leaves-a-toronto-photo-walk-tickets-2002173144773",
+    "source": "https://www.eventbrite.ca/e/stillness-among-autumn-leaves-a-toronto-photo-walk-tickets-2002173144773",
+    "checked": "2026-10-04",
+    "description": "Join us for a chill photo walk in Toronto, capturing the magic of autumn leaves and quiet moments.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-17",
+      "time": "4pm – 6pm"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2813,7 +2227,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193408392%2F739975490683%2F1%2Foriginal.20260914-013236?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=ef7cf4eaf0d5bddeea0dcc3626165768",
     "url": "https://www.eventbrite.ca/e/tashan-presents-bollyween-tickets-2000233184299",
     "source": "https://www.eventbrite.ca/e/tashan-presents-bollyween-tickets-2000233184299",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "day",
@@ -2834,7 +2248,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1186679864%2F140718509289%2F1%2Foriginal.20260611-140335?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=c1f1ce53bb67dedbba539ceb2e7bde5b",
     "url": "https://www.eventbrite.ca/e/tastes-of-toronto-mexican-food-stories-from-kensington-market-tickets-1999718612200",
     "source": "https://www.eventbrite.ca/e/tastes-of-toronto-mexican-food-stories-from-kensington-market-tickets-1999718612200",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Explore Mexican food traditions and Kensington Market’s role in shaping Toronto’s culture through stories, tastings, and history.",
     "schedule": {
       "kind": "day",
@@ -2855,33 +2269,12 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1184441138%2F2888794930531%2F1%2Foriginal.20260512-205254?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=fc7b056c072620e6d47dd27eee18628f",
     "url": "https://www.eventbrite.ca/e/the-next-stop-is-art-tickets-1993923649310",
     "source": "https://www.eventbrite.ca/e/the-next-stop-is-art-tickets-1993923649310",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Hop on the TTC with us and discover the murals, mosaics, and designs hidden in plain sight.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-18",
       "time": "3pm"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
-    "id": "eventbrite-the-riddim-link-up-2026-10-03",
-    "title": "The Riddim Link Up",
-    "category": "dropin",
-    "art": "art-dropin",
-    "entry": "$28.25",
-    "venue": "793 Dundas St W",
-    "address": "793 Dundas Street West, Toronto, ON M6J 1V2",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1187992943%2F3006298484760%2F1%2Foriginal.20260701-112137?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.498&fp-y=0.509&s=7d6a49c42b3e3e6d912be6d0e4e3a4ca",
-    "url": "https://www.eventbrite.com/e/the-riddim-link-up-tickets-1992915594190",
-    "source": "https://www.eventbrite.com/e/the-riddim-link-up-tickets-1992915594190",
-    "checked": "2026-10-03",
-    "description": "Project AP Presents The Riddim Link Up. Coming to Toronto October 3rd, 2026.",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-10-03",
-      "end": "2026-10-04"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2897,7 +2290,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193067426%2F58969109365%2F1%2Foriginal.20260909-155444?w=940&auto=format%2Ccompress&q=75&sharp=10&s=5a8fa45599a30edd66f00d1ba1a9cba4",
     "url": "https://www.eventbrite.ca/e/the-walrus-talks-community-reborn-tickets-1998915982513",
     "source": "https://www.eventbrite.ca/e/the-walrus-talks-community-reborn-tickets-1998915982513",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "How can we reinvent community in a time of increasing social isolation?",
     "schedule": {
       "kind": "day",
@@ -2918,7 +2311,7 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1193726591%2F296026945127%2F1%2Foriginal.20260917-080729?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.21&fp-y=0.237&s=486c4d4e866a980e0ecac076cf01a7a7",
     "url": "https://www.eventbrite.com/e/torontos-haunted-cruise-2026-halloween-boat-party-tickets-2001306337128",
     "source": "https://www.eventbrite.com/e/torontos-haunted-cruise-2026-halloween-boat-party-tickets-2001306337128",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A haunted Halloween cruise through Toronto with 500+ costumed guests, live DJs, heated indoor party deck, rooftop dancing and bar all night.",
     "schedule": {
       "kind": "range",
@@ -2939,12 +2332,33 @@ const SCRAPED = [
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194418395%2F2346335022943%2F1%2Foriginal.20260926-142632?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.419&fp-y=0.677&s=e8a68893c6115fa7a850ca641184d4f3",
     "url": "https://www.eventbrite.ca/e/uwcsa-x-ampm-x-hilo-x-24evr-blackout-tickets-2001406706335",
     "source": "https://www.eventbrite.ca/e/uwcsa-x-ampm-x-hilo-x-24evr-blackout-tickets-2001406706335",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "UWCSA x AMPM x HILO x 24EVR present BLACKOUT ❤️ A Reading Week takeover with two spaces, 4 DJs, and nonstop music all night.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-15",
       "time": "10pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-wolves-halloween-semiformal-party-2026-10-28",
+    "title": "WOLVES HALLOWEEN SEMIFORMAL PARTY",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$25",
+    "venue": "The Dance Cave",
+    "address": "529 Bloor Street West, Toronto, ON M5S 1Y5",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194984143%2F1562716403003%2F1%2Foriginal.20261003-194148?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=feb2a00418a55eed7f8ba9d612d7be16",
+    "url": "https://www.eventbrite.ca/e/wolves-halloween-semiformal-party-tickets-2000540481433",
+    "source": "https://www.eventbrite.ca/e/wolves-halloween-semiformal-party-tickets-2000540481433",
+    "checked": "2026-10-04",
+    "description": "",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-28",
+      "end": "2026-10-29"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2958,7 +2372,7 @@ const SCRAPED = [
     "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "range",
@@ -2977,7 +2391,7 @@ const SCRAPED = [
     "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "range",
@@ -2992,13 +2406,13 @@ const SCRAPED = [
     "title": "Family Wanders",
     "category": "dropin",
     "art": "art-birdhouse",
-    "entry": "Suggested $20 donation per family",
+    "entry": "Free (suggested $20 donation)",
     "venue": "Evergreen Brick Works",
-    "address": "Building 1, Toronto, Ontario",
+    "address": "Toronto, Ontario",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
-    "checked": "2026-10-03",
-    "description": "Guided nature walks for families to explore the seasons and natural environment in the Valley, meeting by Building 1 at the west side of the site.",
+    "checked": "2026-10-04",
+    "description": "A guided walk exploring nature at Evergreen Brick Works where families observe the changing seasons in the Valley, engaging all their senses.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-22",
@@ -3012,13 +2426,12 @@ const SCRAPED = [
     "title": "Good Mourning Festival",
     "category": "dropin",
     "art": "art-festival",
-    "entry": "Free",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
     "url": "https://www.evergreen.ca/evergreen-brick-work/events/good-mourning-festival/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/events/good-mourning-festival/",
-    "checked": "2026-10-03",
-    "description": "A two-day festival exploring grief and mourning. Day 1 features workshops, art installations, music and peer support around grief.",
+    "checked": "2026-10-04",
+    "description": "A two-day festival bringing grief and mourning into the light with workshops, art installations, music and peer support on Day 1 (Together in Grief), followed by a Día de los Muertos celebration on Day 2 featuring a…",
     "schedule": {
       "kind": "range",
       "start": "2026-10-24",
@@ -3036,29 +2449,11 @@ const SCRAPED = [
     "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "day",
       "date": "2026-10-31"
-    },
-    "scrapedFrom": "evergreen",
-    "via": "model"
-  },
-  {
-    "id": "evergreen-hiking-workshop-2026-10-10",
-    "title": "Hiking Workshop",
-    "category": "dropin",
-    "art": "art-pottery",
-    "venue": "Evergreen Brick Works",
-    "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
-    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "checked": "2026-10-03",
-    "description": "",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-10"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -3072,8 +2467,8 @@ const SCRAPED = [
     "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
-    "checked": "2026-10-03",
-    "description": "Shop local artisan goods and vintage wares from over 40 vendors, grab food from local food vendors, and enjoy drinks from the Sipping Container.",
+    "checked": "2026-10-04",
+    "description": "Shop from over 40 local artists and makers selling handmade, artisan and vintage wares, plus food vendors and drinks available on-site.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-04",
@@ -3083,7 +2478,25 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "evergreen-toronto-sauna-festival-2026-10-03",
+    "id": "evergreen-pilates-and-harvest-brunch-workshop-2026-10-31",
+    "title": "Pilates and Harvest Brunch Workshop",
+    "category": "dropin",
+    "art": "art-pottery",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
+    "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
+    "checked": "2026-10-04",
+    "description": "",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-31"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-toronto-sauna-festival-2026-10-10",
     "title": "Toronto Sauna Festival",
     "category": "dropin",
     "art": "art-festival",
@@ -3091,12 +2504,11 @@ const SCRAPED = [
     "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-03",
-      "time": "11:30am - 1pm"
+      "date": "2026-10-10"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -3110,7 +2522,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-124/",
     "source": "https://grossmanstavern.com/event/action-sound-band-124/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3129,7 +2541,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-125/",
     "source": "https://grossmanstavern.com/event/action-sound-band-125/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3148,7 +2560,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-126/",
     "source": "https://grossmanstavern.com/event/action-sound-band-126/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3167,7 +2579,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-127/",
     "source": "https://grossmanstavern.com/event/action-sound-band-127/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3186,7 +2598,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-128/",
     "source": "https://grossmanstavern.com/event/action-sound-band-128/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3205,7 +2617,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-129/",
     "source": "https://grossmanstavern.com/event/action-sound-band-129/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3224,7 +2636,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-130/",
     "source": "https://grossmanstavern.com/event/action-sound-band-130/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3243,7 +2655,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-131/",
     "source": "https://grossmanstavern.com/event/action-sound-band-131/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3262,7 +2674,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-132/",
     "source": "https://grossmanstavern.com/event/action-sound-band-132/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3281,7 +2693,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-133/",
     "source": "https://grossmanstavern.com/event/action-sound-band-133/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3300,11 +2712,30 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/action-sound-band-134/",
     "source": "https://grossmanstavern.com/event/action-sound-band-134/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
       "date": "2026-12-16",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-action-sound-band-2026-12-23",
+    "title": "Action Sound Band",
+    "category": "music",
+    "art": "art-blues",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/action-sound-band-135/",
+    "source": "https://grossmanstavern.com/event/action-sound-band-135/",
+    "checked": "2026-10-04",
+    "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-23",
       "time": "9pm – 1am"
     },
     "scrapedFrom": "grossmans",
@@ -3319,7 +2750,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/frankie-foo-31/",
     "source": "https://grossmanstavern.com/event/frankie-foo-31/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3338,7 +2769,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/ben-stager-album-release/",
     "source": "https://grossmanstavern.com/event/ben-stager-album-release/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3357,7 +2788,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/caution-jam-30/",
     "source": "https://grossmanstavern.com/event/caution-jam-30/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3376,7 +2807,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/caution-jam-31/",
     "source": "https://grossmanstavern.com/event/caution-jam-31/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3395,7 +2826,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/daniella-z-band/",
     "source": "https://grossmanstavern.com/event/daniella-z-band/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3414,7 +2845,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/eric-lambier-band/",
     "source": "https://grossmanstavern.com/event/eric-lambier-band/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3433,7 +2864,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/frankie-foo-32/",
     "source": "https://grossmanstavern.com/event/frankie-foo-32/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3452,7 +2883,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/greene-and-bleus-band-26/",
     "source": "https://grossmanstavern.com/event/greene-and-bleus-band-26/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3471,7 +2902,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/greene-and-bleus-band-27/",
     "source": "https://grossmanstavern.com/event/greene-and-bleus-band-27/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3490,7 +2921,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/grossmans-xmas-party-featuring-the-happy-pals/",
     "source": "https://grossmanstavern.com/event/grossmans-xmas-party-featuring-the-happy-pals/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Details to Come",
     "schedule": {
       "kind": "day",
@@ -3509,7 +2940,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/hold-the-bus-16/",
     "source": "https://grossmanstavern.com/event/hold-the-bus-16/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3528,7 +2959,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/hold-the-bus-17/",
     "source": "https://grossmanstavern.com/event/hold-the-bus-17/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3547,7 +2978,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/jeff-g-and-the-four-heads-15/",
     "source": "https://grossmanstavern.com/event/jeff-g-and-the-four-heads-15/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3566,7 +2997,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/joel-battle-friends-12/",
     "source": "https://grossmanstavern.com/event/joel-battle-friends-12/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3585,7 +3016,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-140/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-140/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3604,7 +3035,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-139/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-139/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3623,7 +3054,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-138/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-138/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3642,7 +3073,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-137/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-137/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3661,7 +3092,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-136/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-136/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3680,7 +3111,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-135/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-135/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3699,7 +3130,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-134/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-134/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3718,7 +3149,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-133/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-133/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3737,7 +3168,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-132/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-132/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3756,7 +3187,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-131/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-131/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3775,7 +3206,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-129/",
     "source": "https://grossmanstavern.com/event/new-orleans-connection-all-star-jazz-band-129/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3794,7 +3225,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/snooky-tynes-6/",
     "source": "https://grossmanstavern.com/event/snooky-tynes-6/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3813,7 +3244,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sound-ideas-big-band-6/",
     "source": "https://grossmanstavern.com/event/sound-ideas-big-band-6/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3832,7 +3263,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sound-ideas-big-band-7/",
     "source": "https://grossmanstavern.com/event/sound-ideas-big-band-7/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3851,7 +3282,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sound-one-29/",
     "source": "https://grossmanstavern.com/event/sound-one-29/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3870,7 +3301,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-fried-angels-8/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-fried-angels-8/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3889,7 +3320,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-ken-yoshioka-3/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-ken-yoshioka-3/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3908,7 +3339,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-ken-yoshioka-4/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-ken-yoshioka-4/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3927,7 +3358,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-paul-storm-29/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-paul-storm-29/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3946,7 +3377,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-paul-storm-30/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-paul-storm-30/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3965,7 +3396,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-paul-storm-31/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-paul-storm-31/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -3984,7 +3415,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-rob-quail-28/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-rob-quail-28/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4003,7 +3434,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-rob-quail-29/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-rob-quail-29/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4022,7 +3453,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-rob-quail-30/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-rob-quail-30/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4041,7 +3472,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-the-charter-blues-band-21/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-the-charter-blues-band-21/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4060,11 +3491,30 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-the-charter-blues-band-22/",
     "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-the-charter-blues-band-22/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-15",
+      "time": "9pm – 1am"
+    },
+    "scrapedFrom": "grossmans",
+    "via": "api"
+  },
+  {
+    "id": "grossmans-sunday-jam-night-hosted-by-the-charter-blues-ban-2026-12-20",
+    "title": "Sunday Jam Night Hosted by The Charter Blues Band",
+    "category": "music",
+    "art": "art-jam-guitars",
+    "venue": "Grossman’s Tavern",
+    "address": "377 Spadina Ave, Toronto, ON",
+    "url": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-the-charter-blues-band-23/",
+    "source": "https://grossmanstavern.com/event/sunday-jam-night-hosted-by-the-charter-blues-band-23/",
+    "checked": "2026-10-04",
+    "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-20",
       "time": "9pm – 1am"
     },
     "scrapedFrom": "grossmans",
@@ -4079,7 +3529,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-379s-5/",
     "source": "https://grossmanstavern.com/event/the-379s-5/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4098,7 +3548,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-4th-open-mic-31/",
     "source": "https://grossmanstavern.com/event/the-4th-open-mic-31/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4117,7 +3567,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-4th-open-mic-32/",
     "source": "https://grossmanstavern.com/event/the-4th-open-mic-32/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4136,31 +3586,12 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-damn-neighbour-2/",
     "source": "https://grossmanstavern.com/event/the-damn-neighbour-2/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-30",
       "time": "6pm – 9pm"
-    },
-    "scrapedFrom": "grossmans",
-    "via": "api"
-  },
-  {
-    "id": "grossmans-the-happy-pals-2026-10-03",
-    "title": "The Happy Pals",
-    "category": "music",
-    "art": "art-blues",
-    "venue": "Grossman’s Tavern",
-    "address": "377 Spadina Ave, Toronto, ON",
-    "url": "https://grossmanstavern.com/event/the-happy-pals-141/",
-    "source": "https://grossmanstavern.com/event/the-happy-pals-141/",
-    "checked": "2026-10-03",
-    "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
-      "time": "3:30pm – 7pm"
     },
     "scrapedFrom": "grossmans",
     "via": "api"
@@ -4174,7 +3605,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-140/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-140/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4193,7 +3624,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-139/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-139/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4212,7 +3643,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-138/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-138/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4231,7 +3662,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-137/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-137/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4250,7 +3681,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-133/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-133/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4269,7 +3700,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-134/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-134/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4288,7 +3719,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-135/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-135/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4307,7 +3738,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-136/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-136/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4326,7 +3757,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-130/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-130/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4345,7 +3776,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-131/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-131/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4364,7 +3795,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-happy-pals-132/",
     "source": "https://grossmanstavern.com/event/the-happy-pals-132/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4383,30 +3814,11 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/the-jelly-donuts-23/",
     "source": "https://grossmanstavern.com/event/the-jelly-donuts-23/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-05",
-      "time": "9pm – 1am"
-    },
-    "scrapedFrom": "grossmans",
-    "via": "api"
-  },
-  {
-    "id": "grossmans-the-moving-violations-2026-10-03",
-    "title": "The Moving Violations",
-    "category": "music",
-    "art": "art-folk",
-    "venue": "Grossman’s Tavern",
-    "address": "377 Spadina Ave, Toronto, ON",
-    "url": "https://grossmanstavern.com/event/the-moving-violations-5/",
-    "source": "https://grossmanstavern.com/event/the-moving-violations-5/",
-    "checked": "2026-10-03",
-    "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
       "time": "9pm – 1am"
     },
     "scrapedFrom": "grossmans",
@@ -4421,7 +3833,7 @@ const SCRAPED = [
     "address": "377 Spadina Ave, Toronto, ON",
     "url": "https://grossmanstavern.com/event/tyler-nortons-band-3/",
     "source": "https://grossmanstavern.com/event/tyler-nortons-band-3/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "A Chinatown blues bar since 1943, with live music every night and the city’s longest-running Sunday jam. Bands from nine, afternoon sets from three.",
     "schedule": {
       "kind": "day",
@@ -4442,7 +3854,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/5a/1fd5d239-a337-4ef0-8bcd-c91a2027aa63.png",
     "url": "https://luma.com/uuaqqqty",
     "source": "https://luma.com/uuaqqqty",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Step into presence with this ALO Mental Health Walk — a guided, mindful walk designed to slow you down, ground you in your body, and reconnect you with yourself.",
     "schedule": {
       "kind": "day",
@@ -4463,7 +3875,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/8p/b0690e23-d982-4df4-b820-0a8bb66a4842.png",
     "url": "https://luma.com/boldercity",
     "source": "https://luma.com/boldercity",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "How could we build a Better Toronto? On October 26th, every Torontonian will have the opportunity to express who they believe has the platform for a bolder city in the Toronto municipal election.",
     "schedule": {
       "kind": "day",
@@ -4474,22 +3886,22 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
-    "id": "luma-chess-in-the-park-at-clarence-square-2026-10-03",
-    "title": "Chess in the Park at Clarence Square",
+    "id": "luma-csi-cinema-econoclast-2026-10-20",
+    "title": "CSI Cinema: Econoclast",
     "category": "social",
-    "art": "art-boardwalk",
-    "entry": "Free",
-    "venue": "Clarence Square",
+    "art": "art-film",
+    "entry": "$16.95",
+    "venue": "Centre for Social Innovation (CSI)",
     "address": "Toronto, Ontario",
-    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/2a/457a3a84-55eb-468d-a842-92fb5c2e404f.png",
-    "url": "https://luma.com/7prh095r",
-    "source": "https://luma.com/7prh095r",
-    "checked": "2026-10-03",
-    "description": "This one is our Community Give Back Day with Toronto Downtown West BIA, and the last Chess in the Park of the season. Bring warm clothing to donate. We will be at The Deck in Clarence Square from 11am to 4pm.",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/y8/2513ed15-90bb-4cce-a252-020556b16d45.png",
+    "url": "https://luma.com/891qgjzh",
+    "source": "https://luma.com/891qgjzh",
+    "checked": "2026-10-04",
+    "description": "",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-03",
-      "time": "11am – 4pm"
+      "date": "2026-10-20",
+      "time": "6pm – 8:30pm"
     },
     "scrapedFrom": "luma",
     "via": "json-ld"
@@ -4505,7 +3917,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/1t/c69deed9-2403-4f73-8565-4c1d4800e329.png",
     "url": "https://luma.com/tf6s6ycw",
     "source": "https://luma.com/tf6s6ycw",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "An extra October meeting, bringing Fashion Book Club to the east end!",
     "schedule": {
       "kind": "day",
@@ -4526,7 +3938,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/vr/ebddcaea-965e-4342-ac04-8eebe54de398.png",
     "url": "https://luma.com/njjtofur",
     "source": "https://luma.com/njjtofur",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Have you heard the term “GMO” and never given it a second thought? Or have you wondered why there is so much debate about genetically modified organisms? Well, you’re in luck.",
     "schedule": {
       "kind": "day",
@@ -4537,43 +3949,43 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
-    "id": "luma-girls-walk-2026-10-03",
-    "title": "Girls' Walk",
+    "id": "luma-graveyard-shift-halloween-supermarket-2026-10-31",
+    "title": "Graveyard Shift: Halloween @ Supermarket",
     "category": "social",
-    "art": "art-trailsign",
-    "entry": "Free",
-    "venue": "Starbucks Coffee Company",
+    "art": "art-market",
+    "entry": "$25",
+    "venue": "Supermarket Bar and Variety",
     "address": "Toronto, Ontario",
-    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/y7/a5b356b8-dcd6-4857-8cb5-f342c651558a.png",
-    "url": "https://luma.com/l1b6ll23",
-    "source": "https://luma.com/l1b6ll23",
-    "checked": "2026-10-03",
-    "description": "✨ Toronto Social Club is hosting another Girls’ Walk at Yonge & St. Clair on October 3rd, this time in collaboration with Kela!",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/v6/6ff01e0b-4526-4ac8-8ebb-c55b6c5743f4.png",
+    "url": "https://luma.com/p7wxw9yw",
+    "source": "https://luma.com/p7wxw9yw",
+    "checked": "2026-10-04",
+    "description": "Halloween at Supermarket 🎃 Halloween at Supermarket with a live band to start the night, followed by a DJ until close. Come in costume and ready to dance.",
     "schedule": {
-      "kind": "day",
-      "date": "2026-10-03",
-      "time": "11am – 1pm"
+      "kind": "range",
+      "start": "2026-10-31",
+      "end": "2026-11-01"
     },
     "scrapedFrom": "luma",
     "via": "json-ld"
   },
   {
-    "id": "luma-immersive-art-works-in-progress-2026-10-03",
-    "title": "Immersive Art: Works-In-Progress",
+    "id": "luma-grok-bot-meetup-toronto-october-2026-10-26",
+    "title": "Grok Bot Meetup Toronto - October",
     "category": "social",
-    "art": "art-market",
+    "art": "art-lectern",
     "entry": "Free",
-    "venue": "STACKT market",
-    "address": "Toronto, Ontario",
-    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/a5/7551d514-d874-4d5b-a598-748784115de1.png",
-    "url": "https://luma.com/xre59vz2",
-    "source": "https://luma.com/xre59vz2",
-    "checked": "2026-10-03",
-    "description": "Toronto, come show your support for Toronto tech-art creators :) All presenters and audience members will be eligible to win one of several special prizes, including a pair of tickets to FITC 2027 (valued at $800)!",
+    "venue": "Toronto — address on RSVP",
+    "address": "tario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/qw/723914ff-3fa3-47f3-b52b-5584d80e83d2.png",
+    "url": "https://luma.com/mj5bmugc",
+    "source": "https://luma.com/mj5bmugc",
+    "checked": "2026-10-04",
+    "description": "Join us for our monthly Grok Bot meetup in Toronto at 800 Bay! We'll still be giving away Cursor credits that you can use with Grok Bot as well.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-03",
-      "time": "3pm – 5pm"
+      "date": "2026-10-26",
+      "time": "5:30pm – 8:30pm"
     },
     "scrapedFrom": "luma",
     "via": "json-ld"
@@ -4589,7 +4001,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/k9/974342c7-b014-4de8-8d93-bfef28360dc3.png",
     "url": "https://luma.com/rhym8a3o",
     "source": "https://luma.com/rhym8a3o",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Some stories are better when they’re left unfinished. Open Ended is a facilitated storytelling night where cliffhangers, messy moments, and unbelievable stories take centre stage.",
     "schedule": {
       "kind": "day",
@@ -4610,7 +4022,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/md/b2daffd9-293c-427f-b28e-7436b1844a96.jpg",
     "url": "https://luma.com/f20s1nzy",
     "source": "https://luma.com/f20s1nzy",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "We're on the path to a new kind of web, with an uncertain future: AI-based user agents are fast-becoming a core interface to the internet.",
     "schedule": {
       "kind": "day",
@@ -4631,7 +4043,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/b5/7418b70e-c72e-4b1d-a8d9-8632ca078db6.png",
     "url": "https://luma.com/n1wfodty",
     "source": "https://luma.com/n1wfodty",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Read the Runway is a new series of conversations that brings people together to screen and discuss seminal collections. Join us at our first screening to watch and discuss Anna Sui's Spring/Summer 1994 collection.",
     "schedule": {
       "kind": "day",
@@ -4645,15 +4057,15 @@ const SCRAPED = [
     "id": "luma-saut-sundays-friendsgiving-edition-diy-mocktail--2026-10-18",
     "title": "Sauté Sundays: Friendsgiving Edition + DIY Mocktail Bar",
     "category": "social",
-    "art": "art-food",
+    "art": "art-books",
     "entry": "Free",
     "venue": "Jrew's",
     "address": "Toronto, Ontario",
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/kx/5fb2c6a9-2089-4506-98ba-ea94466bcb5b.png",
     "url": "https://luma.com/pzevo4e5",
     "source": "https://luma.com/pzevo4e5",
-    "checked": "2026-10-03",
-    "description": "Members bring a home-cooked dish from a favorite cookbook or family recipe to share potluck-style with fellow food lovers, then eat together and build custom mocktails at a DIY bar.",
+    "checked": "2026-10-04",
+    "description": "A potluck-style cookbook club gathering where everyone brings a dish cooked at home to share.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-18",
@@ -4673,7 +4085,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/3m/136d69d4-b489-4e97-a5b3-0ea84cda1959.jpg",
     "url": "https://luma.com/i9svozpy",
     "source": "https://luma.com/i9svozpy",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "STAY: An Immersive Listening Night with Alex Lustig playing Ambient Hours Set An evening designed around slowing down, listening, and simply staying.",
     "schedule": {
       "kind": "day",
@@ -4694,7 +4106,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/rr/43a52251-557f-479b-9e43-c38c2ecf3439.png",
     "url": "https://luma.com/1umj2wui",
     "source": "https://luma.com/1umj2wui",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "We're doing the most respectful thing we can think of to honour Dolly Parton: hot glueing rhinestones onto book covers until our hands cramp Bring a book (your favourite, a thrift find, or something you never plan to…",
     "schedule": {
       "kind": "day",
@@ -4715,8 +4127,8 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/8j/fa64d088-954b-4eb8-8a1c-66101cb2cf84.jpg",
     "url": "https://luma.com/jjszs7qt",
     "source": "https://luma.com/jjszs7qt",
-    "checked": "2026-10-03",
-    "description": "Family-friendly Halloween event featuring musical performances by The Animal Band and secret spooky guests, with costumes highly encouraged.",
+    "checked": "2026-10-04",
+    "description": "Bean Bag, Maestro Owl, and Jon present musical mischief with The Animal Band and spooky guests. A family-friendly Halloween event with costumes encouraged.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-25",
@@ -4736,7 +4148,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/4g/0d77cf6a-4319-4fdc-8432-a7cedfa015bc.png",
     "url": "https://luma.com/9st6md32",
     "source": "https://luma.com/9st6md32",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "This one is different. On October 16th, The Domino Club is taking over United Boxing Club for our first-ever domino tournament.",
     "schedule": {
       "kind": "day",
@@ -4757,7 +4169,7 @@ const SCRAPED = [
     "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/hu/b6f8e94b-e394-4f88-9955-ff08b7815c11.jpg",
     "url": "https://luma.com/kodnujdv",
     "source": "https://luma.com/kodnujdv",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Trampoline Hall is this: Three people give lectures on topics on which they are not professionally expert, followed by Q&A. Shows happen every month in Toronto and a few times a year in San Francisco.",
     "schedule": {
       "kind": "day",
@@ -4778,7 +4190,7 @@ const SCRAPED = [
     "image": "https://www.revivaleventvenue.ca/wp-content/uploads/2026/09/BigVibe-Oct09.jpg",
     "url": "https://www.revivaleventvenue.ca/event/big-vibe-toronto-birthday-celebration/",
     "source": "https://www.revivaleventvenue.ca/event/big-vibe-toronto-birthday-celebration/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "One night. One room. All the vibes… TORONTO! After our crazy Caribana Edition, We’re back. Taking over Revival for another night you won’t forget in a hurry. All hits, No misses!",
     "schedule": {
       "kind": "day",
@@ -4799,7 +4211,7 @@ const SCRAPED = [
     "image": "https://www.revivaleventvenue.ca/wp-content/uploads/2026/09/Euronation-Nov14.jpg",
     "url": "https://www.revivaleventvenue.ca/event/destination-dancefloor-the-most-electric-90s-2000s-dance-experience/",
     "source": "https://www.revivaleventvenue.ca/event/destination-dancefloor-the-most-electric-90s-2000s-dance-experience/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Get ready for another massive night as EURO NATION brings you the next chapter of DESTINATION DANCEFLOOR, the city’s biggest celebration of 90s & 2000s euro, dance, house, trance, and club anthems.",
     "schedule": {
       "kind": "day",
@@ -4820,7 +4232,7 @@ const SCRAPED = [
     "image": "https://www.revivaleventvenue.ca/wp-content/uploads/2026/09/IndigenousGrooves-Oct8.jpg",
     "url": "https://www.revivaleventvenue.ca/event/indigenous-grooves/",
     "source": "https://www.revivaleventvenue.ca/event/indigenous-grooves/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "✨ Electronic Pow Wow! ✨ Indigenous Grooves is BACK! October 8th at Revival, join us to celebrate the 5th Indigenous Grooves showcase! This event is ticketed at a sliding scale to keep it inclusive and accessible.",
     "schedule": {
       "kind": "day",
@@ -4841,7 +4253,7 @@ const SCRAPED = [
     "image": "https://www.revivaleventvenue.ca/wp-content/uploads/2026/09/LetsGoGhouls-Oct18.jpg",
     "url": "https://www.revivaleventvenue.ca/event/lets-go-ghouls/",
     "source": "https://www.revivaleventvenue.ca/event/lets-go-ghouls/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Gather your ghouls, goblins ghosts and girlies for this Halloween burlesque show by BoylesqueTO! With special guest Tito Bonito!",
     "schedule": {
       "kind": "day",
@@ -4862,7 +4274,7 @@ const SCRAPED = [
     "image": "https://www.revivaleventvenue.ca/wp-content/uploads/2026/08/RayRobinson-Oct4.jpeg",
     "url": "https://www.revivaleventvenue.ca/event/ray-robinson-and-friends/",
     "source": "https://www.revivaleventvenue.ca/event/ray-robinson-and-friends/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "You are invited to an evening of live music for the album release and birthday celebration right here at Revival Event Venue. With special guests: Shi Wisdom, Andrea Knight, Keysha Fresh and more.",
     "schedule": {
       "kind": "day",
@@ -4883,7 +4295,7 @@ const SCRAPED = [
     "image": "https://www.revivaleventvenue.ca/wp-content/uploads/2026/09/Overkillers-Oct24.jpg",
     "url": "https://www.revivaleventvenue.ca/event/the-overkillers-dave-youre-a-star/",
     "source": "https://www.revivaleventvenue.ca/event/the-overkillers-dave-youre-a-star/",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Canada’s Tribute to the Killers: The OverKillers are back at Revival for a full night of Killers hits, classics and fan favourites. We’re celebrating Dave’s birthday the best way we know how!",
     "schedule": {
       "kind": "day",
@@ -4903,7 +4315,7 @@ const SCRAPED = [
     "image": "https://tpl.bibliocommons.com/events/uploads/images/full/0d28143a30d62a4b5ccc0ef985ddff12/OnCivilSociety.jpg",
     "url": "https://tpl.bibliocommons.com/v2/events/6a95c15536204e08fbb889a8",
     "source": "https://tpl.bibliocommons.com/v2/events/6a95c15536204e08fbb889a8",
-    "checked": "2026-10-03",
+    "checked": "2026-10-04",
     "description": "Postcards of Reconnection Sometimes reconnecting starts in solitude, not small talk.",
     "schedule": {
       "kind": "day",
