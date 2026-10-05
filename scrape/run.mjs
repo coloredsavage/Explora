@@ -76,6 +76,38 @@ const startOf = (e) => (e.schedule.kind === 'day' ? e.schedule.date : e.schedule
 
 /* ------------------------------------------------------------- the sources */
 
+/* Put a published listing in the queue, if it still wants a description.
+ *
+ * Takes the NORMALIZED event, not the raw node, and that is the whole point.
+ * The first version read raw.description and ran before normalize, which
+ * truncates anything over its length budget and marks the cut with an
+ * ellipsis — so a listing whose source wrote four good sentences passed the
+ * check, was not queued, and then went on the board cut off mid-sentence.
+ * Twenty-three of those were live on 2026-10-05 with no way to ever be
+ * asked about. What the reader sees is what decides.
+ *
+ * `text` is whatever the page gave us: its readable text for a source we
+ * fetched, and for an API source the record's own prose, which is often
+ * nothing. `image` is the poster, sent only when there are no words — see
+ * the Emmet Ray, where it is the entire description.
+ *
+ * Nothing is queued with neither text nor image: there would be nothing to
+ * ask about, and 70 Grossman's nights would each cost a request to be told
+ * what their venue line already says. */
+function queueForDescription(event, { text = '', image = null, own = true, venueLines = [] } = {}) {
+  const url = event.source || event.url;
+  if (!url || descriptionQueue.has(url)) return;
+  if (!needsWriting(event.description, event.title, venueLines)) return;
+  const usable = (text && text.trim().length > 40) || image;
+  if (!usable) return;
+  descriptionQueue.set(url, {
+    title: event.title ?? '',
+    text: text || '',
+    ...(image ? { image } : {}),
+    own,
+  });
+}
+
 export async function harvest(source, pages, { today = todayIso() } = {}) {
   const out = [];
   for (const { url, html, isIndex } of pages) {
@@ -206,47 +238,6 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
       }
     }
 
-    /* Keep this page's readable text for anything that is about to be filed
-       with no description of its own. scripts/write-descriptions.mjs reads
-       the queue and asks the model, on the Batch API, after the poll — the
-       page is already fetched here, so "check the site first" costs nothing
-       beyond holding the text. */
-    for (const raw of raws) {
-      if (raw.description && !needsWriting(raw.description, raw.title)) continue;
-      const u = raw.url ?? url;
-      if (!u || descriptionQueue.has(u)) continue;
-      /* Never an index page's text, and this matters because the answer is
-         used to DROP listings. A listing harvested off a venue's index keeps
-         that index as its url — Bad Dog's "Super Hot Date Night" is
-         baddogtheatre.com/whats-on — so queueing it hands the model a page
-         listing twenty shows and asks what one of them is. It answered
-         NOTHING, correctly, and acting on that would have taken a real
-         listing off the board for a question it was never asked.
-         "This page says nothing about the event" is only a fact about the
-         event's own page. */
-      if (isIndex) continue;
-      /* The whole readable page, navigation and all.
-         
-         Trimming it looked obviously right and measured as a regression. Bad
-         Dog's event pages spend their first 420 characters on the site menu,
-         so a reduction that dropped nav, header, footer and anything classed
-         "menu" cut 2,100 characters to 600 — and took the show's own
-         paragraph with it, on four pages out of six. The model was never
-         confused by the menu; it reads past it. Leave the text alone. */
-      /* The poster goes in the queue only when the page gave no words of its
-         own. Measured on four Eventbrite pages, attaching it where there is
-         already prose changed the description not at all and cost 27% more
-         input; on the Emmet Ray, where the page says only the title, it is
-         the entire description. So: no prose, send the picture. */
-      const wordless = !raw.description || echoesTitle(raw.description, raw.title);
-      descriptionQueue.set(u, {
-        title: raw.title ?? '',
-        text: readableText(html, 6000),
-        ...(wordless && raw.image ? { image: raw.image } : {}),
-        own: true,
-      });
-    }
-
     for (const raw of raws) {
       const result = normalize(
         { ...raw, url: raw.url ?? url,
@@ -259,6 +250,18 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
 
       out.push(result.event);
       report.kept.push(`${source.id}: ${result.event.title} (${result.event.via})`);
+
+      /* Queued on what was published, not on what was read — see
+         queueForDescription. Never an index page: a listing harvested off a
+         venue's "what's on" keeps that index as its url, so asking about it
+         hands the model twenty shows and asks what one of them is. */
+      if (!isIndex) {
+        queueForDescription(result.event, {
+          text: readableText(html, 6000),
+          image: echoesTitle(result.event.description, result.event.title) || !result.event.description
+            ? result.event.image ?? null : null,
+        });
+      }
     }
   }
 
@@ -416,6 +419,23 @@ async function harvestApi(source, records, { today = todayIso() } = {}) {
 
     out.push(result.event);
     report.kept.push(`${source.id}: ${result.event.title} (${result.event.via})`);
+
+    /* The API path had no queueing at all, which is why the pipeline looked
+       slow and was actually stopped. Four sources come through here —
+       grossmans, emmetray, revival, bentway — and on 2026-10-05 they were
+       124 of the 140 listings wanting a description, none of them ever
+       asked about. 120 urls needed one, 39 were queued, and the overlap was
+       one.
+    
+       There is no page text here, only the record. For the Emmet Ray that
+       is the title again and a poster carrying the real description, which
+       is exactly the case queueForDescription sends the image for. For
+       Grossman's it is nothing at all and nothing is queued, so its 70
+       nights cost no requests and keep their venue line. */
+    queueForDescription(result.event, {
+      text: raw.description ?? '',
+      image: raw.image ?? null,
+    });
   }
   return out;
 }

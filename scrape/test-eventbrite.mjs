@@ -748,17 +748,24 @@ await checkAsync('a listing harvested off an index is not queued, so it cannot b
   }));
   const indexHtml = two.map(ld).join('');
   const indexUrl = 'https://baddogtheatre.com/whats-on';
+  /* Real body text, so the index is skipped for being an index and not
+     merely for having nothing readable on it. */
+  const body0 = '<body><p>Every show at Bad Dog Theatre this season, with dates and times for each.</p></body>';
 
   /* A source that publishes from its index (not listingOnly), the way Bad Dog
      does, so harvest does not skip the page outright. */
   const baddog = { ...eventbrite, id: 'baddog-test', listingOnly: false, noModel: true, vet: null, skipBeforeFollow: null };
 
-  await harvest(baddog, [{ url: indexUrl, html: indexHtml, isIndex: true }], { today });
+  await harvest(baddog, [{ url: indexUrl, html: indexHtml + body0, isIndex: true }], { today });
   assert.equal(descriptionQueue.size, 0, 'an index page was queued for a description');
 
   /* The same markup as the event's own page IS queued. */
   descriptionQueue.clear();
-  await harvest(baddog, [{ url: 'https://baddogtheatre.com/whats-on/2026/10/1/show-1', html: ld(two[0]), isIndex: false }], { today });
+  /* With a body, because queueForDescription will not ask about a page that
+     has no readable text — readableText strips <script>, so a fixture that
+     is only a JSON-LD block has nothing to send and is correctly skipped. */
+  const body = '<body><p>Two teams improvise a full set from a single audience suggestion, with a different guest each week.</p></body>';
+  await harvest(baddog, [{ url: 'https://baddogtheatre.com/whats-on/2026/10/1/show-1', html: ld(two[0]) + body, isIndex: false }], { today });
   assert.equal(descriptionQueue.size, 1);
   assert.equal([...descriptionQueue.values()][0].own, true, 'an event page should be queued as own');
   descriptionQueue.clear();

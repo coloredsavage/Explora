@@ -1369,3 +1369,49 @@ console.log('\nOne show, one description');
     assert.match(writtenFor(store, 'https://g/night-9', 'Grossman\u2019s Tavern', 'The Happy Pals'), /guest horn/);
   });
 }
+
+console.log('\nThe queue must see what the reader sees');
+{
+  const { descriptionQueue, harvest } = await import('./run.mjs');
+  const { needsWriting } = await import('./descriptions.mjs');
+
+  const src = { id: 'q-test', category: 'music', art: 'art-music', noModel: true,
+    defaultVenue: 'The Emmet Ray', defaultAddress: '924 College St, Toronto, ON' };
+  const ld = (x) => `<script type="application/ld+json">${JSON.stringify(x)}</script>`;
+  const ev = (over) => ({ '@type': 'MusicEvent', name: 'Else Langhans Trio',
+    startDate: '2026-10-03T20:00:00-04:00',
+    location: { '@type': 'Place', name: 'The Emmet Ray', address: { '@type': 'PostalAddress', streetAddress: '924 College St', addressLocality: 'Toronto' } },
+    ...over });
+  const body = '<body><p>' + 'A trio playing standards and a few originals, two sets with a short break. '.repeat(3) + '</p></body>';
+
+  await checkAsync('a description normalize will truncate is queued, not skipped', async () => {
+    /* The bug this replaces: the queue read the RAW description, which was
+       long and fine, so it was never asked about — and then normalize cut it
+       to the length budget and published it mid-sentence with an ellipsis.
+       Twenty-three of those were live and unaskable. */
+    const long = 'The trio opens with a set of standards before moving into original material written over the last two years, with a guest horn player sitting in for the second half of the evening and a short intermission between the two sets. ' + 'Extra words to push it past the budget. '.repeat(6);
+    descriptionQueue.clear();
+    const out = await harvest(src, [{ url: 'https://e/long', html: ld(ev({ description: long })) + body, isIndex: false }], { today: '2026-09-27' });
+    assert.equal(out.length, 1);
+    /* It really did get truncated on the way out... */
+    assert.ok(/[…]$/.test(out[0].description), 'fixture no longer truncates; pick a longer string');
+    assert.equal(needsWriting(out[0].description, out[0].title), 'cut off mid-sentence');
+    /* ...and therefore it is in the queue. */
+    assert.equal(descriptionQueue.size, 1, 'a truncated listing was not queued');
+    descriptionQueue.clear();
+  });
+
+  await checkAsync('a listing with nothing to read and no poster is not queued at all', async () => {
+    /* Grossman's: no description on its record, no poster, nothing on its
+       page. Asking would cost a request per night to be told what its venue
+       line already says. */
+    descriptionQueue.clear();
+    await harvest(src, [{ url: 'https://e/bare', html: ld(ev({})), isIndex: false }], { today: '2026-09-27' });
+    assert.equal(descriptionQueue.size, 0, 'queued a listing with nothing to ask about');
+    /* But a poster is something to ask about, even with no text at all. */
+    await harvest(src, [{ url: 'https://e/poster', html: ld(ev({ image: 'https://x/p.png' })), isIndex: false }], { today: '2026-09-27' });
+    assert.equal(descriptionQueue.size, 1, 'a poster-only listing should be queued');
+    assert.equal([...descriptionQueue.values()][0].image, 'https://x/p.png');
+    descriptionQueue.clear();
+  });
+}
