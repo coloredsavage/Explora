@@ -29,7 +29,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-comedy",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-05",
@@ -68,7 +68,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-05",
@@ -87,7 +87,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-comedy",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-05",
@@ -206,7 +206,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Comedy Bar Bloor",
-    "address": "945 Bloor Street West, Toronto, ON, M6H 1L5, Canada",
+    "address": "945 Bloor Street West Toronto, ON, M6H 1L5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-05",
@@ -230,7 +230,7 @@ const SCRAPED = [
     "url": "https://baddogtheatre.com/whats-on/2026/10/7/sweet-sweet-friends",
     "source": "https://baddogtheatre.com/whats-on/2026/10/7/sweet-sweet-friends",
     "checked": "2026-10-05",
-    "description": "Rising stars and alumni perform improvisational comedy, with special guest stars joining the show.",
+    "description": "Rising stars and alumni all-stars perform improv on the Sweet Sweet Wednesday stage, with special guest performers.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-07",
@@ -245,7 +245,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action",
-    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street, Unit #106 Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-05",
@@ -264,7 +264,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action",
-    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street, Unit #106 Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-05",
@@ -354,157 +354,157 @@ const SCRAPED = [
     "via": "api"
   },
   {
-    "id": "comedybar-chaotic-good-2026-10-16",
-    "title": "Chaotic Good",
+    "id": "comedybar-damon-darling-2027-01-22",
+    "title": "Damon Darling",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$25 online, $30 at the door",
+    "entry": "$30.75",
     "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/chaotic-good",
-    "source": "https://comedybar.ca/shows/chaotic-good",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/damon-darling",
+    "source": "https://comedybar.ca/shows/damon-darling",
     "checked": "2026-10-05",
-    "description": "Seven comedians each perform seven minutes of material on the same show.",
+    "description": "Ohio-based comedian mixing jokes with true-life stories, crowd work and improvised jokes throughout his performance.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-16",
-      "time": "11:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-chaotic-good-2026-11-20",
-    "title": "Chaotic Good",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25 online, $30 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/chaotic-good",
-    "source": "https://comedybar.ca/shows/chaotic-good",
-    "checked": "2026-10-05",
-    "description": "Seven comedians each perform seven minutes of material on the same show.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-20",
-      "time": "11:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-chaotic-good-2026-12-18",
-    "title": "Chaotic Good",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25 online, $30 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/chaotic-good",
-    "source": "https://comedybar.ca/shows/chaotic-good",
-    "checked": "2026-10-05",
-    "description": "Seven comedians each perform seven minutes of material on the same show.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-18",
-      "time": "11:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-gay-sh-t-2026-10-21",
-    "title": "GAY SH!T",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$15 early bird, $18 general admission",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/gay-sht",
-    "source": "https://comedybar.ca/shows/gay-sht",
-    "checked": "2026-10-05",
-    "description": "A night of NSFW comedy featuring rotating lineups of LGBTQIA+ comedians from Canada, with dirty jokes, raunchy humour, and scathing hot takes.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-21",
-      "time": "8:00pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-gay-sh-t-2026-11-18",
-    "title": "GAY SH!T",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$15 early bird, $18 general admission",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/gay-sht",
-    "source": "https://comedybar.ca/shows/gay-sht",
-    "checked": "2026-10-05",
-    "description": "A night of NSFW comedy featuring rotating lineups of LGBTQIA+ comedians from Canada, with dirty jokes, raunchy humour, and scathing hot takes.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-18",
-      "time": "8:00pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-gay-sh-t-2026-12-16",
-    "title": "GAY SH!T",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$15 early bird, $18 general admission",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/gay-sht",
-    "source": "https://comedybar.ca/shows/gay-sht",
-    "checked": "2026-10-05",
-    "description": "A night of NSFW comedy featuring rotating lineups of LGBTQIA+ comedians from Canada, with dirty jokes, raunchy humour, and scathing hot takes.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-16",
-      "time": "8:00pm"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-laugh-it-off-comedy-therapy-with-a-real-therapis-2026-11-28",
-    "title": "Laugh It Off: Comedy Therapy with a Real Therapist",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25 online, $30 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/laugh-it-off",
-    "source": "https://comedybar.ca/shows/laugh-it-off",
-    "checked": "2026-10-05",
-    "description": "Audience members anonymously submit real struggles or grievances, which a stand-up comedian and rotating touring comedians turn into comedy while a licensed therapist (the comedian's father) provides genuine insights…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-28",
+      "date": "2027-01-22",
       "time": "7:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-laugh-it-off-comedy-therapy-with-a-real-therapis-2026-12-20",
-    "title": "Laugh It Off: Comedy Therapy with a Real Therapist",
+    "id": "comedybar-damon-darling-2027-01-23",
+    "title": "Damon Darling",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$25 online, $30 at the door",
+    "entry": "$30.75",
+    "venue": "Comedy Bar",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/damon-darling",
+    "source": "https://comedybar.ca/shows/damon-darling",
+    "checked": "2026-10-05",
+    "description": "Ohio-based comedian mixing jokes with true-life stories, crowd work and improvised jokes throughout his performance.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-01-23",
+      "time": "7:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-double-down-2026-10-10",
+    "title": "Double Down",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$20+tax in advance, $25+tax at the door",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/laugh-it-off",
-    "source": "https://comedybar.ca/shows/laugh-it-off",
+    "url": "https://comedybar.ca/shows/double-down",
+    "source": "https://comedybar.ca/shows/double-down",
     "checked": "2026-10-05",
-    "description": "Audience members anonymously submit real struggles or grievances, which a stand-up comedian and rotating touring comedians turn into comedy while a licensed therapist (the comedian's father) provides genuine insights…",
+    "description": "Stand-up comedy hosted by Yaw Attuah, featuring new performers and an extended set from a headliner.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-10",
+      "time": "10:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-double-down-2026-11-14",
+    "title": "Double Down",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$20+tax in advance, $25+tax at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/double-down",
+    "source": "https://comedybar.ca/shows/double-down",
+    "checked": "2026-10-05",
+    "description": "Stand-up comedy hosted by Yaw Attuah, featuring new performers and an extended set from a headliner.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-14",
+      "time": "10:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-double-down-2026-12-12",
+    "title": "Double Down",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$20+tax in advance, $25+tax at the door",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/double-down",
+    "source": "https://comedybar.ca/shows/double-down",
+    "checked": "2026-10-05",
+    "description": "Stand-up comedy hosted by Yaw Attuah, featuring new performers and an extended set from a headliner.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-12",
+      "time": "10:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-freshly-squeezed-comedy-2026-10-18",
+    "title": "Freshly Squeezed Comedy",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$18",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/freshly-squeezed-comedy",
+    "source": "https://comedybar.ca/shows/freshly-squeezed-comedy",
+    "checked": "2026-10-05",
+    "description": "Host Jwalit Bharwani and touring comics Ashwyn Singh, James Roque, and Monica Gross perform their road-tested material and new jokes, mixing sharp comedy with crowd work for a night of big laughs.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-18",
+      "time": "7:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-freshly-squeezed-comedy-2026-11-15",
+    "title": "Freshly Squeezed Comedy",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$18",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/freshly-squeezed-comedy",
+    "source": "https://comedybar.ca/shows/freshly-squeezed-comedy",
+    "checked": "2026-10-05",
+    "description": "Host Jwalit Bharwani and touring comics Ashwyn Singh, James Roque, and Monica Gross perform their road-tested material and new jokes, mixing sharp comedy with crowd work for a night of big laughs.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-15",
+      "time": "7:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-freshly-squeezed-comedy-2026-12-20",
+    "title": "Freshly Squeezed Comedy",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$18",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/freshly-squeezed-comedy",
+    "source": "https://comedybar.ca/shows/freshly-squeezed-comedy",
+    "checked": "2026-10-05",
+    "description": "Host Jwalit Bharwani and touring comics Ashwyn Singh, James Roque, and Monica Gross perform their road-tested material and new jokes, mixing sharp comedy with crowd work for a night of big laughs.",
     "schedule": {
       "kind": "day",
       "date": "2026-12-20",
@@ -514,421 +514,261 @@ const SCRAPED = [
     "via": "model"
   },
   {
-    "id": "comedybar-screamy-todd-2026-10-16",
-    "title": "SCREAMY TODD",
+    "id": "comedybar-here-s-the-story-2026-10-15",
+    "title": "Here's The Story",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$15",
-    "venue": "Comedy Bar Danforth",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/screamy-todd",
-    "source": "https://comedybar.ca/shows/screamy-todd",
-    "checked": "2026-10-05",
-    "description": "A completely improvised musical from RATS! Another Musical? about a mysterious stranger's past, blending musical theatre with high-energy narrative-driven improv.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-16",
-      "time": "08:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-screamy-todd-2026-11-27",
-    "title": "SCREAMY TODD",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$15",
-    "venue": "Comedy Bar Danforth",
-    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
-    "url": "https://comedybar.ca/shows/screamy-todd",
-    "source": "https://comedybar.ca/shows/screamy-todd",
-    "checked": "2026-10-05",
-    "description": "A completely improvised musical from RATS! Another Musical? about a mysterious stranger's past, blending musical theatre with high-energy narrative-driven improv.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-27",
-      "time": "09:30 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-lineup-2026-12-05",
-    "title": "The Lineup",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$28 online, $33 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-lineup",
-    "source": "https://comedybar.ca/shows/the-lineup",
-    "checked": "2026-10-05",
-    "description": "Toronto's hottest new monthly stand up show hosted by John Mostyn, featuring a rotating lineup of the country's top stand up comedians.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-05",
-      "time": "07:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-10-08",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
     "entry": "$20",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
+    "url": "https://comedybar.ca/shows/heres-the-story",
+    "source": "https://comedybar.ca/shows/heres-the-story",
     "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-08",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-10-15",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
+    "description": "Five comedians each tell one original funny story on stage—not a stand-up set, just good storytelling with the energy of someone holding court at a family gathering.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-15",
-      "time": "8:00 PM"
+      "time": "9:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-the-pro-show-2026-10-22",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-22",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-10-29",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-29",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-11-05",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-05",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-11-12",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-12",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-11-19",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-19",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-11-26",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-26",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-12-03",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-03",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-12-10",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-10",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-pro-show-2026-12-17",
-    "title": "The Pro Show",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-pro-show",
-    "source": "https://comedybar.ca/shows/the-pro-show",
-    "checked": "2026-10-05",
-    "description": "A weekly showcase of professional stand-up comics and touring headliners curated and hosted by Jeff Paul, featuring performers who have appeared at major festivals and recorded specials for Netflix, Crave, Just For…",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-17",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-rundown-the-best-of-comedy-bar-2026-10-17",
-    "title": "The Rundown: The Best Of Comedy Bar",
+    "id": "comedybar-laugh-dammit-2026-10-23",
+    "title": "Laugh Dammit",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$25 in advance, $28 at the door",
+    "entry": "$22 advance / $27 at the door",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-rundown-the-best-of-comedy-bar",
-    "source": "https://comedybar.ca/shows/the-rundown-the-best-of-comedy-bar",
+    "url": "https://comedybar.ca/shows/laugh-dammit",
+    "source": "https://comedybar.ca/shows/laugh-dammit",
     "checked": "2026-10-05",
-    "description": "A monthly showcase featuring standout acts in stand-up, improv, and sketch comedy, with rotating lineups of performers seen on JFL, CRAVE, CBC, Sirius XM, and major comedy festivals.",
+    "description": "A stand-up comedy show featuring professional comedians, many with credits from JFL, CBC, SiriusXM and other major platforms.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-17",
-      "time": "9:00pm"
+      "date": "2026-10-23",
+      "time": "10:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-wheel-of-comedy-2026-10-12",
-    "title": "Wheel Of Comedy",
+    "id": "comedybar-laugh-dammit-2026-11-27",
+    "title": "Laugh Dammit",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$15 online, $20 at door",
+    "entry": "$22 advance / $27 at the door",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/wheel-of-comedy",
-    "source": "https://comedybar.ca/shows/wheel-of-comedy",
+    "url": "https://comedybar.ca/shows/laugh-dammit",
+    "source": "https://comedybar.ca/shows/laugh-dammit",
     "checked": "2026-10-05",
-    "description": "Comedians spin a wheel to determine what they perform—crowd work, Q&A, freestyle rap, roasts, impressions and other challenges. A different set of surprises every week.",
+    "description": "A stand-up comedy show featuring professional comedians, many with credits from JFL, CBC, SiriusXM and other major platforms.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-12",
-      "time": "9:30pm"
+      "date": "2026-11-27",
+      "time": "10:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-wheel-of-comedy-2026-10-26",
-    "title": "Wheel Of Comedy",
+    "id": "comedybar-monster-island-2026-10-14",
+    "title": "Monster Island!",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$15 online, $20 at door",
+    "entry": "$10",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/wheel-of-comedy",
-    "source": "https://comedybar.ca/shows/wheel-of-comedy",
+    "url": "https://comedybar.ca/shows/Monster-Island",
+    "source": "https://comedybar.ca/shows/Monster-Island",
     "checked": "2026-10-05",
-    "description": "Comedians spin a wheel to determine what they perform—crowd work, Q&A, freestyle rap, roasts, impressions and other challenges. A different set of surprises every week.",
+    "description": "Comedians and actors perform character comedy bits, with a free open mic after the show where audience members can try their own character bits.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-26",
-      "time": "9:30pm"
+      "date": "2026-10-14",
+      "time": "9:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-wheel-of-comedy-2026-11-09",
-    "title": "Wheel Of Comedy",
+    "id": "comedybar-monster-island-2026-10-28",
+    "title": "Monster Island!",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$15 online, $20 at door",
+    "entry": "$10",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/wheel-of-comedy",
-    "source": "https://comedybar.ca/shows/wheel-of-comedy",
+    "url": "https://comedybar.ca/shows/Monster-Island",
+    "source": "https://comedybar.ca/shows/Monster-Island",
     "checked": "2026-10-05",
-    "description": "Comedians spin a wheel to determine what they perform—crowd work, Q&A, freestyle rap, roasts, impressions and other challenges. A different set of surprises every week.",
+    "description": "Comedians and actors perform character comedy bits, with a free open mic after the show where audience members can try their own character bits.",
     "schedule": {
       "kind": "day",
-      "date": "2026-11-09",
-      "time": "9:30pm"
+      "date": "2026-10-28",
+      "time": "9:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-wheel-of-comedy-2026-11-23",
-    "title": "Wheel Of Comedy",
+    "id": "comedybar-monster-island-2026-11-11",
+    "title": "Monster Island!",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$15 online, $20 at door",
+    "entry": "$10",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/wheel-of-comedy",
-    "source": "https://comedybar.ca/shows/wheel-of-comedy",
+    "url": "https://comedybar.ca/shows/Monster-Island",
+    "source": "https://comedybar.ca/shows/Monster-Island",
     "checked": "2026-10-05",
-    "description": "Comedians spin a wheel to determine what they perform—crowd work, Q&A, freestyle rap, roasts, impressions and other challenges. A different set of surprises every week.",
+    "description": "Comedians and actors perform character comedy bits, with a free open mic after the show where audience members can try their own character bits.",
     "schedule": {
       "kind": "day",
-      "date": "2026-11-23",
-      "time": "9:30pm"
+      "date": "2026-11-11",
+      "time": "9:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-wheel-of-comedy-2026-12-14",
-    "title": "Wheel Of Comedy",
+    "id": "comedybar-monster-island-2026-11-25",
+    "title": "Monster Island!",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$15 online, $20 at door",
+    "entry": "$10",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/wheel-of-comedy",
-    "source": "https://comedybar.ca/shows/wheel-of-comedy",
+    "url": "https://comedybar.ca/shows/Monster-Island",
+    "source": "https://comedybar.ca/shows/Monster-Island",
     "checked": "2026-10-05",
-    "description": "Comedians spin a wheel to determine what they perform—crowd work, Q&A, freestyle rap, roasts, impressions and other challenges. A different set of surprises every week.",
+    "description": "Comedians and actors perform character comedy bits, with a free open mic after the show where audience members can try their own character bits.",
     "schedule": {
       "kind": "day",
-      "date": "2026-12-14",
-      "time": "9:30pm"
+      "date": "2026-11-25",
+      "time": "9:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-wheel-of-comedy-2026-12-28",
-    "title": "Wheel Of Comedy",
+    "id": "comedybar-monster-island-2026-12-09",
+    "title": "Monster Island!",
     "category": "comedy",
     "art": "art-comedy",
-    "entry": "$15 online, $20 at door",
+    "entry": "$10",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/wheel-of-comedy",
-    "source": "https://comedybar.ca/shows/wheel-of-comedy",
+    "url": "https://comedybar.ca/shows/Monster-Island",
+    "source": "https://comedybar.ca/shows/Monster-Island",
     "checked": "2026-10-05",
-    "description": "Comedians spin a wheel to determine what they perform—crowd work, Q&A, freestyle rap, roasts, impressions and other challenges. A different set of surprises every week.",
+    "description": "Comedians and actors perform character comedy bits, with a free open mic after the show where audience members can try their own character bits.",
     "schedule": {
       "kind": "day",
-      "date": "2026-12-28",
-      "time": "9:30pm"
+      "date": "2026-12-09",
+      "time": "9:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-monster-island-2026-12-23",
+    "title": "Monster Island!",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$10",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/Monster-Island",
+    "source": "https://comedybar.ca/shows/Monster-Island",
+    "checked": "2026-10-05",
+    "description": "Comedians and actors perform character comedy bits, with a free open mic after the show where audience members can try their own character bits.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-23",
+      "time": "9:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-starship-improvise-2026-10-14",
+    "title": "Starship Improvise",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/Starship-Improvise",
+    "source": "https://comedybar.ca/shows/Starship-Improvise",
+    "checked": "2026-10-05",
+    "description": "A sci-fi improv show where an interstellar crew handles missions and consequences based on audience suggestions, with the plot and characters carrying over from one show to the next.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-14",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-starship-improvise-2026-11-11",
+    "title": "Starship Improvise",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/Starship-Improvise",
+    "source": "https://comedybar.ca/shows/Starship-Improvise",
+    "checked": "2026-10-05",
+    "description": "A sci-fi improv show where an interstellar crew handles missions and consequences based on audience suggestions, with the plot and characters carrying over from one show to the next.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-11",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-starship-improvise-2026-12-09",
+    "title": "Starship Improvise",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$15",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/Starship-Improvise",
+    "source": "https://comedybar.ca/shows/Starship-Improvise",
+    "checked": "2026-10-05",
+    "description": "A sci-fi improv show where an interstellar crew handles missions and consequences based on audience suggestions, with the plot and characters carrying over from one show to the next.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-09",
+      "time": "8:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-that-awesome-improv-show-2026-10-21",
+    "title": "That Awesome Improv Show",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$20",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/that-awesome-improv-show",
+    "source": "https://comedybar.ca/shows/that-awesome-improv-show",
+    "checked": "2026-10-05",
+    "description": "Tricia Black and a rotating lineup of guest performers improvise a brand new hour of comedy built entirely from audience suggestions, with no script or plan.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-21",
+      "time": "09:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
@@ -1424,7 +1264,7 @@ const SCRAPED = [
     "entry": "$15",
     "venue": "The Emmet Ray",
     "address": "924 College St, Toronto, ON",
-    "image": "https://www.theemmetray.com/wp-content/uploads/2026/05/kb-vox-2026.10.13.png",
+    "image": "https://www.theemmetray.com/wp-content/uploads/2026/05/kb-vox-2026.10.13-1.png",
     "url": "https://www.theemmetray.com/event/kb-vox-with-kevin-barrett-%f0%9f%8e%b8-kathryn-rose%f0%9f%8e%99%ef%b8%8f/",
     "source": "https://www.theemmetray.com/event/kb-vox-with-kevin-barrett-%f0%9f%8e%b8-kathryn-rose%f0%9f%8e%99%ef%b8%8f/",
     "checked": "2026-10-05",
@@ -2296,27 +2136,6 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
-    "id": "eventbrite-douglas-stuart-toronto-launch-john-of-john-2026-10-22",
-    "title": "Douglas Stuart Toronto launch \"John of John\"",
-    "category": "books",
-    "art": "art-books",
-    "entry": "$19.50",
-    "venue": "Hot Docs Ted Rogers Cinema",
-    "address": "506 Bloor Street West, Toronto, ON M5S 1Y3",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1190565776%2F207720945042%2F1%2Foriginal.20260807-183834?w=940&auto=format%2Ccompress&q=75&sharp=10&s=8a3b52c78fc64c689b3ba3ed4e6c6ec8",
-    "url": "https://www.eventbrite.ca/e/douglas-stuart-toronto-launch-john-of-john-tickets-1993696203012",
-    "source": "https://www.eventbrite.ca/e/douglas-stuart-toronto-launch-john-of-john-tickets-1993696203012",
-    "checked": "2026-10-05",
-    "description": "Join Another Story Bookshop and Knopf Canada to celebrate the launch of John of John by Douglas Stuart with Zak Jones.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-22",
-      "time": "7pm – 9pm"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
     "id": "eventbrite-fall-colours-walking-tour-bloor-west-village-to--2026-10-24",
     "title": "Fall Colours Walking Tour: Bloor West Village to High Park",
     "category": "architecture",
@@ -2438,6 +2257,48 @@ const SCRAPED = [
       "kind": "range",
       "start": "2026-10-08",
       "end": "2026-10-12"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-midtown-thursday-parc-ave-2026-10-08",
+    "title": "Midtown Thursday @ Parc Ave",
+    "category": "food",
+    "art": "art-food",
+    "entry": "Free",
+    "venue": "Park Ave",
+    "address": "265 Davenport Ave, Toronto, ON M5R 1J9",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194731277%2F69016759%2F1%2Foriginal.20260930-152317?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=42ca05547e1f0bced05a0491dd117b2b",
+    "url": "https://www.eventbrite.com/e/midtown-thursday-parc-ave-tickets-2002601200098",
+    "source": "https://www.eventbrite.com/e/midtown-thursday-parc-ave-tickets-2002601200098",
+    "checked": "2026-10-05",
+    "description": "Join us in Yorkville at PARC AVE-the swanky intimate cocktail lounge, for a evening of sipping cocktails and mixing & mingling.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-08",
+      "time": "9pm – 11:59pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-naomi-klein-and-astra-taylor-s-end-times-fascism-2026-10-06",
+    "title": "Naomi Klein and Astra Taylor's END TIMES FASCISM (October 6th launch)",
+    "category": "books",
+    "art": "art-books",
+    "entry": "$19.50",
+    "venue": "Trinity-St. Paul's United Church and Centre for Faith, Justice and the Arts",
+    "address": "427 Bloor Street West, Toronto, ON M5S 1X7",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1190473681%2F207720945042%2F1%2Foriginal.20260806-162802?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=8283e5d2c13a5244562e1941a4d10a99",
+    "url": "https://www.eventbrite.ca/e/naomi-klein-and-astra-taylors-end-times-fascism-october-6th-launch-tickets-1994711640212",
+    "source": "https://www.eventbrite.ca/e/naomi-klein-and-astra-taylors-end-times-fascism-october-6th-launch-tickets-1994711640212",
+    "checked": "2026-10-05",
+    "description": "Another Story Bookshop and Knopf Canada present an evening with Naomi Klein and Astra Taylor, in conversation with Nahlah Ayed (CBC Ideas).",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-06",
+      "time": "7pm – 9pm"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2723,11 +2584,11 @@ const SCRAPED = [
     "entry": "$25",
     "venue": "The Dance Cave",
     "address": "529 Bloor Street West, Toronto, ON M5S 1Y5",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194984143%2F1562716403003%2F1%2Foriginal.20261003-194148?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=feb2a00418a55eed7f8ba9d612d7be16",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1195107816%2F1562716403003%2F1%2Foriginal.20261005-190359?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=5147a92a2c326f02701613e6be32cf49",
     "url": "https://www.eventbrite.ca/e/wolves-halloween-semiformal-party-tickets-2000540481433",
     "source": "https://www.eventbrite.ca/e/wolves-halloween-semiformal-party-tickets-2000540481433",
     "checked": "2026-10-05",
-    "description": "",
+    "description": "A semiformal Halloween dance night open only to students in grade 11 and up, ages 15+, running four hours from doors at 8:25 PM. All sales are final and no refunds are given.",
     "schedule": {
       "kind": "range",
       "start": "2026-10-28",
@@ -2762,7 +2623,7 @@ const SCRAPED = [
     "art": "art-outdoors",
     "entry": "Free",
     "venue": "Evergreen Brick Works",
-    "address": "Toronto, Ontario",
+    "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/community-spotlight/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/community-spotlight/",
     "checked": "2026-10-05",
@@ -2784,7 +2645,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/events/winter-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/events/winter-market/",
     "checked": "2026-10-05",
-    "description": "Holiday shopping from local artisans and vintage sellers, with fire pits, s'mores, hot drinks, outdoor skating on select dates, festive workshops, live performances, and a free community art studio.",
+    "description": "Holiday shopping from local artisans and vintage sellers, with fire pits for s'mores, hot drinks, outdoor skating on select Sundays, festive workshops, live local performances, and a community art studio.",
     "schedule": {
       "kind": "range",
       "start": "2026-11-29",
@@ -2816,13 +2677,13 @@ const SCRAPED = [
     "title": "Family Wanders",
     "category": "dropin",
     "art": "art-birdhouse",
-    "entry": "Free",
+    "entry": "$20 suggested donation per family",
     "venue": "Evergreen Brick Works",
     "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-10-05",
-    "description": "Guided nature walks where families explore the seasonal changes in the ravine valley, observing and engaging their senses with the natural environment.",
+    "description": "Guided nature walks for families to explore the Valley at Evergreen Brick Works, observing the changing seasons and engaging with the natural environment.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-22",
@@ -2841,7 +2702,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/events/good-mourning-festival/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/events/good-mourning-festival/",
     "checked": "2026-10-05",
-    "description": "A two-day festival exploring grief and mourning. Day 1 features workshops, art installations, music and peer support focused on expressing and understanding grief.",
+    "description": "A two-day public festival exploring grief and mourning. Day 1 features workshops, art installations, music and peer support for expressing grief.",
     "schedule": {
       "kind": "range",
       "start": "2026-10-24",
@@ -2900,6 +2761,64 @@ const SCRAPED = [
     "schedule": {
       "kind": "day",
       "date": "2026-10-31"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-saturday-farmers-market-2026-10-10",
+    "title": "Saturday Farmers Market",
+    "category": "dropin",
+    "art": "art-market",
+    "entry": "Free",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/saturday-farmers-market/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/saturday-farmers-market/",
+    "checked": "2026-10-05",
+    "description": "Toronto's largest year-round farmers market featuring local Ontario farmers and producers within 205 km of the venue, with a Local Food Court open until 2pm.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-10",
+      "time": "8am–1pm"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-site-tours-history-tour-2026-10-10",
+    "title": "Site Tours - History Tour",
+    "category": "dropin",
+    "art": "art-architecture",
+    "entry": "Free",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "checked": "2026-10-05",
+    "description": "An hour-long tour through the industrial site and historic buildings, exploring the geological history and mechanical artifacts while learning how the former industrial site was reclaimed and revitalized into an…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-10"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-site-tours-nature-tour-2026-10-10",
+    "title": "Site Tours - Nature Tour",
+    "category": "dropin",
+    "art": "art-architecture",
+    "entry": "Free",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/site-tours/",
+    "checked": "2026-10-05",
+    "description": "An hour-long outdoor tour visiting gardens and learning about sustainable agricultural practices, covering both the reclaimed industrial site and the park beyond.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-10"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -4298,6 +4217,27 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
+    "id": "luma-currently-reading-a-sunday-morning-mid-book-club-2026-10-11",
+    "title": "Currently Reading - a Sunday morning mid-book club",
+    "category": "social",
+    "art": "art-books",
+    "entry": "Free",
+    "venue": "Book People on Queen",
+    "address": "Toronto, Ontario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/w6/f2fd20f5-22c7-434c-bc86-2c2dcf5d21ac.png",
+    "url": "https://luma.com/anqvsos3",
+    "source": "https://luma.com/anqvsos3",
+    "checked": "2026-10-05",
+    "description": "Bring the book you're currently reading. That's it - that's the whole assignment. No assigned reading, no discussion questions, no pressure to have finished anything.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-11",
+      "time": "10:30am – 12pm"
+    },
+    "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
     "id": "luma-cutting-the-fashion-body-why-the-fashion-image-i-2026-10-13",
     "title": "Cutting The Fashion Body: Why The Fashion Image Is No Longer Still by Nathalie Khan",
     "category": "social",
@@ -4340,27 +4280,6 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
-    "id": "luma-grok-bot-meetup-toronto-october-2026-10-26",
-    "title": "Grok Bot Meetup Toronto - October",
-    "category": "social",
-    "art": "art-lectern",
-    "entry": "Free",
-    "venue": "Toronto — address on RSVP",
-    "address": "tario",
-    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/qw/723914ff-3fa3-47f3-b52b-5584d80e83d2.png",
-    "url": "https://luma.com/mj5bmugc",
-    "source": "https://luma.com/mj5bmugc",
-    "checked": "2026-10-05",
-    "description": "Join us for our monthly Grok Bot meetup in Toronto at 800 Bay! We'll still be giving away Cursor credits that you can use with Grok Bot as well.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-26",
-      "time": "5:30pm – 8:30pm"
-    },
-    "scrapedFrom": "luma",
-    "via": "json-ld"
-  },
-  {
     "id": "luma-home-resilience-hub-get-your-home-climate-ready-2026-10-18",
     "title": "Home Resilience Hub: Get Your Home Climate-Ready",
     "category": "social",
@@ -4377,6 +4296,27 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-10-18",
       "time": "11am – 4pm"
+    },
+    "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
+    "id": "luma-homesick-on-the-way-home-2026-10-15",
+    "title": "homesick: on the way home",
+    "category": "social",
+    "art": "art-market",
+    "entry": "Free",
+    "venue": "STACKT market",
+    "address": "Toronto, Ontario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/qy/babcc1ba-5680-4d19-b56f-db35de1fed70.jpg",
+    "url": "https://luma.com/k13z36es",
+    "source": "https://luma.com/k13z36es",
+    "checked": "2026-10-05",
+    "description": "kingston candle started at queen’s university. five years later, we’re on the way home.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-15",
+      "time": "6pm – 9pm"
     },
     "scrapedFrom": "luma",
     "via": "json-ld"
@@ -4456,7 +4396,7 @@ const SCRAPED = [
     "url": "https://luma.com/pzevo4e5",
     "source": "https://luma.com/pzevo4e5",
     "checked": "2026-10-05",
-    "description": "Bring a dish you've cooked at home to share potluck-style with other food lovers. There's also a DIY mocktail bar where you can build your own drink with 0-proof spirits and cider.",
+    "description": "Everyone cooks a dish at home and brings it to share potluck-style. This month's theme is Friendsgiving with no assigned cookbook—bring any recipe you love from a cookbook or your own kitchen.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-18",
@@ -4482,27 +4422,6 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-10-06",
       "time": "6pm – 9pm"
-    },
-    "scrapedFrom": "luma",
-    "via": "json-ld"
-  },
-  {
-    "id": "luma-sunday-halloween-freak-out-2026-10-25",
-    "title": "Sunday - Halloween FREAK OUT!",
-    "category": "social",
-    "art": "art-music",
-    "entry": "$10",
-    "venue": "847 Dovercourt Rd",
-    "address": "Toronto, Ontario",
-    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/8j/fa64d088-954b-4eb8-8a1c-66101cb2cf84.jpg",
-    "url": "https://luma.com/jjszs7qt",
-    "source": "https://luma.com/jjszs7qt",
-    "checked": "2026-10-05",
-    "description": "A family-friendly Halloween celebration featuring The Animal Band and secret spooky guests performing musical mischief, with costumes highly encouraged.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-25",
-      "time": "3pm – 4:30pm"
     },
     "scrapedFrom": "luma",
     "via": "json-ld"
@@ -4655,21 +4574,21 @@ const SCRAPED = [
     "via": "api"
   },
   {
-    "id": "tpl-postcards-of-reconnection-a-craft-workshop-2026-10-05",
-    "title": "Postcards of Reconnection: A Craft Workshop",
+    "id": "tpl-from-solitude-to-connection-ft-robert-coplan-2026-10-05",
+    "title": "From Solitude To Connection ft. Robert Coplan",
     "category": "dropin",
-    "art": "art-pottery",
+    "art": "art-books",
     "venue": "North York Central Library",
     "address": "5120 Yonge Street, Toronto, ON, M2N 5N9",
     "image": "https://tpl.bibliocommons.com/events/uploads/images/full/0d28143a30d62a4b5ccc0ef985ddff12/OnCivilSociety.jpg",
-    "url": "https://tpl.bibliocommons.com/v2/events/6a95c15536204e08fbb889a8",
-    "source": "https://tpl.bibliocommons.com/v2/events/6a95c15536204e08fbb889a8",
+    "url": "https://tpl.bibliocommons.com/v2/events/6a95c20260ccaf01c0225378",
+    "source": "https://tpl.bibliocommons.com/v2/events/6a95c20260ccaf01c0225378",
     "checked": "2026-10-05",
-    "description": "Postcards of Reconnection Sometimes reconnecting starts in solitude, not small talk.",
+    "description": "Spend an evening rethinking time alone in a room full of other people as we explore the theme of “good solitude” and how alone time makes togetherness possible.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-05",
-      "time": "5:30pm – 6:30pm"
+      "time": "7pm – 8pm"
     },
     "scrapedFrom": "tpl",
     "via": "json-ld"
