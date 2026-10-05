@@ -1336,3 +1336,36 @@ console.log('\nThe venue speaks when the event cannot');
     assert.equal(needsWriting('A seven-piece playing New Orleans jazz, two sets.', 'The Happy Pals', LINES), null);
   });
 }
+
+console.log('\nOne show, one description');
+{
+  const { showKey, writtenFor } = await import('./descriptions.mjs');
+
+  check('the key is the venue and the title, narrow enough to keep hosts apart', () => {
+    assert.equal(showKey('Grossman\u2019s Tavern', 'Action Sound Band'),
+                 showKey('grossman\u2019s tavern', '  Action   Sound Band '));
+    /* Two Sunday jams with different hosts are different shows. */
+    assert.notEqual(showKey('G', 'Sunday Jam Night Hosted by Ken Yoshioka'),
+                    showKey('G', 'Sunday Jam Night Hosted by Rob Quail'));
+    /* Same title at a different venue is a different show. */
+    assert.notEqual(showKey('Grossman\u2019s Tavern', 'Open Mic'), showKey('Comedy Bar', 'Open Mic'));
+    assert.equal(showKey('', 'x'), null);
+    assert.equal(showKey('V', ''), null);
+  });
+
+  check('another night of the same show reads the description already written', () => {
+    const store = {
+      written: { 'https://g/night-1': { text: 'A seven-piece playing New Orleans jazz.' } },
+      shows: { [showKey('Grossman\u2019s Tavern', 'The Happy Pals')]: { text: 'A seven-piece playing New Orleans jazz.' } },
+    };
+    /* The url that was asked about. */
+    assert.match(writtenFor(store, 'https://g/night-1', 'Grossman\u2019s Tavern', 'The Happy Pals'), /New Orleans/);
+    /* And the eleven that were not. */
+    assert.match(writtenFor(store, 'https://g/night-9', 'Grossman\u2019s Tavern', 'The Happy Pals'), /New Orleans/);
+    /* A different band at the same venue gets nothing. */
+    assert.equal(writtenFor(store, 'https://g/other', 'Grossman\u2019s Tavern', 'Action Sound Band'), null);
+    /* The url always wins: a page that described itself beats another night. */
+    store.written['https://g/night-9'] = { text: 'Tonight they are joined by a guest horn section.' };
+    assert.match(writtenFor(store, 'https://g/night-9', 'Grossman\u2019s Tavern', 'The Happy Pals'), /guest horn/);
+  });
+}

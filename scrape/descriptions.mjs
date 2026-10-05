@@ -35,7 +35,7 @@ export const STORE = 'scrape/descriptions.json';
    which gains a description is picked up within the month. */
 export const NOTHING_RESTS_DAYS = 30;
 
-const EMPTY = { written: {}, nothing: {}, queued: {}, pending: null };
+const EMPTY = { written: {}, shows: {}, nothing: {}, queued: {}, pending: null };
 
 export async function load(root) {
   try {
@@ -49,6 +49,7 @@ export async function save(root, store) {
   const sorted = (o) => Object.fromEntries(Object.entries(o).sort(([a], [b]) => (a < b ? -1 : 1)));
   const out = {
     written: sorted(store.written),
+    shows: sorted(store.shows ?? {}),
     nothing: sorted(store.nothing),
     queued: sorted(store.queued),
     pending: store.pending ?? null,
@@ -64,10 +65,34 @@ export function restsAsNothing(store, url, today) {
   return Boolean(at) && daysBetween(today, at) < NOTHING_RESTS_DAYS;
 }
 
-/* The description a listing should carry, or null to leave it alone. */
-export function writtenFor(store, url) {
-  const hit = store.written?.[url];
-  return hit && hit.text ? hit.text : null;
+/* One show, one description, however many nights it runs.
+ *
+ * Keyed on venue and title because that is what repeats. Grossman's puts
+ * Action Sound Band on twelve times and the Happy Pals eleven; Comedy Bar
+ * runs The Pro Show eleven times. Each night is its own url, so a store
+ * keyed only on url pays to describe the same band twelve times and gets
+ * twelve slightly different answers for one show. Thirty per cent of
+ * everything needing a description is a repeat of something else in the
+ * same list.
+ *
+ * Safe because the key is narrow: "Sunday Jam Night Hosted by Ken
+ * Yoshioka" and "... Hosted by Rob Quail" are different titles and stay
+ * apart, which is right — they are different nights with different hosts. */
+export function showKey(venue, title) {
+  const v = String(venue ?? '').trim().toLowerCase();
+  const t = String(title ?? '').trim().toLowerCase().replace(/\s+/g, ' ');
+  return v && t ? `${v}|${t}` : null;
+}
+
+/* The description a listing should carry, or null to leave it alone. The
+   url first, because a page that described itself is better evidence than
+   another night of the same show; then the show. */
+export function writtenFor(store, url, venue, title) {
+  const byUrl = store.written?.[url];
+  if (byUrl && byUrl.text) return byUrl.text;
+  const k = showKey(venue, title);
+  const byShow = k ? store.shows?.[k] : null;
+  return byShow && byShow.text ? byShow.text : null;
 }
 
 /* Which listings need a description written.

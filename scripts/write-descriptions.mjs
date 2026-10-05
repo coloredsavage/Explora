@@ -32,7 +32,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import vm from 'node:vm';
 import { fileURLToPath } from 'node:url';
-import { load, save, needsWriting } from '../scrape/descriptions.mjs';
+import { load, save, needsWriting, showKey } from '../scrape/descriptions.mjs';
 import { allSources } from '../scrape/sources.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -218,7 +218,14 @@ async function collect(store, client) {
     const title = store.queued[url]?.title;
     const good = acceptable(raw, title);
 
-    if (good) { store.written[url] = { text: good, at: today() }; wrote += 1; }
+    if (good) {
+      store.written[url] = { text: good, at: today() };
+      /* And against the show, so the other eleven nights of The Happy Pals
+         read it instead of being asked again. */
+      const k = store.queued[url]?.show;
+      if (k) { (store.shows ??= {})[k] = { text: good, at: today() }; }
+      wrote += 1;
+    }
     /* NOTHING only counts against the event's own page. `own` is set by the
        poll and is absent on anything queued before that distinction existed,
        which is treated as not-own: a verdict that would drop a listing is
@@ -258,12 +265,23 @@ const VENUE_LINES = allSources().map((x) => x.venueLine).filter(Boolean);
 async function submit(store, client) {
   const listings = await board();
   const byUrl = new Map();
+  const askedShows = new Set();
   for (const e of listings) {
     const url = e.source || e.url;
     if (!url) continue;
     if (!needsWriting(e.description, e.title, VENUE_LINES)) continue;
     if (store.written[url] || store.nothing[url]) continue;
     if (!store.queued[url]?.text) continue;      /* the poll has not read it yet */
+    /* One request per show. Grossman's runs Action Sound Band twelve times
+       and each night is its own url; asking twelve times buys twelve
+       slightly different descriptions of one band. The first night's answer
+       is recorded against the show and the rest read it. */
+    const k = showKey(e.venue, e.title);
+    if (k) {
+      if (askedShows.has(k) || store.shows?.[k]) continue;
+      askedShows.add(k);
+      store.queued[url].show = k;
+    }
     byUrl.set(url, e);
   }
 

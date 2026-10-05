@@ -779,7 +779,7 @@ async function main() {
   for (const e of events) {
     const url = e.source || e.url;
     if (!url || !needsWriting(e.description, e.title)) continue;
-    const written = writtenFor(descriptions, url);
+    const written = writtenFor(descriptions, url, e.venue, e.title);
     if (written) { e.description = written; rewritten += 1; continue; }
     /* A page with nothing to say costs the listing its description, not its
        place on the board. Grossman's publishes a band, a date and a time and
