@@ -412,12 +412,6 @@
       "image": "http://static1.squarespace.com/static/5153a077e4b05eccf7c98269/631678b0f826c84ff2967d1f/69790fa69456a21bbb85e014/1769541551554/BAD+DOG+2026.jpg?format=1500w",
       "own": true
     },
-    "https://comedybar.ca/shows/the-dark-knightmare-before-christmas": {
-      "title": "The Dark Knightmare Before Christmas",
-      "text": "The Dark Knightmare Before Christmas | Comedy Bar 0 HOME SHOWS CLASSES VENUES Bloor St (Toronto) Danforth Ave (Toronto) Laugh Lounge - Ottawa (Affiliate) FRANCHISE MERCH HIRE US COMEDY BAR ON TOUR CORPORATE/SPECIAL EVENTS ABOUT WHO WE ARE FAQs NEWSROOM MAILING LIST MENU CONTACT LOGIN The Dark Knightmare Before Christmas Tickets 2800 Danforth Avenue, Toronto Your favourite characters from The Nightmare Before Christmas and Batman come together at last. It’s raunchy, rude, scary and perfect for Halloween. Guests from Halloween Town spice things up in Gotham & learn what it is to be a superhero, while the Joker plays trick or treat with all of them. Will Jack Skellington be de-throned as the Pumpkin King? Will Batman get his vengeance? Will everyone get their spooky ever after? PLAYERS shows are part sketch comedy, party rock show (Live Band!) and part party. It’s one of the most unique, entertaining and fun nights out in Toronto. Come get spooky. All proceeds are donated to charity! (1 Act, No Intermission, 75 mins) The cast: Brynn Bonne Halli Hood Mike Jankovich Noah Hill Pat Ronan Rayan Rahal VENUE INFORMATION AVAILABLE HERE Scheduled Events Oct 29, 2026 07:00 PM Main Stage Purchase Tickets Ticket Price Quantity General Admission $ 28.00 * Maximum 10 tickets This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply. Oct 30, 2026 07:00 PM Main Stage Purchase Tickets Ticket Price Quantity General Admission $ 28.00 * Maximum 10 tickets This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply. Event Location: 2800 Danforth Avenue, Toronto, ON, M4C 1M1 © 2026 Comedy Bar | 945 Bloor Street W, Toronto ON M6H 1L5 | 2800 Danforth Avenue, Toronto ON M4C 1M1 | 416-551-6540 Privacy Policy | Terms & Conditions",
-      "own": true,
-      "show": "comedy bar|the dark knightmare before christmas"
-    },
     "https://luma.com/30y1h1vr": {
       "title": "THE BOOK GALA by Asian Thought Club",
       "text": "Popular events in Toronto · Events Calendar 2:46 PM UTC Discover Events Sign In What’s Happening in Toronto 10:46 AM EDT Toronto pulses with events that blend tech innovation, creative networking, and cultural celebrations, making it a dynamic hub for learning, connecting, and exploring diverse interests. ​ Subscribe Toronto Subscribe Toronto Discover the hottest events in Toronto, and get notified of new events before they sell out. ​ Subscribe Events Submit Event Today Saturday 11:00 AM Chess in the Park at Clarence Square ​ By Knightcap Chess Club ​ Clarence Square +118 11:00 AM Girls' Walk ​ By Anam S ​ Starbucks Coffee Company ​ Waitlist +77 3:00 PM Immersive Art: Works-In-Progress ​ By Laboratory for Artistic Intelligence & MULTIfest ​ STACKT market +46 Popular Calendars in Toronto happy town a home for third-space hosts and guests. we bring together groups of curious, friendly people in Toronto who enjoy wandering chats through events like weekly walks, IRL chat groups and hobby tables. Toronto Tech Week A weeklong, citywide collection of events to connect and celebrate the builders. Returning May 31-June 4th, 2027 Toronto Plein Air Monthly Outdoor Painting Meetup in Toronto! ​We frequent parks and other scenic outdoor spots to paint on location! All skill level and any medium is welcome. https://www.instagram.com/torontopleinair Discover Pricing Help Get the App"
@@ -582,11 +576,5 @@
       "own": true
     }
   },
-  "pending": {
-    "id": "msgbatch_012tmrVgZSbxc7Q5HfBbxvLY",
-    "at": "2026-10-06",
-    "ids": {
-      "u7922185a09411049cc5e5eec": "https://comedybar.ca/shows/the-dark-knightmare-before-christmas"
-    }
-  }
+  "pending": null
 }
