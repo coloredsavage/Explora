@@ -161,7 +161,7 @@ export function readsAsDescription(t) {
 
   /* "Created by: … Producers: … Dates: … Location: …" */
   const labels = (head.match(
-    /\b(created by|produced by|producers?|directed by|starring|cast|dates?|time|location|venue|tickets?|price|admission|doors|presented by)\s*:/gi
+    /\b(created by|produced by|producers?|directed by|starring|cast|dates?|time|location|venue|tickets?|price|admission|doors|presented by|concept|note|update|please note|important|format|capacity)\s*:/gi
   ) || []).length;
 
   /* The same block written in emoji, which a lot of listings prefer: a pin
@@ -174,6 +174,23 @@ export function readsAsDescription(t) {
   /* And the plain-English version of the same thing. */
   const meeting = /\b(we'?ll be meeting|we will be meeting|meet(ing)? (point|at the|us at)|meet at)\b/i.test(head) ? 1 : 0;
 
+  /* The organiser's notice to people who already know what the event is.
+     A Luma reading night published "** NEW LOCATION/ NO GROUP MEAL ** **
+     Max 40 people ** Concept: We've noticed that people want to read more
+     books..." and every test above let it through: the slash broke the
+     caps run, "NO" is two letters, and "Concept:" was not a label. It is
+     still an announcement rather than a description.
+
+     Asterisk-delimited blocks are the tell. In a plain-text description
+     field they are not markdown emphasis, they are shouting with
+     punctuation, and two of them in a row is a changelog. One counts; two
+     is enough on its own. */
+  const shouts = (head.match(/\*\*[^*]{2,60}\*\*/g) || []).length;
+
+  /* A capacity or a cap is a condition of attending, not a description of
+     what happens. */
+  const capacity = /\b(max(imum)?\s+\d+\s*(people|guests|attendees|spots?)|limited to \d+|\d+\s*(spots?|seats?|spaces?)\s+(only|left|available))\b/i.test(head) ? 1 : 0;
+
   /* Copy that shouts is the venue's poster, not a description of anything:
      "BAD DOG THEATRE PRESENTS SWEET SWEET FRIENDS Tonight, a delectable
      selection of RISING STARS…". A run of three capitalised words is the
@@ -181,7 +198,7 @@ export function readsAsDescription(t) {
      a row. */
   const shouting = /\b[A-Z][A-Z0-9'’-]{2,}(\s+[A-Z][A-Z0-9'’-]{2,}){2,}/.test(head);
 
-  return !shouting && labels + markers + meeting < 2;
+  return !shouting && labels + markers + meeting + shouts + capacity < 2;
 }
 
 export function readableText(html, limit = 12000) {

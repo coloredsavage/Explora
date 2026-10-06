@@ -1452,3 +1452,30 @@ console.log('\nNo invented dates');
     assert.equal(missing, '', `no source or checked date on: ${missing}`);
   });
 }
+
+console.log('\nAn announcement is not a description');
+{
+  check('asterisk blocks and capacity notes read as a notice, not prose', () => {
+    /* Live on the board until 2026-10-05, and it passed every test the guard
+       had: the slash broke the all-caps run, "NO" is two letters, and
+       "Concept:" was not a label. */
+    assert.equal(readsAsDescription(
+      "** NEW LOCATION/ NO GROUP MEAL ** ** Max 40 people ** Concept: We've noticed that "
+      + 'people want to read more books, be social, and get out of the house.'), false);
+    assert.equal(readsAsDescription('Format: drop-in. Max 20 people per session.'), false);
+    assert.equal(readsAsDescription('Please note: limited to 30 people. Update: new room.'), false);
+  });
+
+  check('one emphasised phrase does not sink a real description', () => {
+    /* A single bold run in front of ordinary prose is a venue being
+       emphatic, not a changelog. Only the second one tips it. */
+    assert.equal(readsAsDescription(
+      '** Doors at 8 ** A quintet playing standards and a few originals across two sets, '
+      + 'with a short break.'), true);
+    assert.equal(readsAsDescription(
+      'Free every Wednesday afternoon and evening, no booking needed. Three floors of '
+      + 'ceramics across from the ROM, done in an hour.'), true);
+    assert.equal(readsAsDescription(
+      'A seven-piece playing New Orleans jazz, two sets with a short break between them.'), true);
+  });
+}
