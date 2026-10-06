@@ -146,41 +146,6 @@ const EVENTS = [
     schedule: { kind: 'weekly', weekday: 4, from: '2026-01-01', to: '2026-12-31', time: '3–7pm', hour: 15 },
   },
   {
-    id: 'sorauren',
-    title: 'Sorauren Farmers’ Market',
-    category: 'market',
-    entry: 'Free',
-    art: 'art-market',
-    venue: 'Sorauren Avenue Park',
-    address: '50 Wabash Ave, Toronto, ON M6R 1H8',
-    /* Day and time are the organiser's: "Every Monday from 3:00pm - 7:00pm
-       including statotory holidays" [sic]. The venue is theirs too — "During
-       the outdoor season, we operate in Sorauren Park".
-
-       The closing date is NOT theirs and is the weak point of this listing.
-       The site gives no 2026 date for the end of the outdoor season; the most
-       recent thing it says is "Move indoors - Nov 4, 2024", which is a notice
-       from two years ago. October 26th is the last Monday before the start of
-       November and errs on the early side, which is the safe direction: the
-       market does not stop in the fall, it moves to Henderson Brewing at 128A
-       Sterling Road, so a window that runs too long would put the park's
-       address on a Monday when everyone is a kilometre away indoors.
-
-       Kept deliberately rather than dropped, which is the call that was made
-       on 2026-09-20: the market is genuinely on, the day, time and venue are
-       the organiser's own, and October 26th errs early — it stops the listing
-       too soon rather than too late. `unconfirmed` below is what makes that
-       decision visible instead of buried in a comment; the schedule audit
-       prints every listing carrying one, so this comes back round for a
-       re-read rather than quietly becoming permanent. */
-    url: 'https://soraurenmarket.com/',
-    source: 'https://soraurenmarket.com/',
-    checked: '2026-09-20',
-    unconfirmed: 'closing date — the organiser publishes no 2026 dates; Oct 26 is ours, chosen to err early',
-    description: 'A Monday-evening market in Roncesvalles — dinner from a stall, eaten on the grass while the dog park fills up. Runs to October 26.',
-    schedule: { kind: 'weekly', weekday: 1, from: '2026-05-04', to: '2026-10-26', time: '3–7pm', hour: 15 },
-  },
-  {
     id: 'withrow',
     title: 'Withrow Park Farmers’ Market',
     category: 'market',
@@ -683,21 +648,6 @@ const EVENTS = [
     checked: CHECKED,
     description: 'The largest Ukrainian street festival in North America, along Bloor West. Go for the varenyky, stay for the dancing.',
     schedule: { kind: 'range', start: '2026-09-18', end: '2026-09-20' },
-  },
-  {
-    id: 'santa-claus-parade',
-    title: 'The Original Santa Claus Parade',
-    category: 'festival',
-    entry: 'Free',
-    art: 'art-festival',
-    venue: 'Bloor Street to St. Lawrence Market',
-    address: 'Bloor St W & Christie St, Toronto, ON M6G 1M1',
-    url: 'https://www.thesantaclausparade.com/the-parade',
-    source: 'https://www.thesantaclausparade.com/the-parade',
-    checked: CHECKED,
-    unconfirmed: 'The 2026 date was not posted when this was checked — November 22 is the traditional third Sunday.',
-    description: 'Running since 1905 and free from any curb on the route. Stand north of Bloor if you want to see anything.',
-    schedule: { kind: 'day', date: '2026-11-22' },
   },
   {
     id: 'cavalcade-of-lights',

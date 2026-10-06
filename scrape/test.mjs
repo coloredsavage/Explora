@@ -1415,3 +1415,40 @@ console.log('\nThe queue must see what the reader sees');
     descriptionQueue.clear();
   });
 }
+
+console.log('\nNo invented dates');
+{
+  const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+  const c = vm.createContext({});
+  vm.runInContext(readFileSync(path.join(repo, 'price.js'), 'utf8'), c);
+  vm.runInContext(readFileSync(path.join(repo, 'data.js'), 'utf8'), c);
+  const HAND = vm.runInContext('EVENTS', c);
+
+  check('no listing carries a date we chose rather than read', () => {
+    /* `unconfirmed` was a field for exactly that: a date the organiser had
+       not published, written down anyway with a note admitting it. Two
+       listings had one. Sorauren's market closed on 26 October because that
+       was the last Monday before November, and the Santa Claus Parade ran
+       on 22 November because that is "the traditional third Sunday" —
+       neither date appears anywhere on either organiser's site, then or now
+       (both re-read 2026-10-05).
+    
+       A guessed date is worse than a missing listing. It sends someone to a
+       park on a Monday the market has moved indoors, or to a parade route on
+       the wrong Sunday, and it does it with the same confidence as a date
+       that was actually read. Both listings came out; the rule is that a
+       schedule is sourced or it is not published, and this is what holds it. */
+    /* Joined to a string, not compared as arrays. HAND comes out of a vm
+       context, so its arrays carry that realm's Array.prototype and
+       deepStrictEqual refuses them against a host-realm [] even when both
+       are empty. */
+    const guessed = HAND.filter((e) => e.unconfirmed).map((e) => e.id).join(', ');
+    assert.equal(guessed, '',
+      `these carry \`unconfirmed\`: ${guessed} — source the date or drop the listing`);
+  });
+
+  check('every hand-written listing still cites where its schedule came from', () => {
+    const missing = HAND.filter((e) => !e.source || !e.checked).map((e) => e.id).join(', ');
+    assert.equal(missing, '', `no source or checked date on: ${missing}`);
+  });
+}
