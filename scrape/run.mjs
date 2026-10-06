@@ -15,7 +15,7 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { enabledSources, allSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription,
-  sectionProse, sectionText, echoesTitle } from './extract.mjs';
+  sectionProse, sectionText, echoesTitle, linkForTitle } from './extract.mjs';
 import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources, shrunkSources } from './normalize.mjs';
 import { allowedBy, USER_AGENT } from './robots.mjs';
 import { load as loadDescriptions, save as saveDescriptions, writtenFor, restsAsNothing,
@@ -235,6 +235,22 @@ export async function harvest(source, pages, { today = todayIso() } = {}) {
       } catch (err) {
         report.errors.push(`${url} — model extraction failed: ${err.message}`);
         if (raws.length === 0) continue;
+      }
+    }
+
+    /* The model cannot return a url, so llm.mjs stamps every event it reads
+       with the page's own. On an event page that is correct. On an index it
+       is not: six Bad Dog listings were on the board linking to a list of
+       twenty shows instead of to the show, and each of those pages exists —
+       The Bucket Show is at /thebucketshow, right there in the index's
+       markup. Matched on the anchor's own text or slug, exactly; a title
+       with no match keeps what it had, because a wrong link is worse than
+       an index. */
+    if (isIndex) {
+      for (const r of raws) {
+        if (r.via !== 'model' || (r.url && r.url !== url)) continue;
+        const found = linkForTitle(html, r.title, url);
+        if (found && found !== url) r.url = found;
       }
     }
 

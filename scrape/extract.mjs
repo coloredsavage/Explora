@@ -328,6 +328,60 @@ const FURNITURE = new RegExp('/(' + [
   'organizers', 'for-organizers', 'privacy-policy', 'terms-of-service', 'community',
 ].join('|') + ')/?$', 'i');
 
+/* The link on the page that is about this event.
+ *
+ * The model is handed a page's text and returns events; it has no way to
+ * return a url, so llm.mjs stamps every one with the page's own. On an event
+ * page that is right. On an index it is not, and the result was six Bad Dog
+ * listings — The Bucket Show among them — whose card linked to a list of
+ * twenty shows instead of to the show. Each of those pages exists:
+ * baddogtheatre.com/thebucketshow is right there in the index's markup.
+ *
+ * Matched on the anchor's own text, and on its slug, both reduced to letters
+ * and digits. "The Bucket Show" finds <a href="/thebucketshow">The Bucket
+ * Show</a> either way. Nothing is guessed: a title with no matching anchor
+ * keeps the url it had, because a wrong link is worse than an index.
+ *
+ * Deliberately not fuzzy. A near-match across a page of similar titles —
+ * "Grad Showcase: Harold #1" against "Grad Showcase: Harold #2" — would send
+ * a reader to the wrong night, so this only takes an exact match on one or
+ * the other. */
+export function linkForTitle(html, title, base) {
+  const bare = (x) => String(x ?? '').toLowerCase().replace(/[^a-z0-9]+/g, '');
+  const want = bare(title);
+  if (want.length < 6) return null;
+
+  const hits = new Set();
+  const re = /<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]{0,300}?)<\/a>/gi;
+  for (let m = re.exec(html); m; m = re.exec(html)) {
+    const href = m[1];
+    if (/^(#|mailto:|tel:|javascript:)/i.test(href)) continue;
+    let abs;
+    try { abs = new URL(href, base).toString(); } catch { continue; }
+    const anchorText = bare(m[2].replace(/<[^>]+>/g, ' '));
+    const slug = bare(abs.split('?')[0].split('#')[0].replace(/\/+$/, '').split('/').pop());
+    if (anchorText === want || slug === want) hits.add(abs);
+  }
+  if (!hits.size) return null;
+
+  /* Several anchors can honestly claim one title, and they are not equal.
+     The Bucket Show matches four: its own page, and three Squarespace
+     duplicates under /whats-on/ whose slug is a 200-character chain of
+     random tokens. The After Party matches both /the-after-party and
+     /whats-on/2026/10/3/the-after-party, and the dated one is the night.
+    
+     So: a dated path wins, because it is the occurrence rather than the
+     show; then the shortest, which drops the hash chains without having to
+     recognise them. */
+  const dated = (u) => (/\/whats-on\/\d{4}\/\d{1,2}\/\d{1,2}\//.test(u) ? 0 : 1);
+  const ranked = [...hits]
+    /* Nothing with a segment long enough to be generated rather than
+       written. The real slugs here are under forty characters. */
+    .filter((u) => !u.split('/').some((seg) => seg.length > 60))
+    .sort((a, b) => dated(a) - dated(b) || a.length - b.length);
+  return ranked[0] ?? null;
+}
+
 /** Same-host links that look like individual event pages. */
 export function candidateLinks(html, base, pattern, max) {
   if (!pattern) return [];

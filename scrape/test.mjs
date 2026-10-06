@@ -1479,3 +1479,42 @@ console.log('\nAn announcement is not a description');
       'A seven-piece playing New Orleans jazz, two sets with a short break between them.'), true);
   });
 }
+
+console.log('\nA model-read index links to the show, not the list');
+{
+  const { linkForTitle } = await import('./extract.mjs');
+  const BASE = 'https://baddogtheatre.com/whats-on';
+  const page = `
+    <a href="/thebucketshow">The Bucket Show</a>
+    <a href="/whats-on/h8ftfknt357ljjt-klpt6-lje6n-g5p3c-bhmek-tp4lr-4c2x8-73cxk-l7ng7-w3wra-yf5e7-gkect">The Bucket Show</a>
+    <a href="/the-after-party">The After Party</a>
+    <a href="/whats-on/2026/10/3/the-after-party">The After Party</a>
+    <a href="/our-story">Our Story</a>
+    <a href="/whats-on/2026/10/25/grad-showcase-clownprov"><span>Grad Showcase: Clownprov</span></a>`;
+
+  check('the dated page wins, because it is the night rather than the show', () => {
+    assert.equal(linkForTitle(page, 'The After Party', BASE), 'https://baddogtheatre.com/whats-on/2026/10/3/the-after-party');
+  });
+
+  check('a Squarespace hash-chain duplicate never wins', () => {
+    /* Four anchors claim The Bucket Show; three are generated slugs two
+       hundred characters long. The real page is the short one. */
+    assert.equal(linkForTitle(page, 'The Bucket Show', BASE), 'https://baddogtheatre.com/thebucketshow');
+  });
+
+  check('matched on the anchor text through its markup, and on the slug', () => {
+    assert.equal(linkForTitle(page, 'Grad Showcase: Clownprov', BASE),
+      'https://baddogtheatre.com/whats-on/2026/10/25/grad-showcase-clownprov');
+    /* Slug-only match: no anchor text, but the href says it. */
+    assert.equal(linkForTitle('<a href="/thebucketshow">read more</a>', 'The Bucket Show', BASE),
+      'https://baddogtheatre.com/thebucketshow');
+  });
+
+  check('a title with no anchor keeps the url it had, rather than guessing', () => {
+    assert.equal(linkForTitle(page, 'Theatresports', BASE), null);
+    /* And a near-match is not a match: these are different nights. */
+    assert.equal(linkForTitle('<a href="/g1">Grad Showcase: Harold #1</a>', 'Grad Showcase: Harold #2', BASE), null);
+    /* Too short to be distinctive. */
+    assert.equal(linkForTitle('<a href="/jam">Jam</a>', 'Jam', BASE), null);
+  });
+}
