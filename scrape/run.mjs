@@ -16,7 +16,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { enabledSources, allSources } from './sources.mjs';
 import { fromJsonLd, readableText, candidateLinks, metaDescription, readsAsDescription,
   sectionProse, sectionText, echoesTitle, linkForTitle } from './extract.mjs';
-import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources, shrunkSources } from './normalize.mjs';
+import { normalize, validate, stripSiteSuffix, disambiguateIds, collapseSubsumed, silentSources, shrunkSources, fitToCard } from './normalize.mjs';
 import { allowedBy, USER_AGENT } from './robots.mjs';
 import { load as loadDescriptions, save as saveDescriptions, writtenFor, restsAsNothing,
   isPlaceholder, needsWriting } from './descriptions.mjs';
@@ -839,6 +839,12 @@ async function main() {
     if (line) { e.description = line; housed += 1; }
   }
   if (housed) report.skipped.push(`${housed} listing${housed === 1 ? '' : 's'} described by their venue's own line`);
+
+  /* The length rule, applied where the description is finally settled.
+     normalize trims what the source wrote, but a description the model
+     wrote or a venue line is put on after that and was never measured —
+     which is how 34 listings got past a 220-character budget. */
+  for (const e of events) if (e.description) e.description = fitToCard(e.description);
   if (rewritten) report.skipped.push(`${rewritten} description${rewritten === 1 ? '' : 's'} written from the page`);
   if (undescribed.length) {
     report.skipped.push(`${undescribed.length} listing${undescribed.length === 1 ? '' : 's'} published with no description — their pages have none`);

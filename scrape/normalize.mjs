@@ -576,7 +576,25 @@ function dedupeAddress(venue, address) {
 /* Event pages write to sell. The hand-written listings are a sentence or two,
    and a wall of marketing copy next to them looks like a different site. Keep
    whole sentences, and only as many as fit. */
-function trimDescription(text, limit = 220) {
+/* How long a description may be, and where the number comes from.
+ *
+ * The modal is min(560px, 100vw - 32px) with 38px of padding each side, so
+ * the text runs 484px at 15px — about 66 characters a line. 220 is three
+ * lines and a short fourth, which is the length this board has been
+ * written to.
+ *
+ * The number was never the problem. Enforcement was: this ran inside
+ * normalize on the source's own text, and nothing applied it to the two
+ * kinds of description that arrive later — the ones the model writes, put
+ * on in main() after normalize has finished, and the hand-written entries
+ * in data.js, which never pass through normalize at all. So 34 scraped
+ * listings and 7 hand-written ones were over it, the longest 319 and 303.
+ * fitToCard is exported so every one of those paths can use it. */
+export const CARD_LIMIT = 220;
+
+export const fitToCard = (text) => trimDescription(text, CARD_LIMIT);
+
+function trimDescription(text, limit = CARD_LIMIT) {
   let s = decodeEntities(text)
     .replace(/^\s*\[[^\]]*\]\s*/, '')          /* a leading "[Note: ...]" aside */
     .replace(/\s*\(https?:\/\/[^)]+\)/g, '')     /* inline link parentheses */

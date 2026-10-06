@@ -817,7 +817,7 @@ const EVENTS = [
     url: 'https://revuecinema.ca/films/',
     source: 'https://revuecinema.ca/about/',
     checked: CHECKED,
-    description: 'Toronto\'s oldest continuously operating cinema, volunteer-run and single-screen, drops its $15 admission to $7.50 every Tuesday, for everyone including members. It covers regular and second-run bookings only, not the special-event nights that fill much of the schedule, so check the day\'s listing first.',
+    description: 'Toronto\'s oldest continuously operating cinema, volunteer-run and single-screen, drops its $15 admission to $7.50 every Tuesday. Most bookings but not the special-event nights, so check the day\'s listing.',
     schedule: [
       { kind: 'weekly', weekday: 2, from: '2026-09-15', to: '2026-09-15', time: 'Showtimes vary', hour: 15 },
       { kind: 'weekly', weekday: 2, from: '2026-10-06', to: '2026-10-13', time: 'Showtimes vary', hour: 15 },
@@ -833,7 +833,7 @@ const EVENTS = [
     url: 'https://revuecinema.ca/films/national-day-for-truth-and-reconcilation-slash-back-2022/',
     source: 'https://revuecinema.ca/films/national-day-for-truth-and-reconcilation-slash-back-2022/',
     checked: CHECKED,
-    description: 'Nyla Innuksuk\'s film, in which a group of Inuit girls in a remote Arctic community fight off an alien invasion, screens free on the National Day for Truth and Reconciliation. Cash taken at the door and part of that day\'s concession sales go to the Indian Residential School Survivors Society.',
+    description: 'Nyla Innuksuk\'s film, in which Inuit girls in a remote Arctic community fight off an alien invasion, screens free for the National Day for Truth and Reconciliation. Door cash goes to the IRSSS.',
     schedule: { kind: 'day', date: '2026-09-30', time: '9:30pm', hour: 21 },
   },
   {
@@ -846,7 +846,7 @@ const EVENTS = [
     url: 'https://revuecinema.ca/films/apparatus-theory-ghostwatch-1992-free-pwyc-screening/',
     source: 'https://revuecinema.ca/films/apparatus-theory-ghostwatch-1992-free-pwyc-screening/',
     checked: CHECKED,
-    description: 'The 1992 BBC hoax broadcast that sent a live crew into the most haunted house in Britain on Halloween night and panicked a good part of its audience. Part of Apparatus Theory, Saffron Maeve\'s bimonthly series on films about filmmaking.',
+    description: 'The 1992 BBC hoax broadcast that sent a live crew into the most haunted house in Britain on Halloween night and panicked a good part of its audience. Part of the Apparatus Theory series.',
     schedule: { kind: 'day', date: '2026-10-18', time: '4pm', hour: 16 },
   },
   {
@@ -860,7 +860,7 @@ const EVENTS = [
     url: 'https://www.therex.ca/events',
     source: 'https://www.therex.ca/events',
     checked: CHECKED,
-    description: 'The Rex runs several sets a night and the early one is pay what you can, no reservations: 5pm daily, plus a 2pm matinee at weekends. The bill runs from student ensembles out of U of T and Humber to established Toronto quartets and big bands.',
+    description: 'The Rex runs several sets a night and the early one is pay what you can, no reservations: 5pm daily, plus a 2pm matinee at weekends. Student ensembles through to established Toronto quartets.',
     /* One card for a standing offer, not one per night. As seven weekly
        occurrences this produced twenty-eight cards in "This month" — a fifth
        of the whole board from one venue — and it is a thing you turn up to
@@ -878,7 +878,7 @@ const EVENTS = [
     url: 'https://www.therex.ca/events',
     source: 'https://www.therex.ca/events',
     checked: CHECKED,
-    description: 'An open Tuesday-night jam hosted by Chris Banks with a standing house band, ten dollars at the door and no reservations. The Rex\'s own blurb lists September 1, 8, 15, 22 and 29, but its calendar carries no jam on the 22nd, so the remaining nights this month are the 15th and the 29th.',
+    description: 'An open Tuesday-night jam hosted by Chris Banks with a standing house band, ten dollars at the door and no reservations.',
     schedule: [
       { kind: 'day', date: '2026-09-15', time: '8–10:30pm', hour: 20 },
       { kind: 'day', date: '2026-09-29', time: '8–10:30pm', hour: 20 },
@@ -895,7 +895,7 @@ const EVENTS = [
     url: 'https://www.coc.ca/community/free-concert-series/index',
     source: 'https://www.coc.ca/community/free-concert-series/index',
     checked: CHECKED,
-    description: 'The Canadian Opera Company gives free concerts in the glass-walled amphitheatre above the Four Seasons Centre lobby, most at noon on a weekday and a few in the afternoon or evening. There are 120 seats handed out first come, everyone else stands, and there is no late seating once a performance starts.',
+    description: 'Free concerts from the Canadian Opera Company in the glass-walled amphitheatre above the Four Seasons Centre lobby, most at noon on a weekday. 120 seats given out first come; everyone else stands.',
     schedule: [
       { kind: 'day', date: '2026-09-23', time: '12pm', hour: 12 },
       { kind: 'day', date: '2026-09-29', time: '12pm', hour: 12 },
@@ -948,7 +948,7 @@ const EVENTS = [
     url: 'https://www.tiff.net/festival-street',
     source: 'https://www.blogto.com/radar/2026/09/tiff-festival-street-2026-toronto/',
     checked: CHECKED,
-    description: 'King Street closes between Peter and University for four days of the film festival \u2014 art installations, live music, food trucks and an art market, with no ticket needed for any of it. The eleventh year, and about half a million people pass through.',
+    description: 'King Street closes between Peter and University for four days of the film festival — art installations, live music, food trucks and an art market, none of it ticketed.',
     schedule: { kind: 'range', start: '2026-09-10', end: '2026-09-13' },
   },
   {

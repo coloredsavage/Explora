@@ -1255,11 +1255,11 @@ console.log('\nDescriptions: written, or written off');
     assert.equal(acceptable('The page does not provide any further information about this event at all.', t), null);
     /* Too short to be a description, or far too long. */
     assert.equal(acceptable('A band.', t), null);
-    assert.equal(acceptable('x'.repeat(421), t), null);
+    assert.equal(acceptable('x'.repeat(261), t), null);
     /* And the ceiling is where the gate says it is, not where it used to be:
        the prompt now asks for up to ~300 characters of specifics, so a long
        but legitimate answer must survive. */
-    assert.ok(acceptable('A five-piece plays rhythm and blues standards. '.repeat(8).slice(0, 410), t));
+    assert.ok(acceptable('A five-piece plays rhythm and blues standards. '.repeat(8).slice(0, 250), t));
     /* It opened with the title after being told not to. */
     assert.equal(acceptable('The Moving Violations play a long set of blues standards downtown.', t), null);
   });
@@ -1516,5 +1516,44 @@ console.log('\nA model-read index links to the show, not the list');
     assert.equal(linkForTitle('<a href="/g1">Grad Showcase: Harold #1</a>', 'Grad Showcase: Harold #2', BASE), null);
     /* Too short to be distinctive. */
     assert.equal(linkForTitle('<a href="/jam">Jam</a>', 'Jam', BASE), null);
+  });
+}
+
+console.log('\nNothing longer than the card');
+{
+  const { CARD_LIMIT, fitToCard } = await import('./normalize.mjs');
+  const repo2 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+  const c2 = vm.createContext({});
+  vm.runInContext(readFileSync(path.join(repo2, 'price.js'), 'utf8'), c2);
+  vm.runInContext(readFileSync(path.join(repo2, 'data.js'), 'utf8'), c2);
+  const HAND2 = vm.runInContext('EVENTS', c2);
+
+  check('no hand-written description is longer than the card shows', () => {
+    /* data.js never passes through normalize — app.js loads it directly —
+       so the budget that governs the poller's output did not reach it. Seven
+       entries were over, the longest 303, running to five lines on a modal
+       that gives them about three. They were rewritten rather than cut: the
+       sentence a trimmer drops is often the useful one, and "120 seats given
+       out first come" is the part of the amphitheatre listing a reader
+       actually needs. */
+    const over = HAND2.filter((e) => (e.description || '').length > CARD_LIMIT)
+      .map((e) => `${e.id} (${e.description.length})`).join(', ');
+    assert.equal(over, '', `longer than CARD_LIMIT=${CARD_LIMIT}: ${over}`);
+  });
+
+  check('fitToCard cuts at a sentence and only marks a real truncation', () => {
+    const two = 'A quintet plays standards for two sets. The second runs past midnight on a Friday.';
+    /* Fits: untouched. */
+    assert.equal(fitToCard(two), two);
+    /* Does not fit: loses the trailing sentence cleanly, no ellipsis. */
+    const long = 'A quintet plays standards across two long sets with a short break in between them. '
+      + 'The second set usually runs past midnight. '.repeat(4);
+    const cut = fitToCard(long);
+    assert.ok(cut.length <= CARD_LIMIT, `${cut.length} > ${CARD_LIMIT}`);
+    assert.ok(/[.!?]$/.test(cut), `did not end on a sentence: ${JSON.stringify(cut.slice(-40))}`);
+    /* One sentence longer than the whole budget has to be cut mid-way, and
+       that is the only case that earns an ellipsis. */
+    const runOn = 'A quintet plays standards and originals ' + 'and more and more '.repeat(20);
+    assert.ok(/…$/.test(fitToCard(runOn)));
   });
 }

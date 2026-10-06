@@ -105,8 +105,12 @@ const SYSTEM = `You write one- or two-sentence descriptions of events for a
 Toronto listings calendar, from the text of the event's own page.
 
 Say what the event IS and what someone attending would experience. Write
-plainly, in the third person, present tense. 200 characters is about right
-and 320 is the maximum.
+plainly, in the third person, present tense.
+
+Two sentences at most, and under 220 characters all together. The card gives
+your answer about three lines and cuts whatever does not fit, so a third
+sentence is not published, it is discarded. If two will not fit, keep the
+one that says what the event is and drop the other.
 
 Do not restate the card. It already shows the title, the date, the start
 time, the price and the venue, so do not open by repeating the title, do not
@@ -157,7 +161,10 @@ async function board() {
 export function acceptable(text, title) {
   const t = String(text ?? '').trim();
   if (!t || t === NOTHING) return null;
-  if (t.length < 40 || t.length > 420) return null;
+  /* 260, against a 220 budget. fitToCard enforces the budget
+     sentence-aware, so a slightly long answer loses its tail cleanly and is
+     still worth keeping; only a runaway is thrown away here. */
+  if (t.length < 40 || t.length > 260) return null;
   /* It explained itself instead of answering. */
   if (/^(here|sure|certainly|i |based on|the page|this page|unfortunately)\b/i.test(t)) return null;
   /* It could not read the page and said so in prose rather than with the
