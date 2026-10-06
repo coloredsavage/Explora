@@ -347,6 +347,21 @@ export const SOURCES = [
   },
   {
     id: 'evergreen',
+    /* Five of its sixteen keep evergreen.ca/.../whats-on/ as their url and so
+       cannot be asked about — same shape as baddog and grossmans above.
+    
+       Checked: a brick factory built by the Taylor brothers in 1889, worked
+       for nearly a century and shut in 1989; its bricks are in Casa Loma,
+       Massey Hall and Osgoode Hall. Evergreen took the site on in 2002 and
+       finished restoring some fifteen heritage buildings by 2010. What runs
+       there now is a Saturday farmers market, ravine and wetland trails, and
+       rotating workshops — which matches our own data: Family Wander,
+       Onigiri Creatures, block lettering, a winter market, all filed dropin.
+       No price: seven are free or a suggested family donation and seven
+       carry none, so the card is the only honest place for it. */
+    venueLine: 'A brick factory from 1889, shut in 1989 and now a park and workshop space '
+      + 'in the Don Valley \u2014 ravine trails, a Saturday farmers market, and whatever is '
+      + 'running in the restored kilns.',
     name: 'Evergreen Brick Works',
     url: 'https://www.evergreen.ca/evergreen-brick-works/whats-on/',
     /* Both halves were wrong, which is why discovery saw a healthy 200 and
@@ -421,6 +436,23 @@ export const SOURCES = [
   },
   {
     id: 'baddog',
+    /* Bad Dog is a company, not a room, which is why this line describes one.
+       Its fourteen listings run across three venues — Sweet Action Theatre,
+       Comedy Bar Bloor — and six of them keep baddogtheatre.com/whats-on as
+       their url, so they can never describe themselves: the model would be
+       handed an index of twenty shows and asked what one of them is. See
+       `venueLine` on grossmans.
+    
+       Checked: founded 2003, an improv company rather than a venue — its own
+       875 Bloor theatre is closed and Yelp lists it so; Theatresports is
+       Toronto's longest continuously running improv show and now plays
+       Comedy Bar. Most of what reaches this board is the school's showcases,
+       which our own data agrees with: "Grad Showcase", "Academy Showcase",
+       fourteen of fourteen filed as comedy. No price, because all fourteen
+       carry none. */
+    venueLine: 'An improv company going since 2003, mostly staging showcases from its own '
+      + 'school alongside resident troupes. Its Theatresports is the longest continuously '
+      + 'running improv show in the city.',
     name: 'Bad Dog Theatre',
     url: 'https://baddogtheatre.com/whats-on',
     /* A Squarespace events collection, server-rendered, but only a rolling
