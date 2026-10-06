@@ -29,7 +29,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-comedy",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on/2026/10/25/grad-showcase-clownprov",
     "source": "https://baddogtheatre.com/whats-on/2026/10/25/grad-showcase-clownprov",
     "checked": "2026-10-06",
@@ -53,7 +53,7 @@ const SCRAPED = [
     "url": "https://baddogtheatre.com/whats-on/2026/10/24/grad-showcase-harold-1-amp-armando",
     "source": "https://baddogtheatre.com/whats-on/2026/10/24/grad-showcase-harold-1-amp-armando",
     "checked": "2026-10-06",
-    "description": "Graduating students from the Bad Dog Academy's long-form studio series perform a Harold alongside Callum Wratten's Armando class, directed by Alex Tindal, in an hour-long improv set. Admission is pay-what-you-can at the door and free for Bad Dog students.",
+    "description": "Graduating students from the Bad Dog Academy's long-form studio series perform a Harold alongside Callum Wratten's Armando class, directed by Alex Tindal, in an hour-long improv set.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-24",
@@ -68,7 +68,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on",
     "source": "https://baddogtheatre.com/whats-on",
     "checked": "2026-10-06",
@@ -87,7 +87,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-comedy",
     "venue": "Sweet Action Theatre",
-    "address": "180 Shaw Street, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/whats-on/2026/10/28/grad-showcase-improv-foundations-4",
     "source": "https://baddogtheatre.com/whats-on/2026/10/28/grad-showcase-improv-foundations-4",
     "checked": "2026-10-06",
@@ -206,7 +206,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Comedy Bar Bloor",
-    "address": "945 Bloor Street West, Toronto, ON, M6H 1L5, Canada",
+    "address": "945 Bloor Street West Toronto, ON, M6H 1L5 Canada",
     "url": "https://baddogtheatre.com/roses-thorns",
     "source": "https://baddogtheatre.com/roses-thorns",
     "checked": "2026-10-06",
@@ -230,7 +230,7 @@ const SCRAPED = [
     "url": "https://baddogtheatre.com/whats-on/2026/10/7/sweet-sweet-friends",
     "source": "https://baddogtheatre.com/whats-on/2026/10/7/sweet-sweet-friends",
     "checked": "2026-10-06",
-    "description": "Rising stars and alumni performers take the stage for an evening of improvised comedy.",
+    "description": "Rising stars and alumni all-stars perform improv comedy on the Sweet Sweet Wednesday stage.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-07",
@@ -245,7 +245,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action",
-    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street, Unit #106 Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/thebucketshow",
     "source": "https://baddogtheatre.com/thebucketshow",
     "checked": "2026-10-06",
@@ -264,7 +264,7 @@ const SCRAPED = [
     "category": "comedy",
     "art": "art-improv",
     "venue": "Sweet Action",
-    "address": "180 Shaw Street, Unit #106, Toronto, ON, M6J 2W5, Canada",
+    "address": "180 Shaw Street, Unit #106 Toronto, ON, M6J 2W5 Canada",
     "url": "https://baddogtheatre.com/thebucketshow",
     "source": "https://baddogtheatre.com/thebucketshow",
     "checked": "2026-10-06",
@@ -354,461 +354,181 @@ const SCRAPED = [
     "via": "api"
   },
   {
-    "id": "comedybar-abbas-wahab-friends-2026-10-10",
-    "title": "Abbas Wahab & Friends",
+    "id": "comedybar-all-good-comedy-2026-10-25",
+    "title": "ALL GOOD COMEDY",
     "category": "comedy",
-    "art": "art-film",
-    "entry": "$28",
+    "art": "art-comedy",
+    "entry": "$25",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/abbas-wahab-and-friends",
-    "source": "https://comedybar.ca/shows/abbas-wahab-and-friends",
+    "url": "https://comedybar.ca/shows/ALL-GOOD-COMEDY",
+    "source": "https://comedybar.ca/shows/ALL-GOOD-COMEDY",
     "checked": "2026-10-06",
-    "description": "Comedian Abbas Wahab performs stand-up comedy, known for viral parody series about job interviews and automotive marketing as well as his work in film and television.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-10",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-canada-s-comedy-all-stars-2026-10-25",
-    "title": "Canada's Comedy All Stars",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25 online, $30 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/canadas-comedy-all-stars",
-    "source": "https://comedybar.ca/shows/canadas-comedy-all-stars",
-    "checked": "2026-10-06",
-    "description": "Three giants of Canadian comedy perform in one night, hosted by Vinny Vinelli.",
+    "description": "Stand-up comedy show featuring some of the best comedians in the city, hosted by Dan Galea, Kris Siddiqi and Freddie Rivas.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-25",
-      "time": "7:00 PM"
+      "time": "8:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-canada-s-comedy-all-stars-2026-11-22",
-    "title": "Canada's Comedy All Stars",
+    "id": "comedybar-all-good-comedy-2026-12-27",
+    "title": "ALL GOOD COMEDY",
     "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25 online, $30 at the door",
+    "art": "art-comedy",
+    "entry": "$25",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/canadas-comedy-all-stars",
-    "source": "https://comedybar.ca/shows/canadas-comedy-all-stars",
+    "url": "https://comedybar.ca/shows/ALL-GOOD-COMEDY",
+    "source": "https://comedybar.ca/shows/ALL-GOOD-COMEDY",
     "checked": "2026-10-06",
-    "description": "Three giants of Canadian comedy perform in one night, hosted by Vinny Vinelli.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-22",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-canada-s-comedy-all-stars-2026-12-27",
-    "title": "Canada's Comedy All Stars",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25 online, $30 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/canadas-comedy-all-stars",
-    "source": "https://comedybar.ca/shows/canadas-comedy-all-stars",
-    "checked": "2026-10-06",
-    "description": "Three giants of Canadian comedy perform in one night, hosted by Vinny Vinelli.",
+    "description": "Stand-up comedy show featuring some of the best comedians in the city, hosted by Dan Galea, Kris Siddiqi and Freddie Rivas.",
     "schedule": {
       "kind": "day",
       "date": "2026-12-27",
-      "time": "7:00 PM"
+      "time": "8:30 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-double-down-2026-10-10",
-    "title": "Double Down",
+    "id": "comedybar-bak-to-the-future-2026-11-12",
+    "title": "Bak To The Future",
     "category": "comedy",
     "art": "art-improv",
-    "entry": "$20+tax in advance, $25+tax at the door",
+    "entry": "$26 online, $30.50 at door",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/double-down",
-    "source": "https://comedybar.ca/shows/double-down",
+    "url": "https://comedybar.ca/shows/bak-to-the-future",
+    "source": "https://comedybar.ca/shows/bak-to-the-future",
     "checked": "2026-10-06",
-    "description": "Stand-up comedy hosted by Yaw Attuah, featuring new performers and an extended set from a headliner.",
+    "description": "Rogier Bak performs his energetic stand-up comedy tackling big questions about billionaires, technology, and human behavior, with Hannah Veldhoen as the feature act.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-10",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-double-down-2026-11-14",
-    "title": "Double Down",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20+tax in advance, $25+tax at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/double-down",
-    "source": "https://comedybar.ca/shows/double-down",
-    "checked": "2026-10-06",
-    "description": "Stand-up comedy hosted by Yaw Attuah, featuring new performers and an extended set from a headliner.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-14",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-double-down-2026-12-12",
-    "title": "Double Down",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$20+tax in advance, $25+tax at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/double-down",
-    "source": "https://comedybar.ca/shows/double-down",
-    "checked": "2026-10-06",
-    "description": "Stand-up comedy hosted by Yaw Attuah, featuring new performers and an extended set from a headliner.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-12",
-      "time": "10:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-freshly-squeezed-comedy-2026-10-18",
-    "title": "Freshly Squeezed Comedy",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$18",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/freshly-squeezed-comedy",
-    "source": "https://comedybar.ca/shows/freshly-squeezed-comedy",
-    "checked": "2026-10-06",
-    "description": "Host Jwalit Bharwani runs the night with road-tested material and crowd work, joined by touring comics Ashwyn Singh, James Roque, and Monica Gross performing their tightest bits alongside new material.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-18",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-freshly-squeezed-comedy-2026-11-15",
-    "title": "Freshly Squeezed Comedy",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$18",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/freshly-squeezed-comedy",
-    "source": "https://comedybar.ca/shows/freshly-squeezed-comedy",
-    "checked": "2026-10-06",
-    "description": "Host Jwalit Bharwani runs the night with road-tested material and crowd work, joined by touring comics Ashwyn Singh, James Roque, and Monica Gross performing their tightest bits alongside new material.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-15",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-freshly-squeezed-comedy-2026-12-20",
-    "title": "Freshly Squeezed Comedy",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$18",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/freshly-squeezed-comedy",
-    "source": "https://comedybar.ca/shows/freshly-squeezed-comedy",
-    "checked": "2026-10-06",
-    "description": "Host Jwalit Bharwani runs the night with road-tested material and crowd work, joined by touring comics Ashwyn Singh, James Roque, and Monica Gross performing their tightest bits alongside new material.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-20",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-hell-a-stand-up-comedy-show-hosted-by-chris-lock-2026-10-28",
-    "title": "Hell: A Stand Up Comedy show hosted by Chris Locke",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$25",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
-    "source": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
-    "checked": "2026-10-06",
-    "description": "",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-28",
-      "time": "9:30 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-hell-a-stand-up-comedy-show-hosted-by-chris-lock-2026-11-25",
-    "title": "Hell: A Stand Up Comedy show hosted by Chris Locke",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$25",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
-    "source": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
-    "checked": "2026-10-06",
-    "description": "",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-25",
-      "time": "9:30 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-hell-a-stand-up-comedy-show-hosted-by-chris-lock-2026-12-30",
-    "title": "Hell: A Stand Up Comedy show hosted by Chris Locke",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$25",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
-    "source": "https://comedybar.ca/shows/hell-a-stand-up-comedy-show-hosted-by-chris-locke",
-    "checked": "2026-10-06",
-    "description": "",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-30",
-      "time": "9:30 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-jon-dore-2026-11-30",
-    "title": "Jon Dore",
-    "category": "comedy",
-    "art": "art-film",
-    "entry": "$30",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/jon-dore",
-    "source": "https://comedybar.ca/shows/jon-dore",
-    "checked": "2026-10-06",
-    "description": "Stand-up comedy performance by Jon Dore, a Juno Award-winning comedian known for his work in television and film.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-30",
+      "date": "2026-11-12",
       "time": "8:00pm"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
   },
   {
-    "id": "comedybar-just-fun-2026-10-06",
-    "title": "Just Fun",
+    "id": "comedybar-comedy-records-live-2026-11-27",
+    "title": "Comedy Records LIVE",
+    "category": "comedy",
+    "art": "art-improv",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/comedy-records-live",
+    "source": "https://comedybar.ca/shows/comedy-records-live",
+    "checked": "2026-10-06",
+    "description": "Comedy Records presents a lineup of comedians from their award-winning label.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-27",
+      "time": "08:30 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-ghost-orgy-2026-10-24",
+    "title": "Ghost Orgy",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/ghost-orgy",
+    "source": "https://comedybar.ca/shows/ghost-orgy",
+    "checked": "2026-10-06",
+    "description": "A monthly dark and dirty stand-up comedy showcase featuring a different lineup of comedians.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-24",
+      "time": "10:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-ghost-orgy-2026-11-28",
+    "title": "Ghost Orgy",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/ghost-orgy",
+    "source": "https://comedybar.ca/shows/ghost-orgy",
+    "checked": "2026-10-06",
+    "description": "A monthly dark and dirty stand-up comedy showcase featuring a different lineup of comedians.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-28",
+      "time": "10:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-ghost-orgy-2026-12-26",
+    "title": "Ghost Orgy",
+    "category": "comedy",
+    "art": "art-comedy",
+    "entry": "$25",
+    "venue": "Comedy Bar",
+    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
+    "url": "https://comedybar.ca/shows/ghost-orgy",
+    "source": "https://comedybar.ca/shows/ghost-orgy",
+    "checked": "2026-10-06",
+    "description": "A monthly dark and dirty stand-up comedy showcase featuring a different lineup of comedians.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-26",
+      "time": "10:00 PM"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-new-year-s-eve-fun-time-party-mega-jam-2026-12-31",
+    "title": "New Year's Eve Fun Time Party + Mega Jam!!!",
+    "category": "comedy",
+    "art": "art-jam-guitars",
+    "entry": "$15",
+    "venue": "Comedy Bar Danforth",
+    "address": "2800 Danforth Avenue, Toronto, ON, M4C 1M1",
+    "url": "https://comedybar.ca/shows/new-years-eve-fun-time-party--mega-jam",
+    "source": "https://comedybar.ca/shows/new-years-eve-fun-time-party--mega-jam",
+    "checked": "2026-10-06",
+    "description": "An improv comedy show starting with short-form sets by CRUSH 2026 inspired by audience suggestions about 2026 highlights and lowlights, then transforming into a collaborative Mega Jam where performers and audience…",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-12-31",
+      "time": "8pm"
+    },
+    "scrapedFrom": "comedybar",
+    "via": "model"
+  },
+  {
+    "id": "comedybar-the-comedy-magic-show-2026-10-09",
+    "title": "The Comedy Magic Show",
     "category": "comedy",
     "art": "art-improv",
     "entry": "$20",
     "venue": "Comedy Bar",
     "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/just-fun",
-    "source": "https://comedybar.ca/shows/just-fun",
+    "url": "https://comedybar.ca/shows/the-comedy-magic-show",
+    "source": "https://comedybar.ca/shows/the-comedy-magic-show",
     "checked": "2026-10-06",
-    "description": "Glenna Walters and Emily Callahan lead a night of improvisation with some of Toronto's best improvisers.",
+    "description": "A comedian performs magic tricks and comedy in an interactive show with audience participation.",
     "schedule": {
       "kind": "day",
-      "date": "2026-10-06",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-sappho-say-what-2026-10-07",
-    "title": "SAPPHO SAY WHAT?",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$23 advance / $28 at the door",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sappho-say-what",
-    "source": "https://comedybar.ca/shows/sappho-say-what",
-    "checked": "2026-10-06",
-    "description": "An all-lesbian stand-up comedy show featuring Toronto's best comics and headliner Elvira Kurt, with performances from Tamara Appleton, Anasimone, Winnie Jiang, and Spencer Glassman.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-07",
-      "time": "8:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-sketch-o-matic-2026-11-29",
-    "title": "SKETCH-O-MATIC",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sketch-o-matic",
-    "source": "https://comedybar.ca/shows/sketch-o-matic",
-    "checked": "2026-10-06",
-    "description": "An original live sketch comedy show featuring new material and improvisational sketches.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-29",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-sketch-o-matic-2027-01-30",
-    "title": "SKETCH-O-MATIC",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sketch-o-matic",
-    "source": "https://comedybar.ca/shows/sketch-o-matic",
-    "checked": "2026-10-06",
-    "description": "An original live sketch comedy show featuring new material and improvisational sketches.",
-    "schedule": {
-      "kind": "day",
-      "date": "2027-01-30",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-sketch-o-matic-2027-04-24",
-    "title": "SKETCH-O-MATIC",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sketch-o-matic",
-    "source": "https://comedybar.ca/shows/sketch-o-matic",
-    "checked": "2026-10-06",
-    "description": "An original live sketch comedy show featuring new material and improvisational sketches.",
-    "schedule": {
-      "kind": "day",
-      "date": "2027-04-24",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-sketch-party-2026-10-17",
-    "title": "Sketch Party",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$23",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sketch-party",
-    "source": "https://comedybar.ca/shows/sketch-party",
-    "checked": "2026-10-06",
-    "description": "A monthly showcase of sketch comedy featuring up-and-coming troupes, established favorites, and solo acts performing live.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-10-17",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-sketch-party-2026-11-21",
-    "title": "Sketch Party",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$23",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sketch-party",
-    "source": "https://comedybar.ca/shows/sketch-party",
-    "checked": "2026-10-06",
-    "description": "A monthly showcase of sketch comedy featuring up-and-coming troupes, established favorites, and solo acts performing live.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-21",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-sketch-party-2026-12-19",
-    "title": "Sketch Party",
-    "category": "comedy",
-    "art": "art-comedy",
-    "entry": "$23",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/sketch-party",
-    "source": "https://comedybar.ca/shows/sketch-party",
-    "checked": "2026-10-06",
-    "description": "A monthly showcase of sketch comedy featuring up-and-coming troupes, established favorites, and solo acts performing live.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-12-19",
-      "time": "7:00 PM"
-    },
-    "scrapedFrom": "comedybar",
-    "via": "model"
-  },
-  {
-    "id": "comedybar-the-jaded-buddha-comedy-tour-2026-11-25",
-    "title": "The Jaded Buddha Comedy Tour",
-    "category": "comedy",
-    "art": "art-improv",
-    "entry": "$25 at the door, $20 online",
-    "venue": "Comedy Bar",
-    "address": "945 Bloor Street W, Toronto, ON, M6H 1L5",
-    "url": "https://comedybar.ca/shows/the-jaded-buddha-comedy-tour",
-    "source": "https://comedybar.ca/shows/the-jaded-buddha-comedy-tour",
-    "checked": "2026-10-06",
-    "description": "Jon Endo's headliner comedy set featuring stories and observations about everyday experiences, with host Bryan O'Gorman and feature DK Phan.",
-    "schedule": {
-      "kind": "day",
-      "date": "2026-11-25",
-      "time": "8:00pm"
+      "date": "2026-10-09",
+      "time": "11:00 PM"
     },
     "scrapedFrom": "comedybar",
     "via": "model"
@@ -867,7 +587,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/avenue-road-cabaret-songs-parlour-songs-and-vintage-vocal-jazz/",
     "source": "https://www.theemmetray.com/event/avenue-road-cabaret-songs-parlour-songs-and-vintage-vocal-jazz/",
     "checked": "2026-10-06",
-    "description": "Vocalist Julia Kennific leads a new cabaret and vintage vocal jazz ensemble with Michael Spiroff on piano, Clay Harder on bass and Kyle Sullivan on drums, playing Kurt Weill, Cole Porter, Gershwin and Bernstein. Seating opens at 5:30pm for a 6pm start; reservations by email.",
+    "description": "Vocalist Julia Kennific leads a new cabaret and vintage vocal jazz ensemble with Michael Spiroff on piano, Clay Harder on bass and Kyle Sullivan on drums, playing Kurt Weill, Cole Porter, Gershwin and Bernstein.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-10",
@@ -888,7 +608,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/ben-basso-quartet-4tet-straight-ahead-jazz-standards/",
     "source": "https://www.theemmetray.com/event/ben-basso-quartet-4tet-straight-ahead-jazz-standards/",
     "checked": "2026-10-06",
-    "description": "A quartet playing standards and bebop in a straight-ahead vein: Ben Basso on tenor sax, Lyle Fleras on piano, Tomoki Belrose on upright bass and Joseph Sgrignuoli on drums. Cover is $12; reservations by email at reso@erbar.ca.",
+    "description": "A quartet playing standards and bebop in a straight-ahead vein: Ben Basso on tenor sax, Lyle Fleras on piano, Tomoki Belrose on upright bass and Joseph Sgrignuoli on drums.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-25",
@@ -909,7 +629,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/ben-estrin-trio-w-lily-galivan-straight-ahead-jazz/",
     "source": "https://www.theemmetray.com/event/ben-estrin-trio-w-lily-galivan-straight-ahead-jazz/",
     "checked": "2026-10-06",
-    "description": "A guitar trio — Ben Estrin on double bass, Keller McHardy on guitar, Sam Heggum-Truscott on drums — plays jazz standards and songs from the American songbook, with vocals from guest Lily Galivan. Doors at 6:30 for a 7:00 start; seats can be booked by emailing reso@erbar.ca.",
+    "description": "A guitar trio — Ben Estrin on double bass, Keller McHardy on guitar, Sam Heggum-Truscott on drums — plays jazz standards and songs from the American songbook, with vocals from guest Lily Galivan.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-28",
@@ -930,7 +650,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/bryan-toner-quartet-jazz-standards/",
     "source": "https://www.theemmetray.com/event/bryan-toner-quartet-jazz-standards/",
     "checked": "2026-10-06",
-    "description": "A quartet led by drummer Bryan Toner, a player of six and a half decades, works through familiar jazz standards, with Toner talking to the room between numbers. Seating from 8:30pm, music 9 to 11pm; reservations by email.",
+    "description": "A quartet led by drummer Bryan Toner, a player of six and a half decades, works through familiar jazz standards, with Toner talking to the room between numbers.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-10",
@@ -951,7 +671,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/cale-fladagers-wisla-ensemble-polish-jazz-modern-jazz-2/",
     "source": "https://www.theemmetray.com/event/cale-fladagers-wisla-ensemble-polish-jazz-modern-jazz-2/",
     "checked": "2026-10-06",
-    "description": "A quintet led by harmonica player Cale Fladager, who grew up in Warsaw, performing music from across the history of Polish jazz — the songs of old Warsaw, pieces by Krzysztof Komeda, and originals — with saxophone, piano, bass and drums. Doors at 9:15, music at 9:30; reservations by email.",
+    "description": "A quintet led by harmonica player Cale Fladager, who grew up in Warsaw, performing music from across the history of Polish jazz — the songs of old Warsaw, pieces by Krzysztof Komeda, and originals — with saxophone…",
     "schedule": {
       "kind": "day",
       "date": "2026-11-03",
@@ -972,7 +692,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/cale-fladagers-wisla-ensemble-polish-jazz-modern-jazz/",
     "source": "https://www.theemmetray.com/event/cale-fladagers-wisla-ensemble-polish-jazz-modern-jazz/",
     "checked": "2026-10-06",
-    "description": "A quintet led by harmonica player Cale Fladager, who grew up in Warsaw, performing music from across the history of Polish jazz — the songs of old Warsaw, pieces by Krzysztof Komeda, and originals — with saxophone, piano, bass and drums. Doors at 9:15, music at 9:30; reservations by email.",
+    "description": "A quintet led by harmonica player Cale Fladager, who grew up in Warsaw, performing music from across the history of Polish jazz — the songs of old Warsaw, pieces by Krzysztof Komeda, and originals — with saxophone…",
     "schedule": {
       "kind": "day",
       "date": "2027-01-31",
@@ -1035,7 +755,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/clean-breaks-groove-funk-rock-with-vocalist-mip/",
     "source": "https://www.theemmetray.com/event/clean-breaks-groove-funk-rock-with-vocalist-mip/",
     "checked": "2026-10-06",
-    "description": "An instrumental funk-rock trio — guitarist Neil Hendry, drummer Tim Shia and bassist Jordan Safer — plays tight grooves drawn from The Meters, Vulfpeck and Al Green, with BC-raised singer Mip of Mip Power Trio joining for the second set. Part of a monthly third-Saturday residency; doors at 8:30, reservations by email.",
+    "description": "An instrumental funk-rock trio — guitarist Neil Hendry, drummer Tim Shia and bassist Jordan Safer — plays tight grooves drawn from The Meters, Vulfpeck and Al Green, with BC-raised singer Mip of Mip Power Trio joining…",
     "schedule": {
       "kind": "day",
       "date": "2026-11-21",
@@ -1056,7 +776,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/clean-breaks-groove-funk-rock-july/",
     "source": "https://www.theemmetray.com/event/clean-breaks-groove-funk-rock-july/",
     "checked": "2026-10-06",
-    "description": "An instrumental funk-rock trio — guitarist Neil Hendry, drummer Tim Shia and bassist Jordan Safer — plays tight grooves drawn from The Meters, Vulfpeck and Al Green, with soul singer Shezelle Weekes joining for the second set. Part of a monthly third-Saturday residency; doors at 8:30.",
+    "description": "An instrumental funk-rock trio — guitarist Neil Hendry, drummer Tim Shia and bassist Jordan Safer — plays tight grooves drawn from The Meters, Vulfpeck and Al Green, with soul singer Shezelle Weekes joining for the…",
     "schedule": {
       "kind": "day",
       "date": "2026-10-17",
@@ -1098,7 +818,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/donovan-locke-trio-jazz-vocals-with-carl-bray-on-piano-bennett-young-on-bass/",
     "source": "https://www.theemmetray.com/event/donovan-locke-trio-jazz-vocals-with-carl-bray-on-piano-bennett-young-on-bass/",
     "checked": "2026-10-06",
-    "description": "Toronto jazz vocalist Donovan Locke sings with a trio — piano and bass — in a two-hour set running to midnight. Seating opens at 9:30pm, and it recurs on the second Friday of every month; reservations are taken by email at reso@erbar.ca.",
+    "description": "Toronto jazz vocalist Donovan Locke sings with a trio — piano and bass — in a two-hour set running to midnight.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-09",
@@ -1161,7 +881,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/groove-cartel-funky-blues-jazz-and-latin-blended-into-infectious-rhythms/",
     "source": "https://www.theemmetray.com/event/groove-cartel-funky-blues-jazz-and-latin-blended-into-infectious-rhythms/",
     "checked": "2026-10-06",
-    "description": "A Sarnia trio — Wulf Von Waldo on sax, Alex Deuzeman on bass, Evan Chambers on drums — plays funk, blues, Latin and jazz with improvisation across a two-hour set, 10pm to midnight. Seating opens at 9:30pm, $12 cover, reservations by email.",
+    "description": "A Sarnia trio — Wulf Von Waldo on sax, Alex Deuzeman on bass, Evan Chambers on drums — plays funk, blues, Latin and jazz with improvisation across a two-hour set, 10pm to midnight.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-16",
@@ -1203,7 +923,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/jack-marshalls-thankful-quartet-jazz-standards/",
     "source": "https://www.theemmetray.com/event/jack-marshalls-thankful-quartet-jazz-standards/",
     "checked": "2026-10-06",
-    "description": "A quartet of trombone, guitar, double bass and drums plays jazz standards over two and a half hours, the night before Thanksgiving — the players aren't travelling home for the holiday and bill the show as company for anyone else staying put. Seats are $12.",
+    "description": "A quartet of trombone, guitar, double bass and drums plays jazz standards over two and a half hours, the night before Thanksgiving — the players aren't travelling home for the holiday and bill the show as company for…",
     "schedule": {
       "kind": "day",
       "date": "2026-10-11",
@@ -1245,7 +965,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/jen-howard-an-american-singer-songwriter-and-multi-instrumentalist/",
     "source": "https://www.theemmetray.com/event/jen-howard-an-american-singer-songwriter-and-multi-instrumentalist/",
     "checked": "2026-10-06",
-    "description": "A Kentucky-born singer-songwriter and multi-instrumentalist plays an acoustic set of original folk, roots, reggae and pop on her \"Northern Lantern Tour,\" drawing on her 2019 EP \"Motion\" and 2024 album \"Still.\" Restricted to ages 19 and over.",
+    "description": "A Kentucky-born singer-songwriter and multi-instrumentalist plays an acoustic set of original folk, roots, reggae and pop on her \"Northern Lantern Tour,\" drawing on her 2019 EP \"Motion\" and 2024 album \"Still.\"…",
     "schedule": {
       "kind": "day",
       "date": "2026-10-12",
@@ -1266,7 +986,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/junctional-rhythm-jazz-funk-blues/",
     "source": "https://www.theemmetray.com/event/junctional-rhythm-jazz-funk-blues/",
     "checked": "2026-10-06",
-    "description": "A four-piece instrumental band led by Anton Helman's vintage Wurlitzer and Hammond organ tones, with guitar, bass and drums, playing interpretive covers and originals drawing on Herbie Hancock, John Scofield and Jimmy Smith. Doors at 6:30, music until 8:45; reservations by email.",
+    "description": "A four-piece instrumental band led by Anton Helman's vintage Wurlitzer and Hammond organ tones, with guitar, bass and drums, playing interpretive covers and originals drawing on Herbie Hancock, John Scofield and Jimmy…",
     "schedule": {
       "kind": "day",
       "date": "2026-10-16",
@@ -1287,7 +1007,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/kb-vox-with-kevin-barrett-%f0%9f%8e%b8-kathryn-rose%f0%9f%8e%99%ef%b8%8f/",
     "source": "https://www.theemmetray.com/event/kb-vox-with-kevin-barrett-%f0%9f%8e%b8-kathryn-rose%f0%9f%8e%99%ef%b8%8f/",
     "checked": "2026-10-06",
-    "description": "Guitarist Kevin Barrett's monthly duo series pairs one guitar with a different singer each second Tuesday; this edition features vocalist Kathryn Rose performing what the bill calls sexy-sad-funny cinematic pop and more. Doors at 6:30, music 7 to 9, $15 cover, reservations by email.",
+    "description": "Guitarist Kevin Barrett's monthly duo series pairs one guitar with a different singer each second Tuesday; this edition features vocalist Kathryn Rose performing what the bill calls sexy-sad-funny cinematic pop and more.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-13",
@@ -1475,7 +1195,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/liminal-switch-instrumental-prog-fusion/",
     "source": "https://www.theemmetray.com/event/liminal-switch-instrumental-prog-fusion/",
     "checked": "2026-10-06",
-    "description": "A four-piece playing instrumental prog and fusion, with Marcus Celia on guitar, Alex Kohlsmith on keys, Ryan Sullivan on bass and Ryan Sequeira on drums. Further details about the set had not been posted at the time of listing.",
+    "description": "A four-piece playing instrumental prog and fusion, with Marcus Celia on guitar, Alex Kohlsmith on keys, Ryan Sullivan on bass and Ryan Sequeira on drums.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-02",
@@ -1496,7 +1216,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/liminal-switch-instrumental-progressive-music/",
     "source": "https://www.theemmetray.com/event/liminal-switch-instrumental-progressive-music/",
     "checked": "2026-10-06",
-    "description": "Two full sets of original instrumental prog from a quartet formed at Humber College in 2024 — guitar, keys, bass and drums, with bluesy riffs and complex arrangements drawing on 60s–70s rock, fusion and funk. Doors at 6:30; reservations by email at reso@erbar.ca.",
+    "description": "Two full sets of original instrumental prog from a quartet formed at Humber College in 2024 — guitar, keys, bass and drums, with bluesy riffs and complex arrangements drawing on 60s–70s rock, fusion and funk.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-02",
@@ -1517,7 +1237,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/lucas-white-quintet-contemporary-jazz/",
     "source": "https://www.theemmetray.com/event/lucas-white-quintet-contemporary-jazz/",
     "checked": "2026-10-06",
-    "description": "A quintet led by University of Toronto piano student Lucas White plays a set themed \"Nature's Echo,\" drawing on contemporary jazz and folk, with tenor saxophone, trumpet, bass and drums. Runs two and a half hours; reservations by email.",
+    "description": "A quintet led by University of Toronto piano student Lucas White plays a set themed \"Nature's Echo,\" drawing on contemporary jazz and folk, with tenor saxophone, trumpet, bass and drums.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-18",
@@ -1538,7 +1258,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/lyf-trio-modern-jazz/",
     "source": "https://www.theemmetray.com/event/lyf-trio-modern-jazz/",
     "checked": "2026-10-06",
-    "description": "Alto sax, double bass and drums play modern jazz compositions by Larry Grenadier, Mark Turner and Reid Anderson, alongside arrangements of traditional repertoire, in a set running to 8:45pm. Reservations by email; $10 cover.",
+    "description": "Alto sax, double bass and drums play modern jazz compositions by Larry Grenadier, Mark Turner and Reid Anderson, alongside arrangements of traditional repertoire, in a set running to 8:45pm.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-26",
@@ -1559,7 +1279,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/marky-dawson-boogie-woogie-rock-n-roll/",
     "source": "https://www.theemmetray.com/event/marky-dawson-boogie-woogie-rock-n-roll/",
     "checked": "2026-10-06",
-    "description": "Boogie-woogie and rock'n'roll piano from a London-trained player who mixes his own songs with reworked classics, takes requests and banters with the room, ranging from foot-stomping numbers to ballads. Reservations by email at reso@erbar.ca.",
+    "description": "Boogie-woogie and rock'n'roll piano from a London-trained player who mixes his own songs with reworked classics, takes requests and banters with the room, ranging from foot-stomping numbers to ballads.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-28",
@@ -1579,7 +1299,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/michael-spiroff-ragtime-blues-cabaret-songs-2/",
     "source": "https://www.theemmetray.com/event/michael-spiroff-ragtime-blues-cabaret-songs-2/",
     "checked": "2026-10-06",
-    "description": "A composer, pianist and singer performs classic ragtime, showtunes and original pieces in a cabaret-style set, drawing on blues, classical, jazz and theatre traditions, with the storytelling of vintage theatrical performance.",
+    "description": "A composer, pianist and singer performs classic ragtime, showtunes and original pieces in a cabaret-style set, drawing on blues, classical, jazz and theatre traditions, with the storytelling of vintage theatrical…",
     "schedule": {
       "kind": "day",
       "date": "2026-10-29",
@@ -1600,7 +1320,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/peter-smiths-garaj-funky-60s-and-latin-jazz/",
     "source": "https://www.theemmetray.com/event/peter-smiths-garaj-funky-60s-and-latin-jazz/",
     "checked": "2026-10-06",
-    "description": "Instrumental sax- and flute-driven 60s groove, Latin jazz and Brazilian-tinged material from Peter Smith with guitarist Mike Freedman, drummer Tim Shia and bassist Drew Birston. A monthly first-Wednesday residency in the back room, with a cover charge; reservations by email.",
+    "description": "Instrumental sax- and flute-driven 60s groove, Latin jazz and Brazilian-tinged material from Peter Smith with guitarist Mike Freedman, drummer Tim Shia and bassist Drew Birston.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-07",
@@ -1621,7 +1341,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/presty-quintet-heart-warming-vocal-jazz-standards-and-timeless-popular-music-nov/",
     "source": "https://www.theemmetray.com/event/presty-quintet-heart-warming-vocal-jazz-standards-and-timeless-popular-music-nov/",
     "checked": "2026-10-06",
-    "description": "Vocal jazz standards and popular songs from a five-piece of York grads and Humber students who met playing ska nights at Grossman's: Natalie Presty and Zacharie Weingarten on vocals, with guitar, keys and upright bass. Doors at 6:30, music to 8:45; reservations by email.",
+    "description": "Vocal jazz standards and popular songs from a five-piece of York grads and Humber students who met playing ska nights at Grossman's: Natalie Presty and Zacharie Weingarten on vocals, with guitar, keys and upright bass.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-03",
@@ -1642,7 +1362,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/ready-for-success-with-tony-quarrington-jazz-standards-originals/",
     "source": "https://www.theemmetray.com/event/ready-for-success-with-tony-quarrington-jazz-standards-originals/",
     "checked": "2026-10-06",
-    "description": "A five-piece jazz band of veteran players — guitar and vocals, second vocalist, piano/sax/flute, electric bass and drums — performs standards alongside originals ranging from swing to ballads to Latin, sometimes sung in Spanish or French. Runs to 8:45, on the fourth Tuesday of the month.",
+    "description": "A five-piece jazz band of veteran players — guitar and vocals, second vocalist, piano/sax/flute, electric bass and drums — performs standards alongside originals ranging from swing to ballads to Latin, sometimes sung in…",
     "schedule": {
       "kind": "day",
       "date": "2026-10-27",
@@ -1788,7 +1508,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/hayden-stapleton-quintet-live-jazz-standards/",
     "source": "https://www.theemmetray.com/event/hayden-stapleton-quintet-live-jazz-standards/",
     "checked": "2026-10-06",
-    "description": "A five-piece of Toronto musicians playing jazz standards and swing for a modern audience, with Hayden Stapleton on sax, Enoch Lodu on trumpet, Simon Dawes on guitar, Aiden Davies on bass and Alex Sgrignoli on drums. Two hours of live music, $12 cover at the door.",
+    "description": "A five-piece of Toronto musicians playing jazz standards and swing for a modern audience, with Hayden Stapleton on sax, Enoch Lodu on trumpet, Simon Dawes on guitar, Aiden Davies on bass and Alex Sgrignoli on drums.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-06",
@@ -1809,7 +1529,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/staya-quintet-jazz-folk-and-jazz-covers-standards/",
     "source": "https://www.theemmetray.com/event/staya-quintet-jazz-folk-and-jazz-covers-standards/",
     "checked": "2026-10-06",
-    "description": "A first outing for a quintet of jazz musicians playing standards, jazz covers and debut originals by vocalist Taisiya Sarkisova, with a folk-leaning sound. Lucas White on piano, Will Bentley on drums, Georgia Korba on bass and Dominik Kosciolek on saxophone. Doors at 6:30, music at 7.",
+    "description": "A first outing for a quintet of jazz musicians playing standards, jazz covers and debut originals by vocalist Taisiya Sarkisova, with a folk-leaning sound.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-14",
@@ -1830,7 +1550,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/teresa-marie-and-the-three-vocal-jazz-jazz-standards/",
     "source": "https://www.theemmetray.com/event/teresa-marie-and-the-three-vocal-jazz-jazz-standards/",
     "checked": "2026-10-06",
-    "description": "Vancouver jazz vocalist Teresa Marie sings standards and ballads in the Ella Fitzgerald and Sarah Vaughan tradition, backed by Toronto players Jordan Manderioli on piano and Harmeet Kaur Virdee on bass. Doors at 9:15 p.m.; reservations by email at reso@erbar.ca.",
+    "description": "Vancouver jazz vocalist Teresa Marie sings standards and ballads in the Ella Fitzgerald and Sarah Vaughan tradition, backed by Toronto players Jordan Manderioli on piano and Harmeet Kaur Virdee on bass.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-13",
@@ -1851,7 +1571,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/the-blue-sky-group-progressive-improvised-jazz/",
     "source": "https://www.theemmetray.com/event/the-blue-sky-group-progressive-improvised-jazz/",
     "checked": "2026-10-06",
-    "description": "A quartet formed in 2022 playing original, improvised jazz compositions, with Mike Freedman on guitar, Darius Nargolwalla on upright bass, Paul Fitterer on drums and Brendan Cassidy on tenor sax and clarinet. Two hours, ending at 9pm; reservations by email at reso@erbar.ca.",
+    "description": "A quartet formed in 2022 playing original, improvised jazz compositions, with Mike Freedman on guitar, Darius Nargolwalla on upright bass, Paul Fitterer on drums and Brendan Cassidy on tenor sax and clarinet.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-30",
@@ -1914,7 +1634,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/the-ismael-quartet-straight-ahead-latin/",
     "source": "https://www.theemmetray.com/event/the-ismael-quartet-straight-ahead-latin/",
     "checked": "2026-10-06",
-    "description": "A quartet set of jazz standards and arrangements — piano, alto sax, bass and drums — led by pianist Ismael Eyyubov, with Pearson Keough, Ben Estrin and Manuel Oh. Two hours of relaxed playing, with a $12 cover; seats can be reserved by emailing reso@erbar.ca.",
+    "description": "A quartet set of jazz standards and arrangements — piano, alto sax, bass and drums — led by pianist Ismael Eyyubov, with Pearson Keough, Ben Estrin and Manuel Oh.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-11",
@@ -1935,7 +1655,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/the-jack-wyndham-trio-jazz/",
     "source": "https://www.theemmetray.com/event/the-jack-wyndham-trio-jazz/",
     "checked": "2026-10-06",
-    "description": "A piano-bass-drums jazz trio — Jack Wyndham, Lucas Last and Liam Schatz — playing improvisation-focused sets drawn from across jazz history, from classic swing to reworked standards. Two and a half hours, $15 cover, with reservations by email.",
+    "description": "A piano-bass-drums jazz trio — Jack Wyndham, Lucas Last and Liam Schatz — playing improvisation-focused sets drawn from across jazz history, from classic swing to reworked standards.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-08",
@@ -1956,7 +1676,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/the-starfires-improv-rock-and-folk-grooves/",
     "source": "https://www.theemmetray.com/event/the-starfires-improv-rock-and-folk-grooves/",
     "checked": "2026-10-06",
-    "description": "A seven-piece Toronto band formed in 2008 by bassist Michael Kaler, mixing space, ambient, folk and improvised rock across drums, guitar, sax, flute, mandolin and keyboards. Tickets are $12 in advance or $15 at the door, with reservations by email.",
+    "description": "A seven-piece Toronto band formed in 2008 by bassist Michael Kaler, mixing space, ambient, folk and improvised rock across drums, guitar, sax, flute, mandolin and keyboards.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-18",
@@ -1998,7 +1718,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/nathan-tran-group-jazz-piano/",
     "source": "https://www.theemmetray.com/event/nathan-tran-group-jazz-piano/",
     "checked": "2026-10-06",
-    "description": "A jazz piano trio set from Nathan Tran with Sylvester Pedersen on bass and Keith Barstow on drums, running two hours. Seating opens at 6:30pm, half an hour before the music; reservations are taken by email at reso@erbar.ca.",
+    "description": "A jazz piano trio set from Nathan Tran with Sylvester Pedersen on bass and Keith Barstow on drums, running two hours.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-09",
@@ -2019,7 +1739,7 @@ const SCRAPED = [
     "url": "https://www.theemmetray.com/event/william-xu-quintet-original-jazz-music-2/",
     "source": "https://www.theemmetray.com/event/william-xu-quintet-original-jazz-music-2/",
     "checked": "2026-10-06",
-    "description": "Chinese-Canadian trumpeter William Xu, studying at the Manhattan School of Music, brings his New York quintet — tenor sax, piano, bass and drums — to play original music from his forthcoming debut album. Doors at 5:30, music 6 to 8; reservations by email.",
+    "description": "Chinese-Canadian trumpeter William Xu, studying at the Manhattan School of Music, brings his New York quintet — tenor sax, piano, bass and drums — to play original music from his forthcoming debut album.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-17",
@@ -2027,6 +1747,27 @@ const SCRAPED = [
     },
     "scrapedFrom": "emmetray",
     "via": "api"
+  },
+  {
+    "id": "eventbrite-aln-halloween-2026-wlw-sapphic-event-2026-10-30",
+    "title": "ALN HALLOWEEN 2026 - WLW Sapphic Event",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$28.19",
+    "venue": "Pearl Nightclub",
+    "address": "184 Pearl Street, Toronto, ON M5H 1Y2",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194308013%2F221703245777%2F1%2Foriginal.20260924-190405?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=eb43447c0b1b33ea8b752e5e7cd93fbe",
+    "url": "https://www.eventbrite.ca/e/aln-halloween-2026-wlw-sapphic-event-tickets-2002232964696",
+    "source": "https://www.eventbrite.ca/e/aln-halloween-2026-wlw-sapphic-event-tickets-2002232964696",
+    "checked": "2026-10-06",
+    "description": "Toronto's LARGEST QUEER Hawlloween Party for LGBTQ+ women and nonbinary folks",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-30",
+      "end": "2026-10-31"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
   },
   {
     "id": "eventbrite-b-ody-p-ussy-m-ind-2026-10-09",
@@ -2040,7 +1781,7 @@ const SCRAPED = [
     "url": "https://www.eventbrite.ca/e/body-pussy-mind-tickets-2000664691950",
     "source": "https://www.eventbrite.ca/e/body-pussy-mind-tickets-2000664691950",
     "checked": "2026-10-06",
-    "description": "A free six-hour dance night from New York's Black trans-led Angelito Collective, centring queer and trans POC nightlife, with resident DJs DEMIIGODDES, SUPREMEWRECK and FANNDEMM plus guests EMRYSLAZULI and AMANIEYES. Doors at 9 PM, 19+, RSVP required.",
+    "description": "A free six-hour dance night from New York's Black trans-led Angelito Collective, centring queer and trans POC nightlife, with resident DJs DEMIIGODDES, SUPREMEWRECK and FANNDEMM plus guests EMRYSLAZULI and AMANIEYES.",
     "schedule": {
       "kind": "range",
       "start": "2026-10-09",
@@ -2092,6 +1833,27 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
+    "id": "eventbrite-bubblegum-bikini-live-at-the-gladstone-house-2026-10-08",
+    "title": "BUBBLEGUM BIKINI - LIVE AT THE GLADSTONE HOUSE",
+    "category": "music",
+    "art": "art-music",
+    "entry": "Free",
+    "venue": "Gladstone House",
+    "address": "1214 Queen Street West, Toronto, ON M6J 1J6",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194769170%2F479075288511%2F1%2Foriginal.20260930-215404?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.031&fp-y=0.966&s=f15623f9ad30e070b5bf86d1380715d8",
+    "url": "https://www.eventbrite.ca/e/bubblegum-bikini-live-at-the-gladstone-house-tickets-2002106025016",
+    "source": "https://www.eventbrite.ca/e/bubblegum-bikini-live-at-the-gladstone-house-tickets-2002106025016",
+    "checked": "2026-10-06",
+    "description": "Toronto's high-energy cover band serving up a mix of funk, soul, pop & rock at The Gladstone Cassette Bar for the 1st time!",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-08",
+      "time": "8pm – 11pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
     "id": "eventbrite-clownpocalypse-3-0-clowntopia-2026-10-30",
     "title": "CLOWNPOCALYPSE 3.0: CLOWNTOPIA",
     "category": "nightlife",
@@ -2129,6 +1891,27 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-10-22",
       "time": "5pm – 7pm"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-experienceto-bay-street-historical-tour-2026-11-14",
+    "title": "ExperienceTO: Bay Street Historical Tour",
+    "category": "architecture",
+    "art": "art-architecture",
+    "entry": "Free",
+    "venue": "Toronto Old City Hall",
+    "address": "60 Queen Street West, Toronto, ON M5H 2M3",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1099199553%2F3139958924%2F1%2Foriginal.20250819-025736?w=940&auto=format%2Ccompress&q=75&sharp=10&rect=0%2C0%2C1080%2C540&s=c55b30daf15fea755142ffa7f1fd646f",
+    "url": "https://www.eventbrite.ca/e/experienceto-bay-street-historical-tour-tickets-1603603343769",
+    "source": "https://www.eventbrite.ca/e/experienceto-bay-street-historical-tour-tickets-1603603343769",
+    "checked": "2026-10-06",
+    "description": "Join us for the free-to-attend Bay Street Historical Tour.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-14",
+      "time": "10am – 11:30am"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2198,15 +1981,15 @@ const SCRAPED = [
   },
   {
     "id": "eventbrite-halloween-thriller-2026-nest-ladies-free-1-free--2026-10-31",
-    "title": "HALLOWEEN THRILLER 2026 @ NEST | LADIES FREE + 1 FREE DRINK | SAT, OCT 31st",
+    "title": "HALLOWEEN THRILLER 2026 @ NEST | LADIES FREE + 1 FREE DRINK | SAT, OCT 31",
     "category": "dropin",
     "art": "art-dropin",
     "entry": "Free",
     "venue": "NEST",
     "address": "423 College Street, Toronto, ON M5T 1T1",
     "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1192816952%2F173910726698%2F1%2Foriginal.20260906-132502?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=9d484775412573f25047acf5e4ba5a9e",
-    "url": "https://www.eventbrite.ca/e/halloween-thriller-2026-nest-ladies-free-1-free-drink-sat-oct-31st-tickets-2000083326069",
-    "source": "https://www.eventbrite.ca/e/halloween-thriller-2026-nest-ladies-free-1-free-drink-sat-oct-31st-tickets-2000083326069",
+    "url": "https://www.eventbrite.ca/e/halloween-thriller-2026-nest-ladies-free-1-free-drink-sat-oct-31-tickets-1999930492941",
+    "source": "https://www.eventbrite.ca/e/halloween-thriller-2026-nest-ladies-free-1-free-drink-sat-oct-31-tickets-1999930492941",
     "checked": "2026-10-06",
     "description": "",
     "schedule": {
@@ -2234,27 +2017,6 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-10-10",
       "time": "10am – 12pm"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
-    "id": "eventbrite-kiz-n-the-6ix-the-10th-anniversary-2026-10-08",
-    "title": "Kiz'n The 6ix The 10th Anniversary",
-    "category": "architecture",
-    "art": "art-architecture",
-    "entry": "$22.90",
-    "venue": "Sheraton Toronto Airport Hotel & Conference Centre",
-    "address": "801 Dixon Road, Toronto, ON M9W 5P1",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194247266%2F144732189749%2F1%2Foriginal.20260924-012040?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.503&fp-y=0.37&s=fd663dab5c9179c704c03bf18a22c565",
-    "url": "https://www.eventbrite.ca/e/kizn-the-6ix-the-10th-anniversary-tickets-1812002641679",
-    "source": "https://www.eventbrite.ca/e/kizn-the-6ix-the-10th-anniversary-tickets-1812002641679",
-    "checked": "2026-10-06",
-    "description": "History belongs to those who takes action",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-10-08",
-      "end": "2026-10-12"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2297,27 +2059,6 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-10-06",
       "time": "7pm – 9pm"
-    },
-    "scrapedFrom": "eventbrite",
-    "via": "json-ld"
-  },
-  {
-    "id": "eventbrite-panic-80s-90s-halloween-video-dance-party-w-dj-l-2026-10-31",
-    "title": "PANIC: 80s/90s Halloween Video Dance Party w/ DJ Lazarus",
-    "category": "nightlife",
-    "art": "art-decks",
-    "entry": "$22.63",
-    "venue": "Ground Control - 1279 Queen St W",
-    "address": "1279 Queen Street West, Toronto, ON M6K 1L6",
-    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1194428353%2F302590666792%2F1%2Foriginal.20260926-183518?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=53e894c15145af8634eeeafc5e746952",
-    "url": "https://www.eventbrite.ca/e/panic-80s90s-halloween-video-dance-party-w-dj-lazarus-tickets-2000228314734",
-    "source": "https://www.eventbrite.ca/e/panic-80s90s-halloween-video-dance-party-w-dj-lazarus-tickets-2000228314734",
-    "checked": "2026-10-06",
-    "description": "PANIC Halloween retro party always sells out. Great music and amazing crowd. Get your tickets now!",
-    "schedule": {
-      "kind": "range",
-      "start": "2026-10-31",
-      "end": "2026-11-01"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2381,6 +2122,27 @@ const SCRAPED = [
       "kind": "day",
       "date": "2026-10-25",
       "time": "11am"
+    },
+    "scrapedFrom": "eventbrite",
+    "via": "json-ld"
+  },
+  {
+    "id": "eventbrite-roots-and-groove-presents-summer-s-sunset-one-la-2026-10-09",
+    "title": "ROOTS AND GROOVE PRESENTS: SUMMER'S SUNSET- ONE LAST DANCE",
+    "category": "nightlife",
+    "art": "art-decks",
+    "entry": "$22.63",
+    "venue": "The Dopamine - Pub & Lounge",
+    "address": "2415 Yonge Street, Toronto, ON M4P 2E7",
+    "image": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F1188969876%2F2593178268421%2F1%2Foriginal.20260716-010639?crop=focalpoint&fit=crop&w=940&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.5&fp-y=0.5&s=9649ce397e2d2c49b0366dbb4d38cfa6",
+    "url": "https://www.eventbrite.ca/e/roots-and-groove-presents-summers-sunset-one-last-dance-tickets-1994105835233",
+    "source": "https://www.eventbrite.ca/e/roots-and-groove-presents-summers-sunset-one-last-dance-tickets-1994105835233",
+    "checked": "2026-10-06",
+    "description": "Roots & Groove closes out summer with one last dance: good music, good energy, our people, one room. Last party of the season. Don't miss it",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-09",
+      "end": "2026-10-10"
     },
     "scrapedFrom": "eventbrite",
     "via": "json-ld"
@@ -2605,7 +2367,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "checked": "2026-10-06",
-    "description": "Learn block lettering techniques over two days.",
+    "description": "A brick factory from 1889, shut in 1989 and now a park and workshop space in the Don Valley — ravine trails, a Saturday farmers market, and whatever is running in the restored kilns.",
     "schedule": {
       "kind": "range",
       "start": "2026-10-24",
@@ -2624,7 +2386,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/events/winter-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/events/winter-market/",
     "checked": "2026-10-06",
-    "description": "Holiday shopping from local artisans and vintage sellers, with fire pits for s'mores, public skating on select Sundays, festive workshops, live local performances, and a community art studio.",
+    "description": "Holiday shopping from local artisans and vintage sellers, with fire pits for warming up and s'mores, plus a public skating rink on select Sundays, festive workshops, live performances, and a community art studio.",
     "schedule": {
       "kind": "range",
       "start": "2026-11-29",
@@ -2643,7 +2405,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "checked": "2026-10-06",
-    "description": "A guided family walk through the Brick Works.",
+    "description": "A brick factory from 1889, shut in 1989 and now a park and workshop space in the Don Valley — ravine trails, a Saturday farmers market, and whatever is running in the restored kilns.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-10"
@@ -2658,15 +2420,135 @@ const SCRAPED = [
     "art": "art-birdhouse",
     "entry": "$20 suggested donation per family",
     "venue": "Evergreen Brick Works",
-    "address": "Building 1, Toronto, Ontario",
+    "address": "Building 1, Toronto",
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
     "checked": "2026-10-06",
-    "description": "Guided nature walks where families explore the changing seasons in the ravine valley, observing plants and wildlife through the year.",
+    "description": "Guided walks exploring the nature and changing seasons at Evergreen Brick Works, with families observing wildlife and natural features in the valley.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-22",
-      "time": "10:00am–11:00am"
+      "time": "10:00 am – 11:00 am"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-family-wanders-2027-02-15",
+    "title": "Family Wanders",
+    "category": "dropin",
+    "art": "art-birdhouse",
+    "entry": "$20 suggested donation per family",
+    "venue": "Evergreen Brick Works",
+    "address": "Building 1, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "checked": "2026-10-06",
+    "description": "Guided walks exploring the nature and changing seasons at Evergreen Brick Works, with families observing wildlife and natural features in the valley.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-02-15",
+      "time": "10:00 am – 11:00 am"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-family-wanders-2027-03-29",
+    "title": "Family Wanders",
+    "category": "dropin",
+    "art": "art-birdhouse",
+    "entry": "$20 suggested donation per family",
+    "venue": "Evergreen Brick Works",
+    "address": "Building 1, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "checked": "2026-10-06",
+    "description": "Guided walks exploring the nature and changing seasons at Evergreen Brick Works, with families observing wildlife and natural features in the valley.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-03-29",
+      "time": "10:00 am – 11:00 am"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-family-wanders-2027-05-10",
+    "title": "Family Wanders",
+    "category": "dropin",
+    "art": "art-birdhouse",
+    "entry": "$20 suggested donation per family",
+    "venue": "Evergreen Brick Works",
+    "address": "Building 1, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "checked": "2026-10-06",
+    "description": "Guided walks exploring the nature and changing seasons at Evergreen Brick Works, with families observing wildlife and natural features in the valley.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-05-10",
+      "time": "10:00 am – 11:00 am"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-family-wanders-2027-07-05",
+    "title": "Family Wanders",
+    "category": "dropin",
+    "art": "art-birdhouse",
+    "entry": "$20 suggested donation per family",
+    "venue": "Evergreen Brick Works",
+    "address": "Building 1, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "checked": "2026-10-06",
+    "description": "Guided walks exploring the nature and changing seasons at Evergreen Brick Works, with families observing wildlife and natural features in the valley.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-07-05",
+      "time": "10:00 am – 11:00 am"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-family-wanders-2027-08-16",
+    "title": "Family Wanders",
+    "category": "dropin",
+    "art": "art-birdhouse",
+    "entry": "$20 suggested donation per family",
+    "venue": "Evergreen Brick Works",
+    "address": "Building 1, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "checked": "2026-10-06",
+    "description": "Guided walks exploring the nature and changing seasons at Evergreen Brick Works, with families observing wildlife and natural features in the valley.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-08-16",
+      "time": "10:00 am – 11:00 am"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-family-wanders-2027-09-27",
+    "title": "Family Wanders",
+    "category": "dropin",
+    "art": "art-birdhouse",
+    "entry": "$20 suggested donation per family",
+    "venue": "Evergreen Brick Works",
+    "address": "Building 1, Toronto",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/family-wanders/",
+    "checked": "2026-10-06",
+    "description": "Guided walks exploring the nature and changing seasons at Evergreen Brick Works, with families observing wildlife and natural features in the valley.",
+    "schedule": {
+      "kind": "day",
+      "date": "2027-09-27",
+      "time": "10:00 am – 11:00 am"
     },
     "scrapedFrom": "evergreen",
     "via": "model"
@@ -2681,7 +2563,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/events/good-mourning-festival/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/events/good-mourning-festival/",
     "checked": "2026-10-06",
-    "description": "A two-day festival exploring grief and mourning. Day 1 features workshops, art installations, music and peer support for expressing and sharing grief.",
+    "description": "A two-day festival exploring grief and mourning. Day 1 features workshops, art installations, music and peer support around grief and loss.",
     "schedule": {
       "kind": "range",
       "start": "2026-10-24",
@@ -2700,7 +2582,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "checked": "2026-10-06",
-    "description": "A festival at the Brick Works on Halloween.",
+    "description": "A brick factory from 1889, shut in 1989 and now a park and workshop space in the Don Valley — ravine trails, a Saturday farmers market, and whatever is running in the restored kilns.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-31"
@@ -2718,7 +2600,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "checked": "2026-10-06",
-    "description": "Make decorative onigiri (Japanese rice balls) shaped like creatures. Sessions repeat weekly in December.",
+    "description": "A brick factory from 1889, shut in 1989 and now a park and workshop space in the Don Valley — ravine trails, a Saturday farmers market, and whatever is running in the restored kilns.",
     "schedule": {
       "kind": "day",
       "date": "2026-11-29"
@@ -2736,10 +2618,48 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
     "checked": "2026-10-06",
-    "description": "Shop from over 40 local artists and makers selling handmade, artisan and vintage goods, with food vendors and drinks available on-site.",
+    "description": "Local artisans and makers sell handmade and sustainable products like jewelry, skincare, art and candles alongside vintage and antique vendors, with food vendors and drinks available.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-11",
+      "time": "10am-3pm"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-ontario-artisan-market-ontario-vintage-market-2026-10-18",
+    "title": "Ontario Artisan Market & Ontario Vintage Market",
+    "category": "dropin",
+    "art": "art-market",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
+    "checked": "2026-10-06",
+    "description": "Local artisans and makers sell handmade and sustainable products like jewelry, skincare, art and candles alongside vintage and antique vendors, with food vendors and drinks available.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-18",
+      "time": "10am-3pm"
+    },
+    "scrapedFrom": "evergreen",
+    "via": "model"
+  },
+  {
+    "id": "evergreen-ontario-artisan-market-ontario-vintage-market-2026-11-01",
+    "title": "Ontario Artisan Market & Ontario Vintage Market",
+    "category": "dropin",
+    "art": "art-market",
+    "venue": "Evergreen Brick Works",
+    "address": "550 Bayview Ave, Toronto, ON M4W 3X8",
+    "url": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
+    "source": "https://www.evergreen.ca/evergreen-brick-work/activities/ontario-artisan-market-ontario-vintage-market/",
+    "checked": "2026-10-06",
+    "description": "Local artisans and makers sell handmade and sustainable products like jewelry, skincare, art and candles alongside vintage and antique vendors, with food vendors and drinks available.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-11-01",
       "time": "10am-3pm"
     },
     "scrapedFrom": "evergreen",
@@ -2755,7 +2675,7 @@ const SCRAPED = [
     "url": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "source": "https://www.evergreen.ca/evergreen-brick-works/whats-on/",
     "checked": "2026-10-06",
-    "description": "A combined pilates class and harvest brunch experience.",
+    "description": "A brick factory from 1889, shut in 1989 and now a park and workshop space in the Don Valley — ravine trails, a Saturday farmers market, and whatever is running in the restored kilns.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-31"
@@ -4220,6 +4140,48 @@ const SCRAPED = [
     "via": "json-ld"
   },
   {
+    "id": "luma-graveyard-shift-halloween-supermarket-2026-10-31",
+    "title": "Graveyard Shift: Halloween @ Supermarket",
+    "category": "social",
+    "art": "art-market",
+    "entry": "$25",
+    "venue": "Supermarket Bar and Variety",
+    "address": "Toronto, Ontario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/v6/6ff01e0b-4526-4ac8-8ebb-c55b6c5743f4.png",
+    "url": "https://luma.com/p7wxw9yw",
+    "source": "https://luma.com/p7wxw9yw",
+    "checked": "2026-10-06",
+    "description": "Halloween at Supermarket 🎃 Halloween at Supermarket with a live band to start the night, followed by a DJ until close. Come in costume and ready to dance.",
+    "schedule": {
+      "kind": "range",
+      "start": "2026-10-31",
+      "end": "2026-11-01"
+    },
+    "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
+    "id": "luma-grok-bot-meetup-toronto-october-2026-10-26",
+    "title": "Grok Bot Meetup Toronto - October",
+    "category": "social",
+    "art": "art-lectern",
+    "entry": "Free",
+    "venue": "Toronto — address on RSVP",
+    "address": "tario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/qw/723914ff-3fa3-47f3-b52b-5584d80e83d2.png",
+    "url": "https://luma.com/mj5bmugc",
+    "source": "https://luma.com/mj5bmugc",
+    "checked": "2026-10-06",
+    "description": "Join us for our monthly Grok Bot meetup in Toronto at 800 Bay! We'll still be giving away Cursor credits that you can use with Grok Bot as well.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-26",
+      "time": "5:30pm – 8:30pm"
+    },
+    "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
     "id": "luma-home-resilience-hub-get-your-home-climate-ready-2026-10-18",
     "title": "Home Resilience Hub: Get Your Home Climate-Ready",
     "category": "social",
@@ -4315,7 +4277,7 @@ const SCRAPED = [
     "url": "https://luma.com/pzevo4e5",
     "source": "https://luma.com/pzevo4e5",
     "checked": "2026-10-06",
-    "description": "Everyone cooks a dish at home and brings it to share potluck-style, then eats and mingles with fellow food lovers. This month features a DIY mocktail bar where you can build your own drink.",
+    "description": "Everyone cooks a dish at home and brings it to share potluck-style, then eats and mingles with other food lovers. There's also a DIY mocktail bar where you can build your own drink.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-18",
@@ -4336,11 +4298,32 @@ const SCRAPED = [
     "url": "https://luma.com/2rdd8wfv",
     "source": "https://luma.com/2rdd8wfv",
     "checked": "2026-10-06",
-    "description": "Bring a book and spend uninterrupted quiet reading time in a room with others, with short social breaks in between. Afterward, there's optional time to chat and swap books with other readers.",
+    "description": "Bring a book and spend uninterrupted time reading quietly in a room with others doing the same, with short social breaks built in and optional conversation afterward.",
     "schedule": {
       "kind": "day",
       "date": "2026-10-06",
       "time": "6pm – 9pm"
+    },
+    "scrapedFrom": "luma",
+    "via": "json-ld"
+  },
+  {
+    "id": "luma-sunday-halloween-freak-out-2026-10-25",
+    "title": "Sunday - Halloween FREAK OUT!",
+    "category": "social",
+    "art": "art-music",
+    "entry": "$10",
+    "venue": "847 Dovercourt Rd",
+    "address": "Toronto, Ontario",
+    "image": "https://images.lumacdn.com/cdn-cgi/image/format=auto,fit=cover,dpr=1,anim=false,background=white,quality=75,width=1920,height=1920/uploads/8j/fa64d088-954b-4eb8-8a1c-66101cb2cf84.jpg",
+    "url": "https://luma.com/jjszs7qt",
+    "source": "https://luma.com/jjszs7qt",
+    "checked": "2026-10-06",
+    "description": "A family Halloween party with musical performances from The Animal Band and secret spooky guests, plus tricks and treats. Costumes encouraged.",
+    "schedule": {
+      "kind": "day",
+      "date": "2026-10-25",
+      "time": "3pm – 4:30pm"
     },
     "scrapedFrom": "luma",
     "via": "json-ld"
